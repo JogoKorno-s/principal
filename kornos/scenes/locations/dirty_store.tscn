@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dru7taxdj745n"]
+
+[ext_resource type="Texture2D" uid="uid://e8t5q6h71iys" path="res://art/backgrouds/dirty_store.png" id="1_lxajv"]
+
+[node name="DirtyStore" type="Control" unique_id=511044082]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="." unique_id=1150876261]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_lxajv")

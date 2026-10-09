@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e8t5q6h71iys"
-path="res://.godot/imported/korno's draft.png-9b577e6ec50588d0e8178b81fc859289.ctex"
+uid="uid://i1u1m31l2tm2"
+path="res://.godot/imported/botao_jogar.png-7e1790d75d18c49a3599c4bed0296daa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/backgrouds/korno's draft.png"
-dest_files=["res://.godot/imported/korno's draft.png-9b577e6ec50588d0e8178b81fc859289.ctex"]
+source_file="res://art/ui/botao_jogar.png"
+dest_files=["res://.godot/imported/botao_jogar.png-7e1790d75d18c49a3599c4bed0296daa.ctex"]
 
 [params]
 

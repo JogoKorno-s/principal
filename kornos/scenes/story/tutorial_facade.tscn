@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://bfancobg11j0m"]
+
+[ext_resource type="Texture2D" uid="uid://bqdavwingatp3" path="res://art/backgrouds/fachada_inicial1.jpg" id="1_2rlfk"]
+[ext_resource type="Script" uid="uid://bfr3d2meyqday" path="res://scripts/tutorial_facade.gd" id="1_ovj0k"]
+[ext_resource type="Texture2D" uid="uid://83s5dr2nnlqc" path="res://art/characters/luis.png" id="2_520o4"]
+
+[node name="TutorialFacade" type="Control" unique_id=879305649]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ovj0k")
+
+[node name="Background" type="TextureRect" parent="." unique_id=300019790]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2rlfk")
+
+[node name="Luis" type="TextureRect" parent="." unique_id=1287517068]
+layout_mode = 0
+offset_left = 1196.0
+offset_top = 341.0
+offset_right = 2011.0
+offset_bottom = 1085.0
+texture = ExtResource("2_520o4")
+stretch_mode = 5
+
+[node name="DialoguePanel" type="PanelContainer" parent="." unique_id=1743840606]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -142.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialoguePanel" unique_id=1506365247]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="CharacterName" type="Label" parent="DialoguePanel/VBoxContainer" unique_id=1587060398]
+layout_mode = 2
+text = "Luís"
+
+[node name="DialogueText" type="Label" parent="DialoguePanel/VBoxContainer" unique_id=201860815]
+layout_mode = 2
+autowrap_mode = 2
+
+[node name="NextButton" type="Button" parent="DialoguePanel/VBoxContainer" unique_id=13731297]
+layout_mode = 2
+text = "Continuar"
+
+[node name="EnterStoreButton" type="Button" parent="." unique_id=2133674099]
+layout_mode = 0
+offset_left = 652.0
+offset_top = 541.0
+offset_right = 717.0
+offset_bottom = 593.0
+text = "ENTRAR"
+
+[node name="TypewriterTimer" type="Timer" parent="." unique_id=1354570178]

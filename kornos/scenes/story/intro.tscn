@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cl826cnvk6f2v"]
+
+[ext_resource type="Script" uid="uid://iq1vtw48hu6a" path="res://scripts/intro.gd" id="1_fwqoy"]
+
+[node name="Intro" type="Control" unique_id=658900007]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fwqoy")
+
+[node name="Background" type="ColorRect" parent="." unique_id=430950167]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 0.7411765, 1)
+
+[node name="ContinueButton" type="Button" parent="." unique_id=725754232]
+layout_mode = 0
+offset_left = 854.0
+offset_top = 487.0
+offset_right = 1081.0
+offset_bottom = 594.0
+text = "CONTINUAR"

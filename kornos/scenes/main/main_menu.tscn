@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cicyknq0qp8j1"]
+
+[ext_resource type="Texture2D" uid="uid://dk2ltoci1uoey" path="res://art/backgrouds/fachada_inicial.png" id="1_5vafy"]
+[ext_resource type="Script" uid="uid://cs6tj3qqsav20" path="res://scripts/main_menu.gd" id="1_byqcc"]
+[ext_resource type="Texture2D" uid="uid://i1u1m31l2tm2" path="res://art/ui/botao_jogar.png" id="2_byqcc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgms4"]
+atlas = ExtResource("2_byqcc")
+region = Rect2(219.07954, 124.63859, 255.55272, 111.35531)
+
+[node name="MainMenu" type="Control" unique_id=810403653]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_byqcc")
+
+[node name="Background" type="TextureRect" parent="." unique_id=585310303]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5vafy")
+stretch_mode = 6
+
+[node name="PlayButton" type="TextureButton" parent="." unique_id=1420463953]
+layout_mode = 0
+offset_left = 1456.0
+offset_top = 810.0
+offset_right = 1711.0
+offset_bottom = 921.0
+texture_normal = SubResource("AtlasTexture_mgms4")
