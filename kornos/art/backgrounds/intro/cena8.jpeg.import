@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j1303y587hoy"
-path="res://.godot/imported/mercado_limpo.png-0caa3a411102fd2722085ca86b45fdf4.ctex"
+uid="uid://lajdwccl1fg3"
+path="res://.godot/imported/cena8.jpeg-9fa9649958118756f1c84e82130de407.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/backgrouds/mercado_limpo.png"
-dest_files=["res://.godot/imported/mercado_limpo.png-0caa3a411102fd2722085ca86b45fdf4.ctex"]
+source_file="res://art/backgrounds/intro/cena8.jpeg"
+dest_files=["res://.godot/imported/cena8.jpeg-9fa9649958118756f1c84e82130de407.ctex"]
 
 [params]
 

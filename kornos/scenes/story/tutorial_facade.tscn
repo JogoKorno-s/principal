@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bfancobg11j0m"]
 
-[ext_resource type="Texture2D" uid="uid://bqdavwingatp3" path="res://art/backgrouds/fachada_inicial1.jpg" id="1_2rlfk"]
+[ext_resource type="Texture2D" uid="uid://bqdavwingatp3" path="res://art/backgrounds/fachada_inicial1.jpg" id="1_2rlfk"]
 [ext_resource type="Script" uid="uid://bfr3d2meyqday" path="res://scripts/tutorial_facade.gd" id="1_ovj0k"]
 [ext_resource type="Texture2D" uid="uid://83s5dr2nnlqc" path="res://art/characters/luis.png" id="2_520o4"]
 

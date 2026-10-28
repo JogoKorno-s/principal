@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bqdavwingatp3"
-path="res://.godot/imported/fachada_inicial1.jpg-76c1a8ed9a29c60888d4ddb40b124fbc.ctex"
+path="res://.godot/imported/fachada_inicial1.jpg-cc64e73409c45ac24cb1fd69a7636bae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/backgrouds/fachada_inicial1.jpg"
-dest_files=["res://.godot/imported/fachada_inicial1.jpg-76c1a8ed9a29c60888d4ddb40b124fbc.ctex"]
+source_file="res://art/backgrounds/fachada_inicial1.jpg"
+dest_files=["res://.godot/imported/fachada_inicial1.jpg-cc64e73409c45ac24cb1fd69a7636bae.ctex"]
 
 [params]
 

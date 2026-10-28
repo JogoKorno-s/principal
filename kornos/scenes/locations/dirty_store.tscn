@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dru7taxdj745n"]
 
-[ext_resource type="Texture2D" uid="uid://e8t5q6h71iys" path="res://art/backgrouds/dirty_store.png" id="1_lxajv"]
+[ext_resource type="Texture2D" uid="uid://e8t5q6h71iys" path="res://art/backgrounds/dirty_store.png" id="1_lxajv"]
 
 [node name="DirtyStore" type="Control" unique_id=511044082]
 layout_mode = 3

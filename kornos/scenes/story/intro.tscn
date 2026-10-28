@@ -11,19 +11,76 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fwqoy")
 
-[node name="Background" type="ColorRect" parent="." unique_id=430950167]
+[node name="ImageBackground" type="TextureRect" parent="." unique_id=403081797]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 0.7411765, 1)
 
-[node name="ContinueButton" type="Button" parent="." unique_id=725754232]
-layout_mode = 0
-offset_left = 854.0
-offset_top = 487.0
-offset_right = 1081.0
-offset_bottom = 594.0
-text = "CONTINUAR"
+[node name="VideoBackground" type="VideoStreamPlayer" parent="." unique_id=646979441]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand = true
+
+[node name="DialoguePanel" type="PanelContainer" parent="." unique_id=187248477]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -164.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="DialogueVBox" type="VBoxContainer" parent="DialoguePanel" unique_id=346775156]
+layout_mode = 2
+
+[node name="DialogueText" type="Label" parent="DialoguePanel/DialogueVBox" unique_id=987102533]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="DialoguePanel/DialogueVBox" unique_id=2132959150]
+layout_mode = 2
+
+[node name="FinalScreen" type="Control" parent="." unique_id=1322659767]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FinalBackground" type="ColorRect" parent="FinalScreen" unique_id=965844866]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6627451)
+
+[node name="CenterContainer" type="CenterContainer" parent="FinalScreen" unique_id=1892000122]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FinalVBox" type="VBoxContainer" parent="FinalScreen/CenterContainer" unique_id=1291722849]
+layout_mode = 2
+
+[node name="FinalMessage" type="Label" parent="FinalScreen/CenterContainer/FinalVBox" unique_id=2011470381]
+layout_mode = 2
+text = "O destino do Korno's agora está em suas mãos."
+
+[node name="StartJourneyButton" type="Button" parent="FinalScreen/CenterContainer/FinalVBox" unique_id=359076359]
+layout_mode = 2
+text = "Iniciar Jornada"
+
+[node name="TypewriterTimer" type="Timer" parent="." unique_id=277169527]
