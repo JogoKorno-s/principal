@@ -2,7 +2,7 @@
 extends Control
 
 const TUTORIAL_FACADE_PATH := "res://scenes/story/tutorial_facade.tscn"
-
+var is_transitioning_slide: bool = false
 
 const SLIDES := [
 	{
@@ -60,9 +60,8 @@ var is_typing: bool = false
 
 @onready var dialogue_panel: PanelContainer = $DialoguePanel
 @onready var dialogue_text: Label = $DialoguePanel/DialogueVBox/DialogueText
-@onready var continue_button: BaseButton = $DialoguePanel/DialogueVBox/ContinueButton
+@onready var continue_button = $DialoguePanel/DialogueVBox/ButtonRow/ContinueButton
 @onready var typewriter_timer: Timer = $TypewriterTimer
-
 @onready var final_screen: Control = $FinalScreen
 @onready var final_background: ColorRect = $FinalScreen/FinalBackground
 @onready var final_message: Label = $FinalScreen/CenterContainer/FinalVBox/FinalMessage
@@ -93,6 +92,7 @@ func _ready() -> void:
 
 	final_screen.hide()
 	_show_slide()
+	_apply_narrator_style()
 
 
 func _show_slide() -> void:
@@ -161,24 +161,89 @@ func _on_typewriter_timeout() -> void:
 		is_typing = false
 
 
+
 func _on_continue_pressed() -> void:
+
+	if is_transitioning_slide:
+		return
+
+	# Se o texto ainda estiver sendo escrito,
+	# revela tudo imediatamente.
 	if is_typing:
 		is_typing = false
 		typewriter_timer.stop()
 		dialogue_text.visible_characters = -1
 		return
 
+	# Avança para a próxima tela com transição.
 	if current_slide < SLIDES.size() - 1:
+
+		is_transitioning_slide = true
+
+		await SceneTransition.fade_to_black()
+
 		current_slide += 1
 		_show_slide()
 
+		await SceneTransition.fade_from_black()
+
+		is_transitioning_slide = false
+
 
 func _on_start_journey_pressed() -> void:
-	if not ResourceLoader.exists(TUTORIAL_FACADE_PATH):
-		push_error("Cena da fachada com Luís não encontrada: " + TUTORIAL_FACADE_PATH)
-		return
+	await SceneTransition.change_scene(
+        "res://scenes/story/tutorial_facade.tscn"
+	)
+	
+	
+func _apply_narrator_style() -> void:
 
-	var error := get_tree().change_scene_to_file(TUTORIAL_FACADE_PATH)
+	# Retira o fundo do painel.
+	dialogue_panel.add_theme_stylebox_override(
+		"panel",
+		StyleBoxEmpty.new()
+	)
 
-	if error != OK:
-		push_error("Não foi possível abrir a fachada com Luís.")
+	# Posiciona a legenda na parte inferior.
+	dialogue_panel.anchor_left = 0.07
+	dialogue_panel.anchor_top = 0.72
+	dialogue_panel.anchor_right = 0.93
+	dialogue_panel.anchor_bottom = 0.96
+
+	dialogue_panel.offset_left = 0
+	dialogue_panel.offset_top = 0
+	dialogue_panel.offset_right = 0
+	dialogue_panel.offset_bottom = 0
+
+	# Aparência do texto.
+	dialogue_text.add_theme_font_size_override(
+		"font_size", 32
+	)
+
+	dialogue_text.add_theme_color_override(
+		"font_color", Color.WHITE
+	)
+
+	dialogue_text.add_theme_color_override(
+		"font_outline_color", Color("#30231D")
+	)
+
+	dialogue_text.add_theme_constant_override(
+		"outline_size", 2
+	)
+
+	dialogue_text.add_theme_color_override(
+		"font_shadow_color", Color(0, 0, 0, 0.75)
+	)
+
+	dialogue_text.add_theme_constant_override(
+		"shadow_offset_x", 2
+	)
+
+	dialogue_text.add_theme_constant_override(
+		"shadow_offset_y", 2
+	)
+
+	dialogue_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	dialogue_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	dialogue_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

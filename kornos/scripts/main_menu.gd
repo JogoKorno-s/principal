@@ -16,9 +16,6 @@ func _ready() -> void:
 
 
 func _on_play_button_pressed() -> void:
-	var error := get_tree().change_scene_to_file(
+	await SceneTransition.change_scene(
         "res://scenes/story/intro.tscn"
 	)
-
-	if error != OK:
-		push_error("Não foi possível abrir a introdução.")

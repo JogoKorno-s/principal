@@ -44,7 +44,14 @@ layout_mode = 2
 [node name="DialogueText" type="Label" parent="DialoguePanel/DialogueVBox" unique_id=987102533]
 layout_mode = 2
 
-[node name="ContinueButton" type="Button" parent="DialoguePanel/DialogueVBox" unique_id=2132959150]
+[node name="ButtonRow" type="HBoxContainer" parent="DialoguePanel/DialogueVBox" unique_id=1199793148]
+layout_mode = 2
+
+[node name="ButtonSpacer" type="Control" parent="DialoguePanel/DialogueVBox/ButtonRow" unique_id=1078994698]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ContinueButton" type="Button" parent="DialoguePanel/DialogueVBox/ButtonRow" unique_id=1969557759]
 layout_mode = 2
 
 [node name="FinalScreen" type="Control" parent="." unique_id=1322659767]

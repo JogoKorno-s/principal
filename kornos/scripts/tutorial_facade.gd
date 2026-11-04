@@ -70,9 +70,6 @@ func _on_next_pressed() -> void:
 
 
 func _on_enter_store_pressed() -> void:
-	var error := get_tree().change_scene_to_file(
+	await SceneTransition.change_scene(
         "res://scenes/locations/dirty_store.tscn"
 	)
-
-	if error != OK:
-		push_error("Não foi possível abrir o interior do supermercado.")
