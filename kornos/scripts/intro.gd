@@ -66,7 +66,7 @@ var is_typing: bool = false
 @onready var final_background: ColorRect = $FinalScreen/FinalBackground
 @onready var final_message: Label = $FinalScreen/CenterContainer/FinalVBox/FinalMessage
 @onready var start_journey_button: BaseButton = $FinalScreen/CenterContainer/FinalVBox/StartJourneyButton
-
+@onready var skip_button: Button = $SkipButton
 
 func _ready() -> void:
 	image_background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -93,6 +93,8 @@ func _ready() -> void:
 	final_screen.hide()
 	_show_slide()
 	_apply_narrator_style()
+	
+	skip_button.pressed.connect(_on_skip_pressed)
 
 
 func _show_slide() -> void:
@@ -108,6 +110,7 @@ func _show_slide() -> void:
 	var slide: Dictionary = SLIDES[current_slide]
 	var path: String = slide["path"]
 	var is_final: bool = slide.get("final", false)
+	skip_button.visible = not is_final
 
 	if not ResourceLoader.exists(path):
 		push_error("Arquivo não encontrado: " + path)
@@ -199,21 +202,44 @@ func _on_start_journey_pressed() -> void:
 func _apply_narrator_style() -> void:
 
 	# Retira o fundo do painel.
+	var narrator_style := StyleBoxFlat.new()
+	
+	# Fundo preto translúcido.
+	narrator_style.bg_color = Color(0.03, 0.025, 0.02, 0.58)
+	
+	# Bordas discretas.
+	narrator_style.border_color = Color(1, 1, 1, 0.15)
+	narrator_style.set_border_width_all(1)
+	
+	# Cantos arredondados.
+	narrator_style.set_corner_radius_all(14)
+	
+	# Espaçamento interno.
+	narrator_style.content_margin_left = 10
+	narrator_style.content_margin_right = 10
+	narrator_style.content_margin_top = 5
+	narrator_style.content_margin_bottom = 5
+
+# Aplica o estilo ao painel.
 	dialogue_panel.add_theme_stylebox_override(
-		"panel",
-		StyleBoxEmpty.new()
-	)
+	"panel",
+	narrator_style
+)
+
 
 	# Posiciona a legenda na parte inferior.
-	dialogue_panel.anchor_left = 0.07
-	dialogue_panel.anchor_top = 0.72
-	dialogue_panel.anchor_right = 0.93
-	dialogue_panel.anchor_bottom = 0.96
+	# Caixa mais compacta e centralizada.
+	dialogue_panel.anchor_left = 0.12
+	dialogue_panel.anchor_top = 0.76
+	dialogue_panel.anchor_right = 0.88
+	dialogue_panel.anchor_bottom = 0.94
 
 	dialogue_panel.offset_left = 0
 	dialogue_panel.offset_top = 0
 	dialogue_panel.offset_right = 0
 	dialogue_panel.offset_bottom = 0
+	
+	
 
 	# Aparência do texto.
 	dialogue_text.add_theme_font_size_override(
@@ -247,3 +273,19 @@ func _apply_narrator_style() -> void:
 	dialogue_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	dialogue_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	dialogue_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+
+
+
+func _on_skip_pressed() -> void:
+
+	# Interrompe a digitação da legenda.
+	is_typing = false
+	typewriter_timer.stop()
+
+	# Interrompe qualquer vídeo em reprodução.
+	video_background.stop()
+
+	# Vai diretamente para o tutorial do Luís.
+	await SceneTransition.change_scene(
+		TUTORIAL_FACADE_PATH
+	)

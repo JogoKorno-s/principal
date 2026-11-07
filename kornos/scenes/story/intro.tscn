@@ -2,6 +2,23 @@
 
 [ext_resource type="Script" uid="uid://iq1vtw48hu6a" path="res://scripts/intro.gd" id="1_fwqoy"]
 
+[sub_resource type="FontVariation" id="FontVariation_vitvj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1pucc"]
+bg_color = Color(0.7538825, 0.5605629, 0.270709, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0, 0, 0, 0.5176471)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_237uc"]
+bg_color = Color(0.5817325, 0.40241468, 0.1502248, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
 [node name="Intro" type="Control" unique_id=658900007]
 layout_mode = 3
 anchors_preset = 15
@@ -84,10 +101,27 @@ layout_mode = 2
 
 [node name="FinalMessage" type="Label" parent="FinalScreen/CenterContainer/FinalVBox" unique_id=2011470381]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "O destino do Korno's agora está em suas mãos."
 
 [node name="StartJourneyButton" type="Button" parent="FinalScreen/CenterContainer/FinalVBox" unique_id=359076359]
 layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_vitvj")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_1pucc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_237uc")
 text = "Iniciar Jornada"
 
 [node name="TypewriterTimer" type="Timer" parent="." unique_id=277169527]
+
+[node name="SkipButton" type="Button" parent="." unique_id=1655192197]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -185.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 65.0
+grow_horizontal = 0
+text = "Pular introdução »"
