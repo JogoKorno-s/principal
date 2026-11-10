@@ -132,8 +132,8 @@ func _apply_luis_dialogue_style() -> void:
 # Balão mais compacto, na parte inferior esquerda.
 	dialogue_panel.anchor_left = 0.025
 	dialogue_panel.anchor_top = 0.70
-	dialogue_panel.anchor_right = 0.64
-	dialogue_panel.anchor_bottom = 0.97
+	dialogue_panel.anchor_right = 0.70
+	dialogue_panel.anchor_bottom = 0.90
 
 	dialogue_panel.offset_left = 0
 	dialogue_panel.offset_top = 0
@@ -247,7 +247,7 @@ func _configure_luis() -> void:
 	luis.anchor_left = 0.66
 	luis.anchor_top = 0.08
 	luis.anchor_right = 0.99
-	luis.anchor_bottom = 0.97
+	luis.anchor_bottom = 1.33
 
 	# Zera os deslocamentos.
 	luis.offset_left = 0
