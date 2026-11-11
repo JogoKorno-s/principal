@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Korno's · o mercadinho que ensina matemática</title>
+<meta name="description" content="Korno's é um jogo educativo de matemática feito em Godot 4 por cinco alunos do IFSP: Belo herda o mercado falido do avô e precisa reerguê-lo resolvendo as contas do dia a dia.">
+<meta property="og:title" content="Korno's · o mercadinho que ensina matemática">
+<meta property="og:description" content="Herdou um mercado caindo aos pedaços? Agora é fazer as contas. Jogo educativo de matemática do Grupo 07 do IFSP.">
+<meta property="og:image" content="img/fachada-1920.webp">
+<meta name="theme-color" content="#5B1F00">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&family=Fredoka:wdth,wght@75..125,300..700&display=swap">
+<link rel="stylesheet" href="css/kornos.css">
+<link rel="preload" as="image" href="img/fachada-1920.webp" imagesrcset="img/fachada-960.webp 960w, img/fachada-1920.webp 1920w" imagesizes="(max-width: 820px) 100vw, 66vw">
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="topo">
+  <a class="topo__marca" href="index.html"><img src="img/logo-kornos.webp" srcset="img/logo-kornos.webp 640w, img/logo-kornos-1200.webp 1200w" sizes="196px" width="640" height="293" alt="Korno's Supermercado: página inicial"></a>
+  <nav aria-label="Corredores do site">
+    <button class="menu-botao" type="button" aria-expanded="false" aria-controls="corredores"><svg aria-hidden="true"><use href="img/icones.svg#menu"/></svg>Corredores</button>
+    <ul class="corredores" id="corredores">
+      <li><a href="index.html" aria-current="page"><span class="num" aria-hidden="true"><svg width="14" height="14"><use href="img/icones.svg#casa"/></svg></span><span>Início</span></a></li>
+      <li><a href="jogar.html"><span class="num" aria-hidden="true">1</span><span><span class="visualmente-oculto">Corredor 1: </span>Jogar</span></a></li>
+      <li><a href="historia.html"><span class="num" aria-hidden="true">2</span><span><span class="visualmente-oculto">Corredor 2: </span>A história</span></a></li>
+      <li><a href="matematica.html"><span class="num" aria-hidden="true">3</span><span><span class="visualmente-oculto">Corredor 3: </span>A matemática</span></a></li>
+      <li><a href="bastidores.html"><span class="num" aria-hidden="true">4</span><span><span class="visualmente-oculto">Corredor 4: </span>Bastidores</span></a></li>
+      <li><a href="resultados.html"><span class="num" aria-hidden="true">5</span><span><span class="visualmente-oculto">Corredor 5: </span>Resultados</span></a></li>
+      <li><a href="equipe.html"><span class="num" aria-hidden="true">6</span><span><span class="visualmente-oculto">Corredor 6: </span>Equipe</span></a></li>
+      <li><a href="documentos.html"><span class="num" aria-hidden="true">7</span><span><span class="visualmente-oculto">Corredor 7: </span>Documentos</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="conteudo">
+
+  <!-- ===== FACHADA ===== -->
+  <section class="fachada" aria-labelledby="titulo-home">
+    <div class="fachada__texto">
+      <h1 id="titulo-home">Herdou um mercado caindo aos pedaços? <span class="tinta">Agora é fazer as contas.</span></h1>
+      <p class="fachada__lead">O Belo ficou sem esposa, sem casa e sem um tostão. Aí o avô deixou um mercadinho de herança. Ajude o cara a reerguer o Korno's em cinco dias, um problema de matemática por vez.</p>
+    </div>
+
+    <figure class="fachada__arte">
+      <img src="img/fachada-1920.webp" srcset="img/fachada-960.webp 960w, img/fachada-1920.webp 1920w" sizes="(max-width: 820px) 100vw, 66vw" width="1920" height="1080" alt="Ilustração da fachada do Korno's Supermercado: um prédio de esquina terracota e verde-oliva, com placa de madeira, varal de lâmpadas, vitrine com frutas e carrinhos na calçada, numa rua de bairro.">
+      <a class="placa" href="jogar.html" data-placa aria-label="Jogar no navegador">
+        <span class="placa__corda" aria-hidden="true"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M50 2 L4 40 M50 2 L96 40" stroke="#5B1F00" stroke-width="2.5" fill="none" vector-effect="non-scaling-stroke"/></svg></span>
+        <span class="placa__tabua" aria-hidden="true">
+          <span class="placa__face placa__face--frente"><b>FECHADO</b><small>Jogar no navegador</small></span>
+          <span class="placa__face placa__face--verso"><b>ABERTO</b><small>pode entrar!</small></span>
+        </span>
+      </a>
+      <p class="dica-placa" aria-hidden="true"><svg width="22" height="22"><use href="img/icones.svg#seta-volta"/></svg>clique na placa <br>para jogar</p>
+    </figure>
+
+    <div class="fachada__extra">
+      <span class="tag-preco" data-download-windows>
+        <svg aria-hidden="true" width="26" height="26"><use href="img/icones.svg#baixar"/></svg>
+        <span class="tag-preco__texto">Baixar para Windows<small>versão .exe</small></span>
+        <span class="tag-preco__valor">EM BREVE</span>
+      </span>
+      <a href="matematica.html" class="botao">Ver a matemática <svg aria-hidden="true"><use href="img/icones.svg#seta"/></svg></a>
+    </div>
+  </section>
+
+  <!-- ===== FAIXA DO LUÍS + MONITOR ===== -->
+  <section class="faixa-escura faixa-luis vitrine-area" aria-labelledby="titulo-luis">
+    <div class="largo">
+      <figure class="monitor" data-monitor>
+        <div class="monitor__tela">
+          <img class="ativa" src="img/dia1-mercado-abandonado-800.webp" srcset="img/dia1-mercado-abandonado-800.webp 800w, img/dia1-mercado-abandonado.webp 1600w" sizes="(max-width: 820px) 100vw, 40vw" width="1600" height="900" data-legenda="Dia 1 · o mercado do jeito que o avô deixou" alt="Captura do jogo, Dia 1: o salão do mercado abandonado, com prateleiras vazias, teto quebrado, lixo no chão e placas de CLOSED na porta. No topo, o dinheiro (R$ 300,00) e o dia (01).">
+          <img src="img/dia1-luis-atacadista-800.webp" srcset="img/dia1-luis-atacadista-800.webp 800w, img/dia1-luis-atacadista.webp 1600w" sizes="(max-width: 820px) 100vw, 40vw" width="1600" height="900" loading="lazy" data-legenda="Dia 1 · Luís avisa da promoção no atacadista" alt="Captura do jogo, Dia 1: com o salão já limpo, Luís diz num balão: Acabei de receber uma notificação de uma promoção em um supermercado atacadista. É uma boa oportunidade para abastecer nosso estoque e economizar.">
+          <img src="img/dia2-cliente-arroz-800.webp" srcset="img/dia2-cliente-arroz-800.webp 800w, img/dia2-cliente-arroz.webp 1600w" sizes="(max-width: 820px) 100vw, 40vw" width="1600" height="900" loading="lazy" data-legenda="Dia 2 · primeiro cliente no caixa" alt="Captura do jogo, Dia 2: um senhor de chapéu de palha segura um pacote de arroz de 5 kg e pergunta: Peguei esse pacote de arroz para minha esposa, poderia passar para mim? As respostas são Sim e Claro. O dinheiro agora é R$ 220,02.">
+        </div>
+        <div class="monitor__rodape">
+          <figcaption data-legenda aria-live="polite">Dia 1 · o mercado do jeito que o avô deixou</figcaption>
+          <div class="monitor__controles">
+            <button type="button" data-anterior aria-label="Captura anterior"><svg aria-hidden="true"><use href="img/icones.svg#anterior"/></svg></button>
+            <button type="button" data-pausa aria-label="Pausar capturas"><svg aria-hidden="true"><use href="img/icones.svg#pausa"/></svg></button>
+            <button type="button" data-proximo aria-label="Próxima captura"><svg aria-hidden="true"><use href="img/icones.svg#proximo"/></svg></button>
+          </div>
+        </div>
+      </figure>
+
+      <div class="fala">
+        <div>
+          <div class="fala__retrato"><img src="img/retrato-luis.webp" width="400" height="400" alt="Luís, de óculos e moletom preto, sorrindo." loading="lazy"></div>
+          <span class="fala__nome">Luís</span>
+        </div>
+        <div class="balao">
+          <h2 id="titulo-luis" class="visualmente-oculto">O Luís explica o jogo</h2>
+          <p>E aí! Eu sou o Luís, vou te acompanhar no Korno's. Cada dia tem um problema de verdade de mercado: montar a compra, dar o troco, entregar no prazo, vigiar o corredor, arrumar a prateleira.</p>
+          <p>Acertou a conta, o caixa sobe. Errou, o prejuízo é do Belo. Sem pressão. <a href="historia.html">Quer saber como ele veio parar aqui?</a></p>
+          <p class="balao__pergunta">Por onde você quer começar?</p>
+          <ul class="respostas">
+            <li><a href="jogar.html">Quero jogar</a></li>
+            <li><a href="matematica.html">Mostra a matemática</a></li>
+            <li><a href="historia.html">Me conta a história</a></li>
+            <li><a href="equipe.html">Quem fez isso?</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ENCARTE DE OFERTAS ===== -->
+  <section class="encarte" aria-labelledby="titulo-encarte">
+    <div class="encarte__topo">
+      <div class="largo">
+        <h2 id="titulo-encarte">Ofertas da semana</h2>
+        <p class="encarte__validade">Válidas do Dia 1 ao Dia 5 · uma conta por dia</p>
+      </div>
+    </div>
+
+    <div class="largo">
+      <div class="encarte__grade">
+        <a class="oferta oferta--destaque" href="matematica.html#prateleira">
+          <span class="carimbo oferta__dia">Dia 5 · a mais difícil</span>
+          <h3>Cola Refri e Guaraná Primavera não podem ficar lado a lado.</h3>
+          <div class="prateleirinha" aria-hidden="true"><span class="cola">C</span><span>A</span><span class="guara">G</span><span>S</span><span>M</span><span>L</span></div>
+          <p class="nota" style="margin-top:-4px">C = Cola Refri · G = Guaraná Primavera</p>
+          <p>Seis produtos, seis lugares na prateleira. De quantos jeitos dá para arrumar sem as duas marcas se encostarem? Arraste as latas e descubra, ou deixe o computador testar todos.</p>
+          <p class="conta">6! − 2·5! = <span class="res">480</span></p>
+          <span class="oferta__preco"><span class="rotulo">Conteúdo</span><span class="unidade">Análise combinatória · força bruta × fórmula</span></span>
+        </a>
+
+        <a class="oferta oferta--a" href="matematica.html#atacadista">
+          <span class="carimbo oferta__dia">Dia 1</span>
+          <svg class="oferta__icone" aria-hidden="true"><use href="img/icones.svg#carrinho"/></svg>
+          <h3>Compra no atacadista</h3>
+          <p>Encher o carrinho sem estourar o orçamento.</p>
+          <span class="oferta__preco"><span class="rotulo">Orçamento</span><span class="valor"><small>R$</small> 300<sup>,00</sup></span></span>
+        </a>
+
+        <a class="oferta oferta--b" href="matematica.html#caixa">
+          <span class="carimbo oferta__dia">Dia 2</span>
+          <svg class="oferta__icone" aria-hidden="true"><use href="img/icones.svg#caixa"/></svg>
+          <h3>Caixa e troco</h3>
+          <p>Troco com o menor número de notas e preço com margem de lucro.</p>
+          <span class="oferta__preco"><span class="rotulo">Margem</span><span class="valor">+30<sup>%</sup></span></span>
+        </a>
+
+        <a class="oferta oferta--c" href="matematica.html#moto">
+          <span class="carimbo oferta__dia">Dia 3</span>
+          <svg class="oferta__icone" aria-hidden="true"><use href="img/icones.svg#moto"/></svg>
+          <h3>Moto Entrega</h3>
+          <p>Pedido #001, Bairro Jardim: 18 km em 30 minutos. Qual a velocidade mínima?</p>
+          <span class="oferta__preco"><span class="rotulo">Velocidade média</span><span class="valor">36</span><span class="unidade">km/h</span></span>
+        </a>
+
+        <a class="oferta oferta--d" href="matematica.html#cameras">
+          <span class="carimbo oferta__dia">Dia 4</span>
+          <svg class="oferta__icone" aria-hidden="true"><use href="img/icones.svg#camera"/></svg>
+          <h3>Câmeras</h3>
+          <p>Nenhum ponto cego no corredor.</p>
+          <span class="oferta__preco"><span class="rotulo">Alcance</span><span class="valor">6<sup>,93</sup></span><span class="unidade">m</span></span>
+        </a>
+      </div>
+      <div class="encarte__rodape">
+        <p>Depois de cada minigame, o jogo mostra <strong>como o computador resolveria</strong> o mesmo problema. <a href="matematica.html">Ver todos os algoritmos</a></p>
+        <p class="nota">*Ofertas válidas enquanto durar a paciência do Belo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== A HISTÓRIA ===== -->
+  <section class="parede secao" aria-labelledby="titulo-historia">
+    <div class="largo parede-home">
+      <figure class="quadro quadro--torto">
+        <img src="img/cena-casamento-800.webp" srcset="img/cena-casamento-800.webp 800w, img/cena-casamento.webp 1377w" sizes="(max-width: 820px) 100vw, 55vw" width="1377" height="768" loading="lazy" alt="Cena 1 da abertura: na parede, um quadro de moldura de madeira com a foto do casamento de Belo, loiro e de terno marrom, abraçado a Grazi, de vestido de noiva e cabelo preto longo. Os dois riem.">
+        <figcaption><span class="carimbo">Cena 1</span></figcaption>
+      </figure>
+      <div>
+        <h2 id="titulo-historia" class="visualmente-oculto">A história</h2>
+        <blockquote><p>“Naquele dia, Belo acreditava ter encontrado o amor da sua vida.”</p></blockquote>
+        <p>Spoiler: não tinha. A Grazi foi embora com o Maurício, e o Belo ficou sozinho com o filho, o Enzo. Logo depois, o avô José morreu e deixou de herança um mercadinho velho, sujo e quase falido. Sem dinheiro e sem experiência nenhuma, o Belo arregaça as mangas.</p>
+        <a class="botao" href="historia.html">Ver a abertura inteira <svg aria-hidden="true"><use href="img/icones.svg#seta"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CUPOM RESUMIDO ===== -->
+  <section class="secao" aria-labelledby="titulo-cupom">
+    <div class="medio duas-col">
+      <div class="texto-corrido">
+        <h2 id="titulo-cupom" style="font-size:clamp(2rem,1.3rem + 2.6vw,3.4rem)">Quem passou essa conta</h2>
+        <p>O Korno's é o TCC do Grupo 07 do curso técnico em Desenvolvimento de Sistemas do IFSP. Cinco pessoas, nenhuma com experiência anterior em Godot, um semestre inteiro de cena, sinal e GDScript.</p>
+        <p><a href="equipe.html">Ver o cupom completo, com o papel de cada um</a> · <a href="bastidores.html">Como foi feito</a></p>
+      </div>
+      <div class="cupom cupom--mesa" data-imprime>
+        <h3 class="centro" style="font-size:1rem;font-weight:800">KORNO'S SUPERMERCADO</h3>
+        <p class="centro">Grupo 07 · IFSP · 2026</p>
+        <hr>
+        <div class="linha"><span>001 LUIS CARLOS S. DA SILVA</span><span>1 UN</span></div>
+        <div class="linha"><span>002 RHAYANE R. PIMENTEL</span><span>1 UN</span></div>
+        <div class="linha"><span>003 SABRYNA A. DE ALMEIDA</span><span>1 UN</span></div>
+        <div class="linha"><span>004 SOFIA I. DE C. SANTOS</span><span>1 UN</span></div>
+        <div class="linha"><span>005 VITÓRIA X. PEREIRA</span><span>1 UN</span></div>
+        <hr>
+        <div class="linha total"><span>TOTAL</span><span>1 JOGO</span></div>
+        <div class="linha"><span>ENGINE</span><span>GODOT 4</span></div>
+        <hr>
+        <p>ORIENTAÇÃO: JOÃO TEMOCHKO E FELIPE MARCOS PINTO</p>
+        <hr>
+        <p class="centro">NÃO É DOCUMENTO FISCAL</p>
+        <p class="centro">Obrigado pela preferência!</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <div class="largo">
+    <div>
+      <h2>Korno's</h2>
+      <p>Jogo educativo de matemática feito em Godot 4 como Trabalho de Conclusão de Curso do técnico em Desenvolvimento de Sistemas do Instituto Federal de São Paulo (IFSP), câmpus <span class="preencher">[PREENCHER: câmpus]</span>.</p>
+    </div>
+    <div>
+      <h2>Corredores</h2>
+      <ul>
+        <li><a href="jogar.html">Jogar</a></li>
+        <li><a href="historia.html">A história</a></li>
+        <li><a href="matematica.html">A matemática</a></li>
+        <li><a href="bastidores.html">Bastidores</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Grupo 07</h2>
+      <ul>
+        <li><a href="equipe.html">Quem fez</a></li>
+        <li><a href="resultados.html">Resultados do playtest</a></li>
+        <li><a href="documentos.html">Documentos e PDFs</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="largo rodape__base">Korno's · Grupo 07 · IFSP · 2026 · Personagens e ilustrações do jogo. Nada aqui é uma loja de verdade — mas a matemática é.</p>
+</footer>
+<script src="js/config.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
