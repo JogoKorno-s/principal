@@ -98,7 +98,7 @@
       if (sim) timer = setInterval(function () { mostra(atual + 1); }, 4500);
       if (botaoPausa) {
         botaoPausa.setAttribute("aria-label", sim ? "Pausar capturas" : "Tocar capturas");
-        botaoPausa.querySelector("use").setAttribute("href", raiz + "img/icones.svg#" + (sim ? "pausa" : "tocar"));
+        botaoPausa.querySelector("use").setAttribute("href", "#" + (sim ? "pausa" : "tocar"));
       }
     };
     monitor.querySelector("[data-anterior]").addEventListener("click", function () { mostra(atual - 1); tocando(false); });
@@ -170,7 +170,7 @@
       if (!botao) return;
       var tocando = !video.paused;
       botao.setAttribute("aria-label", (tocando ? "Pausar " : "Tocar ") + nome);
-      botao.querySelector("use").setAttribute("href", raiz + "img/icones.svg#" + (tocando ? "pausa" : "tocar"));
+      botao.querySelector("use").setAttribute("href", "#" + (tocando ? "pausa" : "tocar"));
     };
     video.addEventListener("play", mostraIcone);
     video.addEventListener("pause", mostraIcone);

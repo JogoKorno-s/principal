@@ -92,7 +92,7 @@
     } else {
       msg = "Válido, mas esse você já tinha achado. Tenta outro.";
     }
-    status.innerHTML = '<svg class="selo" aria-hidden="true"><use href="img/icones.svg#' + (ok ? "certo" : "errado") + '"/></svg><span>' + (anunciarTroca ? anunciarTroca + " " : "") + msg + "</span>";
+    status.innerHTML = '<svg class="selo" aria-hidden="true"><use href="#' + (ok ? "certo" : "errado") + '"/></svg><span>' + (anunciarTroca ? anunciarTroca + " " : "") + msg + "</span>";
   }
 
   function troca(i, j) {
