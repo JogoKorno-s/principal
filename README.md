@@ -1,324 +1,89 @@
-# Korno's 🛒
+# Korno's
 
-> Um jogo de simulação e gerenciamento de supermercado que une administração, progressão e matemática.
+Jogo educativo de matemática feito em Godot 4 pelo Grupo 07 do curso técnico em Desenvolvimento de Sistemas do IFSP, câmpus São Paulo, como Trabalho de Conclusão de Curso.
 
-## 📖 Sobre o projeto
+**Site do projeto:** https://jogokorno-s.github.io/principal/
 
-**Korno's** é um jogo do gênero **Simulação / Tycoon**, no qual o jogador assume o controle de um supermercado em situação precária e precisa reconstruí-lo e administrá-lo desde as operações básicas até a gestão estratégica.
+![Fachada do Korno's Supermercado](docs/img/fachada-960.webp)
 
-O diferencial do projeto está na integração entre **administração de um supermercado e matemática**, fazendo com que o jogador utilize raciocínio lógico e conhecimentos matemáticos para progredir no jogo.
+## A ideia
 
-Ao longo da partida, o jogador deverá organizar o estoque, repor produtos, atender clientes, administrar recursos, expandir o estabelecimento e enfrentar desafios matemáticos relacionados ao contexto do supermercado.
+O Belo é traído pela esposa, Grazi, que vai embora com o Maurício. Ele fica sem casa, sem dinheiro e sozinho com o filho, o Enzo. Pouco depois, o avô José morre e deixa de herança um mercadinho de bairro velho, sujo e quase falido: o Korno's.
 
----
+O jogador ajuda o Belo a reerguer o mercado em cinco dias. Não tem personagem andando pelo mapa: o jogo acontece em telas fixas, no estilo de *Good Pizza, Great Pizza*, com diálogos, clientes no balcão e um minigame de matemática por dia. Acertar a conta enche o caixa, e errar sai do bolso do Belo.
 
-## 🎮 História
+Depois de cada minigame, o jogo mostra como um computador resolveria o mesmo problema. Essa é a parte de matemática computacional do trabalho.
 
-Após anos de relacionamento, **Belo Korno** enfrenta o fim de seu casamento com Grazi, após descobrir uma traição com Maurício.
+| Dia | Minigame | Matemática | O que o computador usa |
+|---|---|---|---|
+| 1 | Compra no atacadista | operações com decimais | problema da mochila |
+| 2 | Caixa e troco | porcentagem, acréscimo e desconto | algoritmo guloso |
+| 3 | Moto Entrega | velocidade média e consumo (km/L) | grafos e Dijkstra |
+| 4 | Câmeras de segurança | trigonometria e perímetro | problema da galeria de arte |
+| 5 | Prateleira de refrigerantes | análise combinatória | força bruta × fórmula |
 
-Com a separação, ele perde seus bens e se vê sem recursos, precisando recomeçar completamente. Ao mesmo tempo, Belo precisa lidar com o impacto emocional da situação e com a responsabilidade de cuidar de seu filho, Enzo.
+A explicação completa de cada um, com exemplo resolvido, está na página [A matemática](https://jogokorno-s.github.io/principal/matematica.html) do site.
 
-Em meio a esse momento difícil, Belo recebe a notícia do falecimento de seu avô, José, que lhe deixa como herança um antigo supermercado de bairro, deteriorado e próximo da falência.
+## O que já funciona
 
-Sem experiência na área, Belo assume o estabelecimento como sua única oportunidade de recomeço. Inicialmente, ele realiza tarefas básicas, como organizar o estoque, repor produtos e atender clientes.
+- Menu inicial com vídeo de fundo
+- Abertura com 11 cenas (imagens e vídeos) e texto aparecendo letra por letra
+- Tutorial na fachada do mercado, com o Luís explicando o que fazer
+- Interior do mercado abandonado, primeira tela jogável
+- Estado do jogo global (`GameState`) e transição entre cenas (`SceneTransition`)
 
-Com o passar do tempo, Belo desenvolve habilidades de gestão, aprendendo a analisar dados, otimizar processos e expandir o supermercado.
+Em desenvolvimento: os cinco minigames, o caixa e a exportação para navegador e Windows.
 
-Sua jornada deixa de ser apenas uma tentativa de sobrevivência e passa a representar a construção de um novo futuro para ele e seu filho.
+## Como abrir o projeto
 
----
+1. Instale o [Godot 4.7](https://godotengine.org/download) (versão padrão, não a .NET).
+2. No Godot, clique em **Importar** e escolha o arquivo `kornos/project.godot`.
+3. Aperte **F5** para rodar.
 
-## 🎯 Objetivo
+## Exportar para o navegador
 
-O objetivo principal do jogador é transformar um pequeno supermercado deteriorado em um negócio próspero e eficiente.
+O site embute o jogo a partir da pasta `docs/play/`. Para gerar essa versão:
 
-Para isso, será necessário:
+1. Em **Projeto → Configurações do Projeto → Renderização**, troque o renderizador para **Compatibility**. A exportação web do Godot 4 não funciona com o Forward+, que é o que o projeto usa hoje.
+2. Em **Projeto → Exportar**, adicione a predefinição **Web** e **desligue "Thread Support"**. Sem isso, o jogo fica com a tela preta no GitHub Pages.
+3. Exporte para `docs/play/index.html` (o nome do arquivo tem que ser `index.html`).
 
-- Organizar e administrar o estoque;
-- Repor produtos nas prateleiras;
-- Atender clientes;
-- Gerenciar a validade dos produtos;
-- Gerenciar os recursos financeiros;
-- Expandir o supermercado;
-- Desbloquear novos setores;
-- Resolver desafios matemáticos;
-- Aumentar o nível do jogador;
-- Alcançar altos níveis de lucro e eficiência.
+Assim que esse arquivo existir no repositório, a página **Jogar** do site carrega o jogo sozinha.
 
-### 🏆 Condição de vitória
-
-Expandir o supermercado e atingir um alto nível de lucro e eficiência.
-
-### 💀 Condição de derrota
-
-Entrar em falência devido à má administração dos recursos.
-
----
-
-## 🕹️ Jogabilidade
-
-O jogador controla **Belo** diretamente dentro do supermercado e interage com diferentes elementos do ambiente.
-
-### Principais mecânicas
-
-- 📦 Recebimento de mercadorias;
-- 🗃️ Organização do estoque;
-- 🛍️ Reposição de produtos;
-- 💰 Sistema de vendas;
-- 👥 Atendimento aos clientes;
-- ⏳ Controle da validade dos produtos;
-- 🏪 Expansão do supermercado;
-- 👨‍💼 Contratação de funcionários;
-- 📈 Progressão de nível;
-- 🧮 Minigames matemáticos.
-
----
-
-## 📈 Sistema de progressão
-
-A progressão do jogador pode chegar até o **nível 10**.
-
-A cada nível, o jogador deverá enfrentar um **minigame de matemática aplicado ao contexto do supermercado**.
-
-Os desafios matemáticos funcionam como parte da progressão do jogo. Para avançar oficialmente em determinados momentos, o jogador precisa resolver corretamente os problemas propostos.
-
-Ao subir de nível, o jogador também passa a receber novas possibilidades de evolução e desbloqueio de áreas.
-
-### Exemplo de progressão
+## Como o repositório está organizado
 
 ```text
-Nível 1 → Nível 2 → Nível 3 → ... → Nível 10
-   ↓         ↓         ↓
-Minigame  Minigame  Minigame
+kornos/            projeto do Godot
+  art/             fundos, personagens e interface
+  scenes/          cenas (.tscn): main, story, locations, characters
+  scripts/         código em GDScript
+  videos/          vídeos do menu e da abertura (.ogv)
+docs/              site do projeto, publicado pelo GitHub Pages
+  docs/            GDD, arquitetura de cenas e slides em PDF
+  play/            onde entra a exportação web do jogo
 ```
 
-## 🧮 Matemática no jogo
+As instruções para editar o site estão em [`docs/README.md`](docs/README.md).
 
-A matemática é integrada diretamente à gameplay, sendo utilizada como parte dos desafios necessários para a progressão.
+## Arquitetura
 
-Entre os conteúdos planejados estão:
+O projeto segue MVC adaptado ao Godot:
 
-### Função do 2º Grau
+- **Model:** o autoload `GameState` guarda dia, nível, XP, dinheiro e áreas liberadas, e é acessível de qualquer cena.
+- **View:** as cenas `.tscn` só desenham a tela e recebem cliques.
+- **Controller:** o script de cada cena reage ao clique, altera o `GameState` e atualiza a tela.
 
-Utilizada para representar situações de **otimização de preços e lucro máximo**.
+Os textos da abertura ficam em uma lista dentro de `scripts/intro.gd`, separados da lógica que exibe as cenas.
 
-O jogador precisa analisar uma função de lucro e encontrar o ponto de máximo para determinar o preço ideal de venda.
+## Documentos
 
-### Análise Combinatória
+- [Game Design Document](docs/docs/kornos-gdd-v2.docx)
+- [Arquitetura de cenas e fluxo do jogo](docs/docs/arquitetura-de-cenas.pdf)
+- [Apresentação de Matemática Computacional, 3º bimestre](docs/docs/matematica-computacional-3bim.pdf)
 
-Utilizada em situações de organização de produtos nas prateleiras, considerando restrições específicas.
+## Equipe
 
-### Matrizes
-
-Aplicadas à comparação de fornecedores e cálculo de custos de abastecimento dos diferentes setores do supermercado.
-
-### Progressão Geométrica
-
-Utilizada em situações relacionadas ao crescimento de clientes em um programa de fidelidade.
-
-### Geometria Espacial
-
-Aplicada ao cálculo da quantidade de caixas que podem ser armazenadas dentro de freezers.
-
-### Sistemas Lineares
-
-Utilizados em situações envolvendo contagem e identificação de diferentes tipos de cédulas.
-
-### Cinemática
-
-Aplicada ao cálculo da velocidade média necessária para um caminhão realizar determinadas rotas dentro de um período de tempo.
-
-### Matemática Financeira
-
-Utilizada para comparar diferentes opções de financiamento e calcular montantes.
-
-### Trigonometria
-
-Aplicada ao cálculo de alcance e posicionamento de câmeras de segurança.
-
-### Estatística Descritiva
-
-Utilizada em situações envolvendo dados de satisfação dos clientes, como cálculo de **moda** e **mediana**.
-
----
-
-## 🧩 Diagramas UML
-
-O projeto conta com diferentes diagramas UML para representar a estrutura e o comportamento do sistema.
-
-### Diagrama de Casos de Uso
-
-Representa as principais interações do jogador com o sistema, como movimentação, realização de tarefas, administração do estoque, evolução do personagem e progressão matemática.
-
-### Diagrama de Classes
-
-Representa a estrutura principal do sistema por meio das classes:
-
-- `Jogador`
-- `Supermercado`
-- `Estoque`
-- `Produto`
-- `Cliente`
-- `MinigameMatematico`
-
-As classes possuem atributos, métodos e relacionamentos que representam os elementos centrais da administração do supermercado.
-
-### Diagrama de Objetos
-
-Representa um exemplo concreto de uma partida em andamento, demonstrando objetos instanciados e seus relacionamentos.
-
-### Diagramas de Sequência
-
-Foram elaborados diagramas para representar diferentes fluxos do jogo:
-
-1. Recebimento e organização de mercadorias;
-2. Atendimento e realização de uma venda;
-3. Integração entre o minigame matemático e a progressão do jogador.
-
-## 🎨 Identidade visual
-
-O projeto possui uma identidade visual baseada em uma estética **acolhedora, simples e organizada**, com inspiração em jogos 2D/cartoon.
-
-A paleta de cores definida inclui:
-
-- `#F4EDE4` — Bege claro
-- `#E6D3B3` / `#D4C3A5` — Bege quente
-- `#A8B89A` / `#82B875` — Verde pastel
-- `#5B1F00` — Marrom escuro
-- `#8D4925` — Marrom claro
-- `#D96300` — Laranja queimado
-- `#5C7A8D` — Azul acinzentado
-
-O projeto utiliza os arquétipos de **Cuidador/Prestativo** como principal e **Criador** como secundário.
-
----
-
-## 🖼️ Prototipagem
-
-A prototipagem visual do projeto foi desenvolvida como parte da definição da interface e da experiência do jogador.
-
-```md
-![Protótipo do Korno's](./assets/prototipo.png)
-```
-
----
-
-## 📸 Imagens do projeto
-
-### Logo
-
-```md
-![Logo do Korno's](./assets/logo.png)
-```
-
-### Tela inicial
-
-```md
-![Tela inicial](./assets/tela-inicial.png)
-```
-
-### Gameplay
-
-```md
-![Gameplay](./assets/gameplay.png)
-```
-
-### Cenário do supermercado
-
-```md
-![Cenário do supermercado](./assets/cenario.png)
-```
-
----
-
-## 🛠️ Tecnologias
-
-### Linguagem
-
-- **GDScript**
-
-### Engine
-
-- **Godot**
-
-### Ferramentas utilizadas
-
-- **GitHub**
-- **Canva**
-- **Figma**
-- **Tiled**
-- **Aseprite**
-
-### Arquitetura
-
-O projeto utiliza o padrão de arquitetura:
-
-```text
-MVC
-(Model - View - Controller)
-```
-
-A organização do projeto busca manter o código-fonte, assets e demais recursos estruturados de forma organizada.
-
----
-
-## 📁 Estrutura do projeto
-
-Uma possível organização do repositório é:
-
-```text
-Kornos/
-│
-├── assets/
-│   ├── images/
-│   ├── sounds/
-│   └── fonts/
-│
-├── docs/
-│   ├── uml/
-│   ├── prototipo/
-│   └── documentacao/
-│
-├── src/
-│   ├── model/
-│   ├── view/
-│   └── controller/
-│
-├── main.py
-├── requirements.txt
-└── README.md
-```
-
----
-
-## 📅 Cronograma
-
-O desenvolvimento do projeto foi planejado em etapas, envolvendo:
-
-- Configuração do ambiente e do GitHub;
-- Criação da janela principal;
-- Movimentação do personagem;
-- Desenvolvimento dos assets;
-- Sistema de estoque;
-- Interface;
-- Clientes e filas;
-- Sistema de vendas;
-- Sons;
-- Validade dos produtos;
-- Contratação de funcionários;
-- Integração matemática;
-- Desbloqueio de novas áreas;
-- Refinamento visual;
-- Testes de jogabilidade;
-- Polimento do código;
-- Finalização da documentação;
-- Entrega do projeto.
-
----
-
-## 👥 Equipe
-
-**Korno's** foi desenvolvido pelo Grupo 7:
+Grupo 07 · Desenvolvimento de Sistemas · IFSP câmpus São Paulo · 2026
 
 - Luis Carlos Souza da Silva
 - Rhayane Ribeiro Pimentel
@@ -326,24 +91,4 @@ O desenvolvimento do projeto foi planejado em etapas, envolvendo:
 - Sofia Isabelli de Carvalho Santos
 - Vitória Xavier Pereira
 
----
-
-## 📌 Status do projeto
-
-O projeto já possui uma base de planejamento e documentação, incluindo:
-
-- ✅ Conceito e pitch do jogo;
-- ✅ Definição da história;
-- ✅ Definição do gênero e público-alvo;
-- ✅ Persona;
-- ✅ Definição da jogabilidade;
-- ✅ Identidade visual;
-- ✅ Aplicações da matemática;
-- ✅ Cronograma;
-- ✅ Prototipagem;
-- ✅ Diagrama de Casos de Uso;
-- ✅ Diagrama de Classes;
-- ✅ Diagrama de Objetos;
-- ✅ Diagramas de Sequência.
-
-As etapas de implementação e refinamento do jogo seguem de acordo com o cronograma definido pela equipe.
+Orientação: João Temochko e Felipe Marcos Pinto
