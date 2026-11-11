@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jogar · Korno's</title>
+<meta name="description" content="Jogue o Korno's direto no navegador, sem instalar nada.">
+<meta name="theme-color" content="#5B1F00">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&family=Fredoka:wdth,wght@75..125,300..700&display=swap">
+<link rel="stylesheet" href="css/kornos.css">
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="topo">
+  <a class="topo__marca" href="index.html"><img src="img/logo-kornos.webp" srcset="img/logo-kornos.webp 640w, img/logo-kornos-1200.webp 1200w" sizes="196px" width="640" height="293" alt="Korno's Supermercado: página inicial"></a>
+  <nav aria-label="Corredores do site">
+    <button class="menu-botao" type="button" aria-expanded="false" aria-controls="corredores"><svg aria-hidden="true"><use href="img/icones.svg#menu"/></svg>Corredores</button>
+    <ul class="corredores" id="corredores">
+      <li><a href="index.html"><span class="num" aria-hidden="true"><svg width="14" height="14"><use href="img/icones.svg#casa"/></svg></span><span>Início</span></a></li>
+      <li><a href="jogar.html" aria-current="page"><span class="num" aria-hidden="true">1</span><span><span class="visualmente-oculto">Corredor 1: </span>Jogar</span></a></li>
+      <li><a href="historia.html"><span class="num" aria-hidden="true">2</span><span><span class="visualmente-oculto">Corredor 2: </span>A história</span></a></li>
+      <li><a href="matematica.html"><span class="num" aria-hidden="true">3</span><span><span class="visualmente-oculto">Corredor 3: </span>A matemática</span></a></li>
+      <li><a href="bastidores.html"><span class="num" aria-hidden="true">4</span><span><span class="visualmente-oculto">Corredor 4: </span>Bastidores</span></a></li>
+      <li><a href="resultados.html"><span class="num" aria-hidden="true">5</span><span><span class="visualmente-oculto">Corredor 5: </span>Resultados</span></a></li>
+      <li><a href="equipe.html"><span class="num" aria-hidden="true">6</span><span><span class="visualmente-oculto">Corredor 6: </span>Equipe</span></a></li>
+      <li><a href="documentos.html"><span class="num" aria-hidden="true">7</span><span><span class="visualmente-oculto">Corredor 7: </span>Documentos</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="conteudo">
+  <header class="cabeca" style="padding-bottom:24px">
+    <div class="largo">
+      <h1>Jogar <span class="tinta">no navegador</span></h1>
+      <p class="intro">Sem instalar nada. Funciona melhor no computador, com mouse, em Chrome, Edge ou Firefox atualizados.</p>
+    </div>
+  </header>
+
+  <div class="fliperama">
+    <div class="aviso-celular" id="aviso-celular" role="note">
+      <p style="margin:0 0 .6em"><strong>Tá no celular?</strong> O Korno's foi feito para mouse e tela grande. No celular ele pode ficar pesado, cortar a tela ou nem carregar. Se puder, abre no computador.</p>
+      <button class="botao" type="button" id="tentar-celular">Tentar mesmo assim</button>
+    </div>
+
+    <div class="tela-jogo" id="tela-jogo">
+      <!-- Estado provisório: aparece enquanto não existir play/index.html -->
+      <div class="tela-jogo__breve" id="estado-breve">
+        <img src="img/dia1-mercado-abandonado.webp" width="1600" height="900" alt="O salão do Korno's ainda abandonado, com prateleiras vazias e placas de CLOSED na porta.">
+        <div class="conteudo">
+          <h2>Em breve: <span class="tinta">o Korno's abre as portas</span></h2>
+          <div class="fala fala--compacta" style="max-width:420px">
+            <div class="fala__retrato"><img src="img/retrato-luis.webp" width="400" height="400" alt="Luís"></div>
+            <div class="balao">
+              <p>Ainda tô varrendo o chão. Enquanto isso, dá para treinar a prateleira na <a href="matematica.html#demo">página da matemática</a>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tela-jogo__carregando" id="carregando" hidden>
+        <svg class="carrinho-carregando" aria-hidden="true"><use href="img/icones.svg#carrinho"/></svg>
+        <p style="margin:0;font-weight:750" role="status">Repondo as prateleiras… <span class="nota" style="color:inherit">(o primeiro carregamento pode levar uns segundos)</span></p>
+      </div>
+      <!-- o iframe do jogo é criado pelo js/jogar.js -->
+    </div>
+
+    <div class="barra-jogo">
+      <p class="nota" id="dica-jogo" style="margin:0">Dica: clique dentro do jogo antes de usar o teclado.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <a class="botao" data-link="itchio" data-esconder-vazio hidden href="#">Jogar no itch.io <svg aria-hidden="true"><use href="img/icones.svg#externo"/></svg></a>
+        <button class="botao botao--acao" type="button" id="tela-cheia" disabled>Tela cheia <svg aria-hidden="true"><use href="img/icones.svg#tela-cheia"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <section class="secao" aria-labelledby="t-req">
+    <div class="largo">
+      <header class="etiqueta">
+        <h2 id="t-req">Antes de jogar</h2>
+        <div class="etiqueta__lado"><span>Versão <b><span class="preencher">[PREENCHER]</span></b></span><span class="barras" aria-hidden="true"></span><span>Godot 4</span></div>
+      </header>
+      <div class="requisitos" style="margin-top:32px">
+        <div class="texto-corrido">
+          <h3>No navegador</h3>
+          <p>Precisa de um navegador com WebGL 2: Chrome, Edge, Firefox ou Opera recentes. O Safari funciona a partir da versão 15. O download inicial tem cerca de <span class="preencher">[PREENCHER: tamanho] MB</span>.</p>
+        </div>
+        <div class="texto-corrido">
+          <h3>No Windows</h3>
+          <p>Baixe o executável, descompacte e abra o <code>Kornos.exe</code>. O Windows pode avisar que o app é de "editor desconhecido": clique em <em>Mais informações</em> e depois em <em>Executar assim mesmo</em>.</p>
+          <span class="tag-preco" data-download-windows>
+            <svg aria-hidden="true" width="26" height="26"><use href="img/icones.svg#baixar"/></svg>
+            <span class="tag-preco__texto">Baixar para Windows<small>versão .exe</small></span>
+            <span class="tag-preco__valor">EM BREVE</span>
+          </span>
+        </div>
+        <div class="texto-corrido">
+          <h3>Seu progresso</h3>
+          <p>O jogo salva no próprio navegador. Se você limpar os dados do site ou usar uma janela anônima, o Belo volta para o Dia 1.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <nav class="proximo-corredor largo" aria-label="Navegar entre corredores">
+    <a class="corredor-link corredor-link--ant" href="index.html"><svg aria-hidden="true"><use href="img/icones.svg#seta-volta"/></svg><span><small>Voltar para a</small>entrada</span></a>
+    <a class="corredor-link corredor-link--prox" href="historia.html"><span><small>Próximo corredor</small>2 · A história</span><svg aria-hidden="true"><use href="img/icones.svg#seta"/></svg></a>
+  </nav>
+</main>
+
+<footer class="rodape">
+  <div class="largo">
+    <div>
+      <h2>Korno's</h2>
+      <p>Jogo educativo de matemática feito em Godot 4 como Trabalho de Conclusão de Curso do técnico em Desenvolvimento de Sistemas do Instituto Federal de São Paulo (IFSP), câmpus <span class="preencher">[PREENCHER: câmpus]</span>.</p>
+    </div>
+    <div>
+      <h2>Corredores</h2>
+      <ul>
+        <li><a href="jogar.html">Jogar</a></li>
+        <li><a href="historia.html">A história</a></li>
+        <li><a href="matematica.html">A matemática</a></li>
+        <li><a href="bastidores.html">Bastidores</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Grupo 07</h2>
+      <ul>
+        <li><a href="equipe.html">Quem fez</a></li>
+        <li><a href="resultados.html">Resultados do playtest</a></li>
+        <li><a href="documentos.html">Documentos e PDFs</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="largo rodape__base">Korno's · Grupo 07 · IFSP · 2026 · Personagens e ilustrações do jogo. Nada aqui é uma loja de verdade — mas a matemática é.</p>
+</footer>
+<script src="js/config.js"></script>
+<script src="js/site.js"></script>
+<script src="js/jogar.js"></script>
+</body>
+</html>
