@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A história · Korno's</title>
+<meta name="description" content="A abertura do Korno's contada quadro a quadro: o casamento de Belo, a traição, a herança do avô José e o mercado que ele precisa reerguer.">
+<meta name="theme-color" content="#5B1F00">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&family=Fredoka:wdth,wght@75..125,300..700&display=swap">
+<link rel="stylesheet" href="css/kornos.css">
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="topo">
+  <a class="topo__marca" href="index.html"><img src="img/logo-kornos.webp" srcset="img/logo-kornos.webp 640w, img/logo-kornos-1200.webp 1200w" sizes="196px" width="640" height="293" alt="Korno's Supermercado: página inicial"></a>
+  <nav aria-label="Corredores do site">
+    <button class="menu-botao" type="button" aria-expanded="false" aria-controls="corredores"><svg aria-hidden="true"><use href="img/icones.svg#menu"/></svg>Corredores</button>
+    <ul class="corredores" id="corredores">
+      <li><a href="index.html"><span class="num" aria-hidden="true"><svg width="14" height="14"><use href="img/icones.svg#casa"/></svg></span><span>Início</span></a></li>
+      <li><a href="jogar.html"><span class="num" aria-hidden="true">1</span><span><span class="visualmente-oculto">Corredor 1: </span>Jogar</span></a></li>
+      <li><a href="historia.html" aria-current="page"><span class="num" aria-hidden="true">2</span><span><span class="visualmente-oculto">Corredor 2: </span>A história</span></a></li>
+      <li><a href="matematica.html"><span class="num" aria-hidden="true">3</span><span><span class="visualmente-oculto">Corredor 3: </span>A matemática</span></a></li>
+      <li><a href="bastidores.html"><span class="num" aria-hidden="true">4</span><span><span class="visualmente-oculto">Corredor 4: </span>Bastidores</span></a></li>
+      <li><a href="resultados.html"><span class="num" aria-hidden="true">5</span><span><span class="visualmente-oculto">Corredor 5: </span>Resultados</span></a></li>
+      <li><a href="equipe.html"><span class="num" aria-hidden="true">6</span><span><span class="visualmente-oculto">Corredor 6: </span>Equipe</span></a></li>
+      <li><a href="documentos.html"><span class="num" aria-hidden="true">7</span><span><span class="visualmente-oculto">Corredor 7: </span>Documentos</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="conteudo">
+  <header class="cabeca">
+    <div class="largo">
+      <h1>Como o Belo <span class="tinta">veio parar aqui</span></h1>
+      <p class="intro">Antes de vender o primeiro pacote de arroz, o jogo conta em onze cenas como a vida do Belo virou do avesso. Começa com fotos penduradas na parede, porque quem perde tudo fica mesmo olhando para elas, e termina na porta do mercado. As cenas animadas tocam sozinhas, sem som; o botão no canto pausa.</p>
+    </div>
+  </header>
+
+  <section class="parede secao" aria-labelledby="t-abertura">
+    <div class="largo">
+      <h2 id="t-abertura" class="visualmente-oculto">A abertura, quadro a quadro</h2>
+      <div class="mural">
+        <figure class="cena cena--1" style="margin:0">
+          <div class="quadro quadro--torto"><img src="img/cena-casamento.webp" width="1377" height="768" alt="Na parede de casa, um quadro de madeira com a foto do casamento: Belo, loiro, de barba e terno marrom, abraça Grazi, de vestido de noiva e cabelo preto longo. Os dois riem de olhos fechados. Ao lado, prateleiras com vasinhos de planta."></div>
+          <figcaption>
+            <span class="cena__num">Cena 1</span>
+            <p class="cena__legenda">“Naquele dia, Belo acreditava ter encontrado o amor da sua vida.”</p>
+          </figcaption>
+        </figure>
+
+        <figure class="cena cena--2" style="margin:0">
+          <div class="quadro"><img src="img/cena-nascimento-800.webp" srcset="img/cena-nascimento-800.webp 800w, img/cena-nascimento.webp 1600w" sizes="(max-width: 820px) 100vw, 40vw" width="1600" height="893" loading="lazy" alt="Cena 2 da abertura: na mesma parede, ao lado da foto do casamento, um novo quadro mostra Belo, de camiseta branca e corrente prateada, abraçado a Grazi, que segura no colo o Enzo recém-nascido, dormindo enrolado numa manta verde."></div>
+          <figcaption>
+            <span class="cena__num">Cena 2</span>
+            <p class="cena__legenda">“Com o nascimento de Enzo, sua família parecia completa.”</p>
+          </figcaption>
+        </figure>
+
+        <figure class="cena cena--3" style="margin:0">
+          <div class="quadro quadro--video">
+            <video data-cena-video muted loop playsinline preload="none" poster="video/cena03-traicao.webp" width="960" height="540" aria-label="Cena 3, animada: Belo, de camiseta branca, leva a mão ao peito, assustado, enquanto ao fundo Grazi beija o Maurício.">
+              <source src="video/cena03-traicao.webm" type="video/webm">
+              <source src="video/cena03-traicao.mp4" type="video/mp4">
+            </video>
+            <button class="video-botao" type="button" data-video-botao aria-label="Pausar a cena 3"><svg aria-hidden="true"><use href="img/icones.svg#pausa"/></svg></button>
+          </div>
+          <figcaption>
+            <span class="cena__num">Cena 3</span>
+            <p class="cena__legenda">“Mas em pouco tempo uma traição destruiu tudo o que ele havia construído.”</p>
+          </figcaption>
+        </figure>
+
+        <figure class="cena cena--4" style="margin:0">
+          <div class="quadro quadro--video">
+            <video data-cena-video muted loop playsinline preload="none" poster="video/cena04-divorcio.webp" width="960" height="540" aria-label="Cena 4, animada: Belo e Grazi, sentados em lados opostos de uma mesa de escritório, assinam os papéis do divórcio sem se olhar.">
+              <source src="video/cena04-divorcio.webm" type="video/webm">
+              <source src="video/cena04-divorcio.mp4" type="video/mp4">
+            </video>
+            <button class="video-botao" type="button" data-video-botao aria-label="Pausar a cena 4"><svg aria-hidden="true"><use href="img/icones.svg#pausa"/></svg></button>
+          </div>
+          <figcaption>
+            <span class="cena__num">Cena 4</span>
+            <p class="cena__legenda">“Anos de amor chegaram ao fim.”</p>
+          </figcaption>
+        </figure>
+
+        <figure class="cena cena--5" style="margin:0">
+          <div class="quadro quadro--video">
+            <video data-cena-video muted loop playsinline preload="none" poster="video/cena05-aeroporto.webp" width="960" height="540" aria-label="Cena 5, animada: num aeroporto, Belo segura no colo o Enzo, que dorme, enquanto Grazi se afasta puxando uma mala ao lado do Maurício.">
+              <source src="video/cena05-aeroporto.webm" type="video/webm">
+              <source src="video/cena05-aeroporto.mp4" type="video/mp4">
+            </video>
+            <button class="video-botao" type="button" data-video-botao aria-label="Pausar a cena 5"><svg aria-hidden="true"><use href="img/icones.svg#pausa"/></svg></button>
+          </div>
+          <figcaption>
+            <span class="cena__num">Cena 5</span>
+            <p class="cena__legenda">“Grazi seguiu com sua nova paixão, enquanto Belo e seu filho precisavam lidar com as consequências daquela separação.”</p>
+          </figcaption>
+        </figure>
+
+        <figure class="cena cena--6" style="margin:0">
+          <div class="quadro quadro--video">
+            <video data-cena-video muted loop playsinline preload="none" poster="video/cena06-praia-e-contas.webp" width="960" height="540" aria-label="Cena 6, animada e dividida ao meio: de um lado, Grazi e Maurício passeiam de mãos dadas numa praia ensolarada; do outro, Belo, abatido, faz contas numa mesa cheia de papéis e uma calculadora.">
+              <source src="video/cena06-praia-e-contas.webm" type="video/webm">
+              <source src="video/cena06-praia-e-contas.mp4" type="video/mp4">
+            </video>
+            <button class="video-botao" type="button" data-video-botao aria-label="Pausar a cena 6"><svg aria-hidden="true"><use href="img/icones.svg#pausa"/></svg></button>
+          </div>
+          <figcaption>
+            <span class="cena__num">Cena 6</span>
+            <p class="cena__legenda">“Enquanto Grazi aproveitava sua vida de luxo, Belo enfrentava as dificuldades de recomeçar do zero.”</p>
+          </figcaption>
+        </figure>
+
+        <figure class="cena cena--7" style="margin:0">
+          <div class="quadro quadro--video">
+            <video data-cena-video muted loop playsinline preload="none" poster="video/cena07-hospital.webp" width="960" height="540" aria-label="Cena 7, animada: num quarto de hospital à meia-luz, o avô José está deitado na cama, e Belo, sentado ao lado, abraça o Enzo, que chora.">
+              <source src="video/cena07-hospital.webm" type="video/webm">
+              <source src="video/cena07-hospital.mp4" type="video/mp4">
+            </video>
+            <button class="video-botao" type="button" data-video-botao aria-label="Pausar a cena 7"><svg aria-hidden="true"><use href="img/icones.svg#pausa"/></svg></button>
+          </div>
+          <figcaption>
+            <span class="cena__num">Cena 7</span>
+            <p class="cena__legenda">“Quando acreditou que já havia perdido tudo, recebeu a notícia sobre a morte de seu avô José.”</p>
+          </figcaption>
+        </figure>
+
+        <figure class="cena cena--8" style="margin:0">
+          <div class="quadro"><img src="img/cena-velorio-800.webp" srcset="img/cena-velorio-800.webp 800w, img/cena-velorio.webp 1600w" sizes="(max-width: 820px) 100vw, 40vw" width="1600" height="893" loading="lazy" alt="Cena 8: no velório, Belo, de terno preto, abraça o Enzo, que chora, ao lado do caixão do avô José coberto de flores brancas e velas acesas. Uma luz entra pelo teto."></div>
+          <figcaption>
+            <span class="cena__num">Cena 8</span>
+            <p class="cena__legenda">“Mas José havia deixado uma pequena luz em meio à escuridão para seu neto.”</p>
+          </figcaption>
+        </figure>
+
+        <figure class="cena cena--9" style="margin:0">
+          <div class="quadro quadro--video">
+            <video data-cena-video muted loop playsinline preload="none" poster="video/cena09-testamento.webp" width="960" height="540" aria-label="Cena 9, animada: num escritório iluminado, um advogado de óculos lê em voz alta um papel escrito Testamento, enquanto Belo, sentado do outro lado da mesa, ouve surpreso.">
+              <source src="video/cena09-testamento.webm" type="video/webm">
+              <source src="video/cena09-testamento.mp4" type="video/mp4">
+            </video>
+            <button class="video-botao" type="button" data-video-botao aria-label="Pausar a cena 9"><svg aria-hidden="true"><use href="img/icones.svg#pausa"/></svg></button>
+          </div>
+          <figcaption>
+            <span class="cena__num">Cena 9</span>
+            <p class="cena__legenda">“O antigo supermercado Korno&#39;s não era apenas uma herança. Era sua única chance.”</p>
+          </figcaption>
+        </figure>
+
+        <figure class="cena cena--10" style="margin:0">
+          <div class="quadro quadro--video">
+            <video data-cena-video muted loop playsinline preload="none" poster="video/cena10-heranca.webp" width="960" height="540" aria-label="Cena 10, animada: de costas, Belo segura a mão do Enzo diante do Korno's Supermercado abandonado, com a fachada desbotada, vidros sujos e um carrinho largado na calçada.">
+              <source src="video/cena10-heranca.webm" type="video/webm">
+              <source src="video/cena10-heranca.mp4" type="video/mp4">
+            </video>
+            <button class="video-botao" type="button" data-video-botao aria-label="Pausar a cena 10"><svg aria-hidden="true"><use href="img/icones.svg#pausa"/></svg></button>
+          </div>
+          <figcaption>
+            <span class="cena__num">Cena 10</span>
+            <p class="cena__legenda">“Sem dinheiro, sem experiência e sem garantias de sucesso, Belo decidiu lutar pelo futuro que restava para ele e seu filho.”</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="tela-preta" aria-labelledby="t-cena11">
+    <div class="estreito">
+      <h2 id="t-cena11" class="visualmente-oculto">Cena 11</h2>
+      <p class="cena__num" style="color:var(--bege-quente)">Cena 11 · a última da abertura</p>
+      <p class="grande">“O destino do Korno's agora está em suas mãos.”</p>
+      <a class="botao botao--acao" href="jogar.html">Iniciar jornada <svg aria-hidden="true"><use href="img/icones.svg#seta"/></svg></a>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="t-dia1">
+    <div class="largo duas-col" style="align-items:center">
+      <figure class="cena-jogo" style="margin:0">
+        <img src="img/dia1-mercado-abandonado.webp" width="1600" height="900" loading="lazy" alt="O Korno's no Dia 1: salão com teto quebrado, prateleiras de metal vazias e empoeiradas, caixa registradora velha, lixo pelo chão e duas placas de CLOSED na porta de vidro. Pontos de exclamação vermelhos marcam o que precisa ser limpo.">
+        <figcaption>Dia 1: os pontos vermelhos são as tarefas de limpeza.</figcaption>
+      </figure>
+      <div class="texto-corrido">
+        <h2 id="t-dia1" style="font-size:clamp(2rem,1.3rem + 2.6vw,3.4rem)">A herança</h2>
+        <p>Assim o Belo encontra o mercado do avô: R$ 300,00 em caixa, teto caindo, prateleira vazia e placa de fechado na porta. A primeira tarefa nem é matemática. É vassoura.</p>
+        <p>A partir daí, cada dia mistura três coisas: um pedaço da história, conversas com quem passa pelo mercado e um minigame em que a conta certa enche o caixa e a conta errada sai do bolso do Belo.</p>
+        <p><a href="matematica.html">Ver os cinco minigames</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao faixa-bege" aria-labelledby="t-elenco">
+    <div class="largo">
+      <header class="etiqueta">
+        <h2 id="t-elenco">Quem bate ponto no Korno's</h2>
+        <div class="etiqueta__lado"><span>Elenco</span><span class="barras" aria-hidden="true"></span><span>Crachás</span></div>
+      </header>
+      <ul class="elenco">
+        <li><article class="cracha">
+          <div class="cracha__foto"><img src="img/retrato-belo.webp" width="400" height="400" loading="lazy" alt="Belo, loiro, de barba, sorrindo."></div>
+          <h3>Belo</h3><span class="cracha__cargo">Dono (contra a vontade)</span>
+          <p>Perdeu o casamento e quase tudo junto. Não entende nada de mercado, mas tem um filho para criar e um prédio inteiro para reerguer.</p>
+        </article></li>
+        <li><article class="cracha">
+          <div class="cracha__foto"><img src="img/retrato-enzo.webp" width="400" height="400" loading="lazy" alt="Enzo recém-nascido, dormindo enrolado numa manta verde."></div>
+          <h3>Enzo</h3><span class="cracha__cargo">Filho do Belo</span>
+          <p>O motivo de tudo. <span class="preencher">[PREENCHER: idade e papel do Enzo no jogo]</span></p>
+        </article></li>
+        <li><article class="cracha">
+          <div class="cracha__foto"><img src="img/retrato-luis.webp" width="400" height="400" loading="lazy" alt="Luís, de óculos e moletom preto."></div>
+          <h3>Luís</h3><span class="cracha__cargo">Guia e braço direito</span>
+          <p>Explica cada minigame, avisa das promoções e encerra o dia com um “vejo você amanhã!”. Sem ele, o Belo comprava achocolatado pelo preço cheio.</p>
+        </article></li>
+        <li><article class="cracha">
+          <div class="cracha__foto"><span class="preencher">[PREENCHER: arte da vizinha]</span></div>
+          <h3>A vizinha</h3><span class="cracha__cargo">Vizinha do mercado</span>
+          <p><span class="preencher">[PREENCHER: nome, quem ela é e em que dia aparece]</span></p>
+        </article></li>
+        <li><article class="cracha">
+          <div class="cracha__foto"><img src="img/retrato-cliente-arroz.webp" width="400" height="400" loading="lazy" alt="Senhor de chapéu de palha e colete marrom segurando um pacote de arroz."></div>
+          <h3>Os clientes</h3><span class="cracha__cargo">Fila do caixa</span>
+          <p>O primeiro é este senhor, que só queria levar um arroz de 5 kg para a esposa. <span class="preencher">[PREENCHER: nome dele e dos outros clientes]</span></p>
+        </article></li>
+      </ul>
+      <p class="nota" style="margin-top:28px">Também fazem parte da história, mesmo sem aparecer no balcão: a Grazi, ex-esposa do Belo; o Maurício, com quem ela foi embora; e o avô José, que deixou o Korno's de herança.</p>
+    </div>
+  </section>
+  <nav class="proximo-corredor largo" aria-label="Navegar entre corredores">
+    <a class="corredor-link corredor-link--ant" href="jogar.html"><svg aria-hidden="true"><use href="img/icones.svg#seta-volta"/></svg><span><small>Corredor anterior</small>1 · Jogar</span></a>
+    <a class="corredor-link corredor-link--prox" href="matematica.html"><span><small>Próximo corredor</small>3 · A matemática</span><svg aria-hidden="true"><use href="img/icones.svg#seta"/></svg></a>
+  </nav>
+</main>
+
+<footer class="rodape">
+  <div class="largo">
+    <div>
+      <h2>Korno's</h2>
+      <p>Jogo educativo de matemática feito em Godot 4 como Trabalho de Conclusão de Curso do técnico em Desenvolvimento de Sistemas do Instituto Federal de São Paulo (IFSP), câmpus <span class="preencher">[PREENCHER: câmpus]</span>.</p>
+    </div>
+    <div>
+      <h2>Corredores</h2>
+      <ul>
+        <li><a href="jogar.html">Jogar</a></li>
+        <li><a href="historia.html">A história</a></li>
+        <li><a href="matematica.html">A matemática</a></li>
+        <li><a href="bastidores.html">Bastidores</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Grupo 07</h2>
+      <ul>
+        <li><a href="equipe.html">Quem fez</a></li>
+        <li><a href="resultados.html">Resultados do playtest</a></li>
+        <li><a href="documentos.html">Documentos e PDFs</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="largo rodape__base">Korno's · Grupo 07 · IFSP · 2026 · Personagens e ilustrações do jogo. Nada aqui é uma loja de verdade — mas a matemática é.</p>
+</footer>
+<script src="js/config.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
