@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equipe · Korno's</title>
+<meta name="description" content="O Grupo 07 do curso técnico em Desenvolvimento de Sistemas do IFSP: quem fez o Korno's e o papel de cada um.">
+<meta name="theme-color" content="#5B1F00">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&family=Fredoka:wdth,wght@75..125,300..700&display=swap">
+<link rel="stylesheet" href="css/kornos.css">
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="topo">
+  <a class="topo__marca" href="index.html"><img src="img/logo-kornos.webp" srcset="img/logo-kornos.webp 640w, img/logo-kornos-1200.webp 1200w" sizes="196px" width="640" height="293" alt="Korno's Supermercado: página inicial"></a>
+  <nav aria-label="Corredores do site">
+    <button class="menu-botao" type="button" aria-expanded="false" aria-controls="corredores"><svg aria-hidden="true"><use href="img/icones.svg#menu"/></svg>Corredores</button>
+    <ul class="corredores" id="corredores">
+      <li><a href="index.html"><span class="num" aria-hidden="true"><svg width="14" height="14"><use href="img/icones.svg#casa"/></svg></span><span>Início</span></a></li>
+      <li><a href="jogar.html"><span class="num" aria-hidden="true">1</span><span><span class="visualmente-oculto">Corredor 1: </span>Jogar</span></a></li>
+      <li><a href="historia.html"><span class="num" aria-hidden="true">2</span><span><span class="visualmente-oculto">Corredor 2: </span>A história</span></a></li>
+      <li><a href="matematica.html"><span class="num" aria-hidden="true">3</span><span><span class="visualmente-oculto">Corredor 3: </span>A matemática</span></a></li>
+      <li><a href="bastidores.html"><span class="num" aria-hidden="true">4</span><span><span class="visualmente-oculto">Corredor 4: </span>Bastidores</span></a></li>
+      <li><a href="resultados.html"><span class="num" aria-hidden="true">5</span><span><span class="visualmente-oculto">Corredor 5: </span>Resultados</span></a></li>
+      <li><a href="equipe.html" aria-current="page"><span class="num" aria-hidden="true">6</span><span><span class="visualmente-oculto">Corredor 6: </span>Equipe</span></a></li>
+      <li><a href="documentos.html"><span class="num" aria-hidden="true">7</span><span><span class="visualmente-oculto">Corredor 7: </span>Documentos</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="conteudo">
+  <section class="secao" style="padding-top:clamp(32px,5vw,72px)" aria-labelledby="t-equipe">
+    <div class="medio duas-col" style="grid-template-columns:minmax(0,5fr) minmax(0,6fr)">
+      <div class="texto-corrido" style="position:sticky;top:20px">
+        <h1 id="t-equipe" style="font-size:clamp(2.6rem,1.4rem + 4.4vw,5rem);line-height:.96">Quem passou <span style="color:var(--laranja)">essa conta</span></h1>
+        <p class="intro" style="margin-top:.8em">Cinco alunos do curso técnico em Desenvolvimento de Sistemas do IFSP. Cada um é um item do cupom. O total é um jogo.</p>
+        <p>Para mudar o papel, a foto ou os links de alguém, edite o bloco com o nome da pessoa no arquivo <code>equipe.html</code>. O README explica.</p>
+      </div>
+
+      <!--
+        CUPOM DA EQUIPE
+        Cada pessoa é um <div class="cupom-item">.
+        Foto: coloque o arquivo em img/equipe/ (ex.: img/equipe/luis.webp) e troque o <span> com as iniciais por:
+          <img src="img/equipe/luis.webp" alt="Foto de Luis Carlos" loading="lazy" width="300" height="400">
+      -->
+      <div class="cupom" data-imprime>
+        <h2>KORNO'S SUPERMERCADO</h2>
+        <p class="centro">Grupo 07 · Desenvolvimento de Sistemas</p>
+        <p class="centro">IFSP · câmpus <span class="preencher">[PREENCHER]</span> · 2026</p>
+        <hr>
+        <p class="centro"><strong>CUPOM DE CRÉDITOS</strong></p>
+        <p class="centro">NÃO É DOCUMENTO FISCAL</p>
+        <hr>
+        <div class="linha"><span>ITEM  DESCRIÇÃO</span><span>QTD</span></div>
+        <hr>
+
+        <div class="cupom-item">
+          <div class="cupom-item__foto" aria-hidden="true">LC</div>
+          <div>
+            <div class="linha"><span class="cupom-item__nome">001 Luis Carlos Souza da Silva</span><span>1 UN</span></div>
+            <p>Papel: <span class="preencher">[PREENCHER]</span></p>
+            <p class="cupom-item__links"><a href="#">GitHub <span class="preencher">[PREENCHER]</span></a><a href="#">LinkedIn <span class="preencher">[PREENCHER]</span></a></p>
+          </div>
+        </div>
+
+        <div class="cupom-item">
+          <div class="cupom-item__foto" aria-hidden="true">RR</div>
+          <div>
+            <div class="linha"><span class="cupom-item__nome">002 Rhayane Ribeiro Pimentel</span><span>1 UN</span></div>
+            <p>Papel: <span class="preencher">[PREENCHER]</span></p>
+            <p class="cupom-item__links"><a href="#">GitHub <span class="preencher">[PREENCHER]</span></a><a href="#">LinkedIn <span class="preencher">[PREENCHER]</span></a></p>
+          </div>
+        </div>
+
+        <div class="cupom-item">
+          <div class="cupom-item__foto" aria-hidden="true">SA</div>
+          <div>
+            <div class="linha"><span class="cupom-item__nome">003 Sabryna Andrade de Almeida</span><span>1 UN</span></div>
+            <p>Papel: <span class="preencher">[PREENCHER]</span></p>
+            <p class="cupom-item__links"><a href="#">GitHub <span class="preencher">[PREENCHER]</span></a><a href="#">LinkedIn <span class="preencher">[PREENCHER]</span></a></p>
+          </div>
+        </div>
+
+        <div class="cupom-item">
+          <div class="cupom-item__foto" aria-hidden="true">SI</div>
+          <div>
+            <div class="linha"><span class="cupom-item__nome">004 Sofia Isabelli de Carvalho Santos</span><span>1 UN</span></div>
+            <p>Papel: <span class="preencher">[PREENCHER]</span></p>
+            <p class="cupom-item__links"><a href="#">GitHub <span class="preencher">[PREENCHER]</span></a><a href="#">LinkedIn <span class="preencher">[PREENCHER]</span></a></p>
+          </div>
+        </div>
+
+        <div class="cupom-item">
+          <div class="cupom-item__foto" aria-hidden="true">VX</div>
+          <div>
+            <div class="linha"><span class="cupom-item__nome">005 Vitória Xavier Pereira</span><span>1 UN</span></div>
+            <p>Papel: <span class="preencher">[PREENCHER]</span></p>
+            <p class="cupom-item__links"><a href="#">GitHub <span class="preencher">[PREENCHER]</span></a><a href="#">LinkedIn <span class="preencher">[PREENCHER]</span></a></p>
+          </div>
+        </div>
+
+        <hr>
+        <div class="linha"><span>QTD. TOTAL DE ITENS</span><span>5</span></div>
+        <div class="linha total"><span>TOTAL</span><span>1 JOGO</span></div>
+        <div class="linha"><span>ENGINE</span><span>GODOT 4</span></div>
+        <div class="linha"><span>FORMA DE PAGAMENTO</span><span>MUITO GDSCRIPT</span></div>
+        <hr>
+        <p>ORIENTAÇÃO</p>
+        <div class="linha"><span>João Temochko</span><span>PROF.</span></div>
+        <div class="linha"><span>Felipe Marcos Pinto</span><span>PROF.</span></div>
+        <p>Disciplina parceira: Matemática Computacional</p>
+        <hr>
+        <p class="centro">Obrigado pela preferência!</p>
+        <p class="centro">Volte sempre.</p>
+        <div class="barras" style="height:40px;margin-top:14px" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+  <nav class="proximo-corredor largo" aria-label="Navegar entre corredores">
+    <a class="corredor-link corredor-link--ant" href="resultados.html"><svg aria-hidden="true"><use href="img/icones.svg#seta-volta"/></svg><span><small>Corredor anterior</small>5 · Resultados</span></a>
+    <a class="corredor-link corredor-link--prox" href="documentos.html"><span><small>Próximo corredor</small>7 · Documentos</span><svg aria-hidden="true"><use href="img/icones.svg#seta"/></svg></a>
+  </nav>
+</main>
+
+<footer class="rodape">
+  <div class="largo">
+    <div>
+      <h2>Korno's</h2>
+      <p>Jogo educativo de matemática feito em Godot 4 como Trabalho de Conclusão de Curso do técnico em Desenvolvimento de Sistemas do Instituto Federal de São Paulo (IFSP), câmpus <span class="preencher">[PREENCHER: câmpus]</span>.</p>
+    </div>
+    <div>
+      <h2>Corredores</h2>
+      <ul>
+        <li><a href="jogar.html">Jogar</a></li>
+        <li><a href="historia.html">A história</a></li>
+        <li><a href="matematica.html">A matemática</a></li>
+        <li><a href="bastidores.html">Bastidores</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Grupo 07</h2>
+      <ul>
+        <li><a href="equipe.html">Quem fez</a></li>
+        <li><a href="resultados.html">Resultados do playtest</a></li>
+        <li><a href="documentos.html">Documentos e PDFs</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="largo rodape__base">Korno's · Grupo 07 · IFSP · 2026 · Personagens e ilustrações do jogo. Nada aqui é uma loja de verdade — mas a matemática é.</p>
+</footer>
+<script src="js/config.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
