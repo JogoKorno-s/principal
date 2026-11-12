@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resultados · Korno's</title>
+<meta name="description" content="Resultados do playtest do Korno's com colegas: taxa de acerto e tempo médio por minigame.">
+<meta name="theme-color" content="#5B1F00">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&family=Fredoka:wdth,wght@75..125,300..700&display=swap">
+<link rel="stylesheet" href="css/kornos.css">
+</head>
+<body>
+<!-- Ícones do site (editar em img/icones.svg e copiar para cá) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+<symbol id="carrinho" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h4l3.2 15.2a2 2 0 0 0 2 1.6h12.1a2 2 0 0 0 2-1.5L29 10H8.6"/><path d="M13 14.5h12M12 18h11.5"/><circle cx="13.5" cy="26.5" r="1.9"/><circle cx="23.5" cy="26.5" r="1.9"/></g></symbol>
+  <symbol id="caixa" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18h22l-1.6-7.5a2 2 0 0 0-2-1.5H8.6a2 2 0 0 0-2 1.5Z"/><path d="M4 18h24v8a1.5 1.5 0 0 1-1.5 1.5h-21A1.5 1.5 0 0 1 4 26Z"/><path d="M11 9V4.5h10V9M10 13h2M15 13h2M20 13h2M12 22.5h8"/></g></symbol>
+  <symbol id="moto" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="22" r="4.5"/><circle cx="25" cy="22" r="4.5"/><path d="M7 22h7l4-7h5l2 7M18 15l-2-5h-4M21.5 15l1.5-4.5h3.5"/><rect x="8" y="9" width="7" height="6" rx="1"/></g></symbol>
+  <symbol id="camera" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 21.5 4.8a1.5 1.5 0 0 1 1.8 1.1l1.6 6a1.5 1.5 0 0 1-1 1.8L6.4 18.4Z"/><path d="m24.5 9.6 3.9-1.8.9 3.5-4 .9M11 16.6l1.5 5.4H6.5v5"/><circle cx="9" cy="11" r=".6" fill="currentColor"/></g></symbol>
+  <symbol id="lata" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6.5c0-1.4 3.1-2.5 7-2.5s7 1.1 7 2.5v19c0 1.4-3.1 2.5-7 2.5s-7-1.1-7-2.5Z"/><path d="M9 6.5c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5M9 12c2 1 4.4 1.4 7 1.4s5-.4 7-1.4M9 20c2 1 4.4 1.4 7 1.4s5-.4 7-1.4"/></g></symbol>
+  <symbol id="seta" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="tela-cheia" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="baixar" viewBox="0 0 24 24"><path d="M12 3.5v11m-5-5 5 5 5-5M4.5 19.5h15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v4.5A1.5 1.5 0 0 1 16.5 20h-11A1.5 1.5 0 0 1 4 18.5v-11A1.5 1.5 0 0 1 5.5 6H10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="pausa" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="tocar" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5Z" fill="currentColor"/></symbol>
+  <symbol id="anterior" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="proximo" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="certo" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#82B875" stroke="#5B1F00" stroke-width="2.5"/><path d="m9.5 16.5 4.5 4.5 8.5-9" fill="none" stroke="#5B1F00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="errado" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#D96300" stroke="#5B1F00" stroke-width="2.5"/><path d="M16 8.5v9" stroke="#5B1F00" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="22.5" r="2" fill="#5B1F00"/></symbol>
+  <symbol id="chip" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="16" height="16" rx="2.5"/><path d="M12 4v4M16 4v4M20 4v4M12 24v4M16 24v4M20 24v4M4 12h4M4 16h4M4 20h4M24 12h4M24 16h4M24 20h4"/><path d="m13 18 2-4 2 4 2-4"/></g></symbol>
+  <symbol id="documento" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6Zm8 0v4h4M9 12h6M9 16h6" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="casa" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6.5 9.5V20h11V9.5M10 20v-5.5h4V20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="seta-volta" viewBox="0 0 24 24"><path d="M20 12H5m6-6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="topo">
+  <a class="topo__marca" href="index.html"><img src="img/logo-kornos.webp" srcset="img/logo-kornos.webp 640w, img/logo-kornos-1200.webp 1200w" sizes="196px" width="640" height="293" alt="Korno's Supermercado: página inicial"></a>
+  <nav aria-label="Corredores do site">
+    <button class="menu-botao" type="button" aria-expanded="false" aria-controls="corredores"><svg aria-hidden="true"><use href="#menu"/></svg>Corredores</button>
+    <ul class="corredores" id="corredores">
+      <li><a href="index.html"><span class="num" aria-hidden="true"><svg width="14" height="14"><use href="#casa"/></svg></span><span>Início</span></a></li>
+      <li><a href="jogar.html"><span class="num" aria-hidden="true">1</span><span><span class="visualmente-oculto">Corredor 1: </span>Jogar</span></a></li>
+      <li><a href="historia.html"><span class="num" aria-hidden="true">2</span><span><span class="visualmente-oculto">Corredor 2: </span>A história</span></a></li>
+      <li><a href="matematica.html"><span class="num" aria-hidden="true">3</span><span><span class="visualmente-oculto">Corredor 3: </span>A matemática</span></a></li>
+      <li><a href="bastidores.html"><span class="num" aria-hidden="true">4</span><span><span class="visualmente-oculto">Corredor 4: </span>Bastidores</span></a></li>
+      <li><a href="resultados.html" aria-current="page"><span class="num" aria-hidden="true">5</span><span><span class="visualmente-oculto">Corredor 5: </span>Resultados</span></a></li>
+      <li><a href="equipe.html"><span class="num" aria-hidden="true">6</span><span><span class="visualmente-oculto">Corredor 6: </span>Equipe</span></a></li>
+      <li><a href="documentos.html"><span class="num" aria-hidden="true">7</span><span><span class="visualmente-oculto">Corredor 7: </span>Documentos</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="conteudo">
+  <header class="cabeca">
+    <div class="largo">
+      <h1>O fechamento <span class="tinta">do caixa</span></h1>
+      <p class="intro">Colocamos colegas para jogar e anotamos tudo: quem acertou, quem errou e quanto tempo cada um levou em cada minigame. É aqui que a gente descobre se a matemática ficou difícil demais ou fácil demais.</p>
+    </div>
+  </header>
+
+  <section class="secao" style="padding-top:16px" aria-labelledby="t-como">
+    <div class="medio duas-col">
+      <div class="texto-corrido">
+        <h2 id="t-como" style="font-size:clamp(1.8rem,1.2rem + 2vw,2.8rem)">Como foi o teste</h2>
+        <ul>
+          <li><strong>Quem jogou:</strong> <span class="preencher">[PREENCHER: nº de pessoas, turma, idade]</span></li>
+          <li><strong>Quando:</strong> <span class="preencher">[PREENCHER: data]</span></li>
+          <li><strong>Versão do jogo:</strong> <span class="preencher">[PREENCHER]</span></li>
+          <li><strong>Como medimos:</strong> <span class="preencher">[PREENCHER: cronômetro, registro automático no jogo, formulário…]</span></li>
+        </ul>
+      </div>
+      <div class="fala fala--compacta">
+        <div class="fala__retrato"><img src="img/retrato-luis.webp" width="400" height="400" alt="Luís" loading="lazy"></div>
+        <div class="balao"><p>Errar faz parte. O que importa é se a pessoa entendeu <em>por que</em> errou, e se tentou de novo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao faixa-bege" aria-labelledby="t-leitura">
+    <div class="medio">
+      <div class="leitura">
+        <h2 id="t-leitura" class="mono" style="font-family:var(--f-texto);font-size:1.25rem;font-weight:800;text-align:center">LEITURA X · PLAYTEST</h2>
+        <p style="text-align:center;margin-bottom:18px">KORNO'S SUPERMERCADO · resultado por minigame</p>
+        <div class="tabela-rolagem">
+          <table class="tabela">
+            <caption class="visualmente-oculto">Taxa de acerto e tempo médio por minigame no playtest</caption>
+            <thead>
+              <tr><th scope="col">Dia</th><th scope="col">Minigame</th><th scope="col">Jogadores</th><th scope="col">Acerto de primeira</th><th scope="col">Tempo médio</th><th scope="col">Onde travaram</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Atacadista</td><td class="num"><span class="preencher">[PREENCHER]</span></td><td class="num"><span class="preencher">[__ %]</span></td><td class="num"><span class="preencher">[__ min __ s]</span></td><td><span class="preencher">[PREENCHER]</span></td></tr>
+              <tr><td>2</td><td>Caixa e troco</td><td class="num"><span class="preencher">[PREENCHER]</span></td><td class="num"><span class="preencher">[__ %]</span></td><td class="num"><span class="preencher">[__ min __ s]</span></td><td><span class="preencher">[PREENCHER]</span></td></tr>
+              <tr><td>3</td><td>Moto Entrega</td><td class="num"><span class="preencher">[PREENCHER]</span></td><td class="num"><span class="preencher">[__ %]</span></td><td class="num"><span class="preencher">[__ min __ s]</span></td><td><span class="preencher">[PREENCHER]</span></td></tr>
+              <tr><td>4</td><td>Câmeras</td><td class="num"><span class="preencher">[PREENCHER]</span></td><td class="num"><span class="preencher">[__ %]</span></td><td class="num"><span class="preencher">[__ min __ s]</span></td><td><span class="preencher">[PREENCHER]</span></td></tr>
+              <tr><td>5</td><td>Prateleira</td><td class="num"><span class="preencher">[PREENCHER]</span></td><td class="num"><span class="preencher">[__ %]</span></td><td class="num"><span class="preencher">[__ min __ s]</span></td><td><span class="preencher">[PREENCHER]</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <hr style="border:0;border-top:2px dashed currentColor;margin:18px 0">
+        <p><strong>Jogo completo do Dia 1 ao Dia 5:</strong> <span class="preencher">[PREENCHER: tempo médio total]</span></p>
+        <p><strong>Terminaram os cinco dias:</strong> <span class="preencher">[PREENCHER: __ de __ jogadores]</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="t-falas">
+    <div class="medio duas-col">
+      <div class="texto-corrido">
+        <h2 id="t-falas" style="font-size:clamp(1.8rem,1.2rem + 2vw,2.8rem)">O que os jogadores disseram</h2>
+        <p><span class="preencher">[PREENCHER: 2 ou 3 frases reais, com permissão de quem falou]</span></p>
+      </div>
+      <div class="texto-corrido">
+        <h2 style="font-size:clamp(1.8rem,1.2rem + 2vw,2.8rem)">O que mudamos depois</h2>
+        <p><span class="preencher">[PREENCHER: o que foi ajustado no jogo por causa do playtest]</span></p>
+      </div>
+    </div>
+  </section>
+  <nav class="proximo-corredor largo" aria-label="Navegar entre corredores">
+    <a class="corredor-link corredor-link--ant" href="bastidores.html"><svg aria-hidden="true"><use href="#seta-volta"/></svg><span><small>Corredor anterior</small>4 · Bastidores</span></a>
+    <a class="corredor-link corredor-link--prox" href="equipe.html"><span><small>Próximo corredor</small>6 · Equipe</span><svg aria-hidden="true"><use href="#seta"/></svg></a>
+  </nav>
+</main>
+
+<footer class="rodape">
+  <div class="largo">
+    <div>
+      <h2>Korno's</h2>
+      <p>Jogo educativo de matemática feito em Godot 4 como Trabalho de Conclusão de Curso do técnico em Desenvolvimento de Sistemas do Instituto Federal de São Paulo (IFSP), câmpus São Paulo.</p>
+    </div>
+    <div>
+      <h2>Corredores</h2>
+      <ul>
+        <li><a href="jogar.html">Jogar</a></li>
+        <li><a href="historia.html">A história</a></li>
+        <li><a href="matematica.html">A matemática</a></li>
+        <li><a href="bastidores.html">Bastidores</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Grupo 07</h2>
+      <ul>
+        <li><a href="equipe.html">Quem fez</a></li>
+        <li><a href="resultados.html">Resultados do playtest</a></li>
+        <li><a href="documentos.html">Documentos e PDFs</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="largo rodape__base">Korno's · Grupo 07 · IFSP · 2026 · Personagens e ilustrações do jogo. Nada aqui é uma loja de verdade — mas a matemática é.</p>
+</footer>
+<script src="js/config.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

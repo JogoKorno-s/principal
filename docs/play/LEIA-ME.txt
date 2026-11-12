@@ -1,0 +1,3 @@
+Coloque aqui a exportação WEB do Godot (o arquivo principal precisa se chamar index.html).
+Na exportação, desligue "Thread Support" (Variant > Thread Support). Veja o README.md na raiz.
+Quando play/index.html existir, a página Jogar e a placa da página inicial mudam sozinhas para ABERTO.

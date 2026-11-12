@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A matemática · Korno's</title>
+<meta name="description" content="Os cinco minigames do Korno's: decimais, porcentagem, velocidade média, trigonometria e análise combinatória, com exemplo resolvido e o algoritmo que o computador usa por trás de cada um.">
+<meta name="theme-color" content="#5B1F00">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&family=Fredoka:wdth,wght@75..125,300..700&display=swap">
+<link rel="stylesheet" href="css/kornos.css">
+</head>
+<body>
+<!-- Ícones do site (editar em img/icones.svg e copiar para cá) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+<symbol id="carrinho" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h4l3.2 15.2a2 2 0 0 0 2 1.6h12.1a2 2 0 0 0 2-1.5L29 10H8.6"/><path d="M13 14.5h12M12 18h11.5"/><circle cx="13.5" cy="26.5" r="1.9"/><circle cx="23.5" cy="26.5" r="1.9"/></g></symbol>
+  <symbol id="caixa" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18h22l-1.6-7.5a2 2 0 0 0-2-1.5H8.6a2 2 0 0 0-2 1.5Z"/><path d="M4 18h24v8a1.5 1.5 0 0 1-1.5 1.5h-21A1.5 1.5 0 0 1 4 26Z"/><path d="M11 9V4.5h10V9M10 13h2M15 13h2M20 13h2M12 22.5h8"/></g></symbol>
+  <symbol id="moto" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="22" r="4.5"/><circle cx="25" cy="22" r="4.5"/><path d="M7 22h7l4-7h5l2 7M18 15l-2-5h-4M21.5 15l1.5-4.5h3.5"/><rect x="8" y="9" width="7" height="6" rx="1"/></g></symbol>
+  <symbol id="camera" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 21.5 4.8a1.5 1.5 0 0 1 1.8 1.1l1.6 6a1.5 1.5 0 0 1-1 1.8L6.4 18.4Z"/><path d="m24.5 9.6 3.9-1.8.9 3.5-4 .9M11 16.6l1.5 5.4H6.5v5"/><circle cx="9" cy="11" r=".6" fill="currentColor"/></g></symbol>
+  <symbol id="lata" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6.5c0-1.4 3.1-2.5 7-2.5s7 1.1 7 2.5v19c0 1.4-3.1 2.5-7 2.5s-7-1.1-7-2.5Z"/><path d="M9 6.5c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5M9 12c2 1 4.4 1.4 7 1.4s5-.4 7-1.4M9 20c2 1 4.4 1.4 7 1.4s5-.4 7-1.4"/></g></symbol>
+  <symbol id="seta" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="tela-cheia" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="baixar" viewBox="0 0 24 24"><path d="M12 3.5v11m-5-5 5 5 5-5M4.5 19.5h15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v4.5A1.5 1.5 0 0 1 16.5 20h-11A1.5 1.5 0 0 1 4 18.5v-11A1.5 1.5 0 0 1 5.5 6H10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="pausa" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol>
+  <symbol id="tocar" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5Z" fill="currentColor"/></symbol>
+  <symbol id="anterior" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="proximo" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="certo" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#82B875" stroke="#5B1F00" stroke-width="2.5"/><path d="m9.5 16.5 4.5 4.5 8.5-9" fill="none" stroke="#5B1F00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="errado" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#D96300" stroke="#5B1F00" stroke-width="2.5"/><path d="M16 8.5v9" stroke="#5B1F00" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="22.5" r="2" fill="#5B1F00"/></symbol>
+  <symbol id="chip" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="16" height="16" rx="2.5"/><path d="M12 4v4M16 4v4M20 4v4M12 24v4M16 24v4M20 24v4M4 12h4M4 16h4M4 20h4M24 12h4M24 16h4M24 20h4"/><path d="m13 18 2-4 2 4 2-4"/></g></symbol>
+  <symbol id="documento" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6Zm8 0v4h4M9 12h6M9 16h6" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="casa" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6.5 9.5V20h11V9.5M10 20v-5.5h4V20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="seta-volta" viewBox="0 0 24 24"><path d="M20 12H5m6-6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<header class="topo">
+  <a class="topo__marca" href="index.html"><img src="img/logo-kornos.webp" srcset="img/logo-kornos.webp 640w, img/logo-kornos-1200.webp 1200w" sizes="196px" width="640" height="293" alt="Korno's Supermercado: página inicial"></a>
+  <nav aria-label="Corredores do site">
+    <button class="menu-botao" type="button" aria-expanded="false" aria-controls="corredores"><svg aria-hidden="true"><use href="#menu"/></svg>Corredores</button>
+    <ul class="corredores" id="corredores">
+      <li><a href="index.html"><span class="num" aria-hidden="true"><svg width="14" height="14"><use href="#casa"/></svg></span><span>Início</span></a></li>
+      <li><a href="jogar.html"><span class="num" aria-hidden="true">1</span><span><span class="visualmente-oculto">Corredor 1: </span>Jogar</span></a></li>
+      <li><a href="historia.html"><span class="num" aria-hidden="true">2</span><span><span class="visualmente-oculto">Corredor 2: </span>A história</span></a></li>
+      <li><a href="matematica.html" aria-current="page"><span class="num" aria-hidden="true">3</span><span><span class="visualmente-oculto">Corredor 3: </span>A matemática</span></a></li>
+      <li><a href="bastidores.html"><span class="num" aria-hidden="true">4</span><span><span class="visualmente-oculto">Corredor 4: </span>Bastidores</span></a></li>
+      <li><a href="resultados.html"><span class="num" aria-hidden="true">5</span><span><span class="visualmente-oculto">Corredor 5: </span>Resultados</span></a></li>
+      <li><a href="equipe.html"><span class="num" aria-hidden="true">6</span><span><span class="visualmente-oculto">Corredor 6: </span>Equipe</span></a></li>
+      <li><a href="documentos.html"><span class="num" aria-hidden="true">7</span><span><span class="visualmente-oculto">Corredor 7: </span>Documentos</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="conteudo">
+  <header class="cabeca">
+    <div class="largo">
+      <h1>A matemática <span class="tinta">do balcão</span></h1>
+      <div>
+        <p class="intro">Cada dia do jogo tem um minigame, e cada minigame é uma conta que alguém faz num mercado de verdade. Depois que você resolve, o Korno's mostra como o <strong>computador</strong> resolveria o mesmo problema. Essa é a parte de matemática computacional.</p>
+
+      </div>
+    </div>
+  </header>
+  <nav class="trilho-dias" aria-label="Dias e minigames" data-trilho>
+    <div class="largo">
+      <ul class="indice-dias">
+        <li><a href="#atacadista"><b>1</b> Atacadista</a></li>
+        <li><a href="#caixa"><b>2</b> Caixa</a></li>
+        <li><a href="#moto"><b>3</b> Moto Entrega</a></li>
+        <li><a href="#cameras"><b>4</b> Câmeras</a></li>
+        <li><a href="#prateleira"><b>5</b> Prateleira</a></li>
+          <li><a href="#demo" class="indice-demo">Testar a prateleira</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- ================= DIA 1 ================= -->
+  <section class="dia" id="atacadista" aria-labelledby="t-atacadista">
+    <div class="largo">
+      <header class="etiqueta">
+        <h2 id="t-atacadista">Compra no atacadista</h2>
+        <div class="etiqueta__lado"><span>Dia <b>1</b></span><span class="barras" aria-hidden="true"></span><span>Decimais</span></div>
+      </header>
+
+      <div class="dia__grade">
+        <div class="texto-corrido">
+          <dl class="ficha">
+            <dt>Situação</dt><dd>Mercado limpo, prateleira vazia. O Luís acha uma promoção no atacadista e o Belo tem que montar o carrinho sem passar do dinheiro em caixa.</dd>
+            <dt>Conteúdo</dt><dd>Operações com números decimais; porcentagem de desconto.</dd>
+            <dt>Série</dt><dd>6º ano do Ensino Fundamental (BNCC EF06MA11) e revisão no 7º ano (EF07MA02, porcentagem).</dd>
+          </dl>
+
+          <h3>Exemplo resolvido</h3>
+          <p>No protótipo, o Belo começa o Dia 1 com <strong>R$ 300,00</strong> e chega ao Dia 2 com <strong>R$ 220,02</strong>. Um carrinho que fecha exatamente essa conta:</p>
+          <ol class="passos">
+            <li><span>Some cada linha do carrinho (quantidade × preço).<span class="calculo">4 salgadinhos × R$ 6,49 = R$ 25,96
+4 biscoitos   × R$ 8,75 = R$ 35,00
+2 macarrões   × R$ 4,51 = R$  9,02
+2 refris      × R$ 5,00 = R$ 10,00</span></span></li>
+            <li><span>Some as linhas, alinhando a vírgula.<span class="calculo">25,96 + 35,00 + 9,02 + 10,00 = R$ 79,98</span></span></li>
+            <li><span>Confira se cabe no orçamento e veja o que sobra.<span class="calculo">300,00 − 79,98 = R$ 220,02  ✓ cabe</span></span></li>
+            <li><span>Desafio extra dos slides: o achocolatado de R$ 80,00 está com 15% de desconto.<span class="calculo">15% de 80 = 0,15 × 80 = R$ 12,00
+80,00 − 12,00 = R$ 68,00</span></span></li>
+          </ol>
+          <p class="nota">Os preços do carrinho são um exemplo montado para bater com o dinheiro que aparece no protótipo. <span class="preencher">[PREENCHER: preços reais dos produtos no jogo]</span></p>
+
+          <div class="computador">
+            <h3><svg aria-hidden="true"><use href="#chip"/></svg>Como o computador resolve</h3>
+            <p>Conferir se o carrinho cabe é só uma soma. O problema fica interessante quando a pergunta vira: <em>qual é o melhor carrinho possível com R$ 300?</em> Esse é o <strong>problema da mochila</strong>, um clássico da computação. Testar todas as combinações explode rápido (com 30 produtos, são mais de um bilhão), então o computador usa <strong>programação dinâmica</strong>: resolve o problema para orçamentos menores e reaproveita as respostas.</p>
+            <p>Ele também trabalha em <strong>centavos inteiros</strong>, porque no computador <code>0,1 + 0,2</code> não dá exatamente <code>0,3</code>.</p>
+<pre><code><span class="cmt">// melhor carrinho sem passar do orçamento (valores em centavos)</span>
+function melhorCarrinho(itens, orcamento) {
+  <span class="cmt">// melhor[v] = maior "utilidade" gastando no máximo v centavos</span>
+  const melhor = new Array(orcamento + 1).fill(0);
+  for (const item of itens)
+    for (let v = orcamento; v >= item.preco; v--)
+      melhor[v] = Math.max(melhor[v], melhor[v - item.preco] + item.utilidade);
+  return melhor[orcamento];
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="lado">
+          <figure class="cena-jogo cena-jogo--torta">
+            <img src="img/dia1-luis-atacadista-800.webp" srcset="img/dia1-luis-atacadista-800.webp 800w, img/dia1-luis-atacadista.webp 1600w" sizes="(max-width: 900px) 100vw, 40vw" width="1600" height="900" loading="lazy" alt="Captura do jogo: Luís, no salão já limpo, avisa sobre a promoção no atacadista. No topo, o carrinho com um alerta vermelho, R$ 300,00 e o dia 01.">
+            <figcaption>Protótipo · Dia 1: o ícone do carrinho acende quando a promoção chega.</figcaption>
+          </figure>
+          <figure class="cena-jogo">
+            <img src="img/prototipo-atacadista.webp" width="1300" height="732" loading="lazy" alt="Rascunho da tela de compra no atacadista: macarrão, salgadinho, refrigerante e biscoito, cada um com botões de menos e mais e a quantidade, e um botão vermelho BUY.">
+            <figcaption>Rascunho da tela de compra, dos slides de planejamento.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DIA 2 ================= -->
+  <section class="dia dia--inverte" id="caixa" aria-labelledby="t-caixa">
+    <div class="largo">
+      <header class="etiqueta">
+        <h2 id="t-caixa">O caixa e o troco</h2>
+        <div class="etiqueta__lado"><span>Dia <b>2</b></span><span class="barras" aria-hidden="true"></span><span>Porcentagem</span></div>
+      </header>
+
+      <div class="dia__grade">
+        <div class="lado">
+          <figure class="cena-jogo">
+            <img src="img/dia2-cliente-arroz-800.webp" srcset="img/dia2-cliente-arroz-800.webp 800w, img/dia2-cliente-arroz.webp 1600w" sizes="(max-width: 900px) 100vw, 40vw" width="1600" height="900" loading="lazy" alt="Captura do jogo: o primeiro cliente, um senhor de chapéu de palha, segura um pacote de arroz de 5 kg e pede para passar no caixa. As opções de resposta são Sim e Claro.">
+            <figcaption>Protótipo · Dia 2: o primeiro cliente. As duas respostas dizem a mesma coisa, de propósito.</figcaption>
+          </figure>
+          <div class="fala fala--compacta">
+            <div class="fala__retrato"><img src="img/retrato-cliente-arroz.webp" width="400" height="400" loading="lazy" alt="O senhor de chapéu de palha, segurando o arroz."></div>
+            <div class="balao"><p>Pago com uma de cinquenta, pode ser? Só não me vá devolver um saco de moedas.</p></div>
+          </div>
+        </div>
+
+        <div class="texto-corrido">
+          <dl class="ficha">
+            <dt>Situação</dt><dd>O primeiro cliente chega ao caixa. O Belo precisa cobrar o preço certo e devolver o troco com notas e moedas.</dd>
+            <dt>Conteúdo</dt><dd>Porcentagem, acréscimo e desconto; margem de lucro; troco com o sistema monetário brasileiro.</dd>
+            <dt>Série</dt><dd>7º ano do Ensino Fundamental (BNCC EF07MA02).</dd>
+          </dl>
+
+          <h3>Exemplo resolvido</h3>
+          <ol class="passos">
+            <li><span>O Belo pagou R$ 20,00 no pacote de arroz e quer 30% de margem.<span class="calculo">30% de 20,00 = 0,30 × 20,00 = R$ 6,00
+preço de venda = 20,00 + 6,00 = R$ 26,00</span></span></li>
+            <li><span>O cliente paga com uma nota de R$ 50,00.<span class="calculo">troco = 50,00 − 26,00 = R$ 24,00</span></span></li>
+            <li><span>Monte o troco com o menor número de peças: sempre a maior nota que ainda cabe.<span class="calculo">24,00 → nota de 20 (resta 4,00)
+ 4,00 → nota de 2  (resta 2,00)
+ 2,00 → nota de 2  (resta 0,00)
+total: 3 peças</span></span></li>
+            <li><span>Desafio dos slides: a caixa de óleo de R$ 45,00 vai subir 20%.<span class="calculo">20% de 45 = 9  →  45 + 9 = R$ 54,00</span></span></li>
+          </ol>
+          <p class="nota">Preço de custo e margem do arroz são exemplo. <span class="preencher">[PREENCHER: valores usados no minigame do caixa]</span></p>
+
+          <div class="computador">
+            <h3><svg aria-hidden="true"><use href="#chip"/></svg>Como o computador resolve</h3>
+            <p>O jeito de pegar sempre a maior nota que cabe tem nome: <strong>algoritmo guloso</strong>. Ele decide olhando só o passo atual, sem voltar atrás. Com as notas e moedas do real, o guloso sempre acerta o menor número de peças. Mas isso não vale para qualquer sistema: se só existissem moedas de 1, 3 e 4, o troco de 6 sairia 4 + 1 + 1 (três moedas), quando 3 + 3 resolve com duas.</p>
+<pre><code><span class="cmt">// notas e moedas do real, em centavos, da maior para a menor</span>
+const dinheiro = [20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50, 25, 10, 5, 1];
+
+function troco(valor) {
+  const pecas = [];
+  for (const d of dinheiro)
+    while (valor >= d) { valor -= d; pecas.push(d); }
+  return pecas;
+}
+
+troco(2400); <span class="cmt">// → [2000, 200, 200]  (R$ 20 + R$ 2 + R$ 2)</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DIA 3 ================= -->
+  <section class="dia" id="moto" aria-labelledby="t-moto">
+    <div class="largo">
+      <header class="etiqueta">
+        <h2 id="t-moto">Moto Entrega</h2>
+        <div class="etiqueta__lado"><span>Dia <b>3</b></span><span class="barras" aria-hidden="true"></span><span>Matemática + Física</span></div>
+      </header>
+
+      <div class="dia__grade">
+        <div class="texto-corrido">
+          <dl class="ficha">
+            <dt>Situação</dt><dd>O faturamento cresceu e o Luís apresenta o app Moto Entrega. Chega o Pedido #001: Bairro Jardim, a 18 km, com prazo de 30 minutos. O jogador escolhe a rota no mapa do bairro e precisa chegar a tempo.</dd>
+            <dt>Conteúdo</dt><dd>Velocidade média (v = d / t), conversão de unidades, consumo de combustível em km/L.</dd>
+            <dt>Série</dt><dd>9º ano do Ensino Fundamental (BNCC EF09MA07, razão entre grandezas) e 1ª série do Ensino Médio em Física (movimento uniforme).</dd>
+          </dl>
+
+          <h3>Exemplo resolvido</h3>
+          <ol class="passos">
+            <li><span>Passe o tempo para horas, porque a velocidade vai sair em km/h.<span class="calculo">30 min = 30 ÷ 60 = 0,5 h</span></span></li>
+            <li><span>Aplique a velocidade média.<span class="calculo">v = d ÷ t = 18 km ÷ 0,5 h = 36 km/h</span></span></li>
+            <li><span>Abaixo de 36 km/h, a entrega atrasa. Agora o combustível: a moto faz 40 km/L e vai e volta.<span class="calculo">distância total = 18 + 18 = 36 km
+litros = 36 ÷ 40 = 0,9 L</span></span></li>
+          </ol>
+          <p class="nota">Pedido, distância e prazo vêm do roteiro. O consumo de 40 km/L e o mapa ao lado são exemplo. <span class="preencher">[PREENCHER: mapa e números do minigame]</span></p>
+
+          <div class="computador">
+            <h3><svg aria-hidden="true"><use href="#chip"/></svg>Como o computador resolve</h3>
+            <p>Para o computador, o bairro é um <strong>grafo</strong>: os lugares são vértices e as ruas são arestas com a distância em km. Achar o caminho mais curto é trabalho do <strong>algoritmo de Dijkstra</strong>: ele sempre visita o lugar ainda não visitado mais perto do mercado e atualiza a distância dos vizinhos. É o mesmo princípio dos apps de mapa.</p>
+<pre><code>function dijkstra(grafo, origem) {
+  const dist = {}, veioDe = {}, visitados = new Set();
+  for (const lugar in grafo) dist[lugar] = Infinity;
+  dist[origem] = 0;
+  while (visitados.size &lt; Object.keys(grafo).length) {
+    <span class="cmt">// o lugar não visitado mais perto</span>
+    let atual = null;
+    for (const l in dist)
+      if (!visitados.has(l) &amp;&amp; (atual === null || dist[l] &lt; dist[atual])) atual = l;
+    visitados.add(atual);
+    for (const [vizinho, km] of Object.entries(grafo[atual]))
+      if (dist[atual] + km &lt; dist[vizinho]) {
+        dist[vizinho] = dist[atual] + km;
+        veioDe[vizinho] = atual;
+      }
+  }
+  return { dist, veioDe };
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="lado">
+          <figure class="mapa-bairro" style="margin:0">
+            <svg viewBox="0 0 600 340" role="img" aria-labelledby="mapa-t mapa-d">
+              <title id="mapa-t">Mapa do bairro como grafo</title>
+              <desc id="mapa-d">Seis lugares ligados por ruas. Korno's–Praça 4 km, Korno's–Posto 7 km, Praça–Escola 5 km, Praça–Ponte 9 km, Posto–Ponte 6 km, Escola–Jardim 9 km, Ponte–Jardim 6 km. O caminho mais curto até o Jardim é Korno's, Praça, Escola, Jardim, com 18 km.</desc>
+              <g stroke="#8D4925" stroke-width="3" stroke-dasharray="7 6" fill="none" stroke-linecap="round">
+                <line x1="70" y1="170" x2="225" y2="270"/><line x1="225" y1="85" x2="390" y2="250"/><line x1="225" y1="270" x2="390" y2="250"/><line x1="390" y1="250" x2="535" y2="160"/>
+              </g>
+              <g stroke="#D96300" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="70,170 225,85 390,62 535,160"/>
+              </g>
+              <g font-size="15" font-weight="800" fill="#5B1F00" text-anchor="middle">
+                <g fill="#F4EDE4" stroke="#5B1F00" stroke-width="2">
+                  <rect x="128" y="112" width="40" height="24" rx="8"/><rect x="128" y="207" width="40" height="24" rx="8"/><rect x="288" y="60" width="40" height="24" rx="8"/><rect x="288" y="155" width="40" height="24" rx="8"/><rect x="288" y="247" width="40" height="24" rx="8"/><rect x="443" y="96" width="40" height="24" rx="8"/><rect x="443" y="192" width="40" height="24" rx="8"/>
+                </g>
+                <text x="148" y="129">4</text><text x="148" y="224">7</text><text x="308" y="77">5</text><text x="308" y="172">9</text><text x="308" y="264">6</text><text x="463" y="113">9</text><text x="463" y="209">6</text>
+              </g>
+              <g stroke="#5B1F00" stroke-width="3">
+                <circle cx="70" cy="170" r="18" fill="#D96300"/><circle cx="225" cy="85" r="14" fill="#F4EDE4"/><circle cx="225" cy="270" r="14" fill="#E6D3B3"/><circle cx="390" cy="62" r="14" fill="#F4EDE4"/><circle cx="390" cy="250" r="14" fill="#E6D3B3"/><circle cx="535" cy="160" r="18" fill="#82B875"/>
+              </g>
+              <g font-size="15" font-weight="750" fill="#5B1F00">
+                <text x="70" y="212" text-anchor="middle">Korno's</text><text x="225" y="55" text-anchor="middle">Praça</text><text x="225" y="309" text-anchor="middle">Posto</text><text x="390" y="34" text-anchor="middle">Escola</text><text x="390" y="290" text-anchor="middle">Ponte</text><text x="535" y="202" text-anchor="middle">Bairro Jardim</text>
+              </g>
+            </svg>
+            <figcaption class="nota" style="padding:4px 6px 0">Em laranja, o caminho que o Dijkstra escolhe: 4 + 5 + 9 = 18 km.</figcaption>
+          </figure>
+
+          <div class="tabela-rolagem">
+            <table class="tabela">
+              <caption class="visualmente-oculto">Passo a passo do Dijkstra a partir do Korno's</caption>
+              <thead><tr><th scope="col">Visita</th><th scope="col">O que muda</th></tr></thead>
+              <tbody>
+                <tr><td>Korno's (0)</td><td>Praça = 4, Posto = 7</td></tr>
+                <tr><td>Praça (4)</td><td>Escola = 9, Ponte = 13</td></tr>
+                <tr><td>Posto (7)</td><td>Ponte por ali daria 13: empata, fica como está</td></tr>
+                <tr><td>Escola (9)</td><td>Jardim = 18</td></tr>
+                <tr><td>Ponte (13)</td><td>Jardim por ali daria 19: perde</td></tr>
+                <tr><td>Jardim (18)</td><td>Fim. Caminho: Korno's → Praça → Escola → Jardim</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DIA 4 ================= -->
+  <section class="dia dia--inverte" id="cameras" aria-labelledby="t-cameras">
+    <div class="largo">
+      <header class="etiqueta">
+        <h2 id="t-cameras">Câmeras de segurança</h2>
+        <div class="etiqueta__lado"><span>Dia <b>4</b></span><span class="barras" aria-hidden="true"></span><span>Trigonometria</span></div>
+      </header>
+
+      <div class="dia__grade">
+        <div class="lado">
+          <figure class="cena-jogo">
+            <img src="img/prototipo-cameras-trigonometria.webp" width="1312" height="1199" loading="lazy" alt="Protótipo do minigame de trigonometria. Em cima, Luís explica que os roubos na região aumentaram e que é preciso instalar uma câmera no corredor de eletrônicos sem deixar ponto cego; o quadro Problema diz: a câmera fica no alto da parede, a 4 metros do chão, com inclinação de 30 graus; qual o comprimento do corredor que ela filma? Embaixo, o corredor com um triângulo retângulo desenhado: cateto oposto de 4 m, ângulo de 30 graus, hipotenusa e cateto adjacente marcado com interrogação; ao lado, a equação tangente de 30 graus igual a 4 sobre x, um teclado numérico e o botão Confirmar.">
+            <figcaption>Protótipo do minigame: o triângulo é desenhado em cima do próprio corredor.</figcaption>
+          </figure>
+          <figure class="mapa-bairro" style="margin:0">
+            <svg viewBox="0 0 400 260" role="img" aria-labelledby="l-t l-d">
+              <title id="l-t">Planta em L com uma câmera</title>
+              <desc id="l-d">Uma planta em forma de L com seis paredes. Uma única câmera no canto interno do L enxerga as duas alas inteiras.</desc>
+              <path d="M30 30 H210 V130 H370 V230 H30 Z" fill="#E6D3B3" stroke="#5B1F00" stroke-width="4" stroke-linejoin="round"/>
+              <path d="M30 30 H210 V130 H370 V230 H30 Z" fill="#82B875" fill-opacity=".55"/>
+              <circle cx="210" cy="130" r="11" fill="#D96300" stroke="#5B1F00" stroke-width="3"/>
+              <g font-size="14" font-weight="750" fill="#5B1F00"><text x="222" y="120">câmera</text><text x="44" y="56">6 vértices → ⌊6/3⌋ = 2 bastam</text><text x="44" y="76">aqui, 1 já resolve</text></g>
+            </svg>
+          </figure>
+        </div>
+
+        <div class="texto-corrido">
+          <dl class="ficha">
+            <dt>Situação</dt><dd>A TV do mercado noticia que os roubos no bairro aumentaram. Um alarme vermelho aparece na tela e o Luís pede para instalar câmeras no corredor de eletrônicos sem deixar ponto cego.</dd>
+            <dt>Conteúdo</dt><dd>Razões trigonométricas no triângulo retângulo (tangente); perímetro da planta para distribuir as câmeras.</dd>
+            <dt>Série</dt><dd>9º ano do Ensino Fundamental (triângulo retângulo) e 1ª série do Ensino Médio (BNCC EM13MAT308).</dd>
+          </dl>
+
+          <h3>Exemplo resolvido</h3>
+          <ol class="passos">
+            <li><span>A altura da câmera (4 m) é o cateto oposto ao ângulo de 30°. O pedaço do corredor que ela filma é o cateto adjacente.<span class="calculo">tan(30°) = oposto ÷ adjacente = 4 ÷ x</span></span></li>
+            <li><span>Isole o x e use tan(30°) ≈ 0,577.<span class="calculo">x = 4 ÷ tan(30°) = 4 ÷ 0,577 ≈ 6,93 m</span></span></li>
+            <li><span>Se o corredor tem 12 m, quantas câmeras vão em fila?<span class="calculo">12 ÷ 6,93 ≈ 1,73  →  arredonda para cima: 2 câmeras</span></span></li>
+          </ol>
+          <p class="nota"><span class="preencher">[PREENCHER: como o perímetro entra no minigame final e as medidas da planta]</span></p>
+
+          <div class="computador">
+            <h3><svg aria-hidden="true"><use href="#chip"/></svg>Como o computador resolve</h3>
+            <p>Isso é o <strong>problema da galeria de arte</strong>: quantos guardas são precisos para vigiar um museu de qualquer formato? O teorema de Chvátal (1975) garante que, numa planta com <em>n</em> paredes, ⌊n/3⌋ câmeras sempre bastam. Na prática, o computador corta a planta em uma <strong>grade</strong> de quadradinhos de 1 m², calcula quais quadradinhos cada posição de câmera enxerga (com a mesma tangente do exemplo) e vai escolhendo, de forma gulosa, a câmera que cobre mais quadradinhos ainda descobertos.</p>
+<pre><code>function escolheCameras(celulas, candidatas) {
+  const faltam = new Set(celulas);  <span class="cmt">// quadradinhos sem cobertura</span>
+  const escolhidas = [];
+  while (faltam.size > 0) {
+    let melhor = null, ganho = 0;
+    for (const cam of candidatas) {
+      const g = cam.enxerga.filter(c => faltam.has(c)).length;
+      if (g > ganho) { melhor = cam; ganho = g; }
+    }
+    if (!melhor) break;              <span class="cmt">// ponto cego impossível</span>
+    escolhidas.push(melhor);
+    melhor.enxerga.forEach(c => faltam.delete(c));
+  }
+  return escolhidas;
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DIA 5 ================= -->
+  <section class="dia" id="prateleira" aria-labelledby="t-prateleira">
+    <div class="largo">
+      <header class="etiqueta">
+        <h2 id="t-prateleira">A prateleira de refrigerantes</h2>
+        <div class="etiqueta__lado"><span>Dia <b>5</b></span><span class="barras" aria-hidden="true"></span><span>Combinatória</span></div>
+      </header>
+
+      <div class="dia__grade">
+        <div class="texto-corrido">
+          <dl class="ficha">
+            <dt>Situação</dt><dd>O Belo fecha contrato com duas marcas, a Cola Refri e o Guaraná Primavera. Por exigência de marketing, as duas nunca podem ficar lado a lado. A prateleira tem 6 posições e 6 produtos diferentes.</dd>
+            <dt>Conteúdo</dt><dd>Análise combinatória: permutações, princípio multiplicativo e contagem pelo complementar.</dd>
+            <dt>Série</dt><dd>2ª série do Ensino Médio (BNCC EM13MAT310), com o princípio multiplicativo vindo do 8º ano (EF08MA03).</dd>
+          </dl>
+
+          <h3>Exemplo resolvido</h3>
+          <ol class="passos">
+            <li><span>Sem restrição, 6 produtos em 6 lugares:<span class="calculo">6! = 6 × 5 × 4 × 3 × 2 × 1 = 720</span></span></li>
+            <li><span>Conte os arranjos proibidos: cole as duas marcas num “bloco” só. Ficam 5 coisas para ordenar, e o bloco pode ser C-G ou G-C.<span class="calculo">2 × 5! = 2 × 120 = 240</span></span></li>
+            <li><span>Tire os proibidos do total.<span class="calculo">720 − 240 = 480 arranjos válidos</span></span></li>
+          </ol>
+
+          <div class="computador">
+            <h3><svg aria-hidden="true"><use href="#chip"/></svg>Como o computador resolve</h3>
+            <p>O computador pode fazer igual a você na demonstração abaixo, só que 720 vezes por milissegundo: gera todas as ordens possíveis (<strong>força bruta</strong>) e conta as que passam na regra. Funciona, mas o custo cresce como n!: com 12 produtos já seriam quase 480 milhões de ordens. A fórmula faz a mesma conta em três operações. Comparar as duas é o coração da matemática computacional.</p>
+<pre><code>function contaArranjos(produtos) {
+  let validos = 0;
+  for (const ordem of permutacoes(produtos)) {   <span class="cmt">// 720 ordens</span>
+    const c = ordem.indexOf("Cola Refri");
+    const g = ordem.indexOf("Guaraná Primavera");
+    if (Math.abs(c - g) !== 1) validos++;        <span class="cmt">// não estão colados</span>
+  }
+  return validos;                                <span class="cmt">// 480</span>
+}</code></pre>
+          </div>
+        </div>
+        <div class="lado">
+          <figure class="cena-jogo cena-jogo--torta">
+            <img src="img/prototipo-roteiro-combinatoria.webp" width="1300" height="732" loading="lazy" alt="Slide de planejamento do minigame de análise combinatória: modo história, regra das duas marcas e a missão de calcular o número de maneiras válidas de organizar a prateleira.">
+            <figcaption>Planejamento do minigame nos slides do 3º bimestre.</figcaption>
+          </figure>
+          <p class="nota">A arte final da prateleira ainda não está pronta. <span class="preencher">[PREENCHER: captura do minigame da prateleira]</span></p>
+          <a class="botao botao--acao" href="#demo">Testar na prateleira <svg aria-hidden="true"><use href="#seta"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DEMO ================= -->
+  <section class="demo" id="demo" aria-labelledby="t-demo">
+    <div class="largo">
+      <div class="demo__topo">
+        <h2 id="t-demo">Arrume a prateleira</h2>
+        <p>Arraste uma lata para cima de outra para trocar as duas de lugar. No teclado: <kbd>Tab</kbd> até a lata, <kbd>Espaço</kbd> para pegar, <kbd>←</kbd> <kbd>→</kbd> para mover e <kbd>Espaço</kbd> de novo para soltar. Cada arranjo válido novo entra na sua conta.</p>
+      </div>
+
+      <div class="demo__palco">
+        <div>
+          <div class="gondola">
+            <ol class="gondola__slots" id="slots" aria-label="Prateleira com 6 posições"></ol>
+            <div class="gondola__tabua" aria-hidden="true"></div>
+          </div>
+          <ul class="legenda-latas" aria-hidden="true"><li><b>C</b>Cola Refri</li><li><b>G</b>Guaraná Primavera</li><li><b>A</b>Água com gás</li><li><b>S</b>Suco de uva</li><li><b>M</b>Chá mate</li><li><b>L</b>Limonada</li></ul>
+          <div class="demo__status" id="status" role="status" aria-live="polite"></div>
+          <div class="demo__botoes">
+            <button class="botao" type="button" id="embaralhar">Embaralhar</button>
+            <button class="botao botao--acao" type="button" id="forca">Deixa o computador tentar</button>
+          </div>
+        </div>
+        <div class="contador">
+          <p style="margin:0;font-weight:750">Arranjos válidos que você achou</p>
+          <p class="contador__num" aria-live="polite"><span id="achados">0</span> <small>de 480</small></p>
+          <ol id="lista-achados" aria-label="Últimos arranjos válidos encontrados"></ol>
+        </div>
+      </div>
+
+      <div class="forca-bruta">
+        <div>
+          <h3 style="color:var(--bege)">Força bruta: as 720 ordens possíveis</h3>
+          <p class="nota" style="margin-top:.4em">Cada quadradinho é uma ordem da prateleira. Verde: válida. Marrom: as duas marcas encostadas.</p>
+          <div class="grade-720" id="grade" aria-hidden="true"></div>
+          <div class="legenda-grade"><span class="lv">válida</span><span class="lx">proibida</span><span id="progresso" class="mono" aria-live="polite">clique em “Deixa o computador tentar”</span></div>
+        </div>
+        <div class="formula">
+          <h3>Pela fórmula</h3>
+          <span class="calculo">total      6!      = 720
+proibidos  2 × 5!  = 240
+válidos    720−240 = 480</span>
+          <p id="confere" style="margin:.8em 0 0">A força bruta testa uma por uma. A fórmula só multiplica. As duas têm que dar o mesmo número.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <nav class="proximo-corredor largo" aria-label="Navegar entre corredores">
+    <a class="corredor-link corredor-link--ant" href="historia.html"><svg aria-hidden="true"><use href="#seta-volta"/></svg><span><small>Corredor anterior</small>2 · A história</span></a>
+    <a class="corredor-link corredor-link--prox" href="bastidores.html"><span><small>Próximo corredor</small>4 · Bastidores</span><svg aria-hidden="true"><use href="#seta"/></svg></a>
+  </nav>
+</main>
+
+<footer class="rodape">
+  <div class="largo">
+    <div>
+      <h2>Korno's</h2>
+      <p>Jogo educativo de matemática feito em Godot 4 como Trabalho de Conclusão de Curso do técnico em Desenvolvimento de Sistemas do Instituto Federal de São Paulo (IFSP), câmpus São Paulo.</p>
+    </div>
+    <div>
+      <h2>Corredores</h2>
+      <ul>
+        <li><a href="jogar.html">Jogar</a></li>
+        <li><a href="historia.html">A história</a></li>
+        <li><a href="matematica.html">A matemática</a></li>
+        <li><a href="bastidores.html">Bastidores</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Grupo 07</h2>
+      <ul>
+        <li><a href="equipe.html">Quem fez</a></li>
+        <li><a href="resultados.html">Resultados do playtest</a></li>
+        <li><a href="documentos.html">Documentos e PDFs</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="largo rodape__base">Korno's · Grupo 07 · IFSP · 2026 · Personagens e ilustrações do jogo. Nada aqui é uma loja de verdade — mas a matemática é.</p>
+</footer>
+<script src="js/config.js"></script>
+<script src="js/site.js"></script>
+<script src="js/prateleira.js"></script>
+</body>
+</html>
