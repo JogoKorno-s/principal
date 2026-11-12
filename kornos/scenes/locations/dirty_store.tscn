@@ -1,6 +1,28 @@
 [gd_scene format=3 uid="uid://dru7taxdj745n"]
 
+[ext_resource type="Script" uid="uid://dyoi0jdo7lr7v" path="res://scripts/dirty_store.gd" id="1_jvyyh"]
 [ext_resource type="Texture2D" uid="uid://e8t5q6h71iys" path="res://art/backgrounds/dirty_store.png" id="1_lxajv"]
+[ext_resource type="Texture2D" uid="uid://dermtodrlfbq4" path="res://art/ui/tabela_dinheiro.png" id="3_57f0d"]
+[ext_resource type="Texture2D" uid="uid://b2swaphda48x0" path="res://art/ui/task_button1.png" id="3_jvyyh"]
+[ext_resource type="Texture2D" uid="uid://bnm0tgfuti2bh" path="res://art/ui/tabela_dias.png" id="4_jvyyh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1pucc"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 18.0
+content_margin_bottom = 14.0
+bg_color = Color(0.95686275, 0.9098039, 0.8352941, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4392157, 0.29411766, 0.20784314, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0, 0, 0, 0.49019608)
+shadow_size = 7
 
 [node name="DirtyStore" type="Control" unique_id=511044082]
 layout_mode = 3
@@ -9,12 +31,143 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_jvyyh")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1150876261]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_lxajv")
+
+[node name="Luis" type="TextureRect" parent="." unique_id=1722204304]
+z_index = 10
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CleaningButtons" type="Control" parent="." unique_id=695505968]
+z_index = 20
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FloorButton" type="TextureButton" parent="CleaningButtons" unique_id=730981247]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 1
+offset_left = 750.0
+offset_top = 800.0
+offset_right = 792.0
+offset_bottom = 842.0
+texture_normal = ExtResource("3_jvyyh")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CashierButton" type="TextureButton" parent="CleaningButtons" unique_id=1506675737]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 1
+offset_left = 323.0
+offset_top = 875.0
+offset_right = 365.0
+offset_bottom = 917.0
+texture_normal = ExtResource("3_jvyyh")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ShelvesButton" type="TextureButton" parent="CleaningButtons" unique_id=1584722251]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 1
+offset_left = 970.0
+offset_top = 567.0
+offset_right = 1012.0
+offset_bottom = 609.0
+texture_normal = ExtResource("3_jvyyh")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CeilingButton" type="TextureButton" parent="CleaningButtons" unique_id=688500432]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 1
+offset_left = 580.0
+offset_top = 126.0
+offset_right = 622.0
+offset_bottom = 168.0
+texture_normal = ExtResource("3_jvyyh")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="MoneyPanel" type="TextureRect" parent="." unique_id=1266302236]
+z_index = 30
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_57f0d")
+
+[node name="MoneyLabel" type="Label" parent="MoneyPanel" unique_id=441425611]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="DayPanel" type="TextureRect" parent="." unique_id=1641158533]
+z_index = 30
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_jvyyh")
+
+[node name="DayLabel" type="Label" parent="DayPanel" unique_id=1204318475]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="DialoguePanel" type="PanelContainer" parent="." unique_id=1104136739]
+z_index = 40
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.04
+anchor_top = 0.66
+anchor_right = 0.7
+anchor_bottom = 0.95
+offset_right = 400.0
+offset_bottom = 142.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1pucc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialoguePanel" unique_id=1014531921]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="CharacterName" type="Label" parent="DialoguePanel/VBoxContainer" unique_id=438923758]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4117647, 0.26666668, 0.18039216, 1)
+theme_override_font_sizes/font_size = 23
+text = "Luís"
+
+[node name="DialogueText" type="Label" parent="DialoguePanel/VBoxContainer" unique_id=1023631221]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.21960784, 0.16862746, 0.13725491, 1)
+theme_override_font_sizes/font_size = 23
+autowrap_mode = 3
+
+[node name="ButtonRow" type="HBoxContainer" parent="DialoguePanel/VBoxContainer" unique_id=485444472]
+layout_mode = 2
+
+[node name="ButtonSpacer" type="Control" parent="DialoguePanel/VBoxContainer/ButtonRow" unique_id=1018077417]
+layout_mode = 2
+
+[node name="NextButton" type="Button" parent="DialoguePanel/VBoxContainer/ButtonRow" unique_id=223650989]
+layout_mode = 2
+
+[node name="FeedbackLabel" type="Label" parent="." unique_id=531718140]
+z_index = 50
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="TypewriterTimer" type="Timer" parent="." unique_id=1404444768]
+
+[node name="FeedbackTimer" type="Timer" parent="." unique_id=1666430074]

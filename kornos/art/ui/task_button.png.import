@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j1303y587hoy"
-path="res://.godot/imported/mercado_limpo.png-388c333c3f6923219ab94d7435bd0fed.ctex"
+uid="uid://uegqe5rs834a"
+path="res://.godot/imported/task_button.png-352cac3a0479a309d1d4dc74ccf4f946.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/backgrounds/mercado_limpo.png"
-dest_files=["res://.godot/imported/mercado_limpo.png-388c333c3f6923219ab94d7435bd0fed.ctex"]
+source_file="res://art/ui/task_button.png"
+dest_files=["res://.godot/imported/task_button.png-352cac3a0479a309d1d4dc74ccf4f946.ctex"]
 
 [params]
 

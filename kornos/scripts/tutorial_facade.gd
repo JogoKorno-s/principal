@@ -20,7 +20,7 @@ const DIALOGUES: Array[Dictionary] = [
 	{
 		"text": "Vamos começar entrando no mercado. Quando terminarmos, clique na porta para ver como está lá dentro.",
 		"sprite": "res://art/characters/luis/luis_joinha.png",
-		"scale": 0.60
+		"scale": 1.0
 	}
 
 ]
