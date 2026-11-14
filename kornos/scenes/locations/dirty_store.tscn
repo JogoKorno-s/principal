@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://dfuht36tmdg0i" path="res://art/products/feijao.png" id="11_hjgcq"]
 [ext_resource type="Texture2D" uid="uid://w8tvodqjh3pe" path="res://art/ui/button_minus.png" id="12_isbgj"]
 [ext_resource type="Texture2D" uid="uid://gqg72bmbc4pe" path="res://art/ui/button_buy.png" id="13_bo10d"]
+[ext_resource type="Texture2D" uid="uid://cb5s3nv7eqt4y" path="res://art/ui/close_button.png" id="14_cbx5h"]
+[ext_resource type="Texture2D" uid="uid://dl6vr5t3bfe7m" path="res://art/backgrounds/prateleira1.jpg" id="15_gk6wj"]
+[ext_resource type="Texture2D" uid="uid://jd2vcp63pmhk" path="res://art/products/arroz.png" id="16_k8ppe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1pucc"]
 content_margin_left = 24.0
@@ -146,6 +149,12 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 texture = ExtResource("7_7hbxk")
+
+[node name="ShelfOpenButton" type="TextureButton" parent="." unique_id=406712874]
+visible = false
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="PurchaseOverlay" type="Control" parent="." unique_id=205285573]
 anchors_preset = 0
@@ -295,9 +304,77 @@ texture_normal = ExtResource("13_bo10d")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+texture_normal = ExtResource("14_cbx5h")
 
 [node name="StockProducts" type="Control" parent="." unique_id=679904181]
 anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ShelfView" type="Control" parent="." unique_id=308516787]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Dimmer" type="ColorRect" parent="ShelfView" unique_id=780377357]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7294118)
+
+[node name="ShelfFrame" type="Control" parent="ShelfView" unique_id=452735551]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShelfBackground" type="TextureRect" parent="ShelfView/ShelfFrame" unique_id=947706043]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("15_gk6wj")
+
+[node name="RiceProduct" type="TextureRect" parent="ShelfView/ShelfFrame" unique_id=1321916642]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("16_k8ppe")
+
+[node name="RiceCountLabel" type="Label" parent="ShelfView/ShelfFrame" unique_id=1443132086]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="BeansProduct" type="TextureRect" parent="ShelfView/ShelfFrame" unique_id=101392065]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("11_hjgcq")
+
+[node name="BeansCountLabel" type="Label" parent="ShelfView/ShelfFrame" unique_id=1256551716]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="SugarProduct" type="TextureRect" parent="ShelfView/ShelfFrame" unique_id=144965674]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("9_k8ppe")
+
+[node name="SugarCountLabel" type="Label" parent="ShelfView/ShelfFrame" unique_id=231266810]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="BackButton" type="TextureButton" parent="ShelfView/ShelfFrame" unique_id=610856088]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 

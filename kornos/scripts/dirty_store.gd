@@ -48,6 +48,19 @@ const DIALOGUES: Array[Dictionary] = [
 ]
 
 
+const REQUIRED_QUANTITIES := {
+	"rice": 5,
+	"beans": 3,
+	"sugar": 4
+}
+
+const PRODUCT_PRICES := {
+	"rice": 12.56,
+	"beans": 3.94,
+	"sugar": 1.34
+}
+
+
 # CONTROLE DA PROGRESSÃO
 var dialogue_index: int = 0
 var current_clean_step: int = 0
@@ -59,6 +72,12 @@ var dialogue_mode: String = "cleaning_tutorial"
 
 var after_clean_index: int = 0
 var day_end_index: int = 0
+
+var purchase_quantities: Dictionary = {
+	"rice": 0,
+	"beans": 0,
+	"sugar": 0
+}
 
 # REFERÊNCIAS DOS NODES
 @onready var background: TextureRect = $Background
@@ -87,6 +106,41 @@ var day_end_index: int = 0
 
 @onready var cart_button: TextureButton = $CartButton
 @onready var offer_tooltip: TextureRect = $OfferTooltip
+
+#hoje
+@onready var purchase_overlay: Control = $PurchaseOverlay
+
+@onready var purchase_money_label: Label = $PurchaseOverlay/PurchasePanel/PurchaseMoneyLabel
+@onready var purchase_day_label: Label = $PurchaseOverlay/PurchasePanel/PurchaseDayLabel
+
+@onready var rice_quantity_label: Label = $PurchaseOverlay/PurchasePanel/RiceQuantityLabel
+@onready var beans_quantity_label: Label = $PurchaseOverlay/PurchasePanel/BeansQuantityLabel
+@onready var sugar_quantity_label: Label = $PurchaseOverlay/PurchasePanel/SugarQuantityLabel
+
+@onready var purchase_total_label: Label = $PurchaseOverlay/PurchasePanel/PurchaseTotalLabel
+@onready var purchase_status_label: Label = $PurchaseOverlay/PurchasePanel/PurchaseStatusLabel
+
+@onready var buy_button: TextureButton = $PurchaseOverlay/PurchasePanel/BuyButton
+@onready var close_button: TextureButton = $PurchaseOverlay/PurchasePanel/CloseButton
+
+# hoje
+@onready var rice_minus: TextureButton = $PurchaseOverlay/PurchasePanel/RiceMinusButton
+@onready var rice_plus: TextureButton = $PurchaseOverlay/PurchasePanel/RicePlusButton
+
+@onready var beans_minus: TextureButton = $PurchaseOverlay/PurchasePanel/BeansMinusButton
+@onready var beans_plus: TextureButton = $PurchaseOverlay/PurchasePanel/BeansPlusButton
+
+@onready var sugar_minus: TextureButton = $PurchaseOverlay/PurchasePanel/SugarMinusButton
+@onready var sugar_plus: TextureButton = $PurchaseOverlay/PurchasePanel/SugarPlusButton
+
+@onready var shelf_open_button: TextureButton = $ShelfOpenButton
+@onready var shelf_view: Control = $ShelfView
+
+@onready var shelf_back_button: TextureButton = $ShelfView/ShelfFrame/BackButton
+
+@onready var rice_count_label: Label = $ShelfView/ShelfFrame/RiceCountLabel
+@onready var beans_count_label: Label = $ShelfView/ShelfFrame/BeansCountLabel
+@onready var sugar_count_label: Label = $ShelfView/ShelfFrame/SugarCountLabel
 
 func _ready() -> void:
 
@@ -149,6 +203,28 @@ func _ready() -> void:
 
 	cart_button.hide()
 	offer_tooltip.hide()
+	
+	purchase_overlay.hide()
+	purchase_status_label.hide()
+
+	rice_minus.pressed.connect(_on_rice_minus)
+	rice_plus.pressed.connect(_on_rice_plus)
+
+	beans_minus.pressed.connect(_on_beans_minus)
+	beans_plus.pressed.connect(_on_beans_plus)
+
+	sugar_minus.pressed.connect(_on_sugar_minus)
+	sugar_plus.pressed.connect(_on_sugar_plus)
+
+	buy_button.pressed.connect(_on_buy_pressed)
+	close_button.pressed.connect(_on_close_purchase)
+	
+	shelf_open_button.pressed.connect(_on_shelf_open_pressed)
+	shelf_open_button.hide()
+	
+	shelf_open_button.pressed.connect(_on_shelf_open_pressed)
+
+	shelf_open_button.hide()
 # -------------------------------------
 # DIÁLOGOS DO LUÍS
 # -------------------------------------
@@ -760,3 +836,180 @@ func _on_cart_pressed() -> void:
 	purchase_overlay.show()
 
 	_update_purchase_display()
+
+
+
+func _on_rice_minus() -> void:
+	_change_quantity("rice", -1)
+
+
+func _on_rice_plus() -> void:
+	_change_quantity("rice", 1)
+
+
+func _on_beans_minus() -> void:
+	_change_quantity("beans", -1)
+
+
+func _on_beans_plus() -> void:
+	_change_quantity("beans", 1)
+
+
+func _on_sugar_minus() -> void:
+	_change_quantity("sugar", -1)
+
+
+func _on_sugar_plus() -> void:
+	_change_quantity("sugar", 1)
+
+
+func _change_quantity(product: String, amount: int) -> void:
+	
+	var current_quantity: int = purchase_quantities[product]
+
+	purchase_quantities[product] = clampi(
+		current_quantity + amount,
+		0,
+		20
+	)
+
+	_update_purchase_display()
+
+
+func _format_brl(value: float) -> String:
+
+	return "R$ " + ("%.2f" % value).replace(".", ",")
+
+
+func _calculate_purchase_total() -> float:
+
+	var total: float = 0.0
+
+	for product in PRODUCT_PRICES:
+		total += (
+			float(purchase_quantities[product])
+			* float(PRODUCT_PRICES[product])
+		)
+
+	return total
+
+
+func _update_purchase_display() -> void:
+
+	rice_quantity_label.text = str(purchase_quantities["rice"])
+	beans_quantity_label.text = str(purchase_quantities["beans"])
+	sugar_quantity_label.text = str(purchase_quantities["sugar"])
+
+	purchase_money_label.text = _format_brl(GameState.money)
+
+	purchase_day_label.text = "%02d" % GameState.current_day
+
+	purchase_total_label.text = (
+		"TOTAL: " + _format_brl(_calculate_purchase_total())
+	)
+
+# Arroz
+# R$ 12,56
+
+# Feijão
+# R$ 3,94
+
+# Açúcar
+# R$ 1,34
+
+
+func _on_buy_pressed() -> void:
+
+	# Confere as quantidades.
+	if purchase_quantities != REQUIRED_QUANTITIES:
+
+		purchase_status_label.text = (
+            "Confira as quantidades! "
+			+ "Arroz: 5 | Feijão: 3 | Açúcar: 4."
+		)
+
+		purchase_status_label.show()
+		return
+
+
+	var total: float = _calculate_purchase_total()
+
+	# Confere o saldo.
+	if GameState.money < total:
+
+		purchase_status_label.text = (
+            "Dinheiro insuficiente para realizar a compra."
+		)
+
+		purchase_status_label.show()
+		return
+
+
+	# Desconta o valor da compra.
+	GameState.money = snappedf(
+		GameState.money - total,
+		0.01
+	)
+
+	# Atualiza o estoque.
+	GameState.rice_stock += 5
+	GameState.beans_stock += 3
+	GameState.sugar_stock += 4
+
+	GameState.day_1_purchase_completed = true
+
+	# Atualiza o dinheiro do HUD.
+	money_label.text = _format_brl(GameState.money)
+
+	# Fecha o painel.
+	purchase_overlay.hide()
+
+	cart_button.hide()
+	offer_tooltip.hide()
+
+	# Mostra os produtos nas prateleiras.
+	_show_stock_products()
+
+	# Começa o encerramento do dia.
+	dialogue_mode = "day_end"
+	day_end_index = 0
+
+	_show_day_end_dialogue()
+
+
+func _on_close_purchase() -> void:
+
+	purchase_overlay.hide()
+
+
+const STOCKED_STORE_BACKGROUND := "res://art/backgrounds/mercado_abastecido.png"
+
+
+func _show_stock_products() -> void:
+
+	# Carrega a nova imagem do supermercado.
+	var stocked_texture := load(
+		STOCKED_STORE_BACKGROUND
+	) as Texture2D
+
+	if stocked_texture == null:
+		push_error(
+            "Não foi possível carregar a imagem do mercado abastecido."
+		)
+		return
+
+	# Atualiza o cenário.
+	background.texture = stocked_texture
+
+	# Esconde os elementos da compra.
+	cart_button.hide()
+	offer_tooltip.hide()
+
+	# Mantém os pontos de limpeza escondidos.
+	_hide_cleaning_buttons()
+
+	# Mostra o acesso à prateleira.
+	shelf_open_button.show()
+
+	# A visualização ampliada permanece fechada.
+	shelf_view.hide()
