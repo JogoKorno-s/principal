@@ -55,6 +55,10 @@ var current_clean_step: int = 0
 var is_typing: bool = false
 var is_transitioning: bool = false
 
+var dialogue_mode: String = "cleaning_tutorial"
+
+var after_clean_index: int = 0
+var day_end_index: int = 0
 
 # REFERÊNCIAS DOS NODES
 @onready var background: TextureRect = $Background
@@ -81,6 +85,8 @@ var is_transitioning: bool = false
 @onready var typewriter_timer: Timer = $TypewriterTimer
 @onready var feedback_timer: Timer = $FeedbackTimer
 
+@onready var cart_button: TextureButton = $CartButton
+@onready var offer_tooltip: TextureRect = $OfferTooltip
 
 func _ready() -> void:
 
@@ -136,6 +142,13 @@ func _ready() -> void:
 	_configure_hud_layout()
 	_configure_hud_labels()
 
+	cart_button.pressed.connect(_on_cart_pressed)
+
+	cart_button.mouse_entered.connect(_on_cart_mouse_entered)
+	cart_button.mouse_exited.connect(_on_cart_mouse_exited)
+
+	cart_button.hide()
+	offer_tooltip.hide()
 # -------------------------------------
 # DIÁLOGOS DO LUÍS
 # -------------------------------------
@@ -174,22 +187,77 @@ func _on_typewriter_timeout() -> void:
 		is_typing = false
 
 
+
 func _on_next_pressed() -> void:
 
+	# Se ainda estiver digitando, completa a fala.
 	if is_typing:
+
 		typewriter_timer.stop()
 		dialogue_text.visible_characters = -1
 		is_typing = false
+
 		return
 
-	dialogue_index += 1
 
-	if dialogue_index < DIALOGUES.size():
-		_show_dialogue()
-	else:
-		dialogue_panel.hide()
-		luis.hide()
-		_show_cleaning_buttons()
+	# FASE 1 — Tutorial da limpeza.
+	if dialogue_mode == "cleaning_tutorial":
+
+		dialogue_index += 1
+
+		if dialogue_index < DIALOGUES.size():
+			_show_dialogue()
+		else:
+			dialogue_panel.hide()
+			luis.hide()
+			_show_cleaning_buttons()
+
+			return
+
+
+	# FASE 2 — Instruções da compra
+
+	if dialogue_mode == "after_clean":
+
+		after_clean_index += 1
+
+		if after_clean_index < AFTER_CLEAN_DIALOGUES.size():
+
+			_show_after_clean_dialogue()
+
+		else:
+
+			dialogue_panel.hide()
+			luis.hide()
+
+			# O carrinho aparece depois das explicações.
+			cart_button.show()
+
+		return
+
+
+	# FASE 3 — Encerramento do Dia 1.
+	if dialogue_mode == "day_end":
+
+		day_end_index += 1
+
+		if day_end_index < DAY_END_DIALOGUES.size():
+
+			_show_day_end_dialogue()
+
+		else:
+
+			dialogue_panel.hide()
+			luis.hide()
+
+			GameState.complete_day_1()
+
+			await SceneTransition.change_scene(
+                "res://scenes/story/level_2_unlocked.tscn"
+			)
+
+		return
+
 
 
 # -------------------------------------
@@ -343,23 +411,14 @@ func _finish_cleaning() -> void:
 
 	feedback_label.hide()
 
-	dialogue_panel.show()
+	GameState.day_1_cleaning_completed = true
 
-	character_name.text = "Luís"
+	dialogue_mode = "after_clean"
+	after_clean_index = 0
 
-	dialogue_text.text = "Uau, Belo! Agora sim! O Korno's está limpo e pronto para receber uma nova vida. Mandou muito bem!"
+	luis.show()
 
-	dialogue_text.visible_characters = -1
-
-	next_button.hide()
-
-	# Luís comemora a conclusão.
-	var final_sprite := load(
-        "res://art/characters/luis/luis_joinha.png"
-	) as Texture2D
-
-	if final_sprite != null:
-		luis.texture = final_sprite
+	_show_after_clean_dialogue()
 		
 
 func _configure_luis_layout() -> void:
@@ -599,3 +658,105 @@ func _configure_hud_labels() -> void:
 		"font_color", Color("#A52D43")
 	)
 	day_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+
+
+const AFTER_CLEAN_DIALOGUES: Array[Dictionary] = [
+
+	{
+		"text": "Que belo trabalho, Belo! Mas não pense que acabou.",
+		"sprite": "res://art/characters/luis/luis_joinha.png"
+	},
+
+	{
+		"text": "Acabei de receber uma notificação de uma promoção em um supermercado atacadista. É uma boa oportunidade para abastecer nosso estoque e economizar.",
+		"sprite": "res://art/characters/luis/luis_explicando.png"
+	},
+
+	{
+		"text": "Precisamos comprar 5 pacotes de arroz, 4 sacos de açúcar e 3 pacotes de feijão, já que é a compra mínima do mercado. Mas atenção: são exatamente essas quantidades, então não adianta comprar mais ou menos, beleza?",
+		"sprite": "res://art/characters/luis/luis_explicando.png"
+	},
+
+	{
+		"text": "Quando terminar as compras, podemos encerrar o seu primeiro dia.",
+		"sprite": "res://art/characters/luis/luis_joinha.png"
+	}
+
+]
+
+
+const DAY_END_DIALOGUES: Array[Dictionary] = [
+
+	{
+		"text": "Excelente trabalho, Belo! Conseguimos abastecer nossas prateleiras com arroz, feijão e açúcar. Nosso supermercado está começando a ganhar vida novamente!",
+		"sprite": "res://art/characters/luis/luis_explicando.png"
+	},
+
+	{
+		"text": "Por hoje é só! Você concluiu seu primeiro dia no Korno's. Amanhã teremos novos desafios pela frente. Até lá!",
+		"sprite": "res://art/characters/luis/luis_joinha.png"
+	}
+
+]
+
+
+func _display_luis_dialogue(dialogue: Dictionary) -> void:
+
+	var sprite_path: String = dialogue["sprite"]
+
+	if ResourceLoader.exists(sprite_path):
+		var sprite := load(sprite_path) as Texture2D
+
+		if sprite != null:
+			luis.texture = sprite
+	else:
+		push_error("Sprite do Luís não encontrado: " + sprite_path)
+		return
+
+	luis.show()
+	dialogue_panel.show()
+
+	character_name.text = "Luís"
+	dialogue_text.text = dialogue["text"]
+	dialogue_text.visible_characters = 0
+	
+	next_button.show()
+	next_button.text = "Continuar  ›"
+
+	is_typing = true
+	typewriter_timer.start()
+
+
+func _show_after_clean_dialogue() -> void:
+
+	if after_clean_index < AFTER_CLEAN_DIALOGUES.size():
+		_display_luis_dialogue(
+			AFTER_CLEAN_DIALOGUES[after_clean_index]
+		)
+
+
+func _show_day_end_dialogue() -> void:
+
+	if day_end_index < DAY_END_DIALOGUES.size():
+		_display_luis_dialogue(
+			DAY_END_DIALOGUES[day_end_index]
+		)
+
+func _on_cart_mouse_entered() -> void:
+
+	if cart_button.visible and not purchase_overlay.visible:
+		offer_tooltip.show()
+
+
+func _on_cart_mouse_exited() -> void:
+
+	offer_tooltip.hide()
+
+
+func _on_cart_pressed() -> void:
+	offer_tooltip.hide()
+
+	purchase_overlay.show()
+
+	_update_purchase_display()
