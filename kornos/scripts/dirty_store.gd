@@ -78,6 +78,7 @@ var purchase_quantities: Dictionary = {
 	"beans": 0,
 	"sugar": 0
 }
+var shelf_review_completed: bool = false
 
 # REFERÊNCIAS DOS NODES
 @onready var background: TextureRect = $Background
@@ -137,6 +138,10 @@ var purchase_quantities: Dictionary = {
 @onready var shelf_view: Control = $ShelfView
 
 @onready var shelf_back_button: TextureButton = $ShelfView/ShelfFrame/BackButton
+
+@onready var rice_product: TextureRect = $ShelfView/ShelfFrame/RiceProduct
+@onready var beans_product: TextureRect = $ShelfView/ShelfFrame/BeansProduct
+@onready var sugar_product: TextureRect = $ShelfView/ShelfFrame/SugarProduct
 
 @onready var rice_count_label: Label = $ShelfView/ShelfFrame/RiceCountLabel
 @onready var beans_count_label: Label = $ShelfView/ShelfFrame/BeansCountLabel
@@ -219,12 +224,15 @@ func _ready() -> void:
 	buy_button.pressed.connect(_on_buy_pressed)
 	close_button.pressed.connect(_on_close_purchase)
 	
-	shelf_open_button.pressed.connect(_on_shelf_open_pressed)
-	shelf_open_button.hide()
-	
-	shelf_open_button.pressed.connect(_on_shelf_open_pressed)
 
+# Conexões da visualização da prateleira.
+	shelf_open_button.pressed.connect(_on_shelf_open_pressed)
+	shelf_back_button.pressed.connect(_on_shelf_back_pressed)
+
+# Inicialmente, os elementos ficam escondidos.
 	shelf_open_button.hide()
+	shelf_view.hide()
+
 # -------------------------------------
 # DIÁLOGOS DO LUÍS
 # -------------------------------------
@@ -985,6 +993,7 @@ func _on_close_purchase() -> void:
 const STOCKED_STORE_BACKGROUND := "res://art/backgrounds/mercado_abastecido.png"
 
 
+
 func _show_stock_products() -> void:
 
 	# Carrega a nova imagem do supermercado.
@@ -1001,15 +1010,59 @@ func _show_stock_products() -> void:
 	# Atualiza o cenário.
 	background.texture = stocked_texture
 
-	# Esconde os elementos da compra.
+	# Fecha qualquer painel de compra que ainda esteja aberto.
+	purchase_overlay.hide()
+
+	# Esconde os elementos da oferta.
 	cart_button.hide()
 	offer_tooltip.hide()
 
 	# Mantém os pontos de limpeza escondidos.
 	_hide_cleaning_buttons()
 
-	# Mostra o acesso à prateleira.
+	# Libera o acesso à prateleira.
 	shelf_open_button.show()
 
-	# A visualização ampliada permanece fechada.
+	# Mantém a visualização ampliada fechada.
 	shelf_view.hide()
+
+
+
+func _on_shelf_open_pressed() -> void:
+
+	# Atualiza as quantidades compradas.
+	rice_count_label.text = "×%d" % GameState.rice_stock
+	beans_count_label.text = "×%d" % GameState.beans_stock
+	sugar_count_label.text = "×%d" % GameState.sugar_stock
+
+	# Exibe os produtos.
+	rice_product.show()
+	beans_product.show()
+	sugar_product.show()
+
+	# Abre a visualização ampliada.
+	shelf_view.show()
+
+	# Garante que a visualização fique na frente.
+	shelf_view.z_index = 100
+
+
+func _on_shelf_back_pressed() -> void:
+
+	# Fecha a visualização ampliada.
+	shelf_view.hide()
+
+	# O botão de acesso continua no mapa.
+	shelf_open_button.show()
+
+	# O encerramento acontece apenas na primeira visita.
+	if not shelf_review_completed:
+
+		shelf_review_completed = true
+
+		dialogue_mode = "day_end"
+		day_end_index = 0
+
+		luis.show()
+
+		_show_day_end_dialogue()

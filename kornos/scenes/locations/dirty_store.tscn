@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cb5s3nv7eqt4y" path="res://art/ui/close_button.png" id="14_cbx5h"]
 [ext_resource type="Texture2D" uid="uid://dl6vr5t3bfe7m" path="res://art/backgrounds/prateleira1.jpg" id="15_gk6wj"]
 [ext_resource type="Texture2D" uid="uid://jd2vcp63pmhk" path="res://art/products/arroz.png" id="16_k8ppe"]
+[ext_resource type="Texture2D" uid="uid://bntvctdclumxh" path="res://art/ui/back_button.png" id="17_k8ppe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1pucc"]
 content_margin_left = 24.0
@@ -157,9 +158,12 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="PurchaseOverlay" type="Control" parent="." unique_id=205285573]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Dimmer" type="ColorRect" parent="PurchaseOverlay" unique_id=477994568]
 layout_mode = 1
@@ -168,53 +172,70 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.89411765)
+color = Color(0, 0, 0, 0.4509804)
 
 [node name="PurchasePanel" type="TextureRect" parent="PurchaseOverlay" unique_id=1191177520]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -337.0
-offset_top = -185.0
-offset_right = 337.0
-offset_bottom = 185.0
+offset_left = -530.0
+offset_top = -295.0
+offset_right = 530.0
+offset_bottom = 295.0
 grow_horizontal = 2
 grow_vertical = 2
+offset_transform_position = Vector2(-530, -295)
+mouse_filter = 0
 texture = ExtResource("8_gk6wj")
+expand_mode = 1
 
 [node name="MarketTitle" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=462807159]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 70.0
+offset_top = 65.0
+offset_right = 420.0
+offset_bottom = 120.0
+text = "Mercado Atacadista"
 
 [node name="PurchaseMoneyLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=1194780176]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 650.0
+offset_top = 72.0
+offset_right = 895.0
+offset_bottom = 117.0
 
 [node name="PurchaseDayLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=796701369]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 925.0
+offset_top = 72.0
+offset_right = 1020.0
+offset_bottom = 117.0
+text = "1"
 
 [node name="RiceImage" type="TextureRect" parent="PurchaseOverlay/PurchasePanel" unique_id=11084020]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("9_k8ppe")
+layout_mode = 1
+offset_right = 130.0
+offset_bottom = 155.0
+texture = ExtResource("16_k8ppe")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="RicePriceLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=738706121]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 122.0
+offset_top = 262.0
+offset_right = 232.0
+offset_bottom = 298.0
 
 [node name="RiceMinusButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=1232326352]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 921.0
+offset_top = 60.0
+offset_right = 1411.0
+offset_bottom = 587.0
 texture_normal = ExtResource("10_33qdl")
 
 [node name="RiceQuantityLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=1693434509]
@@ -224,15 +245,21 @@ offset_bottom = 23.0
 
 [node name="RicePlusButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=281149101]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 808.0
+offset_top = 297.0
+offset_right = 1298.0
+offset_bottom = 824.0
 texture_normal = ExtResource("10_33qdl")
 
 [node name="BeansImage" type="TextureRect" parent="PurchaseOverlay/PurchasePanel" unique_id=414044858]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 273.0
+offset_top = 98.0
+offset_right = 410.0
+offset_bottom = 394.0
 texture = ExtResource("11_hjgcq")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="BeansPriceLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=1964847736]
 layout_mode = 0
@@ -241,8 +268,10 @@ offset_bottom = 23.0
 
 [node name="BeansMinusButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=1514258449]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 980.0
+offset_top = 225.0
+offset_right = 1437.0
+offset_bottom = 779.0
 texture_normal = ExtResource("12_isbgj")
 
 [node name="BeansQuantityLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=2126787816]
@@ -252,15 +281,21 @@ offset_bottom = 23.0
 
 [node name="BeansPlusButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=245540706]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 585.0
+offset_top = 373.0
+offset_right = 1075.0
+offset_bottom = 900.0
 texture_normal = ExtResource("10_33qdl")
 
 [node name="SugarImage" type="TextureRect" parent="PurchaseOverlay/PurchasePanel" unique_id=653916888]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 122.0
+offset_top = 180.0
+offset_right = 252.0
+offset_bottom = 320.0
 texture = ExtResource("9_k8ppe")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="SugarPriceLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=342206473]
 layout_mode = 0
@@ -269,8 +304,10 @@ offset_bottom = 23.0
 
 [node name="SugarMinusButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=1596115438]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 849.0
+offset_top = 193.0
+offset_right = 1306.0
+offset_bottom = 747.0
 texture_normal = ExtResource("12_isbgj")
 
 [node name="SugarQuantityLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=247598589]
@@ -280,8 +317,10 @@ offset_bottom = 23.0
 
 [node name="SugarPlusButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=337313293]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 740.0
+offset_top = -17.0
+offset_right = 1230.0
+offset_bottom = 510.0
 texture_normal = ExtResource("10_33qdl")
 
 [node name="PurchaseTotalLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=767432697]
@@ -296,14 +335,19 @@ offset_bottom = 23.0
 
 [node name="BuyButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=1251477631]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 768.0
+offset_top = -134.0
+offset_right = 1916.0
+offset_bottom = 391.0
 texture_normal = ExtResource("13_bo10d")
+stretch_mode = 5
 
 [node name="CloseButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=622227994]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 770.0
+offset_top = -30.0
+offset_right = 1047.0
+offset_bottom = 254.0
 texture_normal = ExtResource("14_cbx5h")
 
 [node name="StockProducts" type="Control" parent="." unique_id=679904181]
@@ -353,9 +397,11 @@ offset_bottom = 23.0
 
 [node name="BeansProduct" type="TextureRect" parent="ShelfView/ShelfFrame" unique_id=101392065]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 130.0
+offset_bottom = 155.0
 texture = ExtResource("11_hjgcq")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="BeansCountLabel" type="Label" parent="ShelfView/ShelfFrame" unique_id=1256551716]
 layout_mode = 0
@@ -364,9 +410,13 @@ offset_bottom = 23.0
 
 [node name="SugarProduct" type="TextureRect" parent="ShelfView/ShelfFrame" unique_id=144965674]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 465.0
+offset_top = 190.0
+offset_right = 595.0
+offset_bottom = 345.0
 texture = ExtResource("9_k8ppe")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="SugarCountLabel" type="Label" parent="ShelfView/ShelfFrame" unique_id=231266810]
 layout_mode = 0
@@ -377,6 +427,7 @@ offset_bottom = 23.0
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+texture_normal = ExtResource("17_k8ppe")
 
 [node name="DialoguePanel" type="PanelContainer" parent="." unique_id=1104136739]
 z_index = 40
