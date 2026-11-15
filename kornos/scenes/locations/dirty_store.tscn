@@ -138,18 +138,28 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="CartButton" type="TextureButton" parent="." unique_id=1622263736]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = -1
+offset_left = 1230.0
+offset_top = 28.0
+offset_right = 1315.0
+offset_bottom = 99.0
+offset_transform_enabled = true
 texture_normal = ExtResource("6_cbx5h")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="OfferTooltip" type="TextureRect" parent="." unique_id=1476997703]
-visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = -1
+offset_left = 1000.0
+offset_top = 5.0
+offset_right = 1222.0
+offset_bottom = 124.0
 mouse_filter = 2
 texture = ExtResource("7_7hbxk")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ShelfOpenButton" type="TextureButton" parent="." unique_id=406712874]
 visible = false
@@ -167,7 +177,7 @@ grow_vertical = 2
 
 [node name="Dimmer" type="ColorRect" parent="PurchaseOverlay" unique_id=477994568]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -181,10 +191,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -530.0
-offset_top = -295.0
-offset_right = 530.0
-offset_bottom = 295.0
+offset_left = -490.0
+offset_top = -329.0
+offset_right = 570.0
+offset_bottom = 261.0
 grow_horizontal = 2
 grow_vertical = 2
 offset_transform_position = Vector2(-530, -295)
@@ -196,159 +206,224 @@ expand_mode = 1
 layout_mode = 0
 offset_left = 70.0
 offset_top = 65.0
-offset_right = 420.0
-offset_bottom = 120.0
+offset_right = 303.0
+offset_bottom = 105.0
+theme_override_colors/font_color = Color(0.39607844, 0.2627451, 0.12941177, 1)
+theme_override_font_sizes/font_size = 30
 text = "Mercado Atacadista"
 
 [node name="PurchaseMoneyLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=1194780176]
+visible = false
 layout_mode = 0
-offset_left = 650.0
-offset_top = 72.0
-offset_right = 895.0
-offset_bottom = 117.0
+offset_left = 670.0
+offset_top = 70.0
+offset_right = 779.0
+offset_bottom = 115.0
+theme_override_colors/font_color = Color(0.39607844, 0.2627451, 0.12941177, 1)
+theme_override_font_sizes/font_size = 23
+text = "R$ 300,0"
 
 [node name="PurchaseDayLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=796701369]
+visible = false
 layout_mode = 0
-offset_left = 925.0
-offset_top = 72.0
-offset_right = 1020.0
-offset_bottom = 117.0
+offset_left = 856.0
+offset_top = 71.0
+offset_right = 882.0
+offset_bottom = 109.0
+theme_override_colors/font_color = Color(0.39607844, 0.2627451, 0.12941177, 1)
+theme_override_font_sizes/font_size = 23
 text = "1"
 
 [node name="RiceImage" type="TextureRect" parent="PurchaseOverlay/PurchasePanel" unique_id=11084020]
 layout_mode = 1
-offset_right = 130.0
-offset_bottom = 155.0
+offset_left = 144.0
+offset_top = 179.0
+offset_right = 297.0
+offset_bottom = 347.0
 texture = ExtResource("16_k8ppe")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="RicePriceLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=738706121]
 layout_mode = 0
-offset_left = 122.0
-offset_top = 262.0
-offset_right = 232.0
-offset_bottom = 298.0
+offset_left = 175.0
+offset_top = 141.0
+offset_right = 285.0
+offset_bottom = 177.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "R$ 12,56"
 
 [node name="RiceMinusButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=1232326352]
 layout_mode = 0
-offset_left = 921.0
-offset_top = 60.0
-offset_right = 1411.0
-offset_bottom = 587.0
-texture_normal = ExtResource("10_33qdl")
+offset_left = 265.0
+offset_top = 352.0
+offset_right = 317.0
+offset_bottom = 419.0
+texture_normal = ExtResource("12_isbgj")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="RiceQuantityLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=1693434509]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 213.0
+offset_top = 367.0
+offset_right = 245.0
+offset_bottom = 402.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "0"
 
 [node name="RicePlusButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=281149101]
 layout_mode = 0
-offset_left = 808.0
-offset_top = 297.0
-offset_right = 1298.0
-offset_bottom = 824.0
+offset_left = 127.0
+offset_top = 355.0
+offset_right = 179.0
+offset_bottom = 422.0
 texture_normal = ExtResource("10_33qdl")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="BeansImage" type="TextureRect" parent="PurchaseOverlay/PurchasePanel" unique_id=414044858]
 layout_mode = 0
-offset_left = 273.0
-offset_top = 98.0
-offset_right = 410.0
-offset_bottom = 394.0
+offset_left = 456.0
+offset_top = 169.0
+offset_right = 593.0
+offset_bottom = 348.0
 texture = ExtResource("11_hjgcq")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="BeansPriceLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=1964847736]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 488.0
+offset_top = 139.0
+offset_right = 558.0
+offset_bottom = 167.0
+theme_override_colors/font_color = Color(1, 0.015686275, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "R$ 3,94"
 
 [node name="BeansMinusButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=1514258449]
 layout_mode = 0
-offset_left = 980.0
-offset_top = 225.0
-offset_right = 1437.0
-offset_bottom = 779.0
+offset_left = 567.0
+offset_top = 347.0
+offset_right = 619.0
+offset_bottom = 414.0
 texture_normal = ExtResource("12_isbgj")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="BeansQuantityLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=2126787816]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 517.0
+offset_top = 364.0
+offset_right = 542.0
+offset_bottom = 399.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "0"
 
 [node name="BeansPlusButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=245540706]
 layout_mode = 0
-offset_left = 585.0
-offset_top = 373.0
-offset_right = 1075.0
-offset_bottom = 900.0
+offset_left = 435.0
+offset_top = 346.0
+offset_right = 487.0
+offset_bottom = 413.0
 texture_normal = ExtResource("10_33qdl")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="SugarImage" type="TextureRect" parent="PurchaseOverlay/PurchasePanel" unique_id=653916888]
 layout_mode = 0
-offset_left = 122.0
-offset_top = 180.0
-offset_right = 252.0
-offset_bottom = 320.0
+offset_left = 731.0
+offset_top = 182.0
+offset_right = 880.0
+offset_bottom = 339.0
 texture = ExtResource("9_k8ppe")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="SugarPriceLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=342206473]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 772.0
+offset_top = 147.0
+offset_right = 842.0
+offset_bottom = 175.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "R$ 1,34"
 
 [node name="SugarMinusButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=1596115438]
 layout_mode = 0
-offset_left = 849.0
-offset_top = 193.0
-offset_right = 1306.0
-offset_bottom = 747.0
+offset_left = 845.0
+offset_top = 344.0
+offset_right = 897.0
+offset_bottom = 411.0
 texture_normal = ExtResource("12_isbgj")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="SugarQuantityLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=247598589]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 795.0
+offset_top = 359.0
+offset_right = 822.0
+offset_bottom = 394.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "0"
 
 [node name="SugarPlusButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=337313293]
 layout_mode = 0
-offset_left = 740.0
-offset_top = -17.0
-offset_right = 1230.0
-offset_bottom = 510.0
+offset_left = 715.0
+offset_top = 347.0
+offset_right = 767.0
+offset_bottom = 414.0
 texture_normal = ExtResource("10_33qdl")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="PurchaseTotalLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=767432697]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 695.0
+offset_top = 73.0
+offset_right = 735.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "0"
 
 [node name="PurchaseStatusLabel" type="Label" parent="PurchaseOverlay/PurchasePanel" unique_id=532943211]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 205.0
+offset_top = -39.0
+offset_right = 230.0
+offset_bottom = -4.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "0"
 
 [node name="BuyButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=1251477631]
-layout_mode = 0
-offset_left = 768.0
-offset_top = -134.0
-offset_right = 1916.0
-offset_bottom = 391.0
+layout_mode = 1
+anchors_preset = -1
+offset_left = 449.0
+offset_top = 454.0
+offset_right = 632.0
+offset_bottom = 526.0
 texture_normal = ExtResource("13_bo10d")
+ignore_texture_size = true
 stretch_mode = 5
 
 [node name="CloseButton" type="TextureButton" parent="PurchaseOverlay/PurchasePanel" unique_id=622227994]
 layout_mode = 0
-offset_left = 770.0
-offset_top = -30.0
-offset_right = 1047.0
-offset_bottom = 254.0
+offset_left = 967.0
+offset_top = 37.0
+offset_right = 1014.0
+offset_bottom = 90.0
 texture_normal = ExtResource("14_cbx5h")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="StockProducts" type="Control" parent="." unique_id=679904181]
 anchors_preset = 0
