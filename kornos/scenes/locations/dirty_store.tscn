@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://e8t5q6h71iys" path="res://art/backgrounds/dirty_store.png" id="1_lxajv"]
 [ext_resource type="Texture2D" uid="uid://dermtodrlfbq4" path="res://art/ui/tabela_dinheiro.png" id="3_57f0d"]
 [ext_resource type="Texture2D" uid="uid://dlw5lwumpedcr" path="res://art/ui/task_button.png" id="3_do0qx"]
+[ext_resource type="Texture2D" uid="uid://bb15i247x0dop" path="res://art/ui/navegation_button.png" id="3_k8ppe"]
 [ext_resource type="Texture2D" uid="uid://bnm0tgfuti2bh" path="res://art/ui/tabela_dias.png" id="4_jvyyh"]
 [ext_resource type="Texture2D" uid="uid://bqe1jm7amemk" path="res://art/ui/cart_icon.png" id="6_cbx5h"]
 [ext_resource type="Texture2D" uid="uid://bq4fvihklvnrk" path="res://art/ui/offer_tooltip.png" id="7_7hbxk"]
@@ -14,9 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://w8tvodqjh3pe" path="res://art/ui/button_minus.png" id="12_isbgj"]
 [ext_resource type="Texture2D" uid="uid://gqg72bmbc4pe" path="res://art/ui/button_buy.png" id="13_bo10d"]
 [ext_resource type="Texture2D" uid="uid://cb5s3nv7eqt4y" path="res://art/ui/close_button.png" id="14_cbx5h"]
-[ext_resource type="Texture2D" uid="uid://dl6vr5t3bfe7m" path="res://art/backgrounds/prateleira1.jpg" id="15_gk6wj"]
 [ext_resource type="Texture2D" uid="uid://jd2vcp63pmhk" path="res://art/products/arroz.png" id="16_k8ppe"]
-[ext_resource type="Texture2D" uid="uid://bntvctdclumxh" path="res://art/ui/back_button.png" id="17_k8ppe"]
+[ext_resource type="PackedScene" uid="uid://be0jmf7jehuln" path="res://scenes/ui/shelf_view.tscn" id="17_33qdl"]
+[ext_resource type="Script" uid="uid://dpmjenybyb05r" path="res://scripts/shelf_view.gd" id="18_33qdl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1pucc"]
 content_margin_left = 24.0
@@ -56,6 +57,31 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("1_lxajv")
+
+[node name="ShelfHoverArea" type="ColorRect" parent="." unique_id=1238432412]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 332.0
+offset_right = 702.0
+offset_bottom = 801.0
+color = Color(1, 1, 0.54901963, 0.15686275)
+
+[node name="EyeButton" type="TextureButton" parent="ShelfHoverArea" unique_id=1567123907]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 25.5
+offset_top = -44.0
+offset_right = 70.5
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("3_k8ppe")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="Luis" type="TextureRect" parent="." unique_id=1722204304]
 z_index = 10
@@ -114,6 +140,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="MoneyPanel" type="TextureRect" parent="." unique_id=1266302236]
+visible = false
 z_index = 30
 layout_mode = 0
 offset_right = 40.0
@@ -126,6 +153,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="DayPanel" type="TextureRect" parent="." unique_id=1641158533]
+visible = false
 z_index = 30
 layout_mode = 0
 offset_right = 40.0
@@ -133,11 +161,13 @@ offset_bottom = 40.0
 texture = ExtResource("4_jvyyh")
 
 [node name="DayLabel" type="Label" parent="DayPanel" unique_id=1204318475]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="CartButton" type="TextureButton" parent="." unique_id=1622263736]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 1230.0
@@ -150,6 +180,7 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="OfferTooltip" type="TextureRect" parent="." unique_id=1476997703]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 1000.0
@@ -161,13 +192,8 @@ texture = ExtResource("7_7hbxk")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ShelfOpenButton" type="TextureButton" parent="." unique_id=406712874]
-visible = false
-layout_mode = 1
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="PurchaseOverlay" type="Control" parent="." unique_id=205285573]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -430,81 +456,8 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ShelfView" type="Control" parent="." unique_id=308516787]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Dimmer" type="ColorRect" parent="ShelfView" unique_id=780377357]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.7294118)
-
-[node name="ShelfFrame" type="Control" parent="ShelfView" unique_id=452735551]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ShelfBackground" type="TextureRect" parent="ShelfView/ShelfFrame" unique_id=947706043]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("15_gk6wj")
-
-[node name="RiceProduct" type="TextureRect" parent="ShelfView/ShelfFrame" unique_id=1321916642]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("16_k8ppe")
-
-[node name="RiceCountLabel" type="Label" parent="ShelfView/ShelfFrame" unique_id=1443132086]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="BeansProduct" type="TextureRect" parent="ShelfView/ShelfFrame" unique_id=101392065]
-layout_mode = 0
-offset_right = 130.0
-offset_bottom = 155.0
-texture = ExtResource("11_hjgcq")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="BeansCountLabel" type="Label" parent="ShelfView/ShelfFrame" unique_id=1256551716]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="SugarProduct" type="TextureRect" parent="ShelfView/ShelfFrame" unique_id=144965674]
-layout_mode = 0
-offset_left = 465.0
-offset_top = 190.0
-offset_right = 595.0
-offset_bottom = 345.0
-texture = ExtResource("9_k8ppe")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="SugarCountLabel" type="Label" parent="ShelfView/ShelfFrame" unique_id=231266810]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="BackButton" type="TextureButton" parent="ShelfView/ShelfFrame" unique_id=610856088]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture_normal = ExtResource("17_k8ppe")
-
 [node name="DialoguePanel" type="PanelContainer" parent="." unique_id=1104136739]
+visible = false
 z_index = 40
 layout_mode = 1
 anchors_preset = -1
@@ -550,3 +503,8 @@ offset_bottom = 23.0
 [node name="TypewriterTimer" type="Timer" parent="." unique_id=1404444768]
 
 [node name="FeedbackTimer" type="Timer" parent="." unique_id=1666430074]
+
+[node name="ShelfView" parent="." unique_id=1737447328 instance=ExtResource("17_33qdl")]
+visible = false
+layout_mode = 1
+script = ExtResource("18_33qdl")

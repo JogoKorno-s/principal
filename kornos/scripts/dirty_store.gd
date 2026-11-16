@@ -78,8 +78,9 @@ var purchase_quantities: Dictionary = {
 	"beans": 0,
 	"sugar": 0
 }
-var shelf_review_completed: bool = false
 
+var shelf_hover_enabled := false
+var shelf_first_visit_done := false
 # REFERÊNCIAS DOS NODES
 @onready var background: TextureRect = $Background
 @onready var luis: TextureRect = $Luis
@@ -134,18 +135,11 @@ var shelf_review_completed: bool = false
 @onready var sugar_minus: TextureButton = $PurchaseOverlay/PurchasePanel/SugarMinusButton
 @onready var sugar_plus: TextureButton = $PurchaseOverlay/PurchasePanel/SugarPlusButton
 
-@onready var shelf_open_button: TextureButton = $ShelfOpenButton
 @onready var shelf_view: Control = $ShelfView
 
-@onready var shelf_back_button: TextureButton = $ShelfView/ShelfFrame/BackButton
 
-@onready var rice_product: TextureRect = $ShelfView/ShelfFrame/RiceProduct
-@onready var beans_product: TextureRect = $ShelfView/ShelfFrame/BeansProduct
-@onready var sugar_product: TextureRect = $ShelfView/ShelfFrame/SugarProduct
-
-@onready var rice_count_label: Label = $ShelfView/ShelfFrame/RiceCountLabel
-@onready var beans_count_label: Label = $ShelfView/ShelfFrame/BeansCountLabel
-@onready var sugar_count_label: Label = $ShelfView/ShelfFrame/SugarCountLabel
+@onready var shelf_hover_area: ColorRect = $ShelfHoverArea
+@onready var eye_button: TextureButton = $ShelfHoverArea/EyeButton
 
 func _ready() -> void:
 
@@ -223,15 +217,13 @@ func _ready() -> void:
 
 	buy_button.pressed.connect(_on_buy_pressed)
 	close_button.pressed.connect(_on_close_purchase)
-	
 
-# Conexões da visualização da prateleira.
-	shelf_open_button.pressed.connect(_on_shelf_open_pressed)
-	shelf_back_button.pressed.connect(_on_shelf_back_pressed)
+	shelf_hover_area.color.a = 0.0
+	shelf_hover_area.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	eye_button.visible = false
+	eye_button.pressed.connect(_on_eye_button_pressed)
+	shelf_view.closed.connect(_on_shelf_view_closed)
 
-# Inicialmente, os elementos ficam escondidos.
-	shelf_open_button.hide()
-	shelf_view.hide()
 
 # -------------------------------------
 # DIÁLOGOS DO LUÍS
@@ -334,11 +326,8 @@ func _on_next_pressed() -> void:
 			dialogue_panel.hide()
 			luis.hide()
 
-			GameState.complete_day_1()
-
-			await SceneTransition.change_scene(
-                "res://scenes/story/level_2_unlocked.tscn"
-			)
+	# Libera o botão para visualizar a prateleira.
+			_enable_shelf_view()
 
 		return
 
@@ -819,7 +808,6 @@ func _show_after_clean_dialogue() -> void:
 			AFTER_CLEAN_DIALOGUES[after_clean_index]
 		)
 
-
 func _show_day_end_dialogue() -> void:
 
 	if day_end_index < DAY_END_DIALOGUES.size():
@@ -1020,49 +1008,71 @@ func _show_stock_products() -> void:
 	# Mantém os pontos de limpeza escondidos.
 	_hide_cleaning_buttons()
 
-	# Libera o acesso à prateleira.
-	shelf_open_button.show()
-
 	# Mantém a visualização ampliada fechada.
 	shelf_view.hide()
 
+# ================= PRATELEIRA =================
+
+func _process(_delta: float) -> void:
+	_update_shelf_hover()
 
 
-func _on_shelf_open_pressed() -> void:
-
-	# Atualiza as quantidades compradas.
-	rice_count_label.text = "×%d" % GameState.rice_stock
-	beans_count_label.text = "×%d" % GameState.beans_stock
-	sugar_count_label.text = "×%d" % GameState.sugar_stock
-
-	# Exibe os produtos.
-	rice_product.show()
-	beans_product.show()
-	sugar_product.show()
-
-	# Abre a visualização ampliada.
-	shelf_view.show()
-
-	# Garante que a visualização fique na frente.
-	shelf_view.z_index = 100
+func _update_shelf_hover() -> void:
+	if _shelf_hover_blocked():
+		eye_button.visible = false
+		return
+	var mouse := get_global_mouse_position()
+	eye_button.visible = shelf_hover_area.get_global_rect().has_point(mouse)
 
 
-func _on_shelf_back_pressed() -> void:
+func _shelf_hover_blocked() -> bool:
+	if not shelf_hover_enabled or shelf_view.visible:
+		return true
+	var panel := get_node_or_null("DialoguePanel")
+	if panel and panel.visible:
+		return true
+	var purchase := get_node_or_null("PurchaseOverlay")
+	if purchase and purchase.visible:
+		return true
+	return false
 
-	# Fecha a visualização ampliada.
-	shelf_view.hide()
 
-	# O botão de acesso continua no mapa.
-	shelf_open_button.show()
+func _enable_shelf_view() -> void:
+	shelf_hover_enabled = true
+	_show_feedback("Passe o mouse sobre a prateleira do meio para conferir suas compras!")
 
-	# O encerramento acontece apenas na primeira visita.
-	if not shelf_review_completed:
 
-		shelf_review_completed = true
+func _on_eye_button_pressed() -> void:
+	eye_button.visible = false
+	shelf_view.open()
 
-		dialogue_mode = "day_end"
-		day_end_index = 0
 
-		luis.show()
+func _on_shelf_view_closed() -> void:
+	if shelf_first_visit_done:
+		return
+	shelf_first_visit_done = true
+	shelf_hover_enabled = false
+	_show_day_end_dialogue()
 
-		_show_day_end_dialogue()
+
+# ================= FIM DO DIA 1 =================
+
+
+func _finish_day_1() -> void:
+	var panel := $DialoguePanel
+	var luis_node := $Luis
+	var tween := create_tween().set_parallel(true)
+	tween.tween_property(panel, "modulate:a", 0.0, 0.5)
+	tween.tween_property(luis_node, "modulate:a", 0.0, 0.5)
+	await tween.finished
+	panel.visible = false
+	luis_node.visible = false
+	panel.modulate.a = 1.0
+	luis_node.modulate.a = 1.0
+
+	GameState.set("day_1_completed", true)
+	GameState.complete_level(1)
+
+	await get_tree().create_timer(0.8).timeout
+	# ETAPA 2 — vamos ativar esta linha quando a cena existir:
+	# SceneTransition.change_scene("res://scenes/story/level_2_unlocked.tscn")
