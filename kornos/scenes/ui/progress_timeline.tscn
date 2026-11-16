@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://gcfsbudvjysn"]
+
+[ext_resource type="Script" uid="uid://cc58ic6e4tln" path="res://scripts/progress_timeline.gd" id="1_3h7xj"]
+[ext_resource type="Texture2D" uid="uid://bntvctdclumxh" path="res://art/ui/back_button.png" id="2_6olkl"]
+
+[node name="ProgressTimeline" type="CanvasLayer" unique_id=1628137795]
+script = ExtResource("1_3h7xj")
+
+[node name="Root" type="Control" parent="." unique_id=656005664]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="Root" unique_id=530509833]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="Scroll" type="ScrollContainer" parent="Root" unique_id=953455502]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Map" type="Control" parent="Root/Scroll" unique_id=1722880577]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Root" unique_id=1263558467]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -106.5
+offset_right = 106.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.33393455, 0.2721568, 0.15066263, 1)
+theme_override_font_sizes/font_size = 36
+text = "SUA JORNADA NO KORNO'S"
+
+[node name="InfoLabel" type="Label" parent="Root" unique_id=1167987707]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="BackButton" type="TextureButton" parent="Root" unique_id=470186653]
+layout_mode = 0
+offset_right = 83.0
+offset_bottom = 106.0
+texture_normal = ExtResource("2_6olkl")
+ignore_texture_size = true
+stretch_mode = 5

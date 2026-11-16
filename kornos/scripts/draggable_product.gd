@@ -1,50 +1,42 @@
 extends TextureRect
-## Produto que pode ser arrastado na prateleira. A posição fica salva no GameState.
+## Produto arrastável. Quem decide onde ele encaixa é o shelf_view.gd.
+
+signal drag_started(product)
+signal drag_moved(product)
+signal dropped(product)
 
 @export var product_type: String = "rice"   # rice, beans ou sugar
-@export var stock_index: int = 1            # 1 = 1º pacote, 2 = 2º pacote...
+@export var stock_index: int = 1            # conta separado por produto: 1, 2, 3...
 
-var _dragging := false
+var dragging := false
 var _grab_offset := Vector2.ZERO
 
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	refresh()
 
 
-func refresh() -> void:
-	# Só aparece se o estoque tiver esse pacote (ex.: arroz 5 -> Arroz1..Arroz5)
+func is_in_stock() -> bool:
 	var stock = GameState.get(product_type + "_stock")
-	if stock != null:
-		visible = stock_index <= int(stock)
-	# Restaura a posição que o jogador deixou
-	var key := String(name)
-	if GameState.shelf_item_positions.has(key):
-		position = GameState.shelf_item_positions[key]
+	return stock == null or stock_index <= int(stock)
 
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			_dragging = true
-			_grab_offset = get_global_mouse_position() - global_position
+			dragging = true
+			_grab_offset = get_parent().get_local_mouse_position() - position
 			move_to_front()
+			modulate = Color(1, 1, 1, 0.85)
+			drag_started.emit(self)
 			accept_event()
-		elif _dragging:
-			_dragging = false
-			GameState.shelf_item_positions[String(name)] = position
+		elif dragging:
+			dragging = false
+			modulate = Color.WHITE
+			dropped.emit(self)
 			accept_event()
-	elif event is InputEventMouseMotion and _dragging:
-		global_position = get_global_mouse_position() - _grab_offset
-		_clamp_to_parent()
+	elif event is InputEventMouseMotion and dragging:
+		position = get_parent().get_local_mouse_position() - _grab_offset
+		drag_moved.emit(self)
 		accept_event()
-
-
-func _clamp_to_parent() -> void:
-	var area := get_parent() as Control
-	if area == null:
-		return
-	var max_pos := area.size - size * scale
-	position = position.clamp(Vector2.ZERO, max_pos)

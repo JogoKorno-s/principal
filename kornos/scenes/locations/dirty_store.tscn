@@ -140,7 +140,6 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="MoneyPanel" type="TextureRect" parent="." unique_id=1266302236]
-visible = false
 z_index = 30
 layout_mode = 0
 offset_right = 40.0
@@ -153,7 +152,6 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="DayPanel" type="TextureRect" parent="." unique_id=1641158533]
-visible = false
 z_index = 30
 layout_mode = 0
 offset_right = 40.0
@@ -161,13 +159,11 @@ offset_bottom = 40.0
 texture = ExtResource("4_jvyyh")
 
 [node name="DayLabel" type="Label" parent="DayPanel" unique_id=1204318475]
-visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="CartButton" type="TextureButton" parent="." unique_id=1622263736]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 1230.0
@@ -180,7 +176,6 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="OfferTooltip" type="TextureRect" parent="." unique_id=1476997703]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 offset_left = 1000.0
@@ -193,7 +188,6 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="PurchaseOverlay" type="Control" parent="." unique_id=205285573]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -457,7 +451,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="DialoguePanel" type="PanelContainer" parent="." unique_id=1104136739]
-visible = false
 z_index = 40
 layout_mode = 1
 anchors_preset = -1

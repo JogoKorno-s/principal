@@ -1052,7 +1052,9 @@ func _on_shelf_view_closed() -> void:
 		return
 	shelf_first_visit_done = true
 	shelf_hover_enabled = false
-	_show_day_end_dialogue()
+	GameState.set("day_1_completed", true)
+	GameState.complete_level(1)
+	SceneTransition.change_scene("res://scenes/story/level_2_unlocked.tscn")
 
 
 # ================= FIM DO DIA 1 =================
@@ -1075,4 +1077,4 @@ func _finish_day_1() -> void:
 
 	await get_tree().create_timer(0.8).timeout
 	# ETAPA 2 — vamos ativar esta linha quando a cena existir:
-	# SceneTransition.change_scene("res://scenes/story/level_2_unlocked.tscn")
+	SceneTransition.change_scene("res://scenes/story/level_2_unlocked.tscn")

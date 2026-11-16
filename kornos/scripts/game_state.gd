@@ -14,7 +14,7 @@ var level: int = 1                      # se já existir (ou se chamar current_l
 var completed_levels: Array[int] = []
 
 # --- Prateleira: posição de cada produto arrastado ---
-var shelf_item_positions: Dictionary = {}
+var shelf_item_slots: Dictionary = {}   # "Arroz1" -> "Row3:0"
 
 var current_day: int = 1
 var xp: int = 0

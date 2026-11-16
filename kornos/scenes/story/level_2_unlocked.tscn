@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://dwlk2qpe14dno"]
+
+[ext_resource type="Script" uid="uid://q8hq7fjkw4ri" path="res://scripts/level_2_unlocked.gd" id="1_1l7h4"]
+[ext_resource type="Texture2D" uid="uid://b5lgc7lserw78" path="res://art/backgrounds/mercado_abastecido.png" id="2_e7ecq"]
+[ext_resource type="Texture2D" uid="uid://cqmc0l3p187qc" path="res://art/objects/level_2_card.png" id="3_8xj6x"]
+[ext_resource type="Texture2D" uid="uid://dk38s6x24vkcw" path="res://art/ui/button_next_day.png" id="4_0256m"]
+[ext_resource type="Texture2D" uid="uid://76fy704fp2n8" path="res://art/ui/button_view_progress.png" id="5_0envg"]
+
+[node name="Level2Unlocked" type="Control" unique_id=648533009]
+layout_mode = 3
+anchor_right = 0.021000002
+anchor_bottom = 0.074
+offset_right = -40.320004
+offset_bottom = -79.92
+script = ExtResource("1_1l7h4")
+
+[node name="Background" type="TextureRect" parent="." unique_id=177454482]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_right = 1920.0
+offset_bottom = 1082.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_e7ecq")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Dimmer" type="ColorRect" parent="." unique_id=1228917160]
+layout_mode = 1
+offset_right = 1925.0
+offset_bottom = 1089.0
+color = Color(0, 0, 0, 0.61960787)
+
+[node name="Board" type="TextureRect" parent="." unique_id=655107645]
+layout_mode = 0
+offset_left = 443.0
+offset_top = 115.0
+offset_right = 1532.0
+offset_bottom = 830.0
+texture = ExtResource("3_8xj6x")
+
+[node name="Buttons" type="HBoxContainer" parent="." unique_id=646728960]
+layout_mode = 1
+offset_left = 690.00006
+offset_top = 814.0
+offset_right = 1214.0
+offset_bottom = 933.0
+scale = Vector2(1.0458981, 1.150911)
+
+[node name="NextDayButton" type="TextureButton" parent="Buttons" unique_id=1895750314]
+custom_minimum_size = Vector2(260, 80)
+layout_mode = 2
+texture_normal = ExtResource("4_0256m")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ProgressButton" type="TextureButton" parent="Buttons" unique_id=199737093]
+custom_minimum_size = Vector2(260, 80)
+layout_mode = 2
+texture_normal = ExtResource("5_0envg")
+ignore_texture_size = true
+stretch_mode = 5
