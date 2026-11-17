@@ -1,0 +1,96 @@
+// CONTROLLER: falas com texto letra por letra e troca de pose do Luís.
+
+import { el, botao } from '../view/componentes.js';
+
+/**
+ * Escreve o texto letra por letra dentro de `elemento`.
+ * O texto inteiro já ocupa o espaço desde o início (a parte que falta fica invisível),
+ * então o balão não muda de tamanho enquanto as letras aparecem.
+ * Retorna { pronto: Promise, completar() }.
+ */
+export function digitar(elemento, texto, velocidadeMs = 35) {
+  const visivel = el('span');
+  const falta = el('span', { class: 'falta', 'aria-hidden': 'true' }, texto);
+  elemento.replaceChildren(visivel, falta);
+  elemento.setAttribute('aria-label', texto);
+
+  const letras = Array.from(texto); // respeita acentos e emojis
+  let i = 0;
+  let timer;
+  let terminar;
+  const pronto = new Promise((r) => { terminar = r; });
+
+  const mostrar = (n) => {
+    visivel.textContent = letras.slice(0, n).join('');
+    falta.textContent = letras.slice(n).join('');
+  };
+
+  const completar = () => {
+    clearInterval(timer);
+    i = letras.length;
+    mostrar(i);
+    terminar();
+  };
+
+  timer = setInterval(() => {
+    i += 1;
+    mostrar(i);
+    if (i >= letras.length) completar();
+  }, velocidadeMs);
+
+  return { pronto, completar, get digitando() { return i < letras.length; } };
+}
+
+const caminhoPose = (pose) => `assets/luis/${pose}.webp`;
+
+/** Pré-carrega as poses usadas numa sequência de falas. */
+function precarregarPoses(falas) {
+  for (const { pose } of falas) if (pose) new Image().src = caminhoPose(pose);
+}
+
+/**
+ * Mostra uma sequência de falas e resolve quando o jogador passa a última.
+ * falas: [{ texto, pose }]
+ */
+export function falar(container, falas, { nome = 'Luís', velocidadeMs = 35 } = {}) {
+  precarregarPoses(falas);
+
+  return new Promise((resolver) => {
+    let indice = 0;
+    let escrita = null;
+
+    const personagem = el('img', { class: 'dialogo__personagem', alt: '' });
+    const texto = el('p', { class: 'balao__texto' });
+    const continuar = botao('Continuar ›', avancar, 'pequeno');
+    const balao = el('div', { class: 'balao' },
+      el('span', { class: 'balao__nome' }, nome),
+      texto,
+      el('div', { class: 'balao__acoes' }, continuar));
+    const camada = el('div', { class: 'dialogo' }, personagem, balao);
+    container.append(camada);
+
+    function mostrar() {
+      const fala = falas[indice];
+      if (fala.pose) {
+        personagem.src = caminhoPose(fala.pose);
+        personagem.alt = `${nome} (${fala.pose})`;
+        personagem.hidden = false;
+      } else {
+        personagem.hidden = true;
+      }
+      escrita = digitar(texto, fala.texto, velocidadeMs);
+      continuar.focus({ preventScroll: true });
+    }
+
+    function avancar() {
+      // 1º clique durante a digitação: mostra a fala inteira
+      if (escrita?.digitando) { escrita.completar(); return; }
+      indice += 1;
+      if (indice < falas.length) { mostrar(); return; }
+      camada.remove();
+      resolver();
+    }
+
+    mostrar();
+  });
+}
