@@ -794,3 +794,18 @@ a.oferta:hover { transform: translateY(-4px) rotate(-.4deg); box-shadow: var(--s
   .tag-preco__texto { font-size: .95rem; }
 }
 .cupom-item__links a { min-width: 0; overflow-wrap: anywhere; }
+
+/* Produtos da demo: imagens reais (img/produtos/) */
+.produto { aspect-ratio: auto; height: auto; max-width: none; display: flex; justify-content: center; align-items: flex-end; }
+.produto img { display: block; height: clamp(78px, 11vw, 140px); width: auto; max-width: 100%; object-fit: contain; object-position: bottom; pointer-events: none; user-select: none; filter: drop-shadow(0 4px 3px rgb(91 31 0 / .3)); }
+.fantasma { width: auto; height: 120px; }
+.fantasma img { height: 100%; width: auto; }
+.legenda-latas { display: flex; }
+.prateleirinha { align-items: end; }
+.prateleirinha img { flex: 1; min-width: 0; height: 74px; object-fit: contain; }
+
+/* Balão do Luís: retrato e rabinho alinhados no topo (antes o rabinho caía sobre os botões) */
+@media (min-width: 561px) {
+  .fala { align-items: start; }
+  .balao::after { bottom: auto; top: 34px; }
+}
