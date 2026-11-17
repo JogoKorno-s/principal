@@ -1,0 +1,321 @@
+/* =========================================================
+   Estilos de cada tela
+   ========================================================= */
+
+/* ---------- Menu ---------- */
+.menu__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.menu__veu {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgb(18 7 0 / .65) 100%);
+}
+.menu__botoes {
+  position: absolute;
+  left: 50%;
+  bottom: 110px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+.menu__botoes .botao { min-width: 380px; }
+.menu__icones { position: absolute; top: 36px; right: 40px; display: flex; gap: 22px; }
+
+/* ---------- Abertura ---------- */
+.abertura__midia { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.legenda {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 6%;
+  min-height: 190px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 36px;
+  padding: 28px 40px;
+  background: rgb(8 6 5 / .62);
+  border: 2px solid rgb(255 255 255 / .16);
+  border-radius: 22px;
+  backdrop-filter: blur(3px);
+}
+.legenda__texto {
+  margin: 0;
+  color: #fff;
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  text-shadow: 0 2px 0 #30231D, 0 3px 10px rgb(0 0 0 / .7);
+  text-wrap: balance;
+}
+.legenda__texto .falta { visibility: hidden; }
+.abertura__pular { position: absolute; top: 36px; right: 40px; }
+.abertura__final {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 70px;
+  background: rgb(0 0 0 / .72);
+  animation: aparecer 900ms ease-out both;
+}
+.abertura__final p {
+  margin: 0;
+  max-width: 1400px;
+  color: var(--bege);
+  font-family: var(--f-letreiro);
+  font-weight: 600;
+  font-size: 84px;
+  line-height: 1.1;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* ---------- Fachada ---------- */
+.fachada__entrar {
+  position: absolute;
+  left: 50%;
+  bottom: 90px;
+  transform: translateX(-50%);
+  animation: entrar-baixo 400ms var(--saida) both;
+}
+
+/* ---------- Dia 1: cenário com troca suave ---------- */
+.cenario--novo { animation: aparecer 500ms ease-out both; }
+
+/* Bolinhas vermelhas numeradas da limpeza */
+.bolinha {
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  margin: -46px 0 0 -46px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  background: var(--vermelho-erro);
+  color: #fff;
+  font-family: var(--f-letreiro);
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 0 0 5px var(--marrom), 0 12px 20px -6px rgb(0 0 0 / .6);
+  animation: bolinha-pulsar 1.6s ease-in-out infinite;
+  transition: transform 150ms var(--saida);
+}
+.bolinha:hover { transform: scale(1.12); animation-play-state: paused; }
+.bolinha__rotulo {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 16px 6px;
+  background: var(--bege);
+  color: var(--marrom);
+  border: 3px solid var(--marrom);
+  border-radius: 999px;
+  font-family: var(--f-texto);
+  font-size: 24px;
+  font-weight: 800;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 150ms;
+}
+.bolinha:hover .bolinha__rotulo, .bolinha:focus-visible .bolinha__rotulo { opacity: 1; }
+.bolinha.errou { animation: tremer 400ms ease-in-out; }
+@keyframes bolinha-pulsar { 50% { box-shadow: 0 0 0 5px var(--marrom), 0 0 0 22px rgb(179 38 30 / .25), 0 12px 20px -6px rgb(0 0 0 / .6); } }
+@keyframes tremer { 20%, 60% { transform: translateX(-12px); } 40%, 80% { transform: translateX(12px); } }
+
+/* ---------- Atacadista ---------- */
+.atacadista { width: 1500px; }
+.atacadista__topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 36px; }
+.atacadista__selo-oferta {
+  padding: 8px 22px;
+  background: var(--laranja);
+  color: var(--bege);
+  border: 3px solid var(--marrom);
+  border-radius: 12px;
+  font-family: var(--f-letreiro);
+  font-weight: 650;
+  font-size: 34px;
+  transform: rotate(-3deg);
+}
+.atacadista__saldo { font-size: 30px; font-weight: 700; }
+.atacadista__saldo strong { font-family: var(--f-letreiro); font-size: 44px; font-weight: 650; margin-left: 10px; }
+.atacadista__produtos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.produto-card {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: 30px 24px 34px;
+  background: #fff;
+  border: var(--borda);
+  border-radius: var(--raio);
+}
+.produto-card img { height: 190px; width: auto; filter: drop-shadow(0 10px 10px rgb(0 0 0 / .2)); }
+.produto-card__nome { font-family: var(--f-letreiro); font-weight: 600; font-size: 44px; line-height: 1; }
+.produto-card__preco { font-family: var(--f-letreiro); font-weight: 650; font-size: 52px; color: var(--laranja); line-height: 1; }
+.produto-card__unidade { font-size: 22px; font-weight: 700; color: var(--marrom-claro); }
+.quantidade { display: flex; align-items: center; gap: 22px; margin-top: 8px; }
+.quantidade output {
+  min-width: 90px;
+  font-family: var(--f-letreiro);
+  font-weight: 650;
+  font-size: 60px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.atacadista__rodape { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; gap: 30px; }
+.atacadista__total { font-family: var(--f-letreiro); font-weight: 650; font-size: 52px; }
+.atacadista__resultado { min-height: 64px; display: flex; align-items: center; justify-content: center; margin-top: 26px; gap: 20px; font-size: 30px; font-weight: 700; }
+
+/* ---------- Prateleira do mercado (olho) ---------- */
+.area-prateleira { position: absolute; cursor: zoom-in; }
+.botao-olho {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 130px;
+  height: 130px;
+  margin: -65px 0 0 -65px;
+  opacity: 0;
+  transform: scale(.7);
+  transition: opacity 180ms, transform 180ms var(--saida);
+}
+.area-prateleira:hover .botao-olho, .botao-olho:focus-visible { opacity: 1; transform: none; }
+
+/* ---------- Prateleira ampliada ---------- */
+.prateleira { position: absolute; inset: 0; animation: aparecer 300ms ease-out both; }
+.prateleira__voltar { position: absolute; top: 36px; left: 40px; z-index: 5; }
+.prateleira__dica {
+  position: absolute;
+  left: 50%;
+  bottom: 36px;
+  transform: translateX(-50%);
+  padding: 14px 34px;
+  background: var(--bege);
+  border: var(--borda);
+  border-radius: 999px;
+  font-size: 30px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.fileira { position: absolute; display: flex; pointer-events: none; }
+.vaga {
+  flex: 1;
+  margin: 3px;
+  border: 3px dashed rgb(255 244 190 / .85);
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 120ms, background 120ms;
+}
+.prateleira.arrastando .vaga { opacity: 1; }
+.vaga.destaque { background: rgb(130 184 117 / .45); border-style: solid; }
+.produto {
+  position: absolute;
+  width: 120px;
+  height: 130px;
+  object-fit: contain;
+  object-position: bottom center;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 8px 6px rgb(0 0 0 / .35));
+}
+.produto.animar { transition: left 120ms ease-out, top 120ms ease-out; }
+.produto.arrastado { cursor: grabbing; opacity: .85; z-index: 10; filter: drop-shadow(0 22px 14px rgb(0 0 0 / .4)); }
+
+/* ---------- Linha do tempo de progresso ---------- */
+.linha-tempo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #f7ead0, #d39b62);
+  animation: aparecer 250ms ease-out both;
+}
+.linha-tempo__titulo {
+  position: absolute;
+  top: 54px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  font-family: var(--f-letreiro);
+  font-weight: 650;
+  font-size: 80px;
+  text-align: center;
+}
+.linha-tempo__fechar { position: absolute; top: 40px; right: 44px; }
+.linha-tempo__estrada { position: absolute; inset: 0; width: 100%; height: 100%; }
+.marco {
+  position: absolute;
+  width: 330px;
+  margin-left: -165px;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.marco__botao {
+  display: grid;
+  place-items: center;
+  width: 170px;
+  height: 170px;
+  padding: 0;
+  border: 7px solid var(--marrom);
+  border-radius: 50%;
+  font-family: var(--f-letreiro);
+  font-weight: 700;
+  font-size: 76px;
+  color: var(--marrom);
+  cursor: pointer;
+  box-shadow: 0 9px 0 var(--marrom), 0 22px 30px -14px rgb(0 0 0 / .5);
+  transition: transform 150ms var(--saida);
+}
+.marco__botao:hover { transform: translateY(-4px) scale(1.04); }
+.marco__botao svg { width: 46%; height: 46%; }
+.marco--concluido .marco__botao { background: var(--verde); }
+.marco--desbloqueado .marco__botao { background: var(--bege); box-shadow: 0 9px 0 var(--marrom), 0 0 0 14px rgb(217 99 0 / .35); }
+.marco--bloqueado .marco__botao { background: #b9aa98; color: #6f5b4b; border-color: #6f5b4b; box-shadow: 0 9px 0 #6f5b4b; }
+.marco--bloqueado .marco__botao:hover { animation: tremer 300ms; }
+.marco__info {
+  padding: 16px 22px 18px;
+  background: var(--bege);
+  border: var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+.marco__dia { font-family: var(--f-texto); font-size: 22px; font-weight: 800; letter-spacing: .08em; color: var(--marrom-claro); }
+.marco__nome { font-family: var(--f-letreiro); font-weight: 650; font-size: 36px; line-height: 1.05; margin: 4px 0; }
+.marco__estado { font-size: 22px; font-weight: 800; letter-spacing: .04em; }
+.marco--concluido .marco__estado { color: #3d6b33; }
+.marco--desbloqueado .marco__estado { color: var(--marrom-claro); }
+.marco--bloqueado .marco__estado { color: #6f5b4b; }
+.marco__aqui {
+  position: absolute;
+  top: -66px;
+  padding: 6px 18px 8px;
+  background: var(--laranja);
+  color: #fff;
+  border: 3px solid var(--marrom);
+  border-radius: 999px;
+  font-family: var(--f-letreiro);
+  font-weight: 650;
+  font-size: 26px;
+  white-space: nowrap;
+  animation: quicar 1.2s ease-in-out infinite;
+}
+.linha-tempo__info {
+  position: absolute;
+  left: 50%;
+  bottom: 44px;
+  transform: translateX(-50%);
+  padding: 16px 36px;
+  background: var(--marrom);
+  color: var(--bege);
+  border-radius: 999px;
+  font-size: 32px;
+  font-weight: 700;
+  white-space: nowrap;
+}
