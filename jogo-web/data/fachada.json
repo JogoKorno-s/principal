@@ -1,0 +1,9 @@
+{
+  "cenario": "assets/cenarios/fachada.webp",
+  "falas": [
+    { "pose": "oi",         "texto": "Oi, Belo! Sou o Luís, seu vizinho. Vou te ajudar a colocar o Korno's de pé novamente." },
+    { "pose": "explicando", "texto": "Seu avô deixou esse mercado para você. Ele está precisando de cuidados, mas vamos resolver uma coisa de cada vez." },
+    { "pose": "joinha",     "texto": "Vamos começar entrando no mercado. Quando terminarmos, clique no botão para ver como está lá dentro." }
+  ],
+  "botaoEntrar": "Entrar no mercado"
+}
