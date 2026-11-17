@@ -19,12 +19,12 @@
 
   // Produtos: cor de fundo e cor do texto vêm da paleta oficial
   var PRODUTOS = [
-    { id: "C", nome: "Cola Refri", cor: "#8D4925", tinta: "#F4EDE4", faixa: "#5B1F00" },
-    { id: "G", nome: "Guaraná Primavera", cor: "#82B875", tinta: "#5B1F00", faixa: "#5B1F00" },
-    { id: "A", nome: "Água com gás", cor: "#5C7A8D", tinta: "#FFFFFF", faixa: "#F4EDE4" },
-    { id: "S", nome: "Suco de uva", cor: "#5B1F00", tinta: "#F4EDE4", faixa: "#8D4925" },
-    { id: "M", nome: "Chá mate", cor: "#E6D3B3", tinta: "#5B1F00", faixa: "#82B875" },
-    { id: "L", nome: "Limonada", cor: "#F4EDE4", tinta: "#5B1F00", faixa: "#D96300" }
+    { id: "C", img: "cola-refri", nome: "Cola Refri", cor: "#8D4925", tinta: "#F4EDE4", faixa: "#5B1F00" },
+    { id: "G", img: "guarana-primavera", nome: "Guaraná Primavera", cor: "#82B875", tinta: "#5B1F00", faixa: "#5B1F00" },
+    { id: "A", img: "agua-com-gas", nome: "Água com gás", cor: "#5C7A8D", tinta: "#FFFFFF", faixa: "#F4EDE4" },
+    { id: "S", img: "suco-uva", nome: "Suco de uva", cor: "#5B1F00", tinta: "#F4EDE4", faixa: "#8D4925" },
+    { id: "M", img: "cha-mate", nome: "Chá mate", cor: "#E6D3B3", tinta: "#5B1F00", faixa: "#82B875" },
+    { id: "L", img: "limonada", nome: "Limonada", cor: "#F4EDE4", tinta: "#5B1F00", faixa: "#D96300" }
   ];
   var porId = {}; PRODUTOS.forEach(function (p) { porId[p.id] = p; });
 
@@ -33,18 +33,9 @@
   var achados = new Set();
   var pego = null; // índice do produto "na mão" (teclado ou clique)
 
+  // Imagem do produto (img/produtos/). O nome vai no aria-label do botão.
   function lataSVG(p) {
-    return '<svg viewBox="0 0 60 104" aria-hidden="true">' +
-      '<path d="M6 12 Q6 4 30 4 Q54 4 54 12 V94 Q54 101 30 101 Q6 101 6 94 Z" fill="' + p.cor + '" stroke="#5B1F00" stroke-width="3"/>' +
-      '<ellipse cx="30" cy="12" rx="24" ry="6" fill="none" stroke="#5B1F00" stroke-width="2.5"/>' +
-      '<rect x="6" y="78" width="48" height="8" fill="' + p.faixa + '"/>' +
-      '<path d="M6 78 H54 M6 86 H54" stroke="#5B1F00" stroke-width="2"/>' +
-      '<path d="M13 22 V70" stroke="#F4EDE4" stroke-opacity=".35" stroke-width="4" stroke-linecap="round"/>' +
-      "</svg>";
-  }
-
-  function nomeCurto(p) {
-    return p.nome.replace("Guaraná Primavera", "Guaraná<br>Primavera").replace("Água com gás", "Água<br>com gás").replace("Suco de uva", "Suco<br>de uva");
+    return '<img src="img/produtos/' + p.img + '.webp" alt="" draggable="false">';
   }
 
   function desenha(focarIndice) {
@@ -56,7 +47,7 @@
       li.dataset.i = i;
       li.innerHTML = '<button type="button" class="produto" data-i="' + i + '" style="--tinta:' + p.tinta + '" ' +
         'aria-label="' + p.nome + ', posição ' + (i + 1) + ' de 6" aria-pressed="' + (pego === i) + '">' +
-        lataSVG(p) + '<span class="nome" aria-hidden="true">' + nomeCurto(p) + '</span><span class="sigla" aria-hidden="true">' + p.id + "</span></button>" +
+        lataSVG(p) + "</button>" +
         '<span class="pos" aria-hidden="true">' + (i + 1) + "</span>";
       if (pego === i) li.querySelector(".produto").classList.add("pego");
       slots.appendChild(li);
