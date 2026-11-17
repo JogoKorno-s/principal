@@ -1,0 +1,92 @@
+{
+  "nivel": 1,
+  "cenarios": {
+    "limpeza": [
+      "assets/cenarios/sujo-0.webp",
+      "assets/cenarios/sujo-1-chao.webp",
+      "assets/cenarios/sujo-2-caixa.webp",
+      "assets/cenarios/sujo-3-prateleiras.webp",
+      "assets/cenarios/mercado-limpo.webp"
+    ],
+    "abastecido": "assets/cenarios/mercado-abastecido.webp",
+    "prateleira": "assets/cenarios/prateleira.webp"
+  },
+
+  "falas": {
+    "inicio": [
+      { "pose": "explicando", "texto": "Ei, Belo! O supermercado está uma bagunça. Antes de começar, vamos colocar tudo em ordem." },
+      { "pose": "explicando", "texto": "Clique nas bolinhas vermelhas em ordem crescente e cumpra as funções necessárias." }
+    ],
+    "posLimpeza": [
+      { "pose": "joinha",     "texto": "Que belo trabalho, Korno! Mas não pense que acabou." },
+      { "pose": "explicando", "texto": "Acabei de receber uma notificação de uma promoção em um supermercado atacadista. É uma boa oportunidade para abastecer nosso estoque e economizar." },
+      { "pose": "explicando", "texto": "Precisamos comprar 5 pacotes de arroz, 4 sacos de açúcar e 3 pacotes de feijão, já que é a compra mínima do mercado. Mas atenção: são exatamente essas quantidades, então não adianta comprar mais ou menos, beleza?" },
+      { "pose": "joinha",     "texto": "Quando terminar as compras, podemos encerrar o seu primeiro dia." }
+    ],
+    "fimDoDia": [
+      { "pose": "explicando", "texto": "Excelente trabalho, Belo! Conseguimos abastecer nossas prateleiras com arroz, feijão e açúcar. Nosso supermercado está começando a ganhar vida novamente!" },
+      { "pose": "joinha",     "texto": "Por hoje é só! Você concluiu seu primeiro dia no Korno's. Amanhã teremos novos desafios pela frente. Até lá!" }
+    ]
+  },
+
+  "limpeza": {
+    "etapas": [
+      { "id": "chao",        "nome": "o chão",         "rotulo": "Chão",        "x": 771, "y": 821 },
+      { "id": "caixa",       "nome": "o caixa",        "rotulo": "Caixa",       "x": 344, "y": 896 },
+      { "id": "prateleiras", "nome": "as prateleiras", "rotulo": "Prateleiras", "x": 991, "y": 588 },
+      { "id": "teto",        "nome": "o teto",         "rotulo": "Teto",        "x": 601, "y": 147 }
+    ],
+    "mensagemErro": "Ainda não, Belo! Primeiro, limpe {nome}.",
+    "mensagemProxima": "Muito bem! Agora limpe {nome}."
+  },
+
+  "compra": {
+    "oferta": ["VENHA APROVEITAR A OFERTA DO DIA!", "COMPRE ARROZ, FEIJÃO E AÇÚCAR!"],
+    "titulo": "Mercado Atacadista",
+    "quantidadeMaxima": 20,
+    "produtos": [
+      { "id": "arroz",  "nome": "Arroz",  "unidade": "pacote", "precoCentavos": 1256, "exigido": 5, "imagem": "assets/produtos/arroz.webp" },
+      { "id": "feijao", "nome": "Feijão", "unidade": "pacote", "precoCentavos": 394,  "exigido": 3, "imagem": "assets/produtos/feijao.webp" },
+      { "id": "acucar", "nome": "Açúcar", "unidade": "saco",   "precoCentavos": 134,  "exigido": 4, "imagem": "assets/produtos/acucar.webp" }
+    ],
+    "mensagemQuantidade": "Confira as quantidades! Arroz: 5 | Feijão: 3 | Açúcar: 4.",
+    "mensagemSaldo": "Dinheiro insuficiente para realizar a compra.",
+    "mensagemSucesso": "Compra realizada!"
+  },
+
+  "prateleira": {
+    "dicaMercado": "Passe o mouse sobre a prateleira do meio para conferir suas compras!",
+    "dica": "Arraste os produtos para organizar a prateleira.",
+    "areaNoMercado": { "x": 780, "y": 400, "largura": 370, "altura": 520 },
+    "fileiras": [
+      { "id": "F1", "x": 225, "y": 113, "largura": 1590, "altura": 146, "vagas": 8 },
+      { "id": "F2", "x": 327, "y": 321, "largura": 1396, "altura": 233, "vagas": 8 },
+      { "id": "F3", "x": 297, "y": 601, "largura": 1410, "altura": 257, "vagas": 8 }
+    ],
+    "margemSoltar": 30,
+    "tamanhoProduto": { "largura": 120, "altura": 130 },
+    "produtos": [
+      { "id": "arroz1",  "tipo": "arroz",  "x": 924, "y": 701 },
+      { "id": "arroz2",  "tipo": "arroz",  "x": 762, "y": 704 },
+      { "id": "arroz3",  "tipo": "arroz",  "x": 606, "y": 702 },
+      { "id": "arroz4",  "tipo": "arroz",  "x": 455, "y": 696 },
+      { "id": "arroz5",  "tipo": "arroz",  "x": 317, "y": 695 },
+      { "id": "feijao1", "tipo": "feijao", "x": 645, "y": 409 },
+      { "id": "feijao2", "tipo": "feijao", "x": 502, "y": 410 },
+      { "id": "feijao3", "tipo": "feijao", "x": 373, "y": 412 },
+      { "id": "acucar1", "tipo": "acucar", "x": 800, "y": 135 },
+      { "id": "acucar2", "tipo": "acucar", "x": 495, "y": 137 },
+      { "id": "acucar3", "tipo": "acucar", "x": 375, "y": 133 },
+      { "id": "acucar4", "tipo": "acucar", "x": 640, "y": 134 }
+    ]
+  },
+
+  "card": {
+    "titulo": "Nível 2",
+    "destaque": "desbloqueado!",
+    "subtitulo": "Você concluiu o Dia 1 do Korno's.",
+    "botaoProximo": "Próximo dia",
+    "botaoProgresso": "Ver progresso",
+    "mensagemEmBreve": "O Dia 2 chega na próxima entrega da versão web."
+  }
+}
