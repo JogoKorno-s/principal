@@ -176,6 +176,16 @@ Depois, em `historia.html`, copie um bloco `<figure class="cena cena--…">` que
 
 ---
 
+## Quando o site não atualiza (cache)
+
+Os navegadores guardam uma cópia do CSS, dos scripts e das imagens. Por isso, todas as páginas chamam esses arquivos com um número de versão no fim, por exemplo `css/kornos.css?v=2026-11-17`.
+
+**Sempre que mudar o `css/kornos.css` ou algum arquivo de `js/`, troque esse número em todas as páginas** (no VS Code: `Ctrl+Shift+H`, procure `?v=2026-11-17` e substitua pela data do dia). Se trocar uma imagem mantendo o mesmo nome do arquivo, faça o mesmo com ela, ou dê um nome novo ao arquivo.
+
+Para conferir uma atualização na hora, abra o site numa janela anônima.
+
+---
+
 ## Cores e fontes
 
 No começo de `css/kornos.css` estão as variáveis `--bege`, `--laranja` etc. É a paleta oficial do GDD. Não acrescentem cores novas.
