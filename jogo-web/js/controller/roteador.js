@@ -47,6 +47,7 @@ export async function ir(nome, parametros = {}) {
   container().replaceChildren();
   document.getElementById('sobreposicao').replaceChildren();
   document.getElementById('avisos').replaceChildren();
+  document.getElementById('notificacoes')?.replaceChildren();
 
   if (!FORA_DO_SAVE.has(nome)) GameState.irPara(nome);
   atual = tela;

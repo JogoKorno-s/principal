@@ -430,3 +430,68 @@
 .desafio__check svg { width: 100%; height: 100%; }
 .desafio__acao { grid-column: 2; justify-self: end; align-self: end; }
 .desafio__acao .botao { --cor: var(--laranja); --cor-texto: var(--bege); }
+
+/* Ticket "PEDIDO" desenhado por cima do cenário do caixa */
+.caixa__ticket { position: absolute; left: 1473px; top: 44px; width: 481px; height: 481px; pointer-events: none; }
+.caixa__ticket-papel { width: 100%; height: 100%; }
+.caixa__ticket-itens {
+  position: absolute; left: 127px; top: 128px; width: 232px; height: 330px;
+  display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 4px 10px;
+}
+.caixa__ticket-itens img { width: 132px; height: 132px; margin: -12px; object-fit: contain; }
+
+/* Atacadista com 6 produtos (reposição do Dia 2) */
+.atacadista__instrucao { margin: -14px 0 26px; font-size: 28px; font-weight: 600; text-align: center; }
+.atacadista--compacto { width: 1780px; padding: 40px 50px 44px; }
+.atacadista--compacto .atacadista__produtos { grid-template-columns: repeat(6, 1fr); gap: 18px; }
+.atacadista--compacto .produto-card { padding: 18px 10px 22px; gap: 8px; }
+.atacadista--compacto .produto-card img { height: 130px; }
+.atacadista--compacto .produto-card__nome { font-size: 34px; }
+.atacadista--compacto .produto-card__preco { font-size: 38px; }
+.atacadista--compacto .quantidade { gap: 10px; }
+.atacadista--compacto .quantidade output { min-width: 60px; font-size: 46px; }
+.produto-card__estoque { font-size: 22px; font-weight: 800; color: var(--azul); }
+
+/* Preço de venda */
+.precos { width: 1240px; }
+.precos__instrucao { margin: 4px 0 24px; font-size: 30px; font-weight: 600; text-align: center; }
+.precos__tabela { display: grid; gap: 8px; }
+.precos__linha {
+  display: grid; grid-template-columns: 1fr 240px 300px; align-items: center; gap: 24px;
+  padding: 6px 18px; border: 3px solid transparent; border-radius: 14px; font-size: 32px; font-weight: 600;
+}
+.precos__cabecalho { font-size: 22px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--marrom-claro); }
+.precos__produto { display: flex; align-items: center; gap: 16px; font-family: var(--f-letreiro); font-size: 36px; }
+.precos__produto img { width: 64px; height: 64px; object-fit: contain; }
+.precos__custo { font-variant-numeric: tabular-nums; }
+.precos__entrada {
+  height: 62px; padding: 0 18px; border: 4px solid #C9A46B; border-radius: 12px;
+  background: #fffaf2; color: var(--marrom); font: 600 30px var(--f-texto);
+}
+.precos__linha.certa { border-color: #3d6b33; background: rgb(130 184 117 / .25); }
+.precos__linha.errada { border-color: var(--vermelho-erro); background: rgb(179 38 30 / .08); }
+.precos__rodape { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-top: 28px; }
+.precos__feedback { font-size: 28px; font-weight: 700; }
+
+/* Estoque */
+.estoque__tabela { display: grid; gap: 6px; margin-top: 18px; }
+.estoque__linha { display: grid; grid-template-columns: 1fr 190px 170px 170px; align-items: center; gap: 16px; padding: 4px 14px; border-radius: 12px; font-size: 30px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.estoque__cabecalho { font-size: 22px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--marrom-claro); }
+.estoque__produto { display: flex; align-items: center; gap: 14px; font-family: var(--f-letreiro); font-size: 34px; }
+.estoque__produto img { width: 56px; height: 56px; object-fit: contain; }
+.estoque__qtd { font-family: var(--f-letreiro); font-size: 38px; }
+.estoque__qtd small { font-family: var(--f-texto); font-size: 20px; font-weight: 800; color: var(--vermelho-erro); }
+.estoque__linha--baixo { background: rgb(179 38 30 / .08); }
+.modal:has(.estoque__tabela) { width: 1100px; }
+
+/* Notificações de reposição (topo esquerdo) */
+#notificacoes { position: absolute; top: 28px; left: 32px; z-index: 22; display: grid; gap: 14px; }
+.notificacao {
+  display: flex; align-items: center; gap: 18px; width: 520px; padding: 14px 54px 14px 18px;
+  position: relative; background: var(--bege); border: var(--borda); border-radius: var(--raio);
+  box-shadow: var(--sombra); animation: entrar-cima 400ms var(--saida) both;
+}
+.notificacao__icone { width: 64px; height: 64px; flex: none; color: var(--marrom); }
+.notificacao__texto { display: grid; font-size: 26px; font-weight: 600; line-height: 1.2; }
+.notificacao__texto strong { font-family: var(--f-letreiro); font-weight: 650; font-size: 30px; color: var(--laranja); }
+.notificacao__fechar { position: absolute; top: 6px; right: 10px; border: 0; background: none; font-size: 40px; line-height: 1; cursor: pointer; color: var(--marrom); }

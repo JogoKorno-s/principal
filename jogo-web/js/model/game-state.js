@@ -12,7 +12,8 @@ function estadoInicial(saldoInicialCentavos = 30000) {
     nivelAtual: 1,
     maiorNivelDesbloqueado: 1,
     niveisConcluidos: [],
-    estoque: { arroz: 0, feijao: 0, acucar: 0 },
+    estoque: { arroz: 0, feijao: 0, acucar: 0, leite: 0, oleo: 0, cafe: 0 },
+    precos: {},                  // preço de venda em centavos: { arroz: 1570 }
     prateleira: {},              // "arroz1" -> "F3:0"
     dia1: { etapa: 'inicio', limpeza: 0 },
     dia2: { etapa: 'inicio' },
@@ -33,7 +34,8 @@ export const GameState = {
   iniciar(saldoInicialCentavos) {
     saldoInicial = saldoInicialCentavos;
     const salvo = save.carregar();
-    estado = salvo ? { ...estadoInicial(saldoInicial), ...salvo } : estadoInicial(saldoInicial);
+    const inicial = estadoInicial(saldoInicial);
+    estado = salvo ? { ...inicial, ...salvo, estoque: { ...inicial.estoque, ...salvo.estoque } } : inicial;
     return Boolean(salvo);
   },
 
@@ -67,6 +69,18 @@ export const GameState = {
   ganhar(centavos) {
     estado.dinheiroCentavos += centavos;
     avisar('dinheiro');
+  },
+
+  /** Venda no caixa: tira os produtos do estoque e soma o valor no caixa. */
+  vender(ids, totalCentavos) {
+    for (const id of ids) estado.estoque[id] = Math.max(0, (estado.estoque[id] ?? 0) - 1);
+    estado.dinheiroCentavos += totalCentavos;
+    avisar('dinheiro');
+  },
+
+  definirPrecos(precos) {
+    estado.precos = { ...estado.precos, ...precos };
+    avisar('precos');
   },
 
   adicionarEstoque(itens) {

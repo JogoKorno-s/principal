@@ -3,7 +3,7 @@
 
 import { GameState } from '../model/game-state.js';
 import { listaDeNiveis, statusDoNivel, nivelAtual } from '../model/niveis.js';
-import { el, botaoIcone, icones } from './componentes.js';
+import { el, botaoIcone, icones, avisar } from './componentes.js';
 import { ir } from '../controller/roteador.js';
 
 // Posição de cada marco no palco (zigue-zague da esquerda para a direita)
@@ -20,6 +20,7 @@ let aberta = null;
 
 /** Começa um nível desbloqueado: atualiza o dia no HUD e troca de tela. */
 export function irParaNivel(n) {
+  if (!n.tela) { avisar(`O Dia ${n.dia} chega na próxima entrega da versão web.`); return; }
   GameState.comecarNivel(n.nivel, n.dia);
   ir(n.tela);
 }
