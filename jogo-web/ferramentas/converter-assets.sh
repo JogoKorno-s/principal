@@ -18,7 +18,7 @@ webp() {
 }
 
 # Cenários (1920×1080)
-# Mercado (limpeza, limpo, abastecido, caixa novo), intro-cena1/2, intro-cena5/10 e o empresário
+# Mercado (limpeza, limpo, abastecido, caixa novo), intro-cena1/2, intro-cena5/7/9/10, o empresário, o senhor e os produtos do Dia 2
 # vieram das artes novas do grupo (mais nítidas) e já estão convertidos em assets/; não refazer daqui.
 webp "$ORIGEM/art/backgrounds/fachada_inicial.png"                        "$DESTINO/cenarios/fachada.webp"
 webp "$ORIGEM/art/backgrounds/prateleira1.jpg"                            "$DESTINO/cenarios/prateleira.webp"
@@ -44,7 +44,7 @@ video() {
 }
 
 video "$ORIGEM/videos/menu/menu.mp4" menu
-for n in 3 4 6 7 9; do
+for n in 3 4 6; do
   video "$ORIGEM/videos/intro/cena$n.ogv" "intro-cena$n"
 done
 
