@@ -1,0 +1,73 @@
+/* Base: palco de 1920×1080 centralizado e escalado (ver js/main.js). */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #120700;
+  overflow: hidden;
+}
+
+body {
+  color: var(--marrom);
+  font-family: var(--f-texto);
+  font-variation-settings: "MONO" 0, "CASL" 0;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+#palco {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: 0 0;
+  /* --escala é definida pelo JS conforme o tamanho da janela */
+  transform: scale(var(--escala, .5)) translate(-50%, -50%);
+  overflow: hidden;
+  background: #000;
+  font-size: 30px;
+}
+
+#tela, #sobreposicao, #fade { position: absolute; inset: 0; }
+#tela { z-index: 1; }
+#hud { position: absolute; z-index: 20; }
+#sobreposicao { z-index: 30; pointer-events: none; }
+#sobreposicao > * { pointer-events: auto; }
+#avisos { position: absolute; z-index: 40; inset: 0 0 auto; pointer-events: none; }
+
+#fade {
+  z-index: 100;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--fade) ease-in-out;
+}
+#fade.ativo { opacity: 1; pointer-events: auto; }
+
+[hidden] { display: none !important; }
+img { display: block; -webkit-user-drag: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 5px solid var(--laranja); outline-offset: 5px; }
+
+.cenario {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.visualmente-oculto {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+}
