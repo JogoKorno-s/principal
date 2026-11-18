@@ -1,0 +1,17 @@
+{
+  "nivel": 2,
+  "cenarios": {
+    "caixaAntigo": "assets/cenarios/mercado-abastecido.webp",
+    "caixaNovo": "assets/cenarios/mercado-caixa-novo.webp"
+  },
+  "falas": {
+    "empresario": [
+      { "pose": "explicando", "texto": "Bom dia! Recentemente, minha empresa passou por uma reforma e trocamos todos os nossos equipamentos antigos. Como não vou mais utilizar essa máquina de caixa, pensei em fazer uma doação para vocês." },
+      { "pose": "feliz", "texto": "Espero que ela ajude a modernizar o atendimento e facilite o trabalho no dia a dia. Boa sorte!", "resposta": "Irei fazer um bom proveito, volte sempre ao nosso mercado!" }
+    ],
+    "luis": [
+      { "pose": "explicando", "texto": "Parabéns por essa nova conquista! Nosso caixa está de cara nova. Mas ainda temos trabalho pela frente! Sua próxima missão será atender os primeiros clientes. Vamos lá?", "resposta": "Sim" }
+    ]
+  },
+  "mensagemEmBreve": "O atendimento dos clientes chega na próxima entrega da versão web."
+}

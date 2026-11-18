@@ -6,7 +6,7 @@
 // volta exatamente para a etapa em que estava.
 
 import { GameState } from '../model/game-state.js';
-import { listaDeNiveis } from '../model/niveis.js';
+import { listaDeNiveis, nivel } from '../model/niveis.js';
 import { carregarJSON } from '../util/formato.js';
 import { falar } from './dialogo.js';
 import { jogar } from './minigame.js';
@@ -14,7 +14,7 @@ import { escurecer, clarear } from './roteador.js';
 import { criarCenaDia1 } from '../view/dia1.js';
 import { mostrarHUD, mostrarCarrinho, esconderCarrinho, esconderOferta } from '../view/hud.js';
 import { mostrarCardNivel } from '../view/card-nivel.js';
-import { abrirLinhaTempo } from '../view/linha-tempo.js';
+import { abrirLinhaTempo, irParaNivel } from '../view/linha-tempo.js';
 import { avisar, limparAvisos } from '../view/componentes.js';
 import { criarLimpeza } from '../minigames/limpeza.js';
 import { criarAtacadista } from '../minigames/atacadista.js';
@@ -157,7 +157,7 @@ export const dia1 = {
       destaque: card.destaque,
       subtitulo: card.subtitulo,
       acoes: [
-        { texto: card.botaoProximo, aoClicar: () => avisar(card.mensagemEmBreve) },
+        { texto: card.botaoProximo, aoClicar: () => irParaNivel(nivel(card.proximoNivel)) },
         { texto: card.botaoProgresso, aoClicar: () => abrirLinhaTempo(), variante: 'secundario' },
       ],
     });

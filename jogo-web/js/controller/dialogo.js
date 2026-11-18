@@ -41,19 +41,14 @@ export function digitar(elemento, texto, velocidadeMs = 35) {
   return { pronto, completar, get digitando() { return i < letras.length; } };
 }
 
-const caminhoPose = (pose) => `assets/luis/${pose}.webp`;
-
-/** Pré-carrega as poses usadas numa sequência de falas. */
-function precarregarPoses(falas) {
-  for (const { pose } of falas) if (pose) new Image().src = caminhoPose(pose);
-}
-
 /**
  * Mostra uma sequência de falas e resolve quando o jogador passa a última.
- * falas: [{ texto, pose }]
+ * falas: [{ texto, pose, resposta? }] — "resposta" vira o texto do botão (fala do Belo, "Sim"...)
+ * pasta: personagem em assets/ (luis, empresario...)
  */
-export function falar(container, falas, { nome = 'Luís', velocidadeMs = 35 } = {}) {
-  precarregarPoses(falas);
+export function falar(container, falas, { nome = 'Luís', pasta = 'luis', velocidadeMs = 35 } = {}) {
+  const caminhoPose = (pose) => `assets/${pasta}/${pose}.webp`;
+  for (const { pose } of falas) if (pose) new Image().src = caminhoPose(pose);
 
   return new Promise((resolver) => {
     let indice = 0;
@@ -78,6 +73,7 @@ export function falar(container, falas, { nome = 'Luís', velocidadeMs = 35 } = 
       } else {
         personagem.hidden = true;
       }
+      continuar.textContent = fala.resposta ?? 'Continuar ›';
       escrita = digitar(texto, fala.texto, velocidadeMs);
       continuar.focus({ preventScroll: true });
     }

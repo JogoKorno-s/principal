@@ -15,6 +15,7 @@ function estadoInicial(saldoInicialCentavos = 30000) {
     estoque: { arroz: 0, feijao: 0, acucar: 0 },
     prateleira: {},              // "arroz1" -> "F3:0"
     dia1: { etapa: 'inicio', limpeza: 0 },
+    dia2: { etapa: 'inicio' },
   };
 }
 
@@ -78,6 +79,18 @@ export const GameState = {
   atualizarDia1(dados) {
     estado.dia1 = { ...estado.dia1, ...dados };
     avisar('dia1');
+  },
+
+  atualizarDia2(dados) {
+    estado.dia2 = { ...estado.dia2, ...dados };
+    avisar('dia2');
+  },
+
+  /** Entra num nível: atualiza o número do dia no HUD. */
+  comecarNivel(n, dia) {
+    estado.nivelAtual = n;
+    estado.dia = dia;
+    avisar('dia');
   },
 
   concluirNivel(n, totalDeNiveis) {

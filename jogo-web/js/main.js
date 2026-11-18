@@ -10,6 +10,7 @@ import { menu } from './view/menu.js';
 import { abertura } from './view/abertura.js';
 import { fachada } from './view/fachada.js';
 import { dia1 } from './controller/dia1.js';
+import { dia2 } from './controller/dia2.js';
 
 // O palco tem 1920×1080 e é escalado para caber inteiro na janela (desktop).
 function ajustarPalco() {
@@ -31,6 +32,7 @@ async function iniciar() {
   registrar('abertura', abertura);
   registrar('fachada', fachada);
   registrar('dia1', dia1);
+  registrar('dia2', dia2);
 
   await ir('menu');
 }

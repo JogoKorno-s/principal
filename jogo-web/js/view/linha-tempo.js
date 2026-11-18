@@ -18,6 +18,12 @@ const TEXTO_ESTADO = {
 
 let aberta = null;
 
+/** Começa um nível desbloqueado: atualiza o dia no HUD e troca de tela. */
+export function irParaNivel(n) {
+  GameState.comecarNivel(n.nivel, n.dia);
+  ir(n.tela);
+}
+
 export function abrirLinhaTempo() {
   if (aberta) return;
   const estado = GameState.get();
@@ -55,7 +61,7 @@ export function abrirLinhaTempo() {
       fechar();
     } else {
       fechar();
-      ir(n.tela);
+      irParaNivel(n);
     }
   }
 
