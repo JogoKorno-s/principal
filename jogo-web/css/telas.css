@@ -319,3 +319,114 @@
   font-weight: 700;
   white-space: nowrap;
 }
+
+/* ---------- Caixa eletrônico (Dia 2) ---------- */
+.caixa { position: absolute; inset: 0; animation: aparecer 300ms ease-out both; }
+.caixa__produto {
+  position: absolute;
+  object-fit: contain;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 14px 12px rgb(0 0 0 / .35));
+  z-index: 3;
+}
+.caixa__produto.arrastado { cursor: grabbing; filter: drop-shadow(0 26px 18px rgb(0 0 0 / .4)); }
+.caixa__produto.animar { transition: left 250ms var(--saida), top 250ms var(--saida); }
+.caixa__produto.bipado { transition: left 300ms var(--saida), top 300ms var(--saida), opacity 400ms 900ms, transform 400ms 900ms; opacity: 0; transform: scale(.6); cursor: default; }
+.caixa__leitor { position: absolute; border-radius: 18px; pointer-events: none; transition: box-shadow 200ms, background 200ms; }
+.caixa__leitor.perto { box-shadow: 0 0 0 6px rgb(255 255 255 / .7); }
+.caixa__leitor.ativo { animation: bip-vermelho 900ms ease-out 2; }
+@keyframes bip-vermelho {
+  0%, 100% { background: transparent; box-shadow: none; }
+  25% { background: rgb(255 30 30 / .45); box-shadow: 0 0 60px 20px rgb(255 30 30 / .65); }
+}
+.caixa__campos { position: absolute; inset: 0; pointer-events: none; animation: aparecer 400ms ease-out both; }
+.caixa__campos > * { pointer-events: auto; }
+.caixa__valor {
+  position: absolute;
+  font-family: var(--f-letreiro);
+  font-weight: 700;
+  font-size: 84px;
+  line-height: 1;
+  color: #141414;
+  font-variant-numeric: tabular-nums;
+}
+.caixa__valor--recebido { left: 915px; top: 292px; }
+.caixa__valor--total { left: 655px; top: 436px; }
+.caixa__entrada {
+  position: absolute;
+  left: 672px; top: 584px;
+  width: 340px; height: 84px;
+  padding: 0 22px;
+  border: 5px solid #C9A46B;
+  border-radius: 16px;
+  background: #fffaf2;
+  color: var(--marrom);
+  font: 600 30px var(--f-texto);
+  box-shadow: inset 0 3px 6px rgb(0 0 0 / .12);
+}
+.caixa__entrada::placeholder { color: #b39a86; }
+.caixa__enviar { position: absolute; left: 1205px; top: 584px; min-height: 80px; --cor: var(--laranja); --cor-texto: var(--bege); }
+.caixa__resultado { position: absolute; left: 1060px; top: 452px; font-size: 26px; font-weight: 700; color: var(--marrom); }
+.caixa__dica {
+  position: absolute;
+  left: 50%; bottom: 36px;
+  transform: translateX(-50%);
+  padding: 14px 34px;
+  background: var(--bege);
+  border: var(--borda);
+  border-radius: 999px;
+  font-size: 30px;
+  font-weight: 700;
+  white-space: nowrap;
+  z-index: 4;
+}
+
+/* ---------- Desafio de múltipla escolha ---------- */
+.desafio { width: 1640px; min-height: 780px; display: grid; grid-template-columns: 520px 1fr; grid-template-rows: 1fr auto; gap: 30px 60px; padding: 70px 80px 60px; }
+.desafio__imagens { display: flex; justify-content: center; align-items: center; gap: 0; }
+.desafio__imagens img { width: 300px; height: 380px; object-fit: contain; filter: drop-shadow(0 14px 14px rgb(0 0 0 / .2)); }
+.desafio__imagens img + img { margin-left: -120px; }
+.desafio__texto { margin: 0 0 30px; font-size: 40px; line-height: 1.32; color: #1f140e; }
+.desafio__texto strong { font-weight: 800; }
+.desafio__alternativas { display: grid; gap: 12px; justify-items: start; }
+.alternativa {
+  display: inline-flex; align-items: center; gap: 18px;
+  padding: 8px 26px 8px 10px;
+  border: 3px solid transparent;
+  border-radius: 14px;
+  background: transparent;
+  font: 600 40px var(--f-texto);
+  color: #1f140e;
+  cursor: pointer;
+  transition: background 120ms, border-color 120ms;
+}
+.alternativa:hover { background: var(--bege-quente); }
+.alternativa__letra {
+  display: grid; place-items: center;
+  width: 58px; height: 58px;
+  border: 3px solid var(--marrom);
+  border-radius: 50%;
+  font-family: var(--f-letreiro); font-weight: 700; font-size: 32px;
+  color: var(--marrom);
+  background: #fff;
+}
+.alternativa[aria-checked="true"] { border-color: var(--marrom); background: var(--bege-quente); }
+.alternativa[aria-checked="true"] .alternativa__letra { background: var(--marrom); color: var(--bege); }
+.alternativa.errada { border-color: var(--vermelho-erro); }
+.alternativa.certa { border-color: #3d6b33; background: rgb(130 184 117 / .35); }
+.desafio__feedback { grid-column: 1; align-self: center; justify-self: center; font-size: 30px; font-weight: 700; }
+.desafio__certo {
+  display: flex; align-items: center; gap: 22px;
+  padding: 18px 34px 18px 22px;
+  background: #eef3e8;
+  border: 6px solid #3d6b33;
+  border-radius: 16px;
+  font: 650 42px var(--f-letreiro);
+  color: #2e5a26;
+  animation: carimbar 350ms var(--saida) both;
+}
+.desafio__check { display: grid; place-items: center; width: 78px; height: 78px; border-radius: 50%; background: #3d6b33; color: #fff; padding: 16px; }
+.desafio__check svg { width: 100%; height: 100%; }
+.desafio__acao { grid-column: 2; justify-self: end; align-self: end; }
+.desafio__acao .botao { --cor: var(--laranja); --cor-texto: var(--bege); }

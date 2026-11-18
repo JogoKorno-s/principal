@@ -46,7 +46,7 @@ export function digitar(elemento, texto, velocidadeMs = 35) {
  * falas: [{ texto, pose, resposta? }] — "resposta" vira o texto do botão (fala do Belo, "Sim"...)
  * pasta: personagem em assets/ (luis, empresario...)
  */
-export function falar(container, falas, { nome = 'Luís', pasta = 'luis', velocidadeMs = 35 } = {}) {
+export function falar(container, falas, { nome = 'Luís', pasta = 'luis', velocidadeMs = 35, chegada = false } = {}) {
   const caminhoPose = (pose) => `assets/${pasta}/${pose}.webp`;
   for (const { pose } of falas) if (pose) new Image().src = caminhoPose(pose);
 
@@ -54,14 +54,15 @@ export function falar(container, falas, { nome = 'Luís', pasta = 'luis', veloci
     let indice = 0;
     let escrita = null;
 
-    const personagem = el('img', { class: 'dialogo__personagem', alt: '' });
+    const personagem = el('img', { class: 'dialogo__personagem', alt: '', src: chegada ? caminhoPose(falas[0].pose) : null });
     const texto = el('p', { class: 'balao__texto' });
-    const continuar = botao('Continuar ›', avancar, 'pequeno');
+    const acoes = el('div', { class: 'balao__acoes' });
     const balao = el('div', { class: 'balao' },
       el('span', { class: 'balao__nome' }, nome),
       texto,
-      el('div', { class: 'balao__acoes' }, continuar));
-    const camada = el('div', { class: 'dialogo' }, personagem, balao);
+      acoes);
+    // chegada: o personagem entra andando pela direita antes de falar
+    const camada = el('div', { class: `dialogo ${chegada ? 'dialogo--chegada' : ''}` }, personagem, balao);
     container.append(camada);
 
     function mostrar() {
@@ -73,9 +74,11 @@ export function falar(container, falas, { nome = 'Luís', pasta = 'luis', veloci
       } else {
         personagem.hidden = true;
       }
-      continuar.textContent = fala.resposta ?? 'Continuar ›';
+      // Botões do jogador: "Continuar", uma resposta ou várias (ex.: "Sim" e "Claro")
+      const opcoes = fala.respostas ?? [fala.resposta ?? 'Continuar ›'];
+      acoes.replaceChildren(...opcoes.map((t) => botao(t, avancar, 'pequeno')));
       escrita = digitar(texto, fala.texto, velocidadeMs);
-      continuar.focus({ preventScroll: true });
+      acoes.firstChild.focus({ preventScroll: true });
     }
 
     function avancar() {
@@ -87,6 +90,7 @@ export function falar(container, falas, { nome = 'Luís', pasta = 'luis', veloci
       resolver();
     }
 
-    mostrar();
+    if (chegada) setTimeout(mostrar, 1100);
+    else mostrar();
   });
 }

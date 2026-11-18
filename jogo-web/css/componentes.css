@@ -111,6 +111,11 @@
 }
 .balao--sem-rabo::after { display: none; }
 
+/* Cliente chegando: entra pela direita e só depois fala */
+.dialogo--chegada .dialogo__personagem { animation: chegar 1s var(--saida) both; }
+.dialogo--chegada .balao { animation-delay: 1s; }
+@keyframes chegar { from { opacity: 0; transform: translateX(420px); } }
+
 .balao__nome {
   position: absolute;
   top: -34px;

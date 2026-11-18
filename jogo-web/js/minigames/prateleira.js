@@ -2,7 +2,7 @@
 // e a vaga de cada um fica salva.
 // Entrada: produto solto num ponto · Validação: o ponto cai numa vaga? · Resultado: encaixa, troca ou volta.
 
-import { el, botao, botaoIcone, icones } from '../view/componentes.js';
+import { el, botao, pontoNoPalco } from '../view/componentes.js';
 
 /**
  * config:   dados de data/dia1.json → prateleira
@@ -83,14 +83,6 @@ export function criarPrateleira({ config, fundo, estoque, salvas, aoSalvar, aoVo
   }
 
   const salvar = () => aoSalvar(Object.fromEntries(vagaDe));
-
-  // ----- Conversão do mouse para coordenadas do palco -----
-
-  function pontoNoPalco(evento) {
-    const r = document.getElementById('palco').getBoundingClientRect();
-    const escala = r.width / 1920;
-    return { x: (evento.clientX - r.left) / escala, y: (evento.clientY - r.top) / escala };
-  }
 
   function destacar(chave) {
     for (const [k, v] of vagasEl) v.classList.toggle('destaque', k === chave);

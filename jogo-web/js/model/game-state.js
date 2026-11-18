@@ -64,6 +64,11 @@ export const GameState = {
     return true;
   },
 
+  ganhar(centavos) {
+    estado.dinheiroCentavos += centavos;
+    avisar('dinheiro');
+  },
+
   adicionarEstoque(itens) {
     for (const [produto, qtd] of Object.entries(itens)) {
       estado.estoque[produto] = (estado.estoque[produto] ?? 0) + qtd;

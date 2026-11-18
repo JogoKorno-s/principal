@@ -99,6 +99,29 @@ export function modal({ titulo, conteudo = [], acoes = [], aoFechar }) {
   return fechar;
 }
 
+/** Converte a posição do mouse para coordenadas do palco (1920×1080). */
+export function pontoNoPalco(evento) {
+  const r = document.getElementById('palco').getBoundingClientRect();
+  const escala = r.width / 1920;
+  return { x: (evento.clientX - r.left) / escala, y: (evento.clientY - r.top) / escala };
+}
+
+/** Bip curto do leitor de código de barras (Web Audio, sem arquivo de som). */
+export function bip() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const volume = ctx.createGain();
+    osc.type = 'square';
+    osc.frequency.value = 1760;
+    volume.gain.value = 0.06;
+    osc.connect(volume).connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.12);
+    osc.onended = () => ctx.close();
+  } catch { /* navegador sem áudio: segue sem som */ }
+}
+
 /** Espera uma imagem carregar (evita cenário piscando na troca de tela). */
 export function carregarImagem(src) {
   const img = new Image();

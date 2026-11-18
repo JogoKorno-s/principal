@@ -4,6 +4,7 @@
     "caixaAntigo": "assets/cenarios/mercado-abastecido.webp",
     "caixaNovo": "assets/cenarios/mercado-caixa-novo.webp"
   },
+  "esperaClienteMs": 2500,
   "falas": {
     "empresario": [
       { "pose": "explicando", "texto": "Bom dia! Recentemente, minha empresa passou por uma reforma e trocamos todos os nossos equipamentos antigos. Como não vou mais utilizar essa máquina de caixa, pensei em fazer uma doação para vocês." },
@@ -11,7 +12,58 @@
     ],
     "luis": [
       { "pose": "explicando", "texto": "Parabéns por essa nova conquista! Nosso caixa está de cara nova. Mas ainda temos trabalho pela frente! Sua próxima missão será atender os primeiros clientes. Vamos lá?", "resposta": "Sim" }
+    ],
+    "cliente": [
+      { "pose": "parado", "texto": "Boa tarde! Parece que sou seu primeiro cliente por aqui." },
+      { "pose": "arroz", "texto": "Peguei esse pacote de arroz para minha esposa, poderia passar para mim?", "respostas": ["Sim", "Claro"] }
+    ],
+    "posCaixa": [
+      { "pose": "explicando", "texto": "Parabéns pela iniciativa! Agora, como um bom administrador, você também terá que aprender a lidar com dinheiro recebido pelos clientes e tomar decisões financeiras." },
+      { "pose": "explicando", "texto": "No Korno's, pequenas decisões podem fazer uma grande diferença no final do dia. Vamos ver se você consegue administrar o dinheiro do supermercado!" },
+      { "pose": "explicando", "texto": "Os clientes estão à procura de pó de café, no supermercado atacado está em promoção, veja!" }
+    ],
+    "posDesafios": [
+      { "pose": "joinha", "texto": "Parabéns! Você se provou capaz de administrar as finanças do Korno's. Por hora, seu dia está quase finalizando. Ainda temos alguns clientes para atender!" }
     ]
   },
-  "mensagemEmBreve": "O atendimento dos clientes chega na próxima entrega da versão web."
+
+  "caixa": {
+    "cenario": "assets/cenarios/caixa-eletronico.webp",
+    "produto": { "nome": "Arroz 5 kg", "imagem": "assets/produtos/arroz-5kg.webp", "x": 70, "y": 500, "tamanho": 260 },
+    "leitor": { "x": 1535, "y": 775, "largura": 345, "altura": 140 },
+    "recebidoCentavos": 5000,
+    "totalCentavos": 2350,
+    "mensagens": {
+      "dica": "Arraste o arroz até o leitor de código de barras.",
+      "calcule": "Calcule o troco do cliente e clique em Enviar.",
+      "vazio": "Digite o valor do troco."
+    }
+  },
+
+  "notificacao": ["COMPRE PÓ DE CAFÉ!"],
+  "desafios": [
+    {
+      "imagens": ["assets/produtos/cafe.webp"],
+      "texto": "O Korno's comprou uma caixa de café por R$ 80,00. Durante a promoção, o supermercado atacadista decidiu aplicar um desconto de 15% sobre o preço.",
+      "pergunta": "Qual será o valor do desconto?",
+      "alternativas": ["R$ 10,00", "R$ 12,00", "R$ 15,00", "R$ 18,00"],
+      "correta": 1
+    },
+    {
+      "imagens": ["assets/produtos/oleo.webp", "assets/produtos/oleo.webp"],
+      "texto": "O fornecedor enviou uma notificação avisando que o preço do óleo irá aumentar. Uma caixa de óleo que custava R$ 45,00 terá um aumento de 20%.",
+      "pergunta": "Qual será o novo preço da caixa?",
+      "alternativas": ["R$ 49,00", "R$ 54,00", "R$ 55,00", "R$ 65,00"],
+      "correta": 1
+    },
+    {
+      "imagens": ["assets/produtos/leite.webp"],
+      "texto": "O estoque do Korno's está ficando vazio. É hora de abastecer uma das seções do supermercado. Para isso, serão compradas 6 caixas de leite. Cada caixa possui 12 unidades.",
+      "pergunta": "Quantas unidades de leite serão colocadas no estoque?",
+      "alternativas": ["60 unidades", "68 unidades", "72 unidades", "84 unidades"],
+      "correta": 2
+    }
+  ],
+
+  "mensagemEmBreve": "Os próximos clientes chegam na próxima entrega da versão web."
 }
