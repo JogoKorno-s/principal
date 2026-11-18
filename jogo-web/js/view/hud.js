@@ -5,8 +5,10 @@ import { GameState } from '../model/game-state.js';
 import { el, icones } from './componentes.js';
 import { reais, doisDigitos } from '../util/formato.js';
 import { abrirEstoque } from './estoque.js';
+import { abrirMercado } from '../controller/mercado.js';
+import { ir } from '../controller/roteador.js';
 
-let raiz, dinheiro, dia, carrinho, alerta, oferta, estoqueBtn;
+let raiz, dinheiro, dia, carrinho, alerta, oferta, estoqueBtn, botaoInicio;
 let aoClicarCarrinho = null;
 let aoClicarDia = null;
 
@@ -45,6 +47,18 @@ export function criarHUD() {
   });
 
   raiz.replaceChildren(estoqueBtn, carrinho, dinheiro, dia);
+
+  // Botão de voltar para o início (menu). O progresso já fica salvo.
+  botaoInicio = el('button', {
+    type: 'button',
+    class: 'botao-icone botao-inicio',
+    'aria-label': 'Voltar para o início',
+    title: 'Voltar para o início',
+    hidden: true,
+    html: icones.casa,
+    onclick: () => ir('menu'),
+  });
+  raiz.after(botaoInicio);
   GameState.ouvir((estado, mudanca) => atualizar(estado, mudanca));
   atualizar(GameState.get());
 }
@@ -62,7 +76,9 @@ function atualizar(estado, mudanca) {
 
 export function mostrarHUD(visivel = true) {
   raiz.hidden = !visivel;
-  if (!visivel) esconderCarrinho();
+  botaoInicio.hidden = !visivel;
+  esconderCarrinho();
+  if (!visivel) carrinho.hidden = true;
 }
 
 export function aoClicarNoDia(fn) { aoClicarDia = fn; }
@@ -87,10 +103,13 @@ export function esconderOferta() {
   oferta = null;
 }
 
+/** Tira o "!" e a oferta. Depois que o mercado digital é liberado, o carrinho continua abrindo ele. */
 export function esconderCarrinho() {
   if (!carrinho) return;
-  carrinho.hidden = true;
+  const liberado = GameState.get().mercadoLiberado;
+  carrinho.hidden = !liberado;
   alerta.hidden = true;
-  aoClicarCarrinho = null;
+  aoClicarCarrinho = liberado ? () => abrirMercado() : null;
+  carrinho.title = liberado ? 'Mercado digital' : 'Carrinho de compras';
   esconderOferta();
 }

@@ -8,7 +8,10 @@
 
 import { GameState } from '../model/game-state.js';
 import { listaDeNiveis, nivel } from '../model/niveis.js';
-import { produtos, produto, precoDeVenda, totalDaVenda, limiteEstoqueBaixo } from '../model/produtos.js';
+import { produtos, produto, precoDeVenda, precoMaximoPercentual, totalDaVenda, limiteEstoqueBaixo } from '../model/produtos.js';
+import { comprarNoMercado } from './mercado.js';
+import { criarPrateleira } from '../minigames/prateleira.js';
+import { el, botao, avisar } from '../view/componentes.js';
 import { carregarJSON, esperar } from '../util/formato.js';
 import { falar } from './dialogo.js';
 import { jogar } from './minigame.js';
@@ -20,7 +23,6 @@ import { abrirLinhaTempo, irParaNivel } from '../view/linha-tempo.js';
 import { notificarReposicao } from '../view/estoque.js';
 import { criarCaixa } from '../minigames/caixa.js';
 import { criarMultiplaEscolha } from '../minigames/multipla-escolha.js';
-import { criarAtacadista } from '../minigames/atacadista.js';
 import { criarPrecificacao } from '../minigames/precificacao.js';
 
 const ORDEM = ['inicio', 'luis', 'cliente', 'caixa', 'posCaixa', 'desafios', 'compra', 'posCompra',
@@ -36,7 +38,9 @@ export const dia2 = {
 
   async montar(container) {
     this.dados ??= await carregarJSON('data/dia2.json');
+    this.geometria ??= await carregarJSON('data/dia1.json');   // vagas da prateleira
     if (etapa() === 'posDesafios') ir('compra'); // save de uma versão anterior
+    if (passou('compra') && !GameState.get().mercadoLiberado) GameState.liberarMercado();
     this.cena = criarCena(container);
     await this.cena.trocarFundo(this.fundoDaEtapa());
     mostrarHUD(true);
@@ -77,6 +81,7 @@ export const dia2 = {
     if (etapa() === 'clientes') {
       const { clientes } = this.dados;
       for (let i = GameState.get().dia2.cliente ?? 0; i < clientes.length; i++) {
+        await this.entreClientes(clientes[i]);
         await this.atender(clientes[i]);
         GameState.atualizarDia2({ cliente: i + 1 });
       }
@@ -103,10 +108,12 @@ export const dia2 = {
     await falar(this.cena.camada, cliente.falas, { nome: cliente.nome, pasta: cliente.pasta, chegada: true });
 
     const total = totalFixo ?? totalDaVenda(cliente.produtos, GameState.get().precos);
+    // O cliente paga com a menor nota que cobre o total (ou com o valor fixo do roteiro)
+    const recebido = cliente.recebidoCentavos ?? this.dados.notasDinheiro.find((n) => n >= total) ?? total;
     const config = {
       ...caixa,
       produtos: cliente.produtos.map((id) => { const p = produto(id); return { id, nome: p.nome, imagem: p.imagem }; }),
-      recebidoCentavos: cliente.recebidoCentavos,
+      recebidoCentavos: recebido,
       totalCentavos: total,
     };
 
@@ -142,33 +149,74 @@ export const dia2 = {
     });
   },
 
-  // ----- Reposição: o jogador escolhe quantas unidades de cada produto comprar -----
+  // ----- Mercado digital (tutorial): o Luís apresenta e o jogador repõe o estoque -----
   async compra() {
-    const { estoque } = GameState.get();
-    const config = {
-      ...this.dados.compra,
-      produtos: produtos().map((p) => ({
-        id: p.id, nome: p.nome, unidade: p.unidade, imagem: p.imagem,
-        precoCentavos: p.custoCentavos, estoque: estoque[p.id] ?? 0,
-      })),
-    };
-    for (;;) {
-      const r = await jogar(criarAtacadista({ config, saldo: () => GameState.get().dinheiroCentavos }), sobreposicao());
-      if (r.ok) {
-        GameState.gastar(r.total);
-        GameState.adicionarEstoque(r.itens);
-        return;
-      }
-      // Fechou o painel: reabre pelo carrinho
+    await falar(this.cena.camada, this.dados.falas.compraIntro);
+    const { compra } = this.dados;
+    const regras = { estoqueMinimo: compra.estoqueMinimo, mensagemEstoque: compra.mensagemEstoque };
+    // O jogador abre o mercado pelo carrinho, para aprender onde ele fica
+    await new Promise((abrir) => mostrarCarrinho({ linhas: compra.aviso, aoClicar: () => { esconderCarrinho(); abrir(); } }));
+    // Fechou o painel sem comprar: reabre pelo carrinho
+    while (!(await comprarNoMercado(compra, regras))) {
       await new Promise((reabrir) => mostrarCarrinho({ linhas: ['REPONHA O ESTOQUE!'], aoClicar: () => { esconderCarrinho(); reabrir(); } }));
     }
+    GameState.liberarMercado();
+    esconderCarrinho();   // a partir daqui o carrinho sempre abre o mercado digital
   },
 
-  // ----- Preço de venda com 25% de lucro -----
+  // ----- Preço de venda: o jogador escolhe, com pelo menos 25% de lucro -----
   async precos() {
-    const itens = produtos().map((p) => ({ ...p, esperadoCentavos: precoDeVenda(p.custoCentavos) }));
-    await jogar(criarPrecificacao({ itens, ...this.dados.precos }), sobreposicao());
-    GameState.definirPrecos(Object.fromEntries(itens.map((p) => [p.id, p.esperadoCentavos])));
+    const { precos } = GameState.get();
+    const itens = produtos().map((p) => ({
+      ...p,
+      minimoCentavos: precoDeVenda(p.custoCentavos),
+      maximoCentavos: p.custoCentavos * (1 + precoMaximoPercentual() / 100),
+      atualCentavos: precos[p.id],
+    }));
+    const r = await jogar(criarPrecificacao({ itens, ...this.dados.precos }), sobreposicao());
+    GameState.definirPrecos(r.precos);
+  },
+
+  // ----- Entre um cliente e outro: ver a prateleira ou chamar o próximo -----
+  entreClientes(proximo) {
+    const textos = this.dados.entreClientes;
+    return new Promise((seguir) => {
+      const barra = el('div', { class: 'entre-clientes' },
+        botao(textos.verPrateleira, () => this.verPrateleira(), 'grande secundario'),
+        botao(textos.proximo, () => {
+          const { estoque } = GameState.get();
+          const falta = proximo.produtos.find((id) => (estoque[id] ?? 0) < proximo.produtos.filter((x) => x === id).length);
+          if (falta) {
+            avisar(textos.faltaEstoque.replace('{nome}', produto(falta).nome.toLowerCase()), 'erro', 4500);
+            notificarReposicao([falta]);
+            return;
+          }
+          barra.remove();
+          seguir();
+        }, 'grande'));
+      this.cena.camada.append(barra);
+    });
+  },
+
+  async verPrateleira() {
+    const [{ prateleira }, { estoque, prateleira: salvas }] = [this.geometria, GameState.get()];
+    // Até 4 unidades de cada produto aparecem na prateleira (3 fileiras de 8 vagas)
+    const itens = produtos().flatMap((p) =>
+      Array.from({ length: Math.min(4, estoque[p.id] ?? 0) }, (_, k) => ({ id: `${p.id}${k + 1}`, tipo: p.id, imagem: p.imagem })));
+    const minigame = criarPrateleira({
+      config: { ...prateleira, produtos: itens, dica: this.dados.entreClientes.dicaPrateleira },
+      fundo: this.dados.cenarios.prateleira ?? 'assets/cenarios/prateleira.webp',
+      estoque, salvas,
+      aoSalvar: (posicoes) => GameState.salvarPrateleira(posicoes),
+      aoVoltar: () => escurecer(),
+    });
+    await escurecer();
+    mostrarHUD(false);
+    const fim = jogar(minigame, this.cena.camada);
+    await clarear();
+    await fim;
+    mostrarHUD(true);
+    await clarear();
   },
 
   // ----- Card "NÍVEL 3 DESBLOQUEADO!" -----

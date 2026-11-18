@@ -53,6 +53,7 @@ export const icones = {
   fechar: svg('<path d="M6 6l12 12M18 6 6 18"/>'),
   voltar: svg('<path d="M15 5l-7 7 7 7"/>'),
   carrinho: svg('<path d="M2.5 3.5h2.6l2.4 11.2a1.6 1.6 0 0 0 1.6 1.3h8.3a1.6 1.6 0 0 0 1.6-1.2l1.6-6.8H6.2"/><circle cx="9.5" cy="20" r="1.4"/><circle cx="17.5" cy="20" r="1.4"/>'),
+  casa: svg('<path d="M3.5 11 12 3.5l8.5 7.5"/><path d="M5.5 9.5V20h5v-5.5h3V20h5V9.5"/>'),
   caixa: svg('<path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5Z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/>'),
   olho: svg('<path d="M1.5 12S5.5 4.5 12 4.5 22.5 12 22.5 12 18.5 19.5 12 19.5 1.5 12 1.5 12Z"/><circle cx="12" cy="12" r="3.2"/>'),
   cadeado: svg('<rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>'),

@@ -150,7 +150,7 @@ export function criarPrateleira({ config, fundo, estoque, salvas, aoSalvar, aoVo
 
       const camadaProdutos = el('div');
       for (const p of visiveis) {
-        const img = el('img', { class: 'produto', src: `assets/produtos/${p.tipo}.webp`, alt: p.tipo, draggable: 'false' });
+        const img = el('img', { class: 'produto', src: p.imagem ?? `assets/produtos/${p.tipo}.webp`, alt: p.tipo, draggable: 'false' });
         elementos.set(p.id, img);
         tornarArrastavel(img, p.id, enviar);
         camadaProdutos.append(img);
@@ -174,7 +174,7 @@ export function criarPrateleira({ config, fundo, estoque, salvas, aoSalvar, aoVo
         else pendentes.push(p);
       }
       for (const p of pendentes) {
-        let chave = vagaNoPonto(p.x + LP / 2, p.y + AP / 2);
+        let chave = p.x == null ? null : vagaNoPonto(p.x + LP / 2, p.y + AP / 2);
         if (!chave || ocupadas.has(chave)) chave = livreMaisProxima(chave);
         if (chave) colocar(p.id, chave, false);
       }

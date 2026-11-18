@@ -6,7 +6,9 @@ export function definirProdutos(json) { dados = json; }
 
 export const produtos = () => dados.produtos;
 export const produto = (id) => dados.produtos.find((p) => p.id === id);
+export const atacadistas = () => dados.atacadistas;
 export const lucroPercentual = () => dados.lucroPercentual;
+export const precoMaximoPercentual = () => dados.precoMaximoPercentual;
 export const limiteEstoqueBaixo = () => dados.estoqueBaixo;
 
 /** Preço de venda = custo + lucro (25%), arredondado para centavos. 394 -> 493 */

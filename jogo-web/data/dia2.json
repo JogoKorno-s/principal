@@ -8,33 +8,79 @@
   "esperaClienteMs": 2500,
   "falas": {
     "empresario": [
-      { "pose": "explicando", "texto": "Bom dia! Recentemente, minha empresa passou por uma reforma e trocamos todos os nossos equipamentos antigos. Como não vou mais utilizar essa máquina de caixa, pensei em fazer uma doação para vocês." },
-      { "pose": "feliz", "texto": "Espero que ela ajude a modernizar o atendimento e facilite o trabalho no dia a dia. Boa sorte!", "resposta": "Irei fazer um bom proveito, volte sempre ao nosso mercado!" }
+      {
+        "pose": "explicando",
+        "texto": "Bom dia! Recentemente, minha empresa passou por uma reforma e trocamos todos os nossos equipamentos antigos. Como não vou mais utilizar essa máquina de caixa, pensei em fazer uma doação para vocês."
+      },
+      {
+        "pose": "feliz",
+        "texto": "Espero que ela ajude a modernizar o atendimento e facilite o trabalho no dia a dia. Boa sorte!",
+        "resposta": "Irei fazer um bom proveito, volte sempre ao nosso mercado!"
+      }
     ],
     "luis": [
-      { "pose": "explicando", "texto": "Parabéns por essa nova conquista! Nosso caixa está de cara nova. Mas ainda temos trabalho pela frente! Sua próxima missão será atender os primeiros clientes. Vamos lá?", "resposta": "Sim" }
+      {
+        "pose": "explicando",
+        "texto": "Parabéns por essa nova conquista! Nosso caixa está de cara nova. Mas ainda temos trabalho pela frente! Sua próxima missão será atender os primeiros clientes. Vamos lá?",
+        "resposta": "Sim"
+      }
     ],
     "posCaixa": [
-      { "pose": "explicando", "texto": "Parabéns pela iniciativa! Agora, como um bom administrador, você também terá que aprender a lidar com dinheiro recebido pelos clientes e tomar decisões financeiras." },
-      { "pose": "explicando", "texto": "No Korno's, pequenas decisões podem fazer uma grande diferença no final do dia. Vamos ver se você consegue administrar o dinheiro do supermercado!" },
-      { "pose": "explicando", "texto": "Os clientes estão à procura de pó de café, no supermercado atacado está em promoção, veja!" }
+      {
+        "pose": "explicando",
+        "texto": "Parabéns pela iniciativa! Agora, como um bom administrador, você também terá que aprender a lidar com dinheiro recebido pelos clientes e tomar decisões financeiras."
+      },
+      {
+        "pose": "explicando",
+        "texto": "No Korno's, pequenas decisões podem fazer uma grande diferença no final do dia. Vamos ver se você consegue administrar o dinheiro do supermercado!"
+      },
+      {
+        "pose": "explicando",
+        "texto": "Os clientes estão à procura de pó de café, no supermercado atacado está em promoção, veja!"
+      }
     ],
     "posCompra": [
-      { "pose": "joinha", "texto": "Parabéns! Você se provou capaz de administrar as finanças do Korno's. Por hora, seu dia está quase finalizando. Ainda temos alguns clientes para atender!" },
-      { "pose": "explicando", "texto": "Mas antes, precisamos definir o preço de venda de cada produto. Para o Korno's ter lucro, cada um deve ser vendido 25% acima do preço que pagamos por ele, o preço de custo." }
+      {
+        "pose": "joinha",
+        "texto": "Parabéns! Você se provou capaz de administrar as finanças do Korno's. Por hora, seu dia está quase finalizando. Ainda temos alguns clientes para atender!"
+      },
+      {
+        "pose": "explicando",
+        "texto": "Olha, você precisa pensar em um valor para vender seus produtos. Pense na ideia de aumentar pelo menos 25% o valor que você pagou por cada um."
+      }
     ],
     "posPrecos": [
-      { "pose": "joinha", "texto": "Preços definidos! A cada venda, o estoque diminui. Clique no botão de estoque, lá no topo, para ver quanto sobrou de cada produto e o preço de venda. Se algo estiver acabando, eu te aviso!" }
+      {
+        "pose": "joinha",
+        "texto": "Preços definidos! Entre um cliente e outro, você pode ver como está a prateleira e repor produtos no mercado digital. O botão de estoque mostra quanto sobrou de cada produto. Se algo estiver acabando, eu te aviso!"
+      }
     ],
     "fimDoDia": [
-      { "pose": "joinha", "texto": "Que dia! Você atendeu todos os clientes e o Korno's fechou no lucro. Descanse, porque amanhã tem mais!" }
+      {
+        "pose": "joinha",
+        "texto": "Que dia! Você atendeu todos os clientes e o Korno's fechou no lucro. Descanse, porque amanhã tem mais!"
+      }
+    ],
+    "compraIntro": [
+      {
+        "pose": "explicando",
+        "texto": "Agora olha só: esse carrinho aqui em cima é o nosso mercado digital. Essa área é para você comprar, pelo preço de custo, os produtos que precisa repor."
+      },
+      {
+        "pose": "joinha",
+        "texto": "Conforme for evoluindo de nível, novos produtos serão desbloqueados e novas opções de atacadista para comprar. Agora compre o que precisa para atender os clientes de hoje!"
+      }
     ]
   },
-
   "caixa": {
     "cenario": "assets/cenarios/caixa-eletronico.webp",
     "ticket": "assets/ui/pedido.webp",
-    "leitor": { "x": 1535, "y": 775, "largura": 345, "altura": 140 },
+    "leitor": {
+      "x": 1535,
+      "y": 775,
+      "largura": 345,
+      "altura": 140
+    },
     "mensagens": {
       "dica": "Arraste os produtos até o leitor de código de barras.",
       "faltam": "Falta passar {n} produto(s) no leitor.",
@@ -42,85 +88,149 @@
       "vazio": "Digite o valor do troco."
     }
   },
-
   "primeiroCliente": {
-    "nome": "Cliente", "pasta": "senhor",
+    "nome": "Cliente",
+    "pasta": "senhor",
     "falas": [
-      { "pose": "parado", "texto": "Boa tarde! Parece que sou seu primeiro cliente por aqui." },
-      { "pose": "arroz", "texto": "Peguei esse pacote de arroz para minha esposa, poderia passar para mim?", "respostas": ["Sim", "Claro"] }
+      {
+        "pose": "parado",
+        "texto": "Boa tarde! Parece que sou seu primeiro cliente por aqui."
+      },
+      {
+        "pose": "arroz",
+        "texto": "Peguei esse pacote de arroz para minha esposa, poderia passar para mim?",
+        "respostas": [
+          "Sim",
+          "Claro"
+        ]
+      }
     ],
-    "produtos": ["arroz"],
+    "produtos": [
+      "arroz"
+    ],
     "recebidoCentavos": 5000,
     "totalCentavos": 2350
   },
-
   "clientes": [
     {
-      "nome": "Cliente", "pasta": "clientes",
-      "falas": [{ "pose": "moca-cafe", "texto": "Olá! Vou levar um leite, uma garrafa de óleo e um pacote de café, por favor. É só isso mesmo!", "resposta": "Claro!" }],
-      "produtos": ["cafe", "oleo", "leite"],
-      "recebidoCentavos": 5000
+      "nome": "Cliente",
+      "pasta": "clientes",
+      "falas": [
+        {
+          "pose": "moca-cafe",
+          "texto": "Olá! Vou levar um leite, uma garrafa de óleo e um pacote de café, por favor. É só isso mesmo!",
+          "resposta": "Claro!"
+        }
+      ],
+      "produtos": [
+        "cafe",
+        "oleo",
+        "leite"
+      ]
     },
     {
-      "nome": "Cliente", "pasta": "clientes",
-      "falas": [{ "pose": "moca-cacheada", "texto": "Vou levar um pacote de açúcar. Por hoje é só, obrigada!", "resposta": "Claro!" }],
-      "produtos": ["acucar"],
-      "recebidoCentavos": 1000
+      "nome": "Cliente",
+      "pasta": "clientes",
+      "falas": [
+        {
+          "pose": "moca-cacheada",
+          "texto": "Vou levar um pacote de açúcar. Por hoje é só, obrigada!",
+          "resposta": "Claro!"
+        }
+      ],
+      "produtos": [
+        "acucar"
+      ]
     },
     {
-      "nome": "Cliente", "pasta": "clientes",
-      "falas": [{ "pose": "moca-arroz", "texto": "Oii, vou levar um pacote de arroz e um de feijão, por favor. Obrigada!", "resposta": "Claro!" }],
-      "produtos": ["arroz", "feijao"],
-      "recebidoCentavos": 5000
+      "nome": "Cliente",
+      "pasta": "clientes",
+      "falas": [
+        {
+          "pose": "moca-arroz",
+          "texto": "Oii, vou levar um pacote de arroz e um de feijão, por favor. Obrigada!",
+          "resposta": "Claro!"
+        }
+      ],
+      "produtos": [
+        "arroz",
+        "feijao"
+      ]
     }
   ],
-
-  "notificacao": ["COMPRE PÓ DE CAFÉ!"],
+  "notificacao": [
+    "COMPRE PÓ DE CAFÉ!"
+  ],
   "desafios": [
     {
-      "imagens": ["assets/produtos/cafe.webp"],
+      "imagens": [
+        "assets/produtos/cafe.webp"
+      ],
       "texto": "O Korno's comprou uma caixa de café por R$ 80,00. Durante a promoção, o supermercado atacadista decidiu aplicar um desconto de 15% sobre o preço.",
       "pergunta": "Qual será o valor do desconto?",
-      "alternativas": ["R$ 10,00", "R$ 12,00", "R$ 15,00", "R$ 18,00"],
+      "alternativas": [
+        "R$ 10,00",
+        "R$ 12,00",
+        "R$ 15,00",
+        "R$ 18,00"
+      ],
       "correta": 1
     },
     {
-      "imagens": ["assets/produtos/oleo.webp", "assets/produtos/oleo.webp"],
+      "imagens": [
+        "assets/produtos/oleo.webp",
+        "assets/produtos/oleo.webp"
+      ],
       "texto": "O fornecedor enviou uma notificação avisando que o preço do óleo irá aumentar. Uma caixa de óleo que custava R$ 45,00 terá um aumento de 20%.",
       "pergunta": "Qual será o novo preço da caixa?",
-      "alternativas": ["R$ 49,00", "R$ 54,00", "R$ 55,00", "R$ 65,00"],
+      "alternativas": [
+        "R$ 49,00",
+        "R$ 54,00",
+        "R$ 55,00",
+        "R$ 65,00"
+      ],
       "correta": 1
     },
     {
-      "imagens": ["assets/produtos/leite.webp"],
+      "imagens": [
+        "assets/produtos/leite.webp"
+      ],
       "texto": "O estoque do Korno's está ficando vazio. É hora de abastecer uma das seções do supermercado. Para isso, serão compradas 6 caixas de leite. Cada caixa possui 12 unidades.",
       "pergunta": "Quantas unidades de leite serão colocadas no estoque?",
-      "alternativas": ["60 unidades", "68 unidades", "72 unidades", "84 unidades"],
+      "alternativas": [
+        "60 unidades",
+        "68 unidades",
+        "72 unidades",
+        "84 unidades"
+      ],
       "correta": 2
     }
   ],
-
   "compra": {
-    "titulo": "Mercado Atacadista",
+    "titulo": "Mercado digital",
     "instrucao": "Quantas unidades de cada produto você quer comprar? Cada produto precisa ficar com pelo menos 2 unidades no estoque.",
     "quantidadeMinima": 0,
-    "quantidadeMaxima": 6,
+    "quantidadeMaxima": 10,
     "estoqueMinimo": 2,
-    "mensagemQuantidade": "Compre no máximo 6 unidades de cada produto.",
+    "mensagemQuantidade": "Compre no máximo 10 unidades de cada produto.",
     "mensagemEstoque": "Compre mais {nome}: ele precisa ficar com pelo menos 2 unidades no estoque.",
     "mensagemSaldo": "Dinheiro insuficiente para realizar a compra.",
-    "mensagemSucesso": "Compra realizada!"
+    "mensagemSucesso": "Compra realizada!",
+    "selo": "PREÇO DE CUSTO",
+    "aviso": [
+      "MERCADO DIGITAL",
+      "CLIQUE NO CARRINHO!"
+    ]
   },
-
   "precos": {
     "titulo": "Preço de venda",
-    "instrucao": "Calcule o preço de venda de cada produto: custo + 25% de lucro. Arredonde para centavos.",
+    "instrucao": "Pense em um valor de venda para cada produto. Ele precisa ser pelo menos 25% maior que o custo.",
     "mensagens": {
-      "vazio": "Preencha o preço de todos os produtos.",
-      "erro": "Confira as linhas em vermelho."
+      "vazio": "Digite um preço.",
+      "baixo": "Lucro menor que 25%.",
+      "alto": "Caro demais! Os clientes não pagam mais que o dobro."
     }
   },
-
   "card": {
     "titulo": "Nível 3",
     "destaque": "desbloqueado!",
@@ -128,5 +238,19 @@
     "botaoProximo": "Próximo dia",
     "botaoProgresso": "Ver progresso",
     "proximoNivel": 3
-  }
+  },
+  "entreClientes": {
+    "verPrateleira": "Ver prateleira",
+    "proximo": "Atender próximo cliente",
+    "dicaPrateleira": "Confira a prateleira. Você pode arrastar os produtos para organizar.",
+    "faltaEstoque": "Falta {nome} no estoque para o próximo cliente. Reponha no mercado digital (carrinho)."
+  },
+  "notasDinheiro": [
+    200,
+    500,
+    1000,
+    2000,
+    5000,
+    10000
+  ]
 }

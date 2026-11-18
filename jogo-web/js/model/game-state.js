@@ -14,6 +14,7 @@ function estadoInicial(saldoInicialCentavos = 30000) {
     niveisConcluidos: [],
     estoque: { arroz: 0, feijao: 0, acucar: 0, leite: 0, oleo: 0, cafe: 0 },
     precos: {},                  // preço de venda em centavos: { arroz: 1570 }
+    mercadoLiberado: false,      // carrinho do HUD abre o mercado digital
     prateleira: {},              // "arroz1" -> "F3:0"
     dia1: { etapa: 'inicio', limpeza: 0 },
     dia2: { etapa: 'inicio' },
@@ -76,6 +77,11 @@ export const GameState = {
     for (const id of ids) estado.estoque[id] = Math.max(0, (estado.estoque[id] ?? 0) - 1);
     estado.dinheiroCentavos += totalCentavos;
     avisar('dinheiro');
+  },
+
+  liberarMercado() {
+    estado.mercadoLiberado = true;
+    avisar('mercado');
   },
 
   definirPrecos(precos) {
