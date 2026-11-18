@@ -45,8 +45,10 @@ export function digitar(elemento, texto, velocidadeMs = 35) {
  * Mostra uma sequência de falas e resolve quando o jogador passa a última.
  * falas: [{ texto, pose, resposta? }] — "resposta" vira o texto do botão (fala do Belo, "Sim"...)
  * pasta: personagem em assets/ (luis, empresario...)
+ * validar(indiceFala, indiceResposta): devolve false para não aceitar a resposta (ex.: "não temos" errado)
+ * Resolve com o índice da resposta escolhida na última fala.
  */
-export function falar(container, falas, { nome = 'Luís', pasta = 'luis', velocidadeMs = 35, chegada = false } = {}) {
+export function falar(container, falas, { nome = 'Luís', pasta = 'luis', velocidadeMs = 35, chegada = false, validar = null } = {}) {
   const caminhoPose = (pose) => `assets/${pasta}/${pose}.webp`;
   for (const { pose } of falas) if (pose) new Image().src = caminhoPose(pose);
 
@@ -76,18 +78,19 @@ export function falar(container, falas, { nome = 'Luís', pasta = 'luis', veloci
       }
       // Botões do jogador: "Continuar", uma resposta ou várias (ex.: "Sim" e "Claro")
       const opcoes = fala.respostas ?? [fala.resposta ?? 'Continuar ›'];
-      acoes.replaceChildren(...opcoes.map((t) => botao(t, avancar, 'pequeno')));
+      acoes.replaceChildren(...opcoes.map((t, i) => botao(t, () => avancar(i), 'pequeno')));
       escrita = digitar(texto, fala.texto, velocidadeMs);
       acoes.firstChild.focus({ preventScroll: true });
     }
 
-    function avancar() {
+    function avancar(resposta = 0) {
       // 1º clique durante a digitação: mostra a fala inteira
       if (escrita?.digitando) { escrita.completar(); return; }
+      if (validar && validar(indice, resposta) === false) return;
       indice += 1;
       if (indice < falas.length) { mostrar(); return; }
       camada.remove();
-      resolver();
+      resolver(resposta);
     }
 
     if (chegada) setTimeout(mostrar, 1100);

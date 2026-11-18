@@ -20,3 +20,9 @@ export function precoDeVenda(custoCentavos) {
 export function totalDaVenda(ids, precos) {
   return ids.reduce((soma, id) => soma + (precos[id] ?? precoDeVenda(produto(id).custoCentavos)), 0);
 }
+
+/** Produtos já liberados até o nível n. */
+export const produtosDoNivel = (n) => dados.produtos.filter((p) => (p.nivel ?? 1) <= n);
+
+/** Preço de venda atual: o que o jogador escolheu ou, se ainda não escolheu, custo + 25%. */
+export const precoAtual = (id, precos) => precos[id] ?? precoDeVenda(produto(id).custoCentavos);

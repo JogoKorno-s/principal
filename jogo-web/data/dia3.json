@@ -1,0 +1,128 @@
+{
+  "nivel": 3,
+  "cenario": "assets/cenarios/mercado-nivel3.webp",
+  "videos": [
+    { "base": "assets/videos/contrato-cola", "legenda": "O Belo assina o contrato com a Cola Refri." },
+    { "base": "assets/videos/contrato-guarana", "legenda": "E depois, com o Guaraná Primavera!" }
+  ],
+  "pularVideo": "Pular vídeo",
+  "falas": {
+    "contrato": [
+      {
+        "pose": "oi",
+        "texto": "Que notícia boa! O Korno's assinou contrato com a Cola Refri e com o Guaraná Primavera. Você subiu de nível!"
+      },
+      {
+        "pose": "explicando",
+        "texto": "Parabéns pelo contrato! Mas olha só: aproveita a promoção de mais algumas marcas e coloca mais variedade de bebidas nas prateleiras. Os clientes adoram novidade e o estoque vai voar!"
+      }
+    ],
+    "precosBebidas": [
+      {
+        "pose": "explicando",
+        "texto": "Bebidas novas no estoque! Lembra da regra: o preço de venda precisa ser pelo menos 25% maior que o custo."
+      }
+    ],
+    "missao": [
+      {
+        "pose": "explicando",
+        "texto": "Ótimas compras! Mas o trabalho duro só tá começando. Agora temos uma missão nas prateleiras. Vamos lá?",
+        "respostas": ["Sim", "Claro"]
+      }
+    ],
+    "posCombinatoria": [
+      {
+        "pose": "joinha",
+        "texto": "Isso aí! São 480 jeitos de organizar sem deixar a Cola Refri do lado do Guaraná Primavera. As duas marcas ficaram felizes!"
+      }
+    ],
+    "congelados": [
+      {
+        "pose": "explicando",
+        "texto": "Temos mais uma novidade! Uma nova seção de congelados foi liberada. Agora vamos comprar os congelados e as carnes no mercado digital para abastecer nossos freezers e o açougue!"
+      }
+    ],
+    "irParaSecao": [
+      {
+        "pose": "explicando",
+        "texto": "Compras feitas! Agora clique na casinha, no canto da tela, e escolha Congelados para conhecer a nova seção."
+      }
+    ],
+    "naSecao": [
+      {
+        "pose": "explicando",
+        "texto": "Pronto, chegamos à nova seção! Aqui você poderá organizar e armazenar os produtos congelados. Mais uma novidade para ampliar nosso supermercado e oferecer novas opções aos clientes!"
+      },
+      {
+        "pose": "explicando",
+        "texto": "Passe o mouse no freezer, na geladeira e no açougue e clique no olho. Coloque pelo menos uma unidade de cada produto que você comprou. No freezer cabem 12 produtos diferentes, com até 5 unidades de cada."
+      }
+    ],
+    "abastecido": [
+      {
+        "pose": "joinha",
+        "texto": "Freezers e açougue abastecidos! Agora vamos voltar para a visão principal: os clientes estão chegando."
+      }
+    ],
+    "clientes": [
+      {
+        "pose": "explicando",
+        "texto": "Atenção: às vezes o cliente pede um produto que acabou. Confira o estoque antes de responder e avise quando não tiver. E não esqueça de repor no mercado digital!"
+      }
+    ],
+    "fimDoDia": [
+      {
+        "pose": "joinha",
+        "texto": "Que dia! Contratos novos, bebidas organizadas e a seção de congelados funcionando. Confira no computador do caixa quanto você lucrou hoje!"
+      }
+    ]
+  },
+  "compraBebidas": {
+    "aviso": ["COMPRE MAIS", "BEBIDAS"],
+    "aba": "bebidas",
+    "instrucao": "Compre pelo menos 1 unidade de cada bebida.",
+    "exigir": [
+      { "aba": "bebidas", "cada": true, "minimo": 1, "mensagem": "Compre pelo menos 1 unidade de cada bebida." }
+    ]
+  },
+  "missaoAviso": "FAÇA SUA MISSÃO!",
+  "areaMissao": { "rotulo": "Abrir a missão das prateleiras", "x": 40, "y": 300, "largura": 640, "altura": 410 },
+  "combinatoria": {
+    "produtos": ["cola-refri", "guarana-primavera", "limonada", "cha-mate", "suco-uva", "agua-com-gas"],
+    "rivais": ["cola-refri", "guarana-primavera"],
+    "organizar": "Organize as 6 bebidas nas 6 posições da prateleira. Atenção: Cola Refri e Guaraná Primavera são concorrentes e não podem ficar lado a lado. Arraste para trocar de lugar.",
+    "botaoOrganizar": "Pronto",
+    "erroOrganizar": "A Cola Refri e o Guaraná Primavera ainda estão lado a lado!",
+    "certoOrganizar": "Boa! Agora, uma pergunta:",
+    "pergunta": "Organize os 6 produtos nas 6 posições da prateleira. Atenção: Cola Refri e Guaraná Primavera não podem ficar lado a lado. Quantas organizações diferentes são possíveis?",
+    "placeholder": "Digite sua resposta",
+    "resposta": 480,
+    "vazio": "Digite um número.",
+    "erro": "Ainda não. Tente de novo!",
+    "dica": "Dica: sem a regra seriam 6! = 720 organizações. Agora conte as que deixam as duas juntas (pense nelas como um bloco: 2 × 5! = 240) e tire do total.",
+    "certo": "Isso! 720 − 240 = 480 organizações."
+  },
+  "compraCongelados": {
+    "aviso": ["COMPRE OS", "CONGELADOS!"],
+    "aba": "congelados",
+    "instrucao": "Compre pelo menos 1 produto congelado e 1 do açougue.",
+    "exigir": [
+      { "aba": "congelados", "minimo": 1, "mensagem": "Compre pelo menos 1 produto congelado." },
+      { "aba": "acougue", "minimo": 1, "mensagem": "Compre também pelo menos 1 produto do açougue." }
+    ]
+  },
+  "abastecerAviso": ["ABASTEÇA OS", "FREEZERS!"],
+  "clientesSorteados": { "quantidade": 4, "chanceFalta": 0.35 },
+  "entreClientes": {
+    "proximo": "Atender próximo cliente",
+    "dica": "Entre um cliente e outro, passe o mouse nas prateleiras e no computador do caixa. A casinha leva para os congelados."
+  },
+  "card": {
+    "titulo": "Nível 4",
+    "destaque": "desbloqueado!",
+    "subtitulo": "Você concluiu o Dia 15 do Korno's.",
+    "botaoProximo": "Próximo dia",
+    "botaoProgresso": "Ver progresso",
+    "proximoNivel": 4
+  }
+}

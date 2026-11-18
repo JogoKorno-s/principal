@@ -4,6 +4,8 @@ import { GameState } from './model/game-state.js';
 import { definirNiveis } from './model/niveis.js';
 import { definirProdutos } from './model/produtos.js';
 import { definirTextosMercado } from './controller/mercado.js';
+import { definirMercado } from './controller/secoes.js';
+import { definirClientes } from './model/clientes.js';
 import { registrar, ir } from './controller/roteador.js';
 import { carregarJSON } from './util/formato.js';
 import { criarHUD, aoClicarNoDia } from './view/hud.js';
@@ -13,6 +15,7 @@ import { abertura } from './view/abertura.js';
 import { fachada } from './view/fachada.js';
 import { dia1 } from './controller/dia1.js';
 import { dia2 } from './controller/dia2.js';
+import { dia3 } from './controller/dia3.js';
 
 // O palco tem 1920×1080 e é escalado para caber inteiro na janela (desktop).
 function ajustarPalco() {
@@ -23,10 +26,13 @@ window.addEventListener('resize', ajustarPalco);
 ajustarPalco();
 
 async function iniciar() {
-  const [niveis, catalogo] = await Promise.all([carregarJSON('data/niveis.json'), carregarJSON('data/produtos.json')]);
+  const [niveis, catalogo, mercado, clientes] = await Promise.all(
+    ['niveis', 'produtos', 'mercado', 'clientes'].map((nome) => carregarJSON(`data/${nome}.json`)));
   definirNiveis(niveis);
   definirProdutos(catalogo);
   definirTextosMercado(catalogo.mercado);
+  definirMercado(mercado);
+  definirClientes(clientes);
   GameState.iniciar(niveis.saldoInicialCentavos);
 
   criarHUD();
@@ -37,6 +43,7 @@ async function iniciar() {
   registrar('fachada', fachada);
   registrar('dia1', dia1);
   registrar('dia2', dia2);
+  registrar('dia3', dia3);
 
   await ir('menu');
 }

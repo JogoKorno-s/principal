@@ -7,42 +7,502 @@
       "nome": "Arroz",
       "unidade": "pacote",
       "custoCentavos": 1256,
-      "imagem": "assets/produtos/arroz-5kg.webp"
+      "imagem": "assets/produtos/arroz-5kg.webp",
+      "atacadista": "geral",
+      "nivel": 1,
+      "local": "prateleira"
     },
     {
       "id": "feijao",
       "nome": "Feijão",
       "unidade": "pacote",
       "custoCentavos": 394,
-      "imagem": "assets/produtos/feijao.webp"
+      "imagem": "assets/produtos/feijao.webp",
+      "atacadista": "geral",
+      "nivel": 1,
+      "local": "prateleira"
     },
     {
       "id": "acucar",
       "nome": "Açúcar",
       "unidade": "saco",
       "custoCentavos": 134,
-      "imagem": "assets/produtos/acucar.webp"
+      "imagem": "assets/produtos/acucar.webp",
+      "atacadista": "geral",
+      "nivel": 1,
+      "local": "prateleira"
     },
     {
       "id": "leite",
       "nome": "Leite",
       "unidade": "caixa",
       "custoCentavos": 400,
-      "imagem": "assets/produtos/leite.webp"
+      "imagem": "assets/produtos/leite.webp",
+      "atacadista": "geral",
+      "nivel": 1,
+      "local": "prateleira"
     },
     {
       "id": "oleo",
       "nome": "Óleo",
       "unidade": "garrafa",
       "custoCentavos": 900,
-      "imagem": "assets/produtos/oleo.webp"
+      "imagem": "assets/produtos/oleo.webp",
+      "atacadista": "geral",
+      "nivel": 1,
+      "local": "prateleira"
     },
     {
       "id": "cafe",
       "nome": "Café",
       "unidade": "pacote",
       "custoCentavos": 1360,
-      "imagem": "assets/produtos/cafe.webp"
+      "imagem": "assets/produtos/cafe.webp",
+      "atacadista": "geral",
+      "nivel": 1,
+      "local": "prateleira"
+    },
+    {
+      "id": "farinha",
+      "nome": "Farinha",
+      "unidade": "unidade",
+      "custoCentavos": 549,
+      "imagem": "assets/produtos/farinha.webp",
+      "atacadista": "geral",
+      "nivel": 3,
+      "local": "prateleira"
+    },
+    {
+      "id": "macarrao",
+      "nome": "Macarrão",
+      "unidade": "unidade",
+      "custoCentavos": 429,
+      "imagem": "assets/produtos/macarrao.webp",
+      "atacadista": "geral",
+      "nivel": 3,
+      "local": "prateleira"
+    },
+    {
+      "id": "sal",
+      "nome": "Sal",
+      "unidade": "unidade",
+      "custoCentavos": 219,
+      "imagem": "assets/produtos/sal.webp",
+      "atacadista": "geral",
+      "nivel": 3,
+      "local": "prateleira"
+    },
+    {
+      "id": "extrato-tomate",
+      "nome": "Extrato de tomate",
+      "unidade": "unidade",
+      "custoCentavos": 349,
+      "imagem": "assets/produtos/extrato-tomate.webp",
+      "atacadista": "geral",
+      "nivel": 3,
+      "local": "prateleira"
+    },
+    {
+      "id": "sardinha",
+      "nome": "Sardinha",
+      "unidade": "unidade",
+      "custoCentavos": 589,
+      "imagem": "assets/produtos/sardinha.webp",
+      "atacadista": "geral",
+      "nivel": 3,
+      "local": "prateleira"
+    },
+    {
+      "id": "cola-refri",
+      "nome": "Cola Refri",
+      "marca": true,
+      "unidade": "unidade",
+      "custoCentavos": 394,
+      "imagem": "assets/produtos/cola-refri.webp",
+      "atacadista": "bebidas",
+      "nivel": 3,
+      "local": "prateleira"
+    },
+    {
+      "id": "guarana-primavera",
+      "nome": "Guaraná Primavera",
+      "marca": true,
+      "unidade": "unidade",
+      "custoCentavos": 394,
+      "imagem": "assets/produtos/guarana-primavera.webp",
+      "atacadista": "bebidas",
+      "nivel": 3,
+      "local": "prateleira"
+    },
+    {
+      "id": "limonada",
+      "nome": "Limonada",
+      "unidade": "unidade",
+      "custoCentavos": 450,
+      "imagem": "assets/produtos/limonada.webp",
+      "atacadista": "bebidas",
+      "nivel": 3,
+      "local": "prateleira"
+    },
+    {
+      "id": "cha-mate",
+      "nome": "Chá mate",
+      "unidade": "unidade",
+      "custoCentavos": 520,
+      "imagem": "assets/produtos/cha-mate.webp",
+      "atacadista": "bebidas",
+      "nivel": 3,
+      "local": "prateleira"
+    },
+    {
+      "id": "suco-uva",
+      "nome": "Suco de uva",
+      "unidade": "unidade",
+      "custoCentavos": 890,
+      "imagem": "assets/produtos/suco-uva.webp",
+      "atacadista": "bebidas",
+      "nivel": 3,
+      "local": "prateleira"
+    },
+    {
+      "id": "agua-com-gas",
+      "nome": "Água com gás",
+      "unidade": "unidade",
+      "custoCentavos": 250,
+      "imagem": "assets/produtos/agua-com-gas.webp",
+      "atacadista": "bebidas",
+      "nivel": 3,
+      "local": "prateleira"
+    },
+    {
+      "id": "batata-simples",
+      "nome": "Batata simples",
+      "unidade": "pacote",
+      "custoCentavos": 1290,
+      "imagem": "assets/produtos/batata-simples.webp",
+      "atacadista": "congelados",
+      "nivel": 3,
+      "local": "freezer"
+    },
+    {
+      "id": "nuggets",
+      "nome": "Nuggets",
+      "unidade": "pacote",
+      "custoCentavos": 1590,
+      "imagem": "assets/produtos/nuggets.webp",
+      "atacadista": "congelados",
+      "nivel": 3,
+      "local": "freezer"
+    },
+    {
+      "id": "hamburguer",
+      "nome": "Hambúrguer de carne",
+      "unidade": "pacote",
+      "custoCentavos": 1490,
+      "imagem": "assets/produtos/hamburguer.webp",
+      "atacadista": "congelados",
+      "nivel": 3,
+      "local": "freezer"
+    },
+    {
+      "id": "pizza",
+      "nome": "Pizza",
+      "unidade": "pacote",
+      "custoCentavos": 1890,
+      "imagem": "assets/produtos/pizza.webp",
+      "atacadista": "congelados",
+      "nivel": 3,
+      "local": "freezer"
+    },
+    {
+      "id": "sorvete",
+      "nome": "Sorvete",
+      "unidade": "pacote",
+      "custoCentavos": 1990,
+      "imagem": "assets/produtos/sorvete.webp",
+      "atacadista": "congelados",
+      "nivel": 3,
+      "local": "freezer"
+    },
+    {
+      "id": "batata-rustica",
+      "nome": "Batata rústica",
+      "unidade": "pacote",
+      "custoCentavos": 1490,
+      "imagem": "assets/produtos/batata-rustica.webp",
+      "atacadista": "congelados",
+      "nivel": 4,
+      "local": "freezer"
+    },
+    {
+      "id": "lasanha",
+      "nome": "Lasanha congelada",
+      "unidade": "pacote",
+      "custoCentavos": 1790,
+      "imagem": "assets/produtos/lasanha.webp",
+      "atacadista": "congelados",
+      "nivel": 4,
+      "local": "freezer"
+    },
+    {
+      "id": "minipizza",
+      "nome": "Minipizza",
+      "unidade": "pacote",
+      "custoCentavos": 1390,
+      "imagem": "assets/produtos/minipizza.webp",
+      "atacadista": "congelados",
+      "nivel": 4,
+      "local": "freezer"
+    },
+    {
+      "id": "coxinha-congelada",
+      "nome": "Coxinha da asa congelada",
+      "unidade": "pacote",
+      "custoCentavos": 1690,
+      "imagem": "assets/produtos/coxinha-congelada.webp",
+      "atacadista": "congelados",
+      "nivel": 4,
+      "local": "freezer"
+    },
+    {
+      "id": "picole",
+      "nome": "Picolé",
+      "unidade": "pacote",
+      "custoCentavos": 1290,
+      "imagem": "assets/produtos/picole.webp",
+      "atacadista": "congelados",
+      "nivel": 4,
+      "local": "freezer"
+    },
+    {
+      "id": "sorvete-creme",
+      "nome": "Sorvete de creme",
+      "unidade": "pacote",
+      "custoCentavos": 2190,
+      "imagem": "assets/produtos/sorvete-creme.webp",
+      "atacadista": "congelados",
+      "nivel": 4,
+      "local": "freezer"
+    },
+    {
+      "id": "legumes",
+      "nome": "Mistura de legumes",
+      "unidade": "pacote",
+      "custoCentavos": 990,
+      "imagem": "assets/produtos/legumes.webp",
+      "atacadista": "congelados",
+      "nivel": 4,
+      "local": "freezer"
+    },
+    {
+      "id": "brocolis",
+      "nome": "Brócolis congelado",
+      "unidade": "pacote",
+      "custoCentavos": 1090,
+      "imagem": "assets/produtos/brocolis.webp",
+      "atacadista": "congelados",
+      "nivel": 4,
+      "local": "freezer"
+    },
+    {
+      "id": "acai",
+      "nome": "Açaí congelado",
+      "unidade": "pacote",
+      "custoCentavos": 2290,
+      "imagem": "assets/produtos/acai.webp",
+      "atacadista": "congelados",
+      "nivel": 5,
+      "local": "freezer"
+    },
+    {
+      "id": "espinafre",
+      "nome": "Espinafre congelado",
+      "unidade": "pacote",
+      "custoCentavos": 990,
+      "imagem": "assets/produtos/espinafre.webp",
+      "atacadista": "congelados",
+      "nivel": 5,
+      "local": "freezer"
+    },
+    {
+      "id": "morango",
+      "nome": "Morango congelado",
+      "unidade": "pacote",
+      "custoCentavos": 1390,
+      "imagem": "assets/produtos/morango.webp",
+      "atacadista": "congelados",
+      "nivel": 5,
+      "local": "freezer"
+    },
+    {
+      "id": "salmao",
+      "nome": "Salmão congelado",
+      "unidade": "pacote",
+      "custoCentavos": 4490,
+      "imagem": "assets/produtos/salmao.webp",
+      "atacadista": "congelados",
+      "nivel": 5,
+      "local": "freezer"
+    },
+    {
+      "id": "tilapia",
+      "nome": "Tilápia congelada",
+      "unidade": "pacote",
+      "custoCentavos": 2890,
+      "imagem": "assets/produtos/tilapia.webp",
+      "atacadista": "congelados",
+      "nivel": 5,
+      "local": "freezer"
+    },
+    {
+      "id": "peixe-congelado",
+      "nome": "Peixe congelado",
+      "unidade": "pacote",
+      "custoCentavos": 2190,
+      "imagem": "assets/produtos/peixe-congelado.webp",
+      "atacadista": "congelados",
+      "nivel": 5,
+      "local": "freezer"
+    },
+    {
+      "id": "camarao-congelado",
+      "nome": "Camarão congelado",
+      "unidade": "pacote",
+      "custoCentavos": 3990,
+      "imagem": "assets/produtos/camarao-congelado.webp",
+      "atacadista": "congelados",
+      "nivel": 5,
+      "local": "freezer"
+    },
+    {
+      "id": "torta",
+      "nome": "Torta congelada",
+      "unidade": "pacote",
+      "custoCentavos": 1990,
+      "imagem": "assets/produtos/torta.webp",
+      "atacadista": "congelados",
+      "nivel": 5,
+      "local": "freezer"
+    },
+    {
+      "id": "carne-moida",
+      "nome": "Carne moída",
+      "unidade": "bandeja",
+      "custoCentavos": 2990,
+      "imagem": "assets/produtos/carne-moida.webp",
+      "atacadista": "acougue",
+      "nivel": 3,
+      "local": "acougue"
+    },
+    {
+      "id": "frango",
+      "nome": "Frango",
+      "unidade": "bandeja",
+      "custoCentavos": 1890,
+      "imagem": "assets/produtos/frango.webp",
+      "atacadista": "acougue",
+      "nivel": 3,
+      "local": "acougue"
+    },
+    {
+      "id": "calabresa",
+      "nome": "Linguiça calabresa",
+      "unidade": "bandeja",
+      "custoCentavos": 1690,
+      "imagem": "assets/produtos/calabresa.webp",
+      "atacadista": "acougue",
+      "nivel": 3,
+      "local": "acougue"
+    },
+    {
+      "id": "presunto",
+      "nome": "Presunto",
+      "unidade": "bandeja",
+      "custoCentavos": 1290,
+      "imagem": "assets/produtos/presunto.webp",
+      "atacadista": "acougue",
+      "nivel": 3,
+      "local": "acougue"
+    },
+    {
+      "id": "carne-bovina",
+      "nome": "Carne bovina",
+      "unidade": "bandeja",
+      "custoCentavos": 3990,
+      "imagem": "assets/produtos/carne-bovina.webp",
+      "atacadista": "acougue",
+      "nivel": 4,
+      "local": "acougue"
+    },
+    {
+      "id": "bacon",
+      "nome": "Bacon",
+      "unidade": "bandeja",
+      "custoCentavos": 1890,
+      "imagem": "assets/produtos/bacon.webp",
+      "atacadista": "acougue",
+      "nivel": 4,
+      "local": "acougue"
+    },
+    {
+      "id": "costela",
+      "nome": "Costela bovina",
+      "unidade": "bandeja",
+      "custoCentavos": 3290,
+      "imagem": "assets/produtos/costela.webp",
+      "atacadista": "acougue",
+      "nivel": 4,
+      "local": "acougue"
+    },
+    {
+      "id": "coxinha-asa",
+      "nome": "Coxinha da asa",
+      "unidade": "bandeja",
+      "custoCentavos": 1590,
+      "imagem": "assets/produtos/coxinha-asa.webp",
+      "atacadista": "acougue",
+      "nivel": 4,
+      "local": "acougue"
+    },
+    {
+      "id": "file-mignon",
+      "nome": "Filé mignon",
+      "unidade": "bandeja",
+      "custoCentavos": 6990,
+      "imagem": "assets/produtos/file-mignon.webp",
+      "atacadista": "acougue",
+      "nivel": 5,
+      "local": "acougue"
+    },
+    {
+      "id": "panceta",
+      "nome": "Panceta suína",
+      "unidade": "bandeja",
+      "custoCentavos": 2790,
+      "imagem": "assets/produtos/panceta.webp",
+      "atacadista": "acougue",
+      "nivel": 5,
+      "local": "acougue"
+    },
+    {
+      "id": "camarao",
+      "nome": "Camarão",
+      "unidade": "bandeja",
+      "custoCentavos": 4490,
+      "imagem": "assets/produtos/camarao.webp",
+      "atacadista": "acougue",
+      "nivel": 5,
+      "local": "acougue"
+    },
+    {
+      "id": "file-peixe",
+      "nome": "Filé de peixe",
+      "unidade": "bandeja",
+      "custoCentavos": 3490,
+      "imagem": "assets/produtos/file-peixe.webp",
+      "atacadista": "acougue",
+      "nivel": 5,
+      "local": "acougue"
     }
   ],
   "precoMaximoPercentual": 100,
@@ -77,6 +537,16 @@
     "mensagemTotal": "Escolha pelo menos 1 produto.",
     "mensagemQuantidade": "Compre no máximo 10 unidades de cada produto.",
     "mensagemSaldo": "Dinheiro insuficiente para realizar a compra.",
-    "mensagemSucesso": "Compra realizada!"
+    "mensagemSucesso": "Compra realizada!",
+    "precos": {
+      "titulo": "Preço de venda",
+      "instrucao": "Produtos novos no estoque! Pense em um valor de venda para cada um. Ele precisa ser pelo menos 25% maior que o custo.",
+      "mensagens": {
+        "vazio": "Digite um preço.",
+        "baixo": "Lucro menor que 25%.",
+        "alto": "Caro demais! Os clientes não pagam mais que o dobro."
+      }
+    },
+    "selo": "PREÇO DE CUSTO"
   }
 }

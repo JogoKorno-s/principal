@@ -12,13 +12,16 @@ import { reais, esperar } from '../util/formato.js';
 export function criarAtacadista({ config, saldo }) {
   const quantidades = Object.fromEntries(config.produtos.map((p) => [p.id, 0]));
   const saidas = {};
-  let fundo, total, areaResultado;
+  let fundo, total, areaResultado, grade, abas;
+  // Aba aberta: cada atacadista mostra só os seus produtos
+  let abaAtiva = config.abas?.find((a) => a.ativa)?.id ?? null;
+  const visiveis = () => config.produtos.filter((p) => !abaAtiva || (p.aba ?? abaAtiva) === abaAtiva);
 
   const calcularTotal = () =>
     config.produtos.reduce((soma, p) => soma + p.precoCentavos * quantidades[p.id], 0);
 
   function atualizar() {
-    for (const p of config.produtos) saidas[p.id].value = quantidades[p.id];
+    for (const p of visiveis()) saidas[p.id].value = quantidades[p.id];
     total.textContent = `TOTAL: ${reais(calcularTotal())}`;
   }
 
@@ -50,6 +53,22 @@ export function criarAtacadista({ config, saldo }) {
 
   return {
     montar(container, enviar) {
+      grade = el('div', { class: 'atacadista__produtos' });
+      const mostrarAba = () => {
+        grade.replaceChildren(...visiveis().map(cartao));
+        abas?.querySelectorAll('[role=tab]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.aba === abaAtiva)));
+        atualizar();
+      };
+      abas = config.abas ? el('div', { class: 'atacadista__abas', role: 'tablist', 'aria-label': 'Atacadistas' },
+        config.abas.map((a) => el('button', {
+          type: 'button', role: 'tab', class: 'atacadista__aba', 'aria-selected': String(a.ativa), 'data-aba': a.id,
+          title: a.bloqueio ? `Desbloqueia no ${a.bloqueio}` : a.nome,
+          onclick: () => {
+            if (a.bloqueio) { areaResultado.replaceChildren(`${a.nome}: desbloqueia no ${a.bloqueio}.`); return; }
+            abaAtiva = a.id;
+            mostrarAba();
+          },
+        }, a.bloqueio ? el('span', { html: icones.cadeado, class: 'atacadista__cadeado' }) : null, a.nome))) : null;
       total = el('div', { class: 'atacadista__total' });
       areaResultado = el('div', { class: 'atacadista__resultado', 'aria-live': 'assertive' });
       const compacto = config.produtos.length > 3 ? 'atacadista--compacto' : '';
@@ -58,14 +77,9 @@ export function criarAtacadista({ config, saldo }) {
           el('span', { class: 'atacadista__selo-oferta' }, config.selo ?? 'OFERTA DO DIA'),
           el('h2', { class: 'painel__titulo' }, config.titulo),
           el('div', { class: 'atacadista__saldo' }, 'Saldo', el('strong', {}, reais(saldo())))),
-        config.abas ? el('div', { class: 'atacadista__abas', role: 'tablist', 'aria-label': 'Atacadistas' },
-          config.abas.map((a) => el('button', {
-            type: 'button', role: 'tab', class: 'atacadista__aba', 'aria-selected': String(a.ativa),
-            title: a.bloqueio ? `Desbloqueia no ${a.bloqueio}` : a.nome,
-            onclick: () => { if (a.bloqueio) areaResultado.replaceChildren(`${a.nome}: desbloqueia no ${a.bloqueio}.`); },
-          }, a.bloqueio ? el('span', { html: icones.cadeado, class: 'atacadista__cadeado' }) : null, a.nome))) : null,
+        abas,
         config.instrucao ? el('p', { class: 'atacadista__instrucao' }, config.instrucao) : null,
-        el('div', { class: 'atacadista__produtos' }, config.produtos.map(cartao)),
+        grade,
         el('div', { class: 'atacadista__rodape' },
           total,
           botao('Comprar', () => enviar({ quantidades: { ...quantidades } }), 'grande')),
@@ -74,7 +88,7 @@ export function criarAtacadista({ config, saldo }) {
       fundo = el('div', { class: 'fundo-escuro' }, painel);
       fundo.addEventListener('keydown', (e) => { if (e.key === 'Escape') enviar({ cancelar: true }); });
       container.append(fundo);
-      atualizar();
+      mostrarAba();
     },
 
     validar(entrada) {
@@ -83,13 +97,22 @@ export function criarAtacadista({ config, saldo }) {
       const { quantidadeMinima: min, quantidadeMaxima: max } = config;
       const totalItens = Object.values(entrada.quantidades).reduce((a, b) => a + b, 0);
       if (config.minimoTotal && totalItens < config.minimoTotal) return { ok: false, mensagem: config.mensagemTotal };
-      const certas = config.produtos.filter((p) => !p.bloqueio).every((p) => entrada.quantidades[p.id] >= min && entrada.quantidades[p.id] <= max);
+      const liberados = config.produtos.filter((p) => !p.bloqueio);
+      const certas = liberados.every((p) => entrada.quantidades[p.id] >= min && entrada.quantidades[p.id] <= max);
       if (!certas) return { ok: false, mensagem: config.mensagemQuantidade };
 
       // Reposição: cada produto precisa terminar com um mínimo no estoque
       if (config.estoqueMinimo) {
-        const falta = config.produtos.find((p) => (p.estoque ?? 0) + entrada.quantidades[p.id] < config.estoqueMinimo);
+        const falta = liberados.find((p) => (p.estoque ?? 0) + entrada.quantidades[p.id] < config.estoqueMinimo);
         if (falta) return { ok: false, mensagem: config.mensagemEstoque.replace('{nome}', falta.nome.toLowerCase()) };
+      }
+      // Missões: ex.: pelo menos 1 de cada bebida, ou 1 congelado e 1 do açougue
+      for (const regra of config.exigir ?? []) {
+        const doGrupo = liberados.filter((p) => (regra.ids ? regra.ids.includes(p.id) : p.aba === regra.aba));
+        const ok = regra.cada
+          ? doGrupo.every((p) => (p.estoque ?? 0) + entrada.quantidades[p.id] >= regra.minimo)
+          : doGrupo.reduce((soma, p) => soma + entrada.quantidades[p.id], 0) >= regra.minimo;
+        if (!ok) return { ok: false, mensagem: regra.mensagem };
       }
 
       const valor = config.produtos.reduce((s, p) => s + p.precoCentavos * entrada.quantidades[p.id], 0);

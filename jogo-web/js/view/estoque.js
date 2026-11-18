@@ -2,7 +2,8 @@
 // Também mostra as notificações de reposição ("Leite está acabando").
 
 import { GameState } from '../model/game-state.js';
-import { produtos, limiteEstoqueBaixo } from '../model/produtos.js';
+import { produtos, produtosDoNivel, limiteEstoqueBaixo } from '../model/produtos.js';
+import { nivelAtual } from '../model/niveis.js';
 import { el, botao, modal } from './componentes.js';
 import { reais } from '../util/formato.js';
 
@@ -12,7 +13,8 @@ export function abrirEstoque() {
   const tabela = el('div', { class: 'estoque__tabela', role: 'table' },
     el('div', { class: 'estoque__linha estoque__cabecalho', role: 'row' },
       el('span', {}, 'Produto'), el('span', {}, 'Estoque'), el('span', {}, 'Custo'), el('span', {}, 'Venda')),
-    produtos().map((p) => {
+    // Só os produtos já liberados (com o catálogo grande, a lista rola)
+    produtosDoNivel(nivelAtual(GameState.get())).map((p) => {
       const qtd = estoque[p.id] ?? 0;
       return el('div', { class: `estoque__linha ${qtd <= limite ? 'estoque__linha--baixo' : ''}`, role: 'row' },
         el('span', { class: 'estoque__produto' }, el('img', { src: p.imagem, alt: '' }), p.nome),

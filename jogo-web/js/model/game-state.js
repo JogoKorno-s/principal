@@ -15,13 +15,31 @@ function estadoInicial(saldoInicialCentavos = 30000) {
     estoque: { arroz: 0, feijao: 0, acucar: 0, leite: 0, oleo: 0, cafe: 0 },
     precos: {},                  // preço de venda em centavos: { arroz: 1570 }
     mercadoLiberado: false,      // carrinho do HUD abre o mercado digital
-    prateleira: {},              // "arroz1" -> "F3:0"
+    prateleira: {},              // "arroz1" -> "F3:0" (minigame do Dia 1)
+    expositores: {},             // { freezer: { 3: { id: 'pizza', qtd: 2 } } } — produtos expostos
+    vendasHoje: {},              // { arroz: { qtd: 2, receita: 3140 } }
     dia1: { etapa: 'inicio', limpeza: 0 },
     dia2: { etapa: 'inicio' },
+    dia3: { etapa: 'videos' },
   };
 }
 
 let estado = estadoInicial();
+
+/** Depois de uma venda, o expositor não pode mostrar mais do que existe no estoque. */
+function tirarDosExpositores(id) {
+  let sobra = GameState.exposto(id) - (estado.estoque[id] ?? 0);
+  for (const espacos of Object.values(estado.expositores)) {
+    for (const [chave, e] of Object.entries(espacos)) {
+      if (sobra <= 0) return;
+      if (e.id !== id) continue;
+      const tirar = Math.min(sobra, e.qtd);
+      e.qtd -= tirar;
+      sobra -= tirar;
+      if (e.qtd === 0) delete espacos[chave];
+    }
+  }
+}
 let saldoInicial = 30000;
 const ouvintes = new Set();
 
@@ -72,11 +90,38 @@ export const GameState = {
     avisar('dinheiro');
   },
 
-  /** Venda no caixa: tira os produtos do estoque e soma o valor no caixa. */
-  vender(ids, totalCentavos) {
-    for (const id of ids) estado.estoque[id] = Math.max(0, (estado.estoque[id] ?? 0) - 1);
+  /**
+   * Venda no caixa: tira os produtos do estoque, soma o valor no caixa
+   * e anota nas vendas de hoje. receitas: valor de cada item (mesma ordem de ids).
+   */
+  vender(ids, totalCentavos, receitas = []) {
+    ids.forEach((id, i) => {
+      estado.estoque[id] = Math.max(0, (estado.estoque[id] ?? 0) - 1);
+      const venda = estado.vendasHoje[id] ?? { qtd: 0, receita: 0 };
+      estado.vendasHoje[id] = { qtd: venda.qtd + 1, receita: venda.receita + (receitas[i] ?? 0) };
+      tirarDosExpositores(id);
+    });
     estado.dinheiroCentavos += totalCentavos;
     avisar('dinheiro');
+  },
+
+  /** Total exposto de um produto somando prateleiras, freezers e açougue. */
+  exposto(id) {
+    let total = 0;
+    for (const espacos of Object.values(estado.expositores)) {
+      for (const e of Object.values(espacos)) if (e.id === id) total += e.qtd;
+    }
+    return total;
+  },
+
+  /** Coloca (delta > 0) ou tira (delta < 0) unidades de um espaço do expositor. */
+  exporProduto(expositor, espaco, id, delta) {
+    const espacos = (estado.expositores[expositor] ??= {});
+    const atual = espacos[espaco] ?? { id, qtd: 0 };
+    const qtd = atual.qtd + delta;
+    if (qtd <= 0) delete espacos[espaco];
+    else espacos[espaco] = { id, qtd };
+    avisar('expositor');
   },
 
   liberarMercado() {
@@ -111,8 +156,14 @@ export const GameState = {
     avisar('dia2');
   },
 
+  atualizarDia3(dados) {
+    estado.dia3 = { ...estado.dia3, ...dados };
+    avisar('dia3');
+  },
+
   /** Entra num nível: atualiza o número do dia no HUD. */
   comecarNivel(n, dia) {
+    if (estado.dia !== dia) estado.vendasHoje = {};   // dia novo, vendas zeradas
     estado.nivelAtual = n;
     estado.dia = dia;
     avisar('dia');
