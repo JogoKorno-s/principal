@@ -1,5 +1,6 @@
 // MINIGAME: caixa eletrônico.
-// 1) Entrada: produto arrastado até o leitor · Validação: caiu no leitor? · Resultado: bip vermelho e valores na tela
+// 1) Entrada: cada produto arrastado até o leitor · Validação: caiu no leitor? · Resultado: bip vermelho
+//    Quando todos passam no leitor, a tela mostra o valor recebido e o total.
 // 2) Entrada: troco digitado · Validação: é igual a recebido − total? · Resultado: ✓ ou "TENTE NOVAMENTE"
 
 import { el, botao, selo, bip, pontoNoPalco } from '../view/componentes.js';
@@ -7,73 +8,79 @@ import { reais, esperar } from '../util/formato.js';
 
 /** "R$ 26,50", "26,5", "26.50" -> 2650 (centavos). Retorna null se não for número. */
 export function lerValor(texto) {
-  let s = String(texto).replace(/[^\d,.-]/g, '');
+  let s = String(texto ?? '').replace(/[^\d,.-]/g, '');
   if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.');
   const n = Number.parseFloat(s);
   return Number.isFinite(n) ? Math.round(n * 100) : null;
 }
 
+// Onde os produtos ficam no balcão, à esquerda do monitor (até 3 produtos)
+const POSICOES = [{ x: 10, y: 560 }, { x: 115, y: 560 }, { x: 220, y: 560 }];
+const TAMANHO = 200;
+
 /**
- * config: dados de data/dia2.json → caixa
- *   { cenario, produto: { imagem, nome, x, y, tamanho }, leitor: {x,y,largura,altura},
- *     recebidoCentavos, totalCentavos, mensagens }
+ * config: { cenario, ticket, leitor: {x,y,largura,altura}, mensagens,
+ *           produtos: [{ id, nome, imagem }], recebidoCentavos, totalCentavos }
  */
 export function criarCaixa(config) {
-  const { produto, leitor } = config;
-  let raiz, item, brilho, campos, entrada, resultadoEl, enviarResposta, dica;
-  let bipado = false;
+  const { leitor } = config;
+  const itens = config.produtos.map((p, i) => ({ ...p, ...POSICOES[i], bipado: false, el: null }));
+  let raiz, brilho, campos, entrada, resultadoEl, dica;
 
   const dentroDoLeitor = (x, y) =>
     x >= leitor.x && x <= leitor.x + leitor.largura && y >= leitor.y && y <= leitor.y + leitor.altura;
+  const faltam = () => itens.filter((i) => !i.bipado).length;
 
-  function voltarProduto() {
-    item.classList.add('animar');
-    item.style.left = `${produto.x}px`;
-    item.style.top = `${produto.y}px`;
+  function posicionar(item, x, y, animar) {
+    item.el.classList.toggle('animar', animar);
+    item.el.style.left = `${x}px`;
+    item.el.style.top = `${y}px`;
   }
 
-  function arrastavel(enviar) {
+  function arrastavel(item, enviar) {
     let pegada = null;
-    item.addEventListener('pointerdown', (e) => {
-      if (bipado || e.button !== 0) return;
+    const img = item.el;
+    img.addEventListener('pointerdown', (e) => {
+      if (item.bipado || e.button !== 0) return;
       e.preventDefault();
-      item.setPointerCapture(e.pointerId);
+      img.setPointerCapture(e.pointerId);
       const p = pontoNoPalco(e);
-      pegada = { dx: p.x - parseFloat(item.style.left), dy: p.y - parseFloat(item.style.top) };
-      item.classList.remove('animar');
-      item.classList.add('arrastado');
+      pegada = { dx: p.x - parseFloat(img.style.left), dy: p.y - parseFloat(img.style.top) };
+      img.classList.remove('animar');
+      img.classList.add('arrastado');
     });
-    item.addEventListener('pointermove', (e) => {
+    img.addEventListener('pointermove', (e) => {
       if (!pegada) return;
       const p = pontoNoPalco(e);
-      item.style.left = `${p.x - pegada.dx}px`;
-      item.style.top = `${p.y - pegada.dy}px`;
+      posicionar(item, p.x - pegada.dx, p.y - pegada.dy, false);
       brilho.classList.toggle('perto', dentroDoLeitor(p.x, p.y));
     });
     const soltar = (e) => {
       if (!pegada) return;
       pegada = null;
-      item.classList.remove('arrastado');
+      img.classList.remove('arrastado');
       brilho.classList.remove('perto');
       const p = pontoNoPalco(e);
-      enviar({ tipo: 'bip', x: p.x, y: p.y });
+      enviar({ tipo: 'bip', id: item.id, x: p.x, y: p.y });
     };
-    item.addEventListener('pointerup', soltar);
-    item.addEventListener('pointercancel', soltar);
+    img.addEventListener('pointerup', soltar);
+    img.addEventListener('pointercancel', soltar);
   }
 
   return {
     montar(container, enviar) {
-      enviarResposta = () => enviar({ tipo: 'troco', valor: entrada.value });
+      const enviarResposta = () => enviar({ tipo: 'troco', valor: entrada.value });
 
-      item = el('img', {
-        class: 'caixa__produto', src: produto.imagem, alt: produto.nome, draggable: 'false',
-        style: { left: `${produto.x}px`, top: `${produto.y}px`, width: `${produto.tamanho}px`, height: `${produto.tamanho}px` },
-      });
       brilho = el('div', {
         class: 'caixa__leitor', 'aria-hidden': 'true',
         style: { left: `${leitor.x}px`, top: `${leitor.y}px`, width: `${leitor.largura}px`, height: `${leitor.altura}px` },
       });
+
+      // Ticket "PEDIDO" desenhado por cima do cenário, com os produtos do cliente
+      const ticket = el('div', { class: 'caixa__ticket' },
+        el('img', { class: 'caixa__ticket-papel', src: config.ticket, alt: '' }),
+        el('div', { class: 'caixa__ticket-itens', 'aria-label': `Pedido: ${config.produtos.map((p) => p.nome).join(', ')}` },
+          config.produtos.map((p) => el('img', { src: p.imagem, alt: p.nome }))));
 
       entrada = el('input', {
         class: 'caixa__entrada', type: 'text', inputmode: 'decimal', autocomplete: 'off',
@@ -84,37 +91,50 @@ export function criarCaixa(config) {
       enviarBtn.classList.add('caixa__enviar');
       resultadoEl = el('div', { class: 'caixa__resultado', 'aria-live': 'assertive' });
 
-      // Valores ficam escondidos até o produto passar no leitor
+      // Valores ficam escondidos até todos os produtos passarem no leitor
       campos = el('div', { class: 'caixa__campos', hidden: true },
         el('output', { class: 'caixa__valor caixa__valor--recebido' }, reais(config.recebidoCentavos)),
         el('output', { class: 'caixa__valor caixa__valor--total' }, reais(config.totalCentavos)),
         entrada, enviarBtn, resultadoEl);
 
+      for (const item of itens) {
+        item.el = el('img', {
+          class: 'caixa__produto', src: item.imagem, alt: item.nome, draggable: 'false',
+          style: { width: `${TAMANHO}px`, height: `${TAMANHO}px` },
+        });
+        posicionar(item, item.x, item.y, false);
+        arrastavel(item, enviar);
+      }
+
       dica = el('div', { class: 'caixa__dica' }, config.mensagens.dica);
       raiz = el('div', { class: 'caixa', role: 'region', 'aria-label': 'Caixa eletrônico' },
         el('img', { class: 'cenario', src: config.cenario, alt: 'Caixa eletrônico do Korno\'s' }),
-        brilho, campos, item, dica);
+        ticket, brilho, campos, itens.map((i) => i.el), dica);
       container.append(raiz);
-      arrastavel(enviar);
     },
 
     validar(e) {
       if (e.tipo === 'bip') return { ok: dentroDoLeitor(e.x, e.y), etapa: 'bip' };
       const valor = lerValor(e.valor);
       if (valor === null) return { ok: false, vazio: true, mensagem: config.mensagens.vazio };
-      const certo = config.recebidoCentavos - config.totalCentavos;
-      return { ok: valor === certo, valor };
+      return { ok: valor === config.recebidoCentavos - config.totalCentavos, valor };
     },
 
-    async resultado(r) {
+    async resultado(r, e) {
       if (r.etapa === 'bip') {
-        if (!r.ok) { voltarProduto(); return false; }
-        bipado = true;
+        const item = itens.find((i) => i.id === e.id);
+        if (!r.ok) { posicionar(item, item.x, item.y, true); return false; }
+        item.bipado = true;
         bip();
-        item.classList.add('bipado');
-        item.style.left = `${leitor.x + leitor.largura / 2 - produto.tamanho / 2}px`;
-        item.style.top = `${leitor.y - produto.tamanho * 0.55}px`;
+        item.el.classList.add('bipado');
+        posicionar(item, leitor.x + leitor.largura / 2 - TAMANHO / 2, leitor.y - TAMANHO * 0.55, true);
+        brilho.classList.remove('ativo');
+        void brilho.offsetWidth;
         brilho.classList.add('ativo');
+        if (faltam() > 0) {
+          dica.textContent = config.mensagens.faltam.replace('{n}', faltam());
+          return false;
+        }
         dica.textContent = config.mensagens.calcule;
         campos.hidden = false;
         entrada.focus({ preventScroll: true });

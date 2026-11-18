@@ -4,8 +4,9 @@
 import { GameState } from '../model/game-state.js';
 import { el, icones } from './componentes.js';
 import { reais, doisDigitos } from '../util/formato.js';
+import { abrirEstoque } from './estoque.js';
 
-let raiz, dinheiro, dia, carrinho, alerta, oferta;
+let raiz, dinheiro, dia, carrinho, alerta, oferta, estoqueBtn;
 let aoClicarCarrinho = null;
 let aoClicarDia = null;
 
@@ -33,13 +34,24 @@ export function criarHUD() {
     onclick: () => aoClicarDia?.(),
   });
 
-  raiz.replaceChildren(carrinho, dinheiro, dia);
+  // Botão de estoque: aparece a partir do Dia 2, quando o mercado começa a vender
+  estoqueBtn = el('button', {
+    type: 'button',
+    class: 'botao-icone',
+    'aria-label': 'Estoque',
+    title: 'Estoque',
+    html: icones.caixa,
+    onclick: () => abrirEstoque(),
+  });
+
+  raiz.replaceChildren(estoqueBtn, carrinho, dinheiro, dia);
   GameState.ouvir((estado, mudanca) => atualizar(estado, mudanca));
   atualizar(GameState.get());
 }
 
 function atualizar(estado, mudanca) {
   dinheiro.textContent = reais(estado.dinheiroCentavos);
+  estoqueBtn.hidden = estado.dia < 2;
   dia.replaceChildren(el('span', { class: 'hud__rotulo' }, 'DIA'), doisDigitos(estado.dia));
   if (mudanca === 'dinheiro') {
     dinheiro.classList.remove('mudou');

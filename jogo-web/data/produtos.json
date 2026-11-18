@@ -1,0 +1,12 @@
+{
+  "lucroPercentual": 25,
+  "estoqueBaixo": 1,
+  "produtos": [
+    { "id": "arroz",  "nome": "Arroz",  "unidade": "pacote",  "custoCentavos": 1256, "imagem": "assets/produtos/arroz-5kg.webp" },
+    { "id": "feijao", "nome": "Feijão", "unidade": "pacote",  "custoCentavos": 394,  "imagem": "assets/produtos/feijao.webp" },
+    { "id": "acucar", "nome": "Açúcar", "unidade": "saco",    "custoCentavos": 134,  "imagem": "assets/produtos/acucar.webp" },
+    { "id": "leite",  "nome": "Leite",  "unidade": "caixa",   "custoCentavos": 400,  "imagem": "assets/produtos/leite.webp" },
+    { "id": "oleo",   "nome": "Óleo",   "unidade": "garrafa", "custoCentavos": 900,  "imagem": "assets/produtos/oleo.webp" },
+    { "id": "cafe",   "nome": "Café",   "unidade": "pacote",  "custoCentavos": 1360, "imagem": "assets/produtos/cafe.webp" }
+  ]
+}

@@ -35,6 +35,7 @@ export function criarAtacadista({ config, saldo }) {
       el('div', { class: 'produto-card__nome' }, p.nome),
       el('div', { class: 'produto-card__preco' }, reais(p.precoCentavos)),
       el('div', { class: 'produto-card__unidade' }, `por ${p.unidade}`),
+      p.estoque !== undefined ? el('div', { class: 'produto-card__estoque' }, `Em estoque: ${p.estoque}`) : null,
       el('div', { class: 'quantidade' },
         botaoIcone('−', `Tirar um ${p.nome}`, () => mudar(p.id, -1), 'botao-icone--pequeno'),
         saidas[p.id],
@@ -45,11 +46,13 @@ export function criarAtacadista({ config, saldo }) {
     montar(container, enviar) {
       total = el('div', { class: 'atacadista__total' });
       areaResultado = el('div', { class: 'atacadista__resultado', 'aria-live': 'assertive' });
-      const painel = el('div', { class: 'painel atacadista', role: 'dialog', 'aria-label': config.titulo },
+      const compacto = config.produtos.length > 3 ? 'atacadista--compacto' : '';
+      const painel = el('div', { class: `painel atacadista ${compacto}`, role: 'dialog', 'aria-label': config.titulo },
         el('div', { class: 'atacadista__topo' },
           el('span', { class: 'atacadista__selo-oferta' }, 'OFERTA DO DIA'),
           el('h2', { class: 'painel__titulo' }, config.titulo),
           el('div', { class: 'atacadista__saldo' }, 'Saldo', el('strong', {}, reais(saldo())))),
+        config.instrucao ? el('p', { class: 'atacadista__instrucao' }, config.instrucao) : null,
         el('div', { class: 'atacadista__produtos' }, config.produtos.map(cartao)),
         el('div', { class: 'atacadista__rodape' },
           total,
@@ -68,6 +71,12 @@ export function criarAtacadista({ config, saldo }) {
       const { quantidadeMinima: min, quantidadeMaxima: max } = config;
       const certas = config.produtos.every((p) => entrada.quantidades[p.id] >= min && entrada.quantidades[p.id] <= max);
       if (!certas) return { ok: false, mensagem: config.mensagemQuantidade };
+
+      // Reposição: cada produto precisa terminar com um mínimo no estoque
+      if (config.estoqueMinimo) {
+        const falta = config.produtos.find((p) => (p.estoque ?? 0) + entrada.quantidades[p.id] < config.estoqueMinimo);
+        if (falta) return { ok: false, mensagem: config.mensagemEstoque.replace('{nome}', falta.nome.toLowerCase()) };
+      }
 
       const valor = config.produtos.reduce((s, p) => s + p.precoCentavos * entrada.quantidades[p.id], 0);
       if (valor > saldo()) return { ok: false, mensagem: config.mensagemSaldo };
