@@ -3,6 +3,7 @@
 import { GameState } from './model/game-state.js';
 import { definirNiveis } from './model/niveis.js';
 import { definirProdutos } from './model/produtos.js';
+import { definirTextosMercado } from './controller/mercado.js';
 import { registrar, ir } from './controller/roteador.js';
 import { carregarJSON } from './util/formato.js';
 import { criarHUD, aoClicarNoDia } from './view/hud.js';
@@ -25,6 +26,7 @@ async function iniciar() {
   const [niveis, catalogo] = await Promise.all([carregarJSON('data/niveis.json'), carregarJSON('data/produtos.json')]);
   definirNiveis(niveis);
   definirProdutos(catalogo);
+  definirTextosMercado(catalogo.mercado);
   GameState.iniciar(niveis.saldoInicialCentavos);
 
   criarHUD();

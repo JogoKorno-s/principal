@@ -30,6 +30,12 @@ export function criarAtacadista({ config, saldo }) {
 
   function cartao(p) {
     saidas[p.id] = el('output', { 'aria-live': 'polite', 'aria-label': `Quantidade de ${p.nome}` }, '0');
+    if (p.bloqueio) {   // produto que só é liberado em outro nível
+      return el('div', { class: 'produto-card produto-card--bloqueado' },
+        el('img', { src: p.imagem, alt: p.nome }),
+        el('div', { class: 'produto-card__nome' }, p.nome),
+        el('div', { class: 'produto-card__estoque', html: `${icones.cadeado} ${p.bloqueio}` }));
+    }
     return el('div', { class: 'produto-card' },
       el('img', { src: p.imagem, alt: p.nome }),
       el('div', { class: 'produto-card__nome' }, p.nome),
@@ -49,9 +55,15 @@ export function criarAtacadista({ config, saldo }) {
       const compacto = config.produtos.length > 3 ? 'atacadista--compacto' : '';
       const painel = el('div', { class: `painel atacadista ${compacto}`, role: 'dialog', 'aria-label': config.titulo },
         el('div', { class: 'atacadista__topo' },
-          el('span', { class: 'atacadista__selo-oferta' }, 'OFERTA DO DIA'),
+          el('span', { class: 'atacadista__selo-oferta' }, config.selo ?? 'OFERTA DO DIA'),
           el('h2', { class: 'painel__titulo' }, config.titulo),
           el('div', { class: 'atacadista__saldo' }, 'Saldo', el('strong', {}, reais(saldo())))),
+        config.abas ? el('div', { class: 'atacadista__abas', role: 'tablist', 'aria-label': 'Atacadistas' },
+          config.abas.map((a) => el('button', {
+            type: 'button', role: 'tab', class: 'atacadista__aba', 'aria-selected': String(a.ativa),
+            title: a.bloqueio ? `Desbloqueia no ${a.bloqueio}` : a.nome,
+            onclick: () => { if (a.bloqueio) areaResultado.replaceChildren(`${a.nome}: desbloqueia no ${a.bloqueio}.`); },
+          }, a.bloqueio ? el('span', { html: icones.cadeado, class: 'atacadista__cadeado' }) : null, a.nome))) : null,
         config.instrucao ? el('p', { class: 'atacadista__instrucao' }, config.instrucao) : null,
         el('div', { class: 'atacadista__produtos' }, config.produtos.map(cartao)),
         el('div', { class: 'atacadista__rodape' },
@@ -69,7 +81,9 @@ export function criarAtacadista({ config, saldo }) {
       if (entrada.cancelar) return { ok: false, cancelado: true };
 
       const { quantidadeMinima: min, quantidadeMaxima: max } = config;
-      const certas = config.produtos.every((p) => entrada.quantidades[p.id] >= min && entrada.quantidades[p.id] <= max);
+      const totalItens = Object.values(entrada.quantidades).reduce((a, b) => a + b, 0);
+      if (config.minimoTotal && totalItens < config.minimoTotal) return { ok: false, mensagem: config.mensagemTotal };
+      const certas = config.produtos.filter((p) => !p.bloqueio).every((p) => entrada.quantidades[p.id] >= min && entrada.quantidades[p.id] <= max);
       if (!certas) return { ok: false, mensagem: config.mensagemQuantidade };
 
       // Reposição: cada produto precisa terminar com um mínimo no estoque

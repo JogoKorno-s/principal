@@ -76,11 +76,13 @@ export function criarCaixa(config) {
         style: { left: `${leitor.x}px`, top: `${leitor.y}px`, width: `${leitor.largura}px`, height: `${leitor.altura}px` },
       });
 
-      // Ticket "PEDIDO" desenhado por cima do cenário, com os produtos do cliente
+      // Notinha "PEDIDO" por cima do cenário, escrita como cupom: "1 Arroz", "1 Feijão"...
+      const contagem = new Map();
+      for (const p of config.produtos) contagem.set(p.nome, (contagem.get(p.nome) ?? 0) + 1);
       const ticket = el('div', { class: 'caixa__ticket' },
         el('img', { class: 'caixa__ticket-papel', src: config.ticket, alt: '' }),
-        el('div', { class: 'caixa__ticket-itens', 'aria-label': `Pedido: ${config.produtos.map((p) => p.nome).join(', ')}` },
-          config.produtos.map((p) => el('img', { src: p.imagem, alt: p.nome }))));
+        el('ul', { class: 'caixa__ticket-itens', 'aria-label': 'Pedido' },
+          [...contagem].map(([nome, n]) => el('li', {}, el('b', {}, String(n)), ` ${nome}`))));
 
       entrada = el('input', {
         class: 'caixa__entrada', type: 'text', inputmode: 'decimal', autocomplete: 'off',

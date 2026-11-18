@@ -189,7 +189,7 @@
 .area-prateleira:hover .botao-olho, .botao-olho:focus-visible { opacity: 1; transform: none; }
 
 /* ---------- Prateleira ampliada ---------- */
-.prateleira { position: absolute; inset: 0; animation: aparecer 300ms ease-out both; }
+.prateleira { position: absolute; inset: 0; z-index: 8; animation: aparecer 300ms ease-out both; }
 .prateleira__voltar { position: absolute; top: 36px; left: 40px; z-index: 5; }
 .prateleira__dica {
   position: absolute;
@@ -435,10 +435,13 @@
 .caixa__ticket { position: absolute; left: 1473px; top: 44px; width: 481px; height: 481px; pointer-events: none; }
 .caixa__ticket-papel { width: 100%; height: 100%; }
 .caixa__ticket-itens {
-  position: absolute; left: 127px; top: 128px; width: 232px; height: 330px;
-  display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 4px 10px;
+  position: absolute; left: 132px; top: 140px; width: 222px;
+  margin: 0; padding: 0; list-style: none;
+  font-family: var(--f-texto); font-variation-settings: "MONO" 1, "CASL" 0;
+  font-size: 36px; font-weight: 600; line-height: 1.5; color: #2b2118;
 }
-.caixa__ticket-itens img { width: 132px; height: 132px; margin: -12px; object-fit: contain; }
+.caixa__ticket-itens li { border-bottom: 2px dashed rgb(91 31 0 / .25); }
+.caixa__ticket-itens b { font-weight: 800; }
 
 /* Atacadista com 6 produtos (reposição do Dia 2) */
 .atacadista__instrucao { margin: -14px 0 26px; font-size: 28px; font-weight: 600; text-align: center; }
@@ -453,11 +456,11 @@
 .produto-card__estoque { font-size: 22px; font-weight: 800; color: var(--azul); }
 
 /* Preço de venda */
-.precos { width: 1240px; }
+.precos { width: 1560px; }
 .precos__instrucao { margin: 4px 0 24px; font-size: 30px; font-weight: 600; text-align: center; }
 .precos__tabela { display: grid; gap: 8px; }
 .precos__linha {
-  display: grid; grid-template-columns: 1fr 240px 300px; align-items: center; gap: 24px;
+  display: grid; grid-template-columns: 1fr 220px 280px 330px; align-items: center; gap: 24px;
   padding: 6px 18px; border: 3px solid transparent; border-radius: 14px; font-size: 32px; font-weight: 600;
 }
 .precos__cabecalho { font-size: 22px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--marrom-claro); }
@@ -472,6 +475,7 @@
 .precos__linha.errada { border-color: var(--vermelho-erro); background: rgb(179 38 30 / .08); }
 .precos__rodape { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-top: 28px; }
 .precos__feedback { font-size: 28px; font-weight: 700; }
+.precos__nota { font-size: 22px; font-weight: 800; color: var(--vermelho-erro); line-height: 1.2; }
 
 /* Estoque */
 .estoque__tabela { display: grid; gap: 6px; margin-top: 18px; }
@@ -485,7 +489,7 @@
 .modal:has(.estoque__tabela) { width: 1100px; }
 
 /* Notificações de reposição (topo esquerdo) */
-#notificacoes { position: absolute; top: 28px; left: 32px; z-index: 22; display: grid; gap: 14px; }
+#notificacoes { position: absolute; top: 28px; left: 140px; z-index: 22; display: grid; gap: 14px; }
 .notificacao {
   display: flex; align-items: center; gap: 18px; width: 520px; padding: 14px 54px 14px 18px;
   position: relative; background: var(--bege); border: var(--borda); border-radius: var(--raio);
@@ -495,3 +499,26 @@
 .notificacao__texto { display: grid; font-size: 26px; font-weight: 600; line-height: 1.2; }
 .notificacao__texto strong { font-family: var(--f-letreiro); font-weight: 650; font-size: 30px; color: var(--laranja); }
 .notificacao__fechar { position: absolute; top: 6px; right: 10px; border: 0; background: none; font-size: 40px; line-height: 1; cursor: pointer; color: var(--marrom); }
+
+/* Botão de voltar para o início (topo esquerdo) */
+.botao-inicio { position: absolute; top: 28px; left: 32px; z-index: 21; }
+
+/* Entre um cliente e outro */
+.entre-clientes {
+  position: absolute; left: 50%; bottom: 70px; transform: translateX(-50%);
+  display: flex; gap: 36px; z-index: 5; animation: entrar-baixo 400ms var(--saida) both;
+}
+.entre-clientes .botao { white-space: nowrap; }
+
+/* Abas do mercado digital (atacadistas) */
+.atacadista__abas { display: flex; gap: 12px; justify-content: center; margin: -6px 0 18px; flex-wrap: wrap; }
+.atacadista__aba {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px;
+  border: 3px solid var(--marrom); border-radius: 999px; background: var(--bege);
+  font: 650 24px var(--f-letreiro); color: var(--marrom); cursor: pointer;
+}
+.atacadista__aba[aria-selected="true"] { background: var(--marrom); color: var(--bege); }
+.atacadista__aba:has(.atacadista__cadeado) { opacity: .55; }
+.atacadista__cadeado { width: 22px; height: 22px; display: inline-grid; }
+.atacadista__cadeado svg, .produto-card--bloqueado svg { width: 22px; height: 22px; vertical-align: -3px; }
+.produto-card--bloqueado { filter: grayscale(1); opacity: .6; }
