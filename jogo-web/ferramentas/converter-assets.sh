@@ -18,16 +18,10 @@ webp() {
 }
 
 # Cenários (1920×1080)
+# Mercado (limpeza, limpo, abastecido, caixa novo), intro-cena1/2, intro-cena5/10 e o empresário
+# vieram das artes novas do grupo (mais nítidas) e já estão convertidos em assets/; não refazer daqui.
 webp "$ORIGEM/art/backgrounds/fachada_inicial.png"                        "$DESTINO/cenarios/fachada.webp"
-webp "$ORIGEM/art/backgrounds/dirty_store.png"                            "$DESTINO/cenarios/sujo-0.webp"
-webp "$ORIGEM/art/backgrounds/dirty_store_floor_clean.png"                "$DESTINO/cenarios/sujo-1-chao.webp"
-webp "$ORIGEM/art/backgrounds/dirty_store_floor_cashier_clean.png"        "$DESTINO/cenarios/sujo-2-caixa.webp"
-webp "$ORIGEM/art/backgrounds/dirty_store_floor_cashier_shelves_clean.png" "$DESTINO/cenarios/sujo-3-prateleiras.webp"
-webp "$ORIGEM/art/backgrounds/mercado_limpo.jpg"                          "$DESTINO/cenarios/mercado-limpo.webp"
-webp "$ORIGEM/art/backgrounds/mercado_abastecido.png"                     "$DESTINO/cenarios/mercado-abastecido.webp"
 webp "$ORIGEM/art/backgrounds/prateleira1.jpg"                            "$DESTINO/cenarios/prateleira.webp"
-webp "$ORIGEM/art/backgrounds/intro/cena1.jpg"                            "$DESTINO/cenarios/intro-cena1.webp"
-webp "$ORIGEM/art/backgrounds/intro/cena2.jpg"                            "$DESTINO/cenarios/intro-cena2.webp"
 webp "$ORIGEM/art/backgrounds/intro/cena8.jpeg"                           "$DESTINO/cenarios/intro-cena8.webp"
 
 # Luís
@@ -50,7 +44,7 @@ video() {
 }
 
 video "$ORIGEM/videos/menu/menu.mp4" menu
-for n in 3 4 5 6 7 9 10; do
+for n in 3 4 6 7 9; do
   video "$ORIGEM/videos/intro/cena$n.ogv" "intro-cena$n"
 done
 
