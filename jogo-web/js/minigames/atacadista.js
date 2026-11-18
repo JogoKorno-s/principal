@@ -1,5 +1,5 @@
 // MINIGAME: compra no Mercado Atacadista.
-// Entrada: quantidades escolhidas · Validação: quantidades exatas e saldo suficiente
+// Entrada: quantidades escolhidas · Validação: de 1 a 4 de cada produto e saldo suficiente
 // Resultado: selo ✓ (fecha o painel) ou "TENTE NOVAMENTE" com a explicação.
 
 import { el, botao, botaoIcone, icones, selo } from '../view/componentes.js';
@@ -65,7 +65,8 @@ export function criarAtacadista({ config, saldo }) {
     validar(entrada) {
       if (entrada.cancelar) return { ok: false, cancelado: true };
 
-      const certas = config.produtos.every((p) => entrada.quantidades[p.id] === p.exigido);
+      const { quantidadeMinima: min, quantidadeMaxima: max } = config;
+      const certas = config.produtos.every((p) => entrada.quantidades[p.id] >= min && entrada.quantidades[p.id] <= max);
       if (!certas) return { ok: false, mensagem: config.mensagemQuantidade };
 
       const valor = config.produtos.reduce((s, p) => s + p.precoCentavos * entrada.quantidades[p.id], 0);

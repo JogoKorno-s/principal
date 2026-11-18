@@ -88,9 +88,9 @@
 /* Bolinhas vermelhas numeradas da limpeza */
 .bolinha {
   position: absolute;
-  width: 92px;
-  height: 92px;
-  margin: -46px 0 0 -46px;
+  width: 76px;
+  height: 76px;
+  margin: -38px 0 0 -38px;
   display: grid;
   place-items: center;
   padding: 0;
@@ -100,7 +100,7 @@
   color: #fff;
   font-family: var(--f-letreiro);
   font-weight: 700;
-  font-size: 50px;
+  font-size: 42px;
   line-height: 1;
   cursor: pointer;
   box-shadow: 0 0 0 5px var(--marrom), 0 12px 20px -6px rgb(0 0 0 / .6);

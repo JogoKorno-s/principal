@@ -20,7 +20,7 @@
     "posLimpeza": [
       { "pose": "joinha",     "texto": "Que belo trabalho, Korno! Mas não pense que acabou." },
       { "pose": "explicando", "texto": "Acabei de receber uma notificação de uma promoção em um supermercado atacadista. É uma boa oportunidade para abastecer nosso estoque e economizar." },
-      { "pose": "explicando", "texto": "Precisamos comprar 5 pacotes de arroz, 4 sacos de açúcar e 3 pacotes de feijão, já que é a compra mínima do mercado. Mas atenção: são exatamente essas quantidades, então não adianta comprar mais ou menos, beleza?" },
+      { "pose": "explicando", "texto": "Precisamos comprar arroz, feijão e açúcar. Pegue pelo menos 1 de cada, mas no máximo 4 de cada um, porque nosso estoque ainda é pequeno, beleza?" },
       { "pose": "joinha",     "texto": "Quando terminar as compras, podemos encerrar o seu primeiro dia." }
     ],
     "fimDoDia": [
@@ -43,13 +43,14 @@
   "compra": {
     "oferta": ["VENHA APROVEITAR A OFERTA DO DIA!", "COMPRE ARROZ, FEIJÃO E AÇÚCAR!"],
     "titulo": "Mercado Atacadista",
-    "quantidadeMaxima": 20,
+    "quantidadeMinima": 1,
+    "quantidadeMaxima": 4,
     "produtos": [
-      { "id": "arroz",  "nome": "Arroz",  "unidade": "pacote", "precoCentavos": 1256, "exigido": 5, "imagem": "assets/produtos/arroz.webp" },
+      { "id": "arroz",  "nome": "Arroz",  "unidade": "pacote", "precoCentavos": 1256, "imagem": "assets/produtos/arroz.webp" },
       { "id": "feijao", "nome": "Feijão", "unidade": "pacote", "precoCentavos": 394,  "exigido": 3, "imagem": "assets/produtos/feijao.webp" },
       { "id": "acucar", "nome": "Açúcar", "unidade": "saco",   "precoCentavos": 134,  "exigido": 4, "imagem": "assets/produtos/acucar.webp" }
     ],
-    "mensagemQuantidade": "Confira as quantidades! Arroz: 5 | Feijão: 3 | Açúcar: 4.",
+    "mensagemQuantidade": "Compre de 1 a 4 unidades de cada produto.",
     "mensagemSaldo": "Dinheiro insuficiente para realizar a compra.",
     "mensagemSucesso": "Compra realizada!"
   },
@@ -83,6 +84,7 @@
 
   "card": {
     "titulo": "Nível 2",
+    "proximoNivel": 2,
     "destaque": "desbloqueado!",
     "subtitulo": "Você concluiu o Dia 1 do Korno's.",
     "botaoProximo": "Próximo dia",
