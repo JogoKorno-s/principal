@@ -45,7 +45,17 @@
         "x": 40,
         "y": 300,
         "largura": 640,
-        "altura": 410
+        "altura": 410,
+        "comGeladeira": false
+      },
+      {
+        "alvo": "parede-esquerda",
+        "rotulo": "Ver a prateleira da esquerda e a geladeira de bebidas",
+        "x": 30,
+        "y": 280,
+        "largura": 740,
+        "altura": 460,
+        "comGeladeira": true
       },
       {
         "alvo": "gondola-frente",
@@ -303,6 +313,82 @@
         ]
       ],
       "sobrepor": 0.35
+    },
+    "parede-esquerda-geladeira": {
+      "titulo": "Parede esquerda",
+      "fundo": "assets/cenarios/prateleira-geladeira.webp",
+      "grupos": [
+        {
+          "local": "prateleira",
+          "capacidade": 4,
+          "colunas": [
+            [
+              95,
+              505
+            ],
+            [
+              710,
+              355
+            ],
+            [
+              1075,
+              355
+            ]
+          ],
+          "linhas": [
+            [
+              215,
+              150
+            ],
+            [
+              405,
+              158
+            ],
+            [
+              600,
+              140
+            ],
+            [
+              778,
+              126
+            ]
+          ]
+        },
+        {
+          "nome": "geladeira",
+          "atacadista": "bebidas",
+          "capacidade": 3,
+          "sobrepor": 0.18,
+          "colunas": [
+            [
+              1610,
+              118
+            ],
+            [
+              1732,
+              118
+            ]
+          ],
+          "linhas": [
+            [
+              245,
+              130
+            ],
+            [
+              390,
+              128
+            ],
+            [
+              540,
+              135
+            ],
+            [
+              715,
+              140
+            ]
+          ]
+        }
+      ]
     }
   },
   "expositor": {
@@ -310,7 +396,9 @@
     "bandejaVazia": "Nada no estoque para colocar aqui. Compre no mercado digital (carrinho).",
     "outroProduto": "Esse espaço já tem {nome}. Coloque em um espaço vazio.",
     "cheio": "Cabem no máximo {n} unidades em cada espaço.",
-    "semEstoque": "Não tem mais {nome} no estoque."
+    "semEstoque": "Não tem mais {nome} no estoque.",
+    "soBebidas": "A geladeira é só para bebidas.",
+    "naoCabe": "Esse produto não vai nesse espaço."
   },
   "vendas": {
     "titulo": "Vendas de hoje",

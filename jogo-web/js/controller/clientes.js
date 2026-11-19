@@ -9,6 +9,7 @@
 import { GameState } from '../model/game-state.js';
 import { produto, produtosDoNivel, precoAtual, totalDaVenda, limiteEstoqueBaixo } from '../model/produtos.js';
 import { nivelAtual } from '../model/niveis.js';
+import { notaDoAtendimento } from '../model/atendimento.js';
 import { gerarCliente, textosClientes, listaDeProdutos, nomeNaFala } from '../model/clientes.js';
 import { el, botao, avisar } from '../view/componentes.js';
 import { esperar } from '../util/formato.js';
@@ -34,8 +35,11 @@ export async function atenderRoteiro(cena, cliente) {
   await passarNoCaixa(cena, cliente.produtos, { total: cliente.totalCentavos, recebido: cliente.recebidoCentavos });
 }
 
-/** Cliente sorteado: personagem e pedido aleatórios, só com produtos já liberados. */
-export async function atenderSorteado(cena, { chanceFalta = 0 } = {}) {
+/**
+ * Cliente sorteado: personagem e pedido aleatórios, só com produtos já liberados.
+ * cronometro: true a partir do Nível 4 (bolinha de paciência e índice de atendimento).
+ */
+export async function atenderSorteado(cena, { chanceFalta = 0, cronometro = false } = {}) {
   const t = textosClientes();
   const estado = GameState.get();
   const c = gerarCliente({
@@ -66,11 +70,11 @@ export async function atenderSorteado(cena, { chanceFalta = 0 } = {}) {
     notificarReposicao(c.falta);
     await falar(cena.camada, [{ pose: c.personagem, texto }], { nome: t.nome, pasta: t.pasta });
   }
-  if (c.pedidos.length) await passarNoCaixa(cena, c.pedidos, {});
+  if (c.pedidos.length) await passarNoCaixa(cena, c.pedidos, { cronometro });
 }
 
 /** Minigame do caixa e a venda. total/recebido fixos só no cliente do roteiro. */
-async function passarNoCaixa(cena, ids, { total: totalFixo, recebido: recebidoFixo }) {
+async function passarNoCaixa(cena, ids, { total: totalFixo, recebido: recebidoFixo, cronometro = false }) {
   const t = textosClientes();
   const { precos } = GameState.get();
   const total = totalFixo ?? totalDaVenda(ids, precos);
@@ -82,6 +86,11 @@ async function passarNoCaixa(cena, ids, { total: totalFixo, recebido: recebidoFi
     recebidoCentavos: recebido,
     totalCentavos: total,
   };
+  let medido = null;
+  if (cronometro) {
+    config.cronometro = t.cronometro;
+    config.aoTerminar = (info) => { medido = info; };
+  }
 
   await escurecer();
   mostrarHUD(false);
@@ -99,6 +108,12 @@ async function passarNoCaixa(cena, ids, { total: totalFixo, recebido: recebidoFi
   mostrarHUD(true);
   await clarear();
 
+  if (medido) {
+    const { nota, faixa } = notaDoAtendimento(medido.segundos, medido.erros, t.cronometro.limiteSegundos);
+    GameState.registrarAtendimento({ nota, segundos: medido.segundos, erros: medido.erros });
+    avisar(`${t.cronometro.notas[faixa]} (${medido.segundos} s)`, faixa === 'atrasado' ? 'erro' : 'sucesso', 3500);
+  }
+
   const { estoque } = GameState.get();
   const acabando = [...new Set(ids)].filter((id) => (estoque[id] ?? 0) <= limiteEstoqueBaixo());
   if (acabando.length) notificarReposicao(acabando);
@@ -106,21 +121,27 @@ async function passarNoCaixa(cena, ids, { total: totalFixo, recebido: recebidoFi
 
 /**
  * Momento livre entre clientes. Resolve quando o jogador chama o próximo.
- * textos: { proximo, dica }
+ * textos: { proximo, dica, aviso? } — sem "proximo", mostra só o aviso e espera `fim`.
+ * fim: Promise opcional que também encerra o momento livre (ex.: entregas feitas).
  */
-export function entreClientes(cena, textos, { mostrarDica = false } = {}) {
+export function entreClientes(cena, textos, { mostrarDica = false, fim = null } = {}) {
   liberarSecoes(['principal', 'prateleiras', 'congelados'], { alerta: 'principal' });
   const tirarOlhos = mostrarOlhosDaPrincipal(cena.camada);
   if (mostrarDica) avisar(textos.dica, '', 6000);
   return new Promise((seguir) => {
+    let saiu = false;
+    const sair = () => {
+      if (saiu) return;
+      saiu = true;
+      fecharSecao();
+      tirarOlhos();
+      barra.remove();
+      travarSecoes();
+      seguir();
+    };
     const barra = el('div', { class: 'entre-clientes' },
-      botao(textos.proximo, () => {
-        fecharSecao();
-        tirarOlhos();
-        barra.remove();
-        travarSecoes();
-        seguir();
-      }, 'grande'));
+      textos.proximo ? botao(textos.proximo, sair, 'grande') : el('p', { class: 'entre-clientes__aviso' }, textos.aviso));
     cena.camada.append(barra);
+    fim?.then(sair);
   });
 }

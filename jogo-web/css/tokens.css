@@ -17,6 +17,8 @@
   /* Derivadas (transparências da paleta) */
   --escurecer: rgb(30 10 0 / .72);
   --vermelho-erro: #B3261E; /* selo "TENTE NOVAMENTE" e bolinhas de limpeza (pedidos no roteiro) */
+  --amarelo: #F2C230;       /* Moto Entrega e bolinha de paciência pela metade (Nível 4) */
+  --amarelo-escuro: #B07A00;
 
   /* Fontes */
   --f-letreiro: "Fredoka", "Trebuchet MS", sans-serif;

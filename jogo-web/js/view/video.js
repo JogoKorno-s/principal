@@ -20,3 +20,13 @@ export function tocarVideo(container, base, { legenda = '', textoPular = 'Pular 
     pular.focus({ preventScroll: true });
   });
 }
+
+/** Letreiro em tela preta ("30 dias depois...", "DIA 45"). Resolve depois de `ms`. */
+export function mostrarLetreiro(container, linhas, ms = 2800) {
+  return new Promise((terminar) => {
+    const camada = el('div', { class: 'video-cena letreiro' },
+      linhas.map((t, i) => el('p', { class: `letreiro__linha letreiro__linha--${i}` }, t)));
+    container.append(camada);
+    setTimeout(() => { camada.remove(); terminar(); }, ms);
+  });
+}
