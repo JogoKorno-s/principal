@@ -20,7 +20,13 @@
     "rhayanne",
     "sabrynan",
     "sofian",
-    "vin"
+    "vin",
+    "torcedor",
+    "arquiteta",
+    "medico",
+    "roqueira",
+    "explorador",
+    "universitario"
   ],
   "itensPorPedido": {
     "minimo": 1,
@@ -74,5 +80,15 @@
     2000,
     5000,
     10000
-  ]
+  ],
+  "cronometro": {
+    "limiteSegundos": 40,
+    "rotulo": "Paciência do cliente",
+    "irritado": "Cliente irritado!",
+    "notas": {
+      "rapido": "Atendimento rápido!",
+      "noTempo": "Atendimento no tempo.",
+      "atrasado": "O cliente esperou demais..."
+    }
+  }
 }

@@ -25,6 +25,7 @@ Para recomeçar do zero: botão **Reiniciar** no menu.
 - **Progresso salvo** no navegador (localStorage): fechou e abriu, continua da mesma etapa.
 - **Dia 2**: caixa com troco, desafios de porcentagem, mercado digital, preço de venda com 25% de lucro e clientes sorteados.
 - **Dia 15 (Nível 3)**: vídeos dos contratos, compra de bebidas, combinatória na bancada (480), seção de congelados (freezer, geladeira e açougue) e clientes que às vezes pedem o que acabou.
+- **Dia 45 (Nível 4)**: vídeo do Belo e pulo para o Dia 45, Moto Entrega (pedidos que chegam durante o dia, cestinha e velocidade média), geladeira de bebidas (8 espaços, até 3 de cada), produtos novos, cronômetro de 40 s no caixa e índice de atendimento.
 - **Casinha** (canto inferior direito): leva para a Tela inicial, a Visão principal, as Prateleiras (4 vistas) e os Congelados. Seções de níveis futuros aparecem com cadeado.
 - **Expositores**: cada espaço guarda um produto, com limite de unidades (prateleira 4, freezer 5). Só dá para expor o que está no estoque.
 - **Computador do caixa** (olho): vendas do dia, custo e lucro.
@@ -39,8 +40,9 @@ css/
   componentes.css     botões, balão de fala, HUD, painéis, avisos, selos, card de nível
   telas.css           estilos de cada tela
   mercado.css         casinha, seções, expositores, combinatória, vendas
+  entregas.css        Moto Entrega, cestinha, cronômetro do caixa, índice de atendimento, geladeira
 data/                 textos e valores de cada tela, separados do código
-  niveis.json  abertura.json  fachada.json  dia1.json  dia2.json  dia3.json
+  niveis.json  abertura.json  fachada.json  dia1.json  dia2.json  dia3.json  dia4.json  entregas.json
   produtos.json       catálogo: custo, atacadista, nível em que libera e onde fica exposto
   mercado.json        seções da casinha, posição dos olhos e dos espaços de cada expositor
   clientes.json       elenco de clientes, frases de pedido e de produto em falta

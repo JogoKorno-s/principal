@@ -1,0 +1,61 @@
+{
+  "titulo": "Moto Entrega",
+  "listaTitulo": "Pedidos do Moto Entrega",
+  "listaVazia": "Nenhum pedido no momento. Novos pedidos chegam durante o dia!",
+  "bloqueado": "Termine o que está fazendo antes de abrir o Moto Entrega.",
+  "novoPedido": "Novo pedido no Moto Entrega!",
+  "loja": "**KORNO'S SUPERMERCADO**",
+  "botaoAvancar": "Avançar",
+  "botaoSeparar": "Separar",
+  "itens": "{n} itens",
+  "item": "1 item",
+  "faltaEstoque": "Falta {nome} no estoque. Reponha no mercado digital (carrinho) e volte ao pedido.",
+  "itensPorPedido": { "minimo": 2, "maximo": 3 },
+  "cestinha": {
+    "cenario": "assets/cenarios/gondola.webp",
+    "titulo": "PEDIDO",
+    "dica": "Arraste para a cestinha os produtos do pedido (ou clique neles).",
+    "faltam": "Faltam {n} produtos.",
+    "faltaUm": "Falta 1 produto.",
+    "errado": "{nome} não está no pedido!",
+    "pronto": "Pedido separado!",
+    "quantosNaPrateleira": 18
+  },
+  "velocidade": {
+    "pergunta": "O motorista precisa realizar a entrega dentro do tempo estabelecido. Qual deve ser a velocidade média mínima da moto para percorrer os {km} km no prazo de {min} minutos?",
+    "unidade": "km/h",
+    "placeholder": "Digite sua resposta",
+    "vazio": "Digite um número.",
+    "erro": "Ainda não. Tente de novo!",
+    "dica": "Dica: velocidade = distância ÷ tempo. Passe os minutos para horas: 30 minutos = 0,5 hora; 15 minutos = 0,25 hora.",
+    "certo": "Isso! {km} km em {min} minutos = {v} km/h.",
+    "bairro": "BAIRRO",
+    "distancia": "DISTÂNCIA",
+    "tempo": "TEMPO MÁXIMO PARA ENTREGA"
+  },
+  "video": { "base": "assets/videos/moto-entrega", "legenda": "Saiu para entrega!" },
+  "concluida": "Entrega concluída! +{valor}",
+  "rotas": [
+    { "bairro": "Jardim", "km": 18, "minutos": 30 },
+    { "bairro": "Centro", "km": 10, "minutos": 20 },
+    { "bairro": "Vila Nova", "km": 15, "minutos": 15 },
+    { "bairro": "Bela Vista", "km": 20, "minutos": 30 },
+    { "bairro": "Primavera", "km": 25, "minutos": 30 },
+    { "bairro": "Lago Azul", "km": 12, "minutos": 15 },
+    { "bairro": "Alto da Serra", "km": 30, "minutos": 60 },
+    { "bairro": "Morro Verde", "km": 8, "minutos": 10 },
+    { "bairro": "Santa Luzia", "km": 24, "minutos": 20 }
+  ],
+  "indice": {
+    "titulo": "Índice de atendimento",
+    "rotulo": "Atendimento",
+    "semDados": "Ainda não houve atendimentos com cronômetro.",
+    "explicacao": "Rápido (até 20 s): 100 pontos · No tempo (até 40 s): 80 · Atrasado: menos, quanto mais demorar. Cada troco errado tira 10 pontos.",
+    "faixas": [
+      { "minimo": 85, "nome": "Ótimo", "cor": "otimo" },
+      { "minimo": 70, "nome": "Bom", "cor": "bom" },
+      { "minimo": 50, "nome": "Regular", "cor": "regular" },
+      { "minimo": 0, "nome": "Ruim", "cor": "ruim" }
+    ]
+  }
+}

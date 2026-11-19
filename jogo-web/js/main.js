@@ -16,6 +16,8 @@ import { fachada } from './view/fachada.js';
 import { dia1 } from './controller/dia1.js';
 import { dia2 } from './controller/dia2.js';
 import { dia3 } from './controller/dia3.js';
+import { dia4 } from './controller/dia4.js';
+import { definirEntregas } from './controller/entregas.js';
 
 // O palco tem 1920×1080 e é escalado para caber inteiro na janela (desktop).
 function ajustarPalco() {
@@ -26,13 +28,14 @@ window.addEventListener('resize', ajustarPalco);
 ajustarPalco();
 
 async function iniciar() {
-  const [niveis, catalogo, mercado, clientes] = await Promise.all(
-    ['niveis', 'produtos', 'mercado', 'clientes'].map((nome) => carregarJSON(`data/${nome}.json`)));
+  const [niveis, catalogo, mercado, clientes, entregas] = await Promise.all(
+    ['niveis', 'produtos', 'mercado', 'clientes', 'entregas'].map((nome) => carregarJSON(`data/${nome}.json`)));
   definirNiveis(niveis);
   definirProdutos(catalogo);
   definirTextosMercado(catalogo.mercado);
   definirMercado(mercado);
   definirClientes(clientes);
+  definirEntregas(entregas);
   GameState.iniciar(niveis.saldoInicialCentavos);
 
   criarHUD();
@@ -44,6 +47,7 @@ async function iniciar() {
   registrar('dia1', dia1);
   registrar('dia2', dia2);
   registrar('dia3', dia3);
+  registrar('dia4', dia4);
 
   await ir('menu');
 }

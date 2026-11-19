@@ -5,6 +5,7 @@
 
 import { el, botao, selo, bip, pontoNoPalco } from '../view/componentes.js';
 import { reais, esperar } from '../util/formato.js';
+import { criarCronometro } from '../view/cronometro.js';
 
 /** "R$ 26,50", "26,5", "26.50" -> 2650 (centavos). Retorna null se não for número. */
 export function lerValor(texto) {
@@ -20,12 +21,15 @@ const TAMANHO = 200;
 
 /**
  * config: { cenario, ticket, leitor: {x,y,largura,altura}, mensagens,
- *           produtos: [{ id, nome, imagem }], recebidoCentavos, totalCentavos }
+ *           produtos: [{ id, nome, imagem }], recebidoCentavos, totalCentavos,
+ *           cronometro?: { limiteSegundos, rotulo, irritado }, aoTerminar?({ segundos, erros }) }
+ * Com cronômetro, a bolinha de paciência aparece no topo e o tempo é medido até o troco certo.
  */
 export function criarCaixa(config) {
   const { leitor } = config;
   const itens = config.produtos.map((p, i) => ({ ...p, ...POSICOES[i], bipado: false, el: null }));
-  let raiz, brilho, campos, entrada, resultadoEl, dica;
+  let raiz, brilho, campos, entrada, resultadoEl, dica, relogio;
+  let erros = 0;
 
   const dentroDoLeitor = (x, y) =>
     x >= leitor.x && x <= leitor.x + leitor.largura && y >= leitor.y && y <= leitor.y + leitor.altura;
@@ -109,9 +113,10 @@ export function criarCaixa(config) {
       }
 
       dica = el('div', { class: 'caixa__dica' }, config.mensagens.dica);
+      relogio = config.cronometro ? criarCronometro(config.cronometro.limiteSegundos, config.cronometro) : null;
       raiz = el('div', { class: 'caixa', role: 'region', 'aria-label': 'Caixa eletrônico' },
         el('img', { class: 'cenario', src: config.cenario, alt: 'Caixa eletrônico do Korno\'s' }),
-        ticket, brilho, campos, itens.map((i) => i.el), dica);
+        ticket, brilho, campos, itens.map((i) => i.el), dica, relogio?.elemento);
       container.append(raiz);
     },
 
@@ -144,12 +149,13 @@ export function criarCaixa(config) {
       }
       if (r.vazio) { resultadoEl.replaceChildren(r.mensagem); return false; }
       resultadoEl.replaceChildren(selo(r.ok));
-      if (!r.ok) { entrada.select(); return false; }
+      if (!r.ok) { erros += 1; entrada.select(); return false; }
       entrada.disabled = true;
+      if (relogio) config.aoTerminar?.({ segundos: relogio.parar(), erros });
       await esperar(1300);
       return true;
     },
 
-    desmontar() { raiz.remove(); },
+    desmontar() { relogio?.parar(); raiz.remove(); },
   };
 }

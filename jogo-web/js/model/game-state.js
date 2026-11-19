@@ -21,6 +21,9 @@ function estadoInicial(saldoInicialCentavos = 30000) {
     dia1: { etapa: 'inicio', limpeza: 0 },
     dia2: { etapa: 'inicio' },
     dia3: { etapa: 'videos' },
+    dia4: { etapa: 'video' },
+    melhorias: {},               // { geladeiraBebidas: true } — compras para o mercado
+    atendimentos: [],            // notas (0 a 100) dos últimos clientes com cronômetro
   };
 }
 
@@ -159,6 +162,32 @@ export const GameState = {
   atualizarDia3(dados) {
     estado.dia3 = { ...estado.dia3, ...dados };
     avisar('dia3');
+  },
+
+  atualizarDia4(dados) {
+    estado.dia4 = { ...estado.dia4, ...dados };
+    avisar('dia4');
+  },
+
+  /** Pula no tempo (Dia 45): o caixa passa a ter o que o mercado juntou nesse período. */
+  definirDinheiro(centavos) {
+    estado.dinheiroCentavos = centavos;
+    avisar('dinheiro');
+  },
+
+  /** Compra de uma melhoria (ex.: geladeira de bebidas). */
+  comprarMelhoria(id, centavos) {
+    if (centavos > estado.dinheiroCentavos) return false;
+    estado.dinheiroCentavos -= centavos;
+    estado.melhorias = { ...estado.melhorias, [id]: true };
+    avisar('dinheiro');
+    return true;
+  },
+
+  /** Nota de um atendimento com cronômetro (guarda os 10 últimos). */
+  registrarAtendimento(nota) {
+    estado.atendimentos = [...(estado.atendimentos ?? []), nota].slice(-10);
+    avisar('atendimento');
   },
 
   /** Entra num nível: atualiza o número do dia no HUD. */

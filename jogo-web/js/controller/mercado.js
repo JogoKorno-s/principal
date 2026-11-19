@@ -36,7 +36,9 @@ export function configMercado(textos, extras = {}) {
         id: p.id, nome: p.nome, unidade: p.unidade, imagem: p.imagem, aba: p.atacadista ?? 'geral',
         precoCentavos: p.custoCentavos, estoque: estado.estoque[p.id] ?? 0,
         bloqueio: (p.nivel ?? 1) > nivel ? `Nível ${p.nivel}` : null,
-      })),
+      }))
+      // os liberados aparecem primeiro; os com cadeado ficam no fim da aba
+      .sort((a, b) => Number(Boolean(a.bloqueio)) - Number(Boolean(b.bloqueio))),
   };
 }
 

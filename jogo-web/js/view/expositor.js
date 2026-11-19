@@ -3,6 +3,9 @@
 // Embaixo fica a bandeja com o que está no estoque e ainda não foi exposto.
 // Arrastar da bandeja para um espaço coloca 1 unidade; arrastar do espaço para fora (ou "−") devolve 1.
 // Só pode expor o que existe no estoque.
+//
+// Um expositor pode ter grupos de espaços diferentes na mesma imagem (ex.: prateleira + geladeira
+// de bebidas). Cada grupo diz o que aceita (local ou atacadista) e quantas unidades cabem.
 
 import { GameState } from '../model/game-state.js';
 import { produtosDoNivel, produto } from '../model/produtos.js';
@@ -11,12 +14,27 @@ import { el, botaoIcone, avisar, pontoNoPalco } from './componentes.js';
 
 const SOBREPOR = 0.62;   // quanto cada unidade aparece ao lado da outra (0 a 1); o JSON pode mudar
 
-/** Lista os espaços do expositor a partir das colunas e linhas do JSON. */
+/**
+ * Lista os espaços do expositor a partir das colunas e linhas do JSON.
+ * colunas: [x, ...] com "largura" do grupo, ou [[x, largura], ...].
+ */
 export function espacosDoExpositor(config) {
   const espacos = [];
-  config.linhas.forEach(([y, altura]) => {
-    for (const x of config.colunas) espacos.push({ x, y, largura: config.largura, altura });
-  });
+  for (const grupo of config.grupos ?? [config]) {
+    const local = grupo.local ?? (grupo.atacadista ? null : config.local);
+    const aceita = (p) => (!local || p.local === local) && (!grupo.atacadista || p.atacadista === grupo.atacadista);
+    grupo.linhas.forEach(([y, altura]) => {
+      for (const coluna of grupo.colunas) {
+        const [x, largura] = Array.isArray(coluna) ? coluna : [coluna, grupo.largura];
+        espacos.push({
+          x, y, largura, altura, aceita,
+          capacidade: grupo.capacidade ?? config.capacidade,
+          sobrepor: grupo.sobrepor ?? config.sobrepor ?? SOBREPOR,
+          grupo: grupo.nome ?? null,
+        });
+      }
+    });
+  }
   return espacos;
 }
 
@@ -26,7 +44,6 @@ export function espacosDoExpositor(config) {
  */
 export function montarExpositor(container, { id, config, textos }) {
   const espacos = espacosDoExpositor(config);
-  const capacidade = config.capacidade;
   const camadaEspacos = el('div', { class: 'expositor__espacos' });
   const bandeja = el('div', { class: 'expositor__bandeja', 'aria-label': textos.bandeja });
   const raiz = el('div', { class: 'expositor' },
@@ -37,20 +54,32 @@ export function montarExpositor(container, { id, config, textos }) {
 
   const doEspaco = (k) => GameState.get().expositores[id]?.[k];
   const livre = (pid) => (GameState.get().estoque[pid] ?? 0) - GameState.exposto(pid);
+  const naoAceita = (k, pid) => {
+    if (espacos[k].aceita(produto(pid))) return false;
+    avisar(espacos[k].grupo === 'geladeira' ? textos.soBebidas : textos.naoCabe, 'erro');
+    return true;
+  };
 
   function colocar(k, pid) {
     const atual = doEspaco(k);
+    const capacidade = espacos[k].capacidade;
+    if (naoAceita(k, pid)) return;
     if (atual && atual.id !== pid) { avisar(textos.outroProduto.replace('{nome}', produto(atual.id).nome.toLowerCase()), 'erro'); return; }
     if (atual && atual.qtd >= capacidade) { avisar(textos.cheio.replace('{n}', capacidade), 'erro'); return; }
     if (livre(pid) <= 0) { avisar(textos.semEstoque.replace('{nome}', produto(pid).nome.toLowerCase()), 'erro'); return; }
     GameState.exporProduto(id, k, pid, +1);
   }
 
-  /** Clique na bandeja: põe no espaço que já tem o produto ou no primeiro vazio. */
+  /**
+   * Clique na bandeja: põe no espaço que já tem o produto ou no primeiro vazio que aceita.
+   * Espaços de grupo especial (ex.: geladeira de bebidas) têm preferência.
+   */
   function colocarAutomatico(pid) {
-    let k = espacos.findIndex((_, i) => doEspaco(i)?.id === pid && doEspaco(i).qtd < capacidade);
-    if (k < 0) k = espacos.findIndex((_, i) => !doEspaco(i));
-    if (k < 0) { avisar(textos.cheio.replace('{n}', capacidade), 'erro'); return; }
+    const p = produto(pid);
+    const ordem = [...espacos.keys()].sort((a, b) => Number(Boolean(espacos[b].grupo)) - Number(Boolean(espacos[a].grupo)));
+    let k = ordem.find((i) => doEspaco(i)?.id === pid && doEspaco(i).qtd < espacos[i].capacidade) ?? -1;
+    if (k < 0) k = ordem.find((i) => !doEspaco(i) && espacos[i].aceita(p)) ?? -1;
+    if (k < 0) { avisar(textos.cheio.replace('{n}', Math.max(...espacos.map((e) => e.capacidade))), 'erro'); return; }
     colocar(k, pid);
   }
 
@@ -83,8 +112,9 @@ export function montarExpositor(container, { id, config, textos }) {
       if (alvo === origem) { desenhar(); return; }
       if (alvo >= 0) {
         const destino = doEspaco(alvo);
+        if (naoAceita(alvo, pid)) { desenhar(); return; }
         if (destino && destino.id !== pid) { avisar(textos.outroProduto.replace('{nome}', produto(destino.id).nome.toLowerCase()), 'erro'); desenhar(); return; }
-        if (destino && destino.qtd >= capacidade) { avisar(textos.cheio.replace('{n}', capacidade), 'erro'); desenhar(); return; }
+        if (destino && destino.qtd >= espacos[alvo].capacidade) { avisar(textos.cheio.replace('{n}', espacos[alvo].capacidade), 'erro'); desenhar(); return; }
         GameState.exporProduto(id, origem, pid, -1);
         GameState.exporProduto(id, alvo, pid, +1);
       } else {
@@ -98,14 +128,13 @@ export function montarExpositor(container, { id, config, textos }) {
   function desenharEspaco(e, k) {
     const item = doEspaco(k);
     const caixa = el('div', {
-      class: `espaco ${item ? '' : 'espaco--vazio'}`,
+      class: `espaco ${item ? '' : 'espaco--vazio'} ${e.grupo ? `espaco--${e.grupo}` : ''}`,
       style: { left: `${e.x}px`, top: `${e.y}px`, width: `${e.largura}px`, height: `${e.altura}px` },
     });
     if (!item) return caixa;
     const p = produto(item.id);
-    const sobrepor = config.sobrepor ?? SOBREPOR;
-    const tamanho = Math.min(e.altura, e.largura / (1 + (capacidade - 1) * sobrepor));
-    const passo = tamanho * sobrepor;
+    const tamanho = Math.min(e.altura, e.largura / (1 + (e.capacidade - 1) * e.sobrepor));
+    const passo = tamanho * e.sobrepor;
     const inicio = (e.largura - (tamanho + (item.qtd - 1) * passo)) / 2;
     for (let i = 0; i < item.qtd; i++) {
       const img = el('img', {
@@ -116,7 +145,7 @@ export function montarExpositor(container, { id, config, textos }) {
       caixa.append(img);
     }
     caixa.append(
-      el('span', { class: 'espaco__qtd' }, `${item.qtd}/${capacidade}`),
+      el('span', { class: 'espaco__qtd' }, `${item.qtd}/${e.capacidade}`),
       botaoIcone('−', `Devolver um ${p.nome} ao estoque`, () => GameState.exporProduto(id, k, item.id, -1), 'botao-icone--pequeno espaco__tirar'));
     return caixa;
   }
@@ -124,7 +153,7 @@ export function montarExpositor(container, { id, config, textos }) {
   function desenhar() {
     camadaEspacos.replaceChildren(...espacos.map(desenharEspaco));
     const nivel = nivelAtual(GameState.get());
-    const itens = produtosDoNivel(nivel).filter((p) => p.local === config.local && livre(p.id) > 0);
+    const itens = produtosDoNivel(nivel).filter((p) => espacos.some((e) => e.aceita(p)) && livre(p.id) > 0);
     bandeja.replaceChildren(...(itens.length ? itens.map((p) => {
       const cartao = el('button', { type: 'button', class: 'bandeja__item', title: `Colocar ${p.nome}` },
         el('img', { src: p.imagem, alt: '', draggable: 'false' }),

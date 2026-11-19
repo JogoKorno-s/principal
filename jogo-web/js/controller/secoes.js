@@ -94,11 +94,20 @@ export function fecharSecao() {
 /** Camada da seção aberta (para o Luís falar dentro dela). */
 export function camadaDaSecao() { return aberta?.camada ?? null; }
 
+/**
+ * Configuração do expositor. Depois de comprar a geladeira de bebidas, a parede esquerda
+ * usa a imagem com a geladeira (mesmo id no save, para não perder o que já está exposto).
+ */
+export function configDoExpositor(idExpositor) {
+  const comGeladeira = GameState.get().melhorias?.geladeiraBebidas;
+  return (comGeladeira && dados.expositores[`${idExpositor}-geladeira`]) || dados.expositores[idExpositor];
+}
+
 function mostrarExpositor(camada, idExpositor, barra) {
   aberta.desmontar?.();
   camada.replaceChildren();
   aberta.desmontar = montarExpositor(camada, {
-    id: idExpositor, config: dados.expositores[idExpositor], textos: dados.expositor,
+    id: idExpositor, config: configDoExpositor(idExpositor), textos: dados.expositor,
   });
   camada.append(barra);
 }
@@ -110,7 +119,7 @@ export function abrirPrateleiras(vista) {
     dados.prateleiras.vistas.map((v) => el('button', {
       type: 'button', role: 'tab', class: 'secao__aba', 'aria-selected': String(v === vista),
       onclick: () => abrirPrateleiras(v),
-    }, dados.expositores[v].titulo)));
+    }, configDoExpositor(v).titulo)));
   const barra = el('div', { class: 'secao__barra' },
     botao('‹ Visão principal', () => irParaSecao('principal'), 'pequeno claro'),
     abas);
@@ -132,7 +141,7 @@ export function abrirCongelados() {
 function abrirDetalheCongelados(idExpositor) {
   const barra = el('div', { class: 'secao__barra' },
     botao('‹ Voltar para os congelados', () => abrirCongelados(), 'pequeno claro'),
-    el('span', { class: 'secao__titulo' }, dados.expositores[idExpositor].titulo));
+    el('span', { class: 'secao__titulo' }, configDoExpositor(idExpositor).titulo));
   mostrarExpositor(aberta.camada, idExpositor, barra);
 }
 
@@ -157,7 +166,11 @@ export function areaComOlho(area, aoClicar) {
 
 /** Olhos da visão principal (prateleiras e computador). Devolve uma função que remove. */
 export function mostrarOlhosDaPrincipal(camada) {
-  const areas = dados.principal.hotspots.map((h) => areaComOlho(h, () => abrirExpositorDaPrincipal(h.alvo)));
+  // Algumas áreas mudam quando a geladeira de bebidas é comprada (comGeladeira: true/false)
+  const comGeladeira = Boolean(GameState.get().melhorias?.geladeiraBebidas);
+  const areas = dados.principal.hotspots
+    .filter((h) => h.comGeladeira === undefined || h.comGeladeira === comGeladeira)
+    .map((h) => areaComOlho(h, () => abrirExpositorDaPrincipal(h.alvo)));
   camada.append(...areas);
   return () => areas.forEach((a) => a.remove());
 }

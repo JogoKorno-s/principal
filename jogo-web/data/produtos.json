@@ -231,7 +231,7 @@
       "custoCentavos": 1490,
       "imagem": "assets/produtos/batata-rustica.webp",
       "atacadista": "congelados",
-      "nivel": 4,
+      "nivel": 5,
       "local": "freezer"
     },
     {
@@ -261,7 +261,7 @@
       "custoCentavos": 1690,
       "imagem": "assets/produtos/coxinha-congelada.webp",
       "atacadista": "congelados",
-      "nivel": 4,
+      "nivel": 5,
       "local": "freezer"
     },
     {
@@ -281,7 +281,7 @@
       "custoCentavos": 2190,
       "imagem": "assets/produtos/sorvete-creme.webp",
       "atacadista": "congelados",
-      "nivel": 4,
+      "nivel": 5,
       "local": "freezer"
     },
     {
@@ -291,7 +291,7 @@
       "custoCentavos": 990,
       "imagem": "assets/produtos/legumes.webp",
       "atacadista": "congelados",
-      "nivel": 4,
+      "nivel": 5,
       "local": "freezer"
     },
     {
@@ -301,7 +301,7 @@
       "custoCentavos": 1090,
       "imagem": "assets/produtos/brocolis.webp",
       "atacadista": "congelados",
-      "nivel": 4,
+      "nivel": 5,
       "local": "freezer"
     },
     {
@@ -431,7 +431,7 @@
       "custoCentavos": 3990,
       "imagem": "assets/produtos/carne-bovina.webp",
       "atacadista": "acougue",
-      "nivel": 4,
+      "nivel": 5,
       "local": "acougue"
     },
     {
@@ -451,7 +451,7 @@
       "custoCentavos": 3290,
       "imagem": "assets/produtos/costela.webp",
       "atacadista": "acougue",
-      "nivel": 4,
+      "nivel": 5,
       "local": "acougue"
     },
     {
