@@ -10,16 +10,9 @@
   "itens": "{n} itens",
   "item": "1 item",
   "faltaEstoque": "Falta {nome} no estoque. Reponha no mercado digital (carrinho) e volte ao pedido.",
-  "itensPorPedido": { "minimo": 2, "maximo": 3 },
-  "cestinha": {
-    "cenario": "assets/cenarios/gondola.webp",
-    "titulo": "PEDIDO",
-    "dica": "Arraste para a cestinha os produtos do pedido (ou clique neles).",
-    "faltam": "Faltam {n} produtos.",
-    "faltaUm": "Falta 1 produto.",
-    "errado": "{nome} não está no pedido!",
-    "pronto": "Pedido separado!",
-    "quantosNaPrateleira": 18
+  "itensPorPedido": {
+    "minimo": 2,
+    "maximo": 3
   },
   "velocidade": {
     "pergunta": "O motorista precisa realizar a entrega dentro do tempo estabelecido. Qual deve ser a velocidade média mínima da moto para percorrer os {km} km no prazo de {min} minutos?",
@@ -27,24 +20,86 @@
     "placeholder": "Digite sua resposta",
     "vazio": "Digite um número.",
     "erro": "Ainda não. Tente de novo!",
-    "dica": "Dica: velocidade = distância ÷ tempo. Passe os minutos para horas: 30 minutos = 0,5 hora; 15 minutos = 0,25 hora.",
     "certo": "Isso! {km} km em {min} minutos = {v} km/h.",
     "bairro": "BAIRRO",
     "distancia": "DISTÂNCIA",
-    "tempo": "TEMPO MÁXIMO PARA ENTREGA"
+    "tempo": "TEMPO MÁXIMO PARA ENTREGA",
+    "lembrete": "Travou? Clique em Dica para ver o passo a passo.",
+    "dicaPassos": {
+      "titulo": "Como calcular a velocidade média",
+      "passos": [
+        {
+          "texto": "Velocidade média em km/h é quantos quilômetros a moto anda em 1 hora."
+        },
+        {
+          "texto": "A moto precisa andar {km} km em {min} minutos."
+        },
+        {
+          "texto": "Quantas vezes {min} minutos cabem em 1 hora (60 minutos)?",
+          "conta": "60 ÷ {min} = {fator}"
+        },
+        {
+          "texto": "Em 1 hora inteira, a moto andaria {fator} vezes essa distância:",
+          "conta": "{km} × {fator} = ?"
+        },
+        {
+          "texto": "Outro jeito: velocidade = distância ÷ tempo em horas. {min} minutos = {horas} hora.",
+          "conta": "{km} ÷ {horas} = ?"
+        }
+      ]
+    }
   },
-  "video": { "base": "assets/videos/moto-entrega", "legenda": "Saiu para entrega!" },
+  "video": {
+    "base": "assets/videos/moto-entrega",
+    "legenda": "Saiu para entrega!"
+  },
   "concluida": "Entrega concluída! +{valor}",
   "rotas": [
-    { "bairro": "Jardim", "km": 18, "minutos": 30 },
-    { "bairro": "Centro", "km": 10, "minutos": 20 },
-    { "bairro": "Vila Nova", "km": 15, "minutos": 15 },
-    { "bairro": "Bela Vista", "km": 20, "minutos": 30 },
-    { "bairro": "Primavera", "km": 25, "minutos": 30 },
-    { "bairro": "Lago Azul", "km": 12, "minutos": 15 },
-    { "bairro": "Alto da Serra", "km": 30, "minutos": 60 },
-    { "bairro": "Morro Verde", "km": 8, "minutos": 10 },
-    { "bairro": "Santa Luzia", "km": 24, "minutos": 20 }
+    {
+      "bairro": "Jardim",
+      "km": 18,
+      "minutos": 30
+    },
+    {
+      "bairro": "Centro",
+      "km": 10,
+      "minutos": 20
+    },
+    {
+      "bairro": "Vila Nova",
+      "km": 15,
+      "minutos": 15
+    },
+    {
+      "bairro": "Bela Vista",
+      "km": 20,
+      "minutos": 30
+    },
+    {
+      "bairro": "Primavera",
+      "km": 25,
+      "minutos": 30
+    },
+    {
+      "bairro": "Lago Azul",
+      "km": 12,
+      "minutos": 15
+    },
+    {
+      "bairro": "Alto da Serra",
+      "km": 30,
+      "minutos": 60
+    },
+    {
+      "bairro": "Morro Verde",
+      "km": 8,
+      "minutos": 10
+    },
+    {
+      "bairro": "Santa Luzia",
+      "km": 24,
+      "minutos": 20
+    }
   ],
   "indice": {
     "titulo": "Índice de atendimento",
@@ -52,10 +107,35 @@
     "semDados": "Ainda não houve atendimentos com cronômetro.",
     "explicacao": "Rápido (até 20 s): 100 pontos · No tempo (até 40 s): 80 · Atrasado: menos, quanto mais demorar. Cada troco errado tira 10 pontos.",
     "faixas": [
-      { "minimo": 85, "nome": "Ótimo", "cor": "otimo" },
-      { "minimo": 70, "nome": "Bom", "cor": "bom" },
-      { "minimo": 50, "nome": "Regular", "cor": "regular" },
-      { "minimo": 0, "nome": "Ruim", "cor": "ruim" }
+      {
+        "minimo": 85,
+        "nome": "Ótimo",
+        "cor": "otimo"
+      },
+      {
+        "minimo": 70,
+        "nome": "Bom",
+        "cor": "bom"
+      },
+      {
+        "minimo": 50,
+        "nome": "Regular",
+        "cor": "regular"
+      },
+      {
+        "minimo": 0,
+        "nome": "Ruim",
+        "cor": "ruim"
+      }
     ]
+  },
+  "separacao": {
+    "titulo": "Cestinha",
+    "dica": "Vá até as prateleiras, a geladeira e os congelados (casinha ou olhos) e clique no produto para pôr na cestinha. Não está exposto? Coloque na prateleira primeiro.",
+    "pronto": "Tudo na cestinha! Clique em Enviar pedido.",
+    "enviar": "Enviar pedido",
+    "cancelar": "Cancelar",
+    "termine": "Termine de separar o pedido atual primeiro.",
+    "bloqueioClientes": "Termine o pedido do Moto Entrega para atender clientes."
   }
 }

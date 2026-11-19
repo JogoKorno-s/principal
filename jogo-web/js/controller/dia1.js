@@ -26,6 +26,7 @@ const etapa = () => GameState.get().dia1.etapa;
 const passou = (nome) => ORDEM.indexOf(etapa()) > ORDEM.indexOf(nome);
 
 export const dia1 = {
+  etapas: ORDEM,   // usado pelo painel de testes
   dados: null,
   cena: null,
 

@@ -3,6 +3,7 @@
 // Embaixo fica a bandeja com o que está no estoque e ainda não foi exposto.
 // Arrastar da bandeja para um espaço coloca 1 unidade; arrastar do espaço para fora (ou "−") devolve 1.
 // Só pode expor o que existe no estoque.
+// Separando um pedido do Moto Entrega: clicar num produto exposto coloca 1 unidade na cestinha.
 //
 // Um expositor pode ter grupos de espaços diferentes na mesma imagem (ex.: prateleira + geladeira
 // de bebidas). Cada grupo diz o que aceita (local ou atacadista) e quantas unidades cabem.
@@ -11,6 +12,7 @@ import { GameState } from '../model/game-state.js';
 import { produtosDoNivel, produto } from '../model/produtos.js';
 import { nivelAtual } from '../model/niveis.js';
 import { el, botaoIcone, avisar, pontoNoPalco } from './componentes.js';
+import { separando, pegarProduto, reservado, ouvirSeparacao } from '../model/separacao.js';
 
 const SOBREPOR = 0.62;   // quanto cada unidade aparece ao lado da outra (0 a 1); o JSON pode mudar
 
@@ -53,7 +55,7 @@ export function montarExpositor(container, { id, config, textos }) {
   container.append(raiz);
 
   const doEspaco = (k) => GameState.get().expositores[id]?.[k];
-  const livre = (pid) => (GameState.get().estoque[pid] ?? 0) - GameState.exposto(pid);
+  const livre = (pid) => (GameState.get().estoque[pid] ?? 0) - GameState.exposto(pid) - reservado(pid);
   const naoAceita = (k, pid) => {
     if (espacos[k].aceita(produto(pid))) return false;
     avisar(espacos[k].grupo === 'geladeira' ? textos.soBebidas : textos.naoCabe, 'erro');
@@ -106,7 +108,11 @@ export function montarExpositor(container, { id, config, textos }) {
     const soltar = () => {
       window.removeEventListener('pointermove', mover);
       window.removeEventListener('pointerup', soltar);
-      if (!fantasma) { if (origem === null) colocarAutomatico(pid); return; }   // foi só um clique
+      if (!fantasma) {   // foi só um clique
+        if (origem === null) colocarAutomatico(pid);
+        else if (separando()) pegarParaCestinha(origem, pid);
+        return;
+      }
       fantasma.remove();
       if (origem === null) { if (alvo >= 0) colocar(alvo, pid); return; }
       if (alvo === origem) { desenhar(); return; }
@@ -123,6 +129,16 @@ export function montarExpositor(container, { id, config, textos }) {
     };
     window.addEventListener('pointermove', mover);
     window.addEventListener('pointerup', soltar);
+  }
+
+  /** Pedido do Moto Entrega: tira 1 unidade da exposição e põe na cestinha. */
+  function pegarParaCestinha(k, pid) {
+    const nome = produto(pid).nome;
+    const r = pegarProduto(pid);
+    if (r === 'foraDoPedido') { avisar(textos.foraDoPedido.replace('{nome}', nome), 'erro'); return; }
+    if (r === 'jaPegou') { avisar(textos.jaPegou.replace('{nome}', nome), 'erro'); return; }
+    GameState.exporProduto(id, k, pid, -1);
+    avisar(textos.pegou.replace('{nome}', nome), 'sucesso', 1600);
   }
 
   function desenharEspaco(e, k) {
@@ -151,6 +167,7 @@ export function montarExpositor(container, { id, config, textos }) {
   }
 
   function desenhar() {
+    raiz.classList.toggle('expositor--separando', separando());
     camadaEspacos.replaceChildren(...espacos.map(desenharEspaco));
     const nivel = nivelAtual(GameState.get());
     const itens = produtosDoNivel(nivel).filter((p) => espacos.some((e) => e.aceita(p)) && livre(p.id) > 0);
@@ -167,5 +184,6 @@ export function montarExpositor(container, { id, config, textos }) {
 
   desenhar();
   const parar = GameState.ouvir(() => desenhar());
-  return () => { parar(); raiz.remove(); };
+  const pararSeparacao = ouvirSeparacao(() => desenhar());
+  return () => { parar(); pararSeparacao(); raiz.remove(); };
 }

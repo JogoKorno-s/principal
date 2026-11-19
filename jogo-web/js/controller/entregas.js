@@ -1,6 +1,7 @@
 // CONTROLLER: Moto Entrega (Nível 4 em diante).
 //
-//   pedido chega (balão com "!") → lista de pedidos → notinha do pedido → separar na cestinha
+//   pedido chega (balão com "!") → lista de pedidos → notinha do pedido
+//   → separar: o jogador anda pelas seções e clica nos produtos expostos (clientes ficam esperando)
 //   → velocidade média da moto → motoboy sai (vídeo na 1ª vez) → venda anotada
 //
 // Os pedidos pendentes ficam no save (dia4.pedidos). Durante o expediente, pedidos novos chegam
@@ -18,8 +19,10 @@ import { configurarMotoEntrega, mostrarIndiceNoHUD } from '../view/hud.js';
 import { escolherPedido, mostrarPedido, mostrarIndice } from '../view/entregas.js';
 import { notificarReposicao } from '../view/estoque.js';
 import { tocarVideo } from '../view/video.js';
-import { criarCestinha } from '../minigames/cestinha.js';
 import { criarVelocidade } from '../minigames/velocidade.js';
+import { comecarSeparacao, terminarSeparacao, separando } from '../model/separacao.js';
+import { mostrarFaixaSeparacao, fecharFaixaSeparacao } from '../view/separacao.js';
+import { fecharSecao } from './secoes.js';
 
 let textos = null;
 let liberado = false;     // o balão só abre nos momentos livres
@@ -33,7 +36,6 @@ export const textosEntregas = () => textos;
 const dia4 = () => GameState.get().dia4;
 const pendentes = () => dia4().pedidos ?? [];
 const sobreposicao = () => document.getElementById('sobreposicao');
-const embaralhar = (lista) => [...lista].sort(() => Math.random() - 0.5);
 
 /** Mostra o balão do Moto Entrega e o índice de atendimento no topo esquerdo. */
 export function ativarMotoEntrega({ indice = false } = {}) {
@@ -45,6 +47,7 @@ export function ativarMotoEntrega({ indice = false } = {}) {
 }
 
 export function desativarMotoEntrega() {
+  fecharFaixaSeparacao();
   pararChegada();
   pararDeOuvir?.();
   pararDeOuvir = null;
@@ -65,6 +68,7 @@ export function novoPedido(opcoes = {}) {
     precos: estado.precos,
     rotas: textos.rotas,
     itensPorPedido: textos.itensPorPedido,
+    expostos: (id) => GameState.exposto(id),
     ...opcoes,
   });
   if (!pedido.itens.length) return null;   // estoque vazio: nenhum pedido
@@ -103,7 +107,7 @@ export function esperarEntregas(n) {
 
 // ----- Balão → lista → entrega -----
 async function abrirMotoEntrega() {
-  if (andamento) return;
+  if (andamento) { if (separando()) avisar(textos.separacao.termine, 'erro'); return; }
   if (!liberado) { avisar(textos.bloqueado, 'erro'); return; }
   andamento = true;
   try {
@@ -125,22 +129,18 @@ async function fazerEntrega(pedido) {
   const camada = sobreposicao();
   await mostrarPedido(camada, pedido, textos);
 
-  // Na prateleira aparecem os produtos do pedido e outros do mercado (para procurar)
-  const nivel = nivelAtual(GameState.get());
-  const outros = embaralhar(produtosDoNivel(nivel).filter((p) => !pedido.itens.includes(p.id)))
-    .slice(0, textos.cestinha.quantosNaPrateleira - pedido.itens.length);
-  const cartao = (p) => ({ id: p.id, nome: p.nome, imagem: p.imagem });
-  const prateleira = embaralhar([...pedido.itens.map(produto), ...outros]).map(cartao);
+  // Separar: a faixa da cestinha fica no topo enquanto o jogador anda pelas seções
+  comecarSeparacao(pedido);
+  const palco = document.getElementById('palco');
+  palco.classList.add('separando');
+  palco.style.setProperty('--aviso-separacao', JSON.stringify(textos.separacao.bloqueioClientes));
+  const escolha = await mostrarFaixaSeparacao(textos.separacao);
+  palco.classList.remove('separando');
+  terminarSeparacao();
+  if (escolha === 'cancelar') return false;   // o que estava na cestinha volta para o estoque
 
   await escurecer();
-  const separar = jogar(criarCestinha({
-    cenario: textos.cestinha.cenario, textos: textos.cestinha, numero: pedido.numero,
-    pedido: pedido.itens.map((id) => cartao(produto(id))), prateleira,
-  }), camada);
-  await clarear();
-  await separar;
-
-  await escurecer();
+  fecharSecao();
   const velocidade = jogar(criarVelocidade({
     numero: pedido.numero, loja: textos.loja, rota: pedido.rota, textos: textos.velocidade, botaoAvancar: textos.botaoAvancar,
   }), camada);

@@ -6,6 +6,7 @@
 import { el, botao, selo, bip, pontoNoPalco } from '../view/componentes.js';
 import { reais, esperar } from '../util/formato.js';
 import { criarCronometro } from '../view/cronometro.js';
+import { botaoDica, passosCom } from '../view/dica.js';
 
 /** "R$ 26,50", "26,5", "26.50" -> 2650 (centavos). Retorna null se não for número. */
 export function lerValor(texto) {
@@ -101,7 +102,11 @@ export function criarCaixa(config) {
       campos = el('div', { class: 'caixa__campos', hidden: true },
         el('output', { class: 'caixa__valor caixa__valor--recebido' }, reais(config.recebidoCentavos)),
         el('output', { class: 'caixa__valor caixa__valor--total' }, reais(config.totalCentavos)),
-        entrada, enviarBtn, resultadoEl);
+        entrada, enviarBtn, resultadoEl,
+        config.dica ? botaoDica(() => ({
+          titulo: config.dica.titulo,
+          passos: passosCom(config.dica.passos, { recebido: reais(config.recebidoCentavos), total: reais(config.totalCentavos) }),
+        })) : null);
 
       for (const item of itens) {
         item.el = el('img', {

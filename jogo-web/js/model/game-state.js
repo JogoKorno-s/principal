@@ -190,6 +190,28 @@ export const GameState = {
     avisar('atendimento');
   },
 
+  /**
+   * MODO DE TESTES: monta um estado pronto para jogar o nível `nivel` a partir da `etapa`.
+   * Os níveis anteriores ficam concluídos; o estoque, os preços, o dinheiro e as melhorias
+   * vêm prontos (montados pelo painel de testes). Apaga o progresso atual.
+   */
+  prepararTeste({ nivel, dia, tela, etapa, dinheiroCentavos, estoque, precos, expositores, melhorias }) {
+    const novo = estadoInicial(saldoInicial);
+    for (let n = 1; n < nivel; n++) novo[`dia${n}`] = { ...novo[`dia${n}`], etapa: 'concluido' };
+    novo[`dia${nivel}`] = { etapa };
+    Object.assign(novo, {
+      tela, dia, nivelAtual: nivel,
+      maiorNivelDesbloqueado: Math.max(nivel, estado.maiorNivelDesbloqueado ?? 1),
+      niveisConcluidos: Array.from({ length: nivel - 1 }, (_, i) => i + 1),
+      mercadoLiberado: nivel >= 3,
+      dinheiroCentavos,
+      estoque: { ...novo.estoque, ...estoque },
+      precos, expositores, melhorias,
+    });
+    estado = novo;
+    avisar('reiniciar');
+  },
+
   /** Entra num nível: atualiza o número do dia no HUD. */
   comecarNivel(n, dia) {
     if (estado.dia !== dia) estado.vendasHoje = {};   // dia novo, vendas zeradas

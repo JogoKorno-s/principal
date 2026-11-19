@@ -4,7 +4,7 @@
 //   → faturamento (Luís apresenta o Moto Entrega) → primeiroPedido (cestinha + velocidade + motoboy)
 //   → geladeira (Luís) → comprarGeladeira (obrigatória, R$ 250) → geladeiraComprada
 //   → abastecerGeladeira (bebidas na geladeira) → geladeiraPronta
-//   → novosProdutos → compraNovos → precosNovos → atendimento (cronômetro e índice)
+//   → novosProdutos (oferta no carrinho, compra opcional) → atendimento (cronômetro e índice)
 //   → expediente (clientes com cronômetro + pedidos que chegam sozinhos) → fimDoDia → concluido
 
 import { GameState } from '../model/game-state.js';
@@ -26,7 +26,7 @@ import {
   ativarMotoEntrega, desativarMotoEntrega, liberarMoto, novoPedido, comecarChegada, pararChegada, esperarEntregas,
 } from './entregas.js';
 import {
-  liberarSecoes, travarSecoes, definirFundoPrincipal, areaComOlho, abrirPrateleiras, fecharSecao,
+  liberarSecoes, travarSecoes, definirFundoPrincipal, areaComOlho, abrirPrateleiras, fecharSecao, mostrarOlhosDaPrincipal,
 } from './secoes.js';
 
 const ORDEM = ['video', 'faturamento', 'primeiroPedido', 'geladeira', 'comprarGeladeira', 'geladeiraComprada',
@@ -38,6 +38,7 @@ const passou = (nome) => ORDEM.indexOf(etapa()) > ORDEM.indexOf(nome);
 const ESPACOS_DA_PRATELEIRA = 12;   // na parede esquerda, os espaços 12 em diante são da geladeira
 
 export const dia4 = {
+  etapas: ORDEM,   // usado pelo painel de testes
   dados: null,
   cena: null,
 
@@ -88,9 +89,14 @@ export const dia4 = {
     }
     if (etapa() === 'primeiroPedido') {
       if (!(GameState.get().dia4.pedidos ?? []).length) novoPedido();
+      // Para separar o pedido, o jogador anda pelas seções (casinha e olhos da visão principal)
+      liberarSecoes(['principal', 'prateleiras', 'congelados']);
+      const tirarOlhos = mostrarOlhosDaPrincipal(this.cena.camada);
       liberarMoto(true);
       await esperarEntregas(1);
       liberarMoto(false);
+      tirarOlhos();
+      travarSecoes();
       ir('geladeira');
     }
     if (etapa() === 'geladeira') { await falar(camada, falas.geladeira); ir('comprarGeladeira'); }
@@ -112,8 +118,8 @@ export const dia4 = {
     if (etapa() === 'abastecerGeladeira') { await this.abastecerGeladeira(); ir('geladeiraPronta'); }
     if (etapa() === 'geladeiraPronta') { await falar(camada, falas.geladeiraPronta); ir('novosProdutos'); }
     if (etapa() === 'novosProdutos') { await falar(camada, falas.novosProdutos); ir('compraNovos'); }
-    if (etapa() === 'compraNovos') { await this.comprar(this.dados.compraNovos); ir('precosNovos'); }
-    if (etapa() === 'precosNovos') { await definirPrecos(produtosSemPreco()); ir('atendimento'); }
+    // Compra opcional: o carrinho fica com a oferta, mas o dia segue (o jogador decide se compra)
+    if (etapa() === 'compraNovos' || etapa() === 'precosNovos') { this.oferecerNovos(); ir('atendimento'); }
     if (etapa() === 'atendimento') {
       ativarMotoEntrega({ indice: true });
       await falar(camada, falas.atendimento);
@@ -151,13 +157,16 @@ export const dia4 = {
     if (Object.keys(precos).length) GameState.definirPrecos(precos);
   },
 
-  // ----- Compra guiada: notificação no carrinho → mercado digital na aba certa -----
-  async comprar({ aviso, aba, instrucao, exigir }) {
-    const extras = { aba, instrucao, exigir };
-    const esperarClique = () => new Promise((abrir) => mostrarCarrinho({ linhas: aviso, aoClicar: () => { esconderCarrinho(); abrir(); } }));
-    await esperarClique();
-    while (!(await comprarNoMercado(textosDoMercado(), extras))) await esperarClique();
-    esconderCarrinho();
+  /** Oferta dos produtos novos no carrinho. Abre o mercado digital (com preço de venda) quando o jogador quiser. */
+  oferecerNovos() {
+    const { aviso, aba, instrucao } = this.dados.compraNovos;
+    mostrarCarrinho({
+      linhas: aviso,
+      aoClicar: async () => {
+        esconderCarrinho();
+        if (await comprarNoMercado(textosDoMercado(), { aba, instrucao })) await definirPrecos(produtosSemPreco());
+      },
+    });
   },
 
   // ----- Missão: pelo menos 1 unidade de cada bebida do estoque dentro da geladeira -----

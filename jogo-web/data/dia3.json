@@ -2,8 +2,14 @@
   "nivel": 3,
   "cenario": "assets/cenarios/mercado-nivel3.webp",
   "videos": [
-    { "base": "assets/videos/contrato-cola", "legenda": "O Belo assina o contrato com a Cola Refri." },
-    { "base": "assets/videos/contrato-guarana", "legenda": "E depois, com o Guaraná Primavera!" }
+    {
+      "base": "assets/videos/contrato-cola",
+      "legenda": "O Belo assina o contrato com a Cola Refri."
+    },
+    {
+      "base": "assets/videos/contrato-guarana",
+      "legenda": "E depois, com o Guaraná Primavera!"
+    }
   ],
   "pularVideo": "Pular vídeo",
   "falas": {
@@ -27,7 +33,10 @@
       {
         "pose": "explicando",
         "texto": "Ótimas compras! Mas o trabalho duro só tá começando. Agora temos uma missão nas prateleiras. Vamos lá?",
-        "respostas": ["Sim", "Claro"]
+        "respostas": [
+          "Sim",
+          "Claro"
+        ]
       }
     ],
     "posCombinatoria": [
@@ -78,18 +87,42 @@
     ]
   },
   "compraBebidas": {
-    "aviso": ["COMPRE MAIS", "BEBIDAS"],
+    "aviso": [
+      "COMPRE MAIS",
+      "BEBIDAS"
+    ],
     "aba": "bebidas",
     "instrucao": "Compre pelo menos 1 unidade de cada bebida.",
     "exigir": [
-      { "aba": "bebidas", "cada": true, "minimo": 1, "mensagem": "Compre pelo menos 1 unidade de cada bebida." }
+      {
+        "aba": "bebidas",
+        "cada": true,
+        "minimo": 1,
+        "mensagem": "Compre pelo menos 1 unidade de cada bebida."
+      }
     ]
   },
   "missaoAviso": "FAÇA SUA MISSÃO!",
-  "areaMissao": { "rotulo": "Abrir a missão das prateleiras", "x": 40, "y": 300, "largura": 640, "altura": 410 },
+  "areaMissao": {
+    "rotulo": "Abrir a missão das prateleiras",
+    "x": 40,
+    "y": 300,
+    "largura": 640,
+    "altura": 410
+  },
   "combinatoria": {
-    "produtos": ["cola-refri", "guarana-primavera", "limonada", "cha-mate", "suco-uva", "agua-com-gas"],
-    "rivais": ["cola-refri", "guarana-primavera"],
+    "produtos": [
+      "cola-refri",
+      "guarana-primavera",
+      "limonada",
+      "cha-mate",
+      "suco-uva",
+      "agua-com-gas"
+    ],
+    "rivais": [
+      "cola-refri",
+      "guarana-primavera"
+    ],
     "organizar": "Organize as 6 bebidas nas 6 posições da prateleira. Atenção: Cola Refri e Guaraná Primavera são concorrentes e não podem ficar lado a lado. Arraste para trocar de lugar.",
     "botaoOrganizar": "Pronto",
     "erroOrganizar": "A Cola Refri e o Guaraná Primavera ainda estão lado a lado!",
@@ -99,20 +132,75 @@
     "resposta": 480,
     "vazio": "Digite um número.",
     "erro": "Ainda não. Tente de novo!",
-    "dica": "Dica: sem a regra seriam 6! = 720 organizações. Agora conte as que deixam as duas juntas (pense nelas como um bloco: 2 × 5! = 240) e tire do total.",
-    "certo": "Isso! 720 − 240 = 480 organizações."
+    "certo": "Isso! 720 − 240 = 480 organizações.",
+    "lembrete": "Travou? Clique em Dica para ver o passo a passo.",
+    "dicaOrganizar": {
+      "titulo": "Como organizar",
+      "passos": [
+        {
+          "texto": "A Cola Refri e o Guaraná Primavera não podem ficar encostados."
+        },
+        {
+          "texto": "Coloque pelo menos uma outra bebida entre os dois. Por exemplo: um na ponta esquerda e o outro no meio."
+        },
+        {
+          "texto": "Para trocar duas bebidas de lugar, arraste uma em cima da outra."
+        }
+      ]
+    },
+    "dicaContar": {
+      "titulo": "Como contar as organizações",
+      "passos": [
+        {
+          "texto": "Primeiro conte TODAS as organizações, sem regra. Na 1ª posição podem ficar 6 bebidas; na 2ª sobram 5; na 3ª sobram 4... Multiplique tudo:",
+          "conta": "6 × 5 × 4 × 3 × 2 × 1 = 720"
+        },
+        {
+          "texto": "Agora conte as organizações PROIBIDAS, com Cola e Guaraná lado a lado. Imagine as duas grudadas, como se fossem uma caixa só: [Cola + Guaraná]."
+        },
+        {
+          "texto": "Com a caixa, sobram 5 peças para organizar (a caixa + 4 bebidas):",
+          "conta": "5 × 4 × 3 × 2 × 1 = 120"
+        },
+        {
+          "texto": "Dentro da caixa, as duas podem trocar de lugar (Cola-Guaraná ou Guaraná-Cola). Então as proibidas são o dobro:",
+          "conta": "120 × 2 = 240"
+        },
+        {
+          "texto": "Por fim, tire as proibidas do total:",
+          "conta": "720 − 240 = ?"
+        }
+      ]
+    }
   },
   "compraCongelados": {
-    "aviso": ["COMPRE OS", "CONGELADOS!"],
+    "aviso": [
+      "COMPRE OS",
+      "CONGELADOS!"
+    ],
     "aba": "congelados",
     "instrucao": "Compre pelo menos 1 produto congelado e 1 do açougue.",
     "exigir": [
-      { "aba": "congelados", "minimo": 1, "mensagem": "Compre pelo menos 1 produto congelado." },
-      { "aba": "acougue", "minimo": 1, "mensagem": "Compre também pelo menos 1 produto do açougue." }
+      {
+        "aba": "congelados",
+        "minimo": 1,
+        "mensagem": "Compre pelo menos 1 produto congelado."
+      },
+      {
+        "aba": "acougue",
+        "minimo": 1,
+        "mensagem": "Compre também pelo menos 1 produto do açougue."
+      }
     ]
   },
-  "abastecerAviso": ["ABASTEÇA OS", "FREEZERS!"],
-  "clientesSorteados": { "quantidade": 4, "chanceFalta": 0.35 },
+  "abastecerAviso": [
+    "ABASTEÇA OS",
+    "FREEZERS!"
+  ],
+  "clientesSorteados": {
+    "quantidade": 4,
+    "chanceFalta": 0.35
+  },
   "entreClientes": {
     "proximo": "Atender próximo cliente",
     "dica": "Entre um cliente e outro, passe o mouse nas prateleiras e no computador do caixa. A casinha leva para os congelados."

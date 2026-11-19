@@ -71,6 +71,26 @@
       "faltam": "Falta passar {n} produto(s) no leitor.",
       "calcule": "Calcule o troco do cliente e clique em Enviar.",
       "vazio": "Digite o valor do troco."
+    },
+    "dica": {
+      "titulo": "Como calcular o troco",
+      "passos": [
+        {
+          "texto": "Olhe quanto dinheiro o cliente te deu.",
+          "conta": "Recebido: {recebido}"
+        },
+        {
+          "texto": "Olhe quanto custou a compra.",
+          "conta": "Total: {total}"
+        },
+        {
+          "texto": "O troco é o que sobra: tire o total do valor recebido.",
+          "conta": "{recebido} − {total} = ?"
+        },
+        {
+          "texto": "Outro jeito: comece no total e vá somando até chegar no valor recebido. O quanto você somou é o troco."
+        }
+      ]
     }
   },
   "notasDinheiro": [

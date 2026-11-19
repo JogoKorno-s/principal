@@ -18,6 +18,7 @@ import { dia2 } from './controller/dia2.js';
 import { dia3 } from './controller/dia3.js';
 import { dia4 } from './controller/dia4.js';
 import { definirEntregas } from './controller/entregas.js';
+import { definirTelasDeTeste } from './view/testes.js';
 
 // O palco tem 1920×1080 e é escalado para caber inteiro na janela (desktop).
 function ajustarPalco() {
@@ -48,6 +49,7 @@ async function iniciar() {
   registrar('dia2', dia2);
   registrar('dia3', dia3);
   registrar('dia4', dia4);
+  definirTelasDeTeste({ dia1, dia2, dia3, dia4 });
 
   await ir('menu');
 }

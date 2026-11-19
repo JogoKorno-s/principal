@@ -3,6 +3,7 @@
 
 import { el, botao, selo, icones } from '../view/componentes.js';
 import { esperar } from '../util/formato.js';
+import { botaoDica } from '../view/dica.js';
 
 const LETRAS = ['A', 'B', 'C', 'D'];
 
@@ -34,7 +35,9 @@ export function criarMultiplaEscolha(desafio, { botaoTexto = 'Comprar', mensagem
           el('p', { class: 'desafio__texto' }, desafio.texto, ' ', el('strong', {}, desafio.pergunta)),
           lista),
         feedback,
-        el('div', { class: 'desafio__acao' }, botao(botaoTexto, () => enviar({ indice: escolhida }), 'grande')));
+        el('div', { class: 'desafio__acao' },
+          desafio.dica ? botaoDica(desafio.dica) : null,
+          botao(botaoTexto, () => enviar({ indice: escolhida }), 'grande')));
       fundo = el('div', { class: 'fundo-escuro' }, painel);
       container.append(fundo);
       opcoes[0].focus({ preventScroll: true });

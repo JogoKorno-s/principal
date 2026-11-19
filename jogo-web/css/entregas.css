@@ -115,43 +115,6 @@
 .entrega__feedback { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; min-height: 60px; font-size: 28px; font-weight: 700; }
 .entrega__dica { flex-basis: 100%; margin: 0; font-size: 24px; font-weight: 600; color: var(--marrom-claro); }
 
-/* ---------- Cestinha (separar o pedido) ---------- */
-.cestinha { position: absolute; inset: 0; z-index: 12; background: var(--bege); }
-.cestinha__produto {
-  position: absolute; object-fit: contain; cursor: grab; touch-action: none;
-  filter: drop-shadow(0 8px 8px rgb(0 0 0 / .3)); transition: transform 150ms;
-}
-.cestinha__produto:hover { transform: translateY(-6px) scale(1.04); }
-.cestinha__produto.arrastado { cursor: grabbing; z-index: 8; transform: scale(1.08); filter: drop-shadow(0 26px 18px rgb(0 0 0 / .4)); }
-.cestinha__produto.animar { transition: left 250ms var(--saida), top 250ms var(--saida); }
-.cestinha__produto.errado { animation: tremer 400ms ease-in-out; }
-
-.cestinha__notinha {
-  position: absolute; left: 1585px; top: 30px; width: 300px; padding: 34px 22px 40px; display: grid; gap: 10px;
-  background: var(--bege); filter: drop-shadow(0 12px 14px rgb(0 0 0 / .35));
-  clip-path: polygon(0 12px, 4% 0, 8% 12px, 12% 0, 16% 12px, 20% 0, 24% 12px, 28% 0, 32% 12px, 36% 0, 40% 12px, 44% 0, 48% 12px, 52% 0, 56% 12px, 60% 0, 64% 12px, 68% 0, 72% 12px, 76% 0, 80% 12px, 84% 0, 88% 12px, 92% 0, 96% 12px, 100% 0,
-    100% calc(100% - 12px), 96% 100%, 92% calc(100% - 12px), 88% 100%, 84% calc(100% - 12px), 80% 100%, 76% calc(100% - 12px), 72% 100%, 68% calc(100% - 12px), 64% 100%, 60% calc(100% - 12px), 56% 100%, 52% calc(100% - 12px), 48% 100%, 44% calc(100% - 12px), 40% 100%, 36% calc(100% - 12px), 32% 100%, 28% calc(100% - 12px), 24% 100%, 20% calc(100% - 12px), 16% 100%, 12% calc(100% - 12px), 8% 100%, 4% calc(100% - 12px), 0 100%);
-  font-family: "Courier New", ui-monospace, monospace; color: #111;
-}
-.cestinha__notinha-titulo {
-  justify-self: center; padding: 4px 30px; border: 5px solid var(--marrom); border-radius: 12px;
-  font: 600 40px var(--f-texto); color: var(--marrom);
-}
-.cestinha__notinha .pontilhado { margin: 4px 0; border-top-width: 4px; }
-.cestinha__lista { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
-.cestinha__linha { display: grid; grid-template-columns: 46px 1fr 30px; align-items: center; gap: 6px; font-size: 24px; font-weight: 700; line-height: 1.1; }
-.cestinha__linha.feito span:nth-child(2) { text-decoration: line-through; color: #777; }
-.cestinha__check { width: 30px; height: 30px; color: #2f6b22; }
-
-.cestinha__cesta { position: absolute; z-index: 6; border-radius: 30px; transition: box-shadow 200ms, background 200ms; }
-.cestinha__cesta.perto { background: rgb(242 194 48 / .25); box-shadow: 0 0 0 6px rgb(242 194 48 / .8); }
-.cestinha__frente { position: absolute; inset: 0; pointer-events: none; }
-.cestinha__frente svg { width: 100%; height: 100%; }
-.cestinha__dentro { position: absolute; left: 40px; right: 40px; top: 0; height: 175px; display: flex; justify-content: center; align-items: flex-end; }
-.cestinha__na-cesta { width: 140px; height: 140px; margin: 0 -26px; object-fit: contain; animation: cair-na-cesta 350ms var(--saida) both; }
-@keyframes cair-na-cesta { from { transform: translateY(-120px) scale(1.2); opacity: 0; } }
-.cestinha__dica { left: 1000px; }
-
 /* ---------- Geladeira de bebidas (compra e espaços) ---------- */
 .melhoria { display: flex; align-items: center; gap: 60px; width: 1100px; padding: 50px 70px; }
 .melhoria__imagem { width: 230px; height: auto; filter: drop-shadow(0 16px 14px rgb(0 0 0 / .35)); }
@@ -183,3 +146,51 @@
 #palco:has(.secao) .hud-esquerda { display: none; }
 /* Com uma seção aberta, o aviso da missão desce para não cobrir as abas */
 #palco:has(.secao) .missao-aviso--topo { top: 104px; padding: 8px 24px; font-size: 26px; }
+
+/* ---------- Faixa da cestinha (separando um pedido) ---------- */
+.separacao {
+  position: absolute; left: 50%; top: 130px; translate: -50% 0; z-index: 22; display: flex; align-items: center; gap: 20px;
+  max-width: 1300px; padding: 10px 18px 10px 12px; background: var(--bege); border: 5px solid var(--amarelo-escuro);
+  border-radius: 24px; box-shadow: var(--sombra); animation: entrar-cima 350ms var(--saida) both;
+}
+.separacao__cesta { width: 90px; height: 80px; flex: none; }
+.separacao__cesta svg { width: 100%; height: 100%; }
+.separacao__meio { display: grid; gap: 4px; min-width: 0; }
+.separacao__titulo { font: 700 24px var(--f-letreiro); color: var(--amarelo-escuro); }
+.separacao__itens { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.separacao__item {
+  position: relative; display: flex; align-items: center; gap: 6px; padding: 2px 14px 2px 4px; border: 3px solid var(--marrom);
+  border-radius: 999px; background: #fff; font: 600 20px var(--f-texto); color: var(--marrom);
+}
+.separacao__item img { width: 40px; height: 40px; object-fit: contain; }
+.separacao__item--pego { background: #e3f1dc; border-color: #2f6b22; }
+.separacao__item--pego span:not(.separacao__check) { text-decoration: line-through; opacity: .7; }
+.separacao__check { width: 24px; height: 24px; color: #2f6b22; }
+.separacao__dica { margin: 0; max-width: 820px; font-size: 18px; font-weight: 600; line-height: 1.25; color: var(--marrom-claro); }
+.separacao__acoes { display: grid; gap: 8px; flex: none; }
+.separacao__acoes .botao { white-space: nowrap; }
+.separacao__acoes .botao:disabled { opacity: .45; cursor: not-allowed; }
+.separacao--pronta { border-color: #2f6b22; }
+.separacao--pronta .separacao__acoes .botao:first-child { animation: quicar 1s ease-in-out infinite; }
+.expositor--separando .espaco__produto { cursor: pointer; }
+
+/* Separando um pedido: nada de atender clientes até terminar */
+#palco.separando .entre-clientes > .botao { display: none; }
+#palco.separando .entre-clientes::after {
+  content: var(--aviso-separacao, ""); padding: 18px 34px; border: var(--borda);
+  border-radius: var(--raio); background: var(--bege); box-shadow: var(--sombra); font: 700 30px var(--f-letreiro); color: var(--marrom); white-space: nowrap;
+}
+
+/* Dentro de uma seção, a faixa vira um cartão no rodapé (ao lado da bandeja) para não cobrir as prateleiras */
+#palco.separando .expositor__rodape { right: 590px; }
+#palco:has(.secao) .separacao {
+  top: auto; left: auto; right: 196px; bottom: 0; translate: none; width: 390px; height: 176px;
+  flex-direction: column; align-items: stretch; gap: 6px; padding: 10px 14px; border-radius: var(--raio-grande) var(--raio-grande) 0 0;
+}
+#palco:has(.secao) .separacao__cesta, #palco:has(.secao) .separacao__dica { display: none; }
+#palco:has(.secao) .separacao__titulo { font-size: 20px; }
+#palco:has(.secao) .separacao__itens { gap: 6px; max-height: 92px; overflow-y: auto; }
+#palco:has(.secao) .separacao__item { font-size: 17px; padding-right: 10px; }
+#palco:has(.secao) .separacao__item img { width: 32px; height: 32px; }
+#palco:has(.secao) .separacao__acoes { display: flex; gap: 10px; margin-top: auto; }
+#palco:has(.secao) .separacao__acoes .botao { flex: 1; min-height: 46px; font-size: 20px; padding: 0 12px; }

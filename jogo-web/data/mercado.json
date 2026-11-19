@@ -398,7 +398,10 @@
     "cheio": "Cabem no máximo {n} unidades em cada espaço.",
     "semEstoque": "Não tem mais {nome} no estoque.",
     "soBebidas": "A geladeira é só para bebidas.",
-    "naoCabe": "Esse produto não vai nesse espaço."
+    "naoCabe": "Esse produto não vai nesse espaço.",
+    "foraDoPedido": "{nome} não está no pedido!",
+    "jaPegou": "{nome} já está na cestinha.",
+    "pegou": "{nome} foi para a cestinha!"
   },
   "vendas": {
     "titulo": "Vendas de hoje",

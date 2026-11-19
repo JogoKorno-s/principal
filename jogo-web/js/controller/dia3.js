@@ -35,6 +35,7 @@ const ir = (proxima) => GameState.atualizarDia3({ etapa: proxima });
 const passou = (nome) => ORDEM.indexOf(etapa()) > ORDEM.indexOf(nome);
 
 export const dia3 = {
+  etapas: ORDEM,   // usado pelo painel de testes
   dados: null,
   cena: null,
 
