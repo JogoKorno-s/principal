@@ -8,15 +8,21 @@
     "base": "assets/videos/belo-repondo",
     "legenda": "O Belo trabalhou muito, repondo o estoque todos os dias..."
   },
-  "letreiro": ["30 dias depois...", "DIA 45"],
+  "letreiro": [
+    "30 dias depois...",
+    "DIA 45"
+  ],
   "pularVideo": "Pular vídeo",
   "primeiroPedido": {
-    "preferidos": ["arroz", "leite"],
-    "rota": { "bairro": "Jardim", "km": 18, "minutos": 30 }
-  },
-  "primeiroPedido": {
-    "preferidos": ["arroz", "leite"],
-    "rota": { "bairro": "Jardim", "km": 18, "minutos": 30 }
+    "preferidos": [
+      "arroz",
+      "leite"
+    ],
+    "rota": {
+      "bairro": "Jardim",
+      "km": 18,
+      "minutos": 30
+    }
   },
   "falas": {
     "faturamento": [
@@ -38,7 +44,7 @@
       },
       {
         "pose": "explicando",
-        "texto": "Clique no balão “Moto Entrega” e confira qual foi o nosso primeiro pedido!"
+        "texto": "Clique no balão “Moto Entrega” e confira qual foi o nosso primeiro pedido! Depois, vá até as prateleiras e os congelados e clique em cada produto do pedido para colocar na cestinha."
       }
     ],
     "geladeira": [
@@ -74,7 +80,7 @@
     "novosProdutos": [
       {
         "pose": "explicando",
-        "texto": "Com o dinheiro que entrou, os atacadistas liberaram alguns produtos novos: mais congelados e mais carnes para o açougue. Vamos comprar?"
+        "texto": "Com o dinheiro que entrou, os atacadistas liberaram alguns produtos novos: mais congelados e mais carnes para o açougue. Eles estão no mercado digital (o carrinho). Compre se quiser e quando achar melhor!"
       }
     ],
     "atendimento": [
@@ -108,19 +114,31 @@
   },
   "missaoGeladeira": {
     "aviso": "BEBIDAS NA GELADEIRA!",
-    "area": { "rotulo": "Abrir a prateleira com a geladeira", "x": 30, "y": 280, "largura": 740, "altura": 460 }
+    "area": {
+      "rotulo": "Abrir a prateleira com a geladeira",
+      "x": 30,
+      "y": 280,
+      "largura": 740,
+      "altura": 460
+    }
   },
   "compraNovos": {
-    "aviso": ["PRODUTOS", "NOVOS!"],
+    "aviso": [
+      "PRODUTOS",
+      "NOVOS!"
+    ],
     "aba": "congelados",
-    "instrucao": "Compre pelo menos 1 unidade de cada produto novo.",
-    "exigir": [
-      { "ids": ["lasanha", "minipizza", "picole", "bacon", "coxinha-asa"], "cada": true, "minimo": 1, "mensagem": "Compre pelo menos 1 unidade de cada produto novo (congelados e açougue)." }
-    ]
+    "instrucao": "Produtos novos liberados! Compre o que quiser (não é obrigatório)."
   },
-  "clientesSorteados": { "quantidade": 4, "chanceFalta": 0.25 },
+  "clientesSorteados": {
+    "quantidade": 4,
+    "chanceFalta": 0.25
+  },
   "entregasNoExpediente": 2,
-  "chegadaDePedidosSegundos": [12, 25],
+  "chegadaDePedidosSegundos": [
+    12,
+    25
+  ],
   "entreClientes": {
     "proximo": "Atender próximo cliente",
     "dica": "Entre um cliente e outro, confira o Moto Entrega: novos pedidos chegam durante o dia.",

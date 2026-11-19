@@ -1,11 +1,12 @@
 // MINIGAME: velocidade média mínima da moto (Moto Entrega).
 //   Entrada: velocidade digitada · Validação: é igual a distância ÷ tempo (em horas)?
-//   Resultado: ✓ ou "TENTE NOVAMENTE" (com dica depois de 2 erros)
+//   Resultado: ✓ ou "TENTE NOVAMENTE" (botão Dica com o passo a passo)
 
 import { el, botao, selo } from '../view/componentes.js';
 import { codigoDeBarras } from '../view/entregas.js';
 import { velocidadeMinima, lerNumero, numeroDoPedido } from '../model/entregas.js';
 import { esperar } from '../util/formato.js';
+import { botaoDica, passosCom } from '../view/dica.js';
 
 /** config: { numero, loja, rota: { bairro, km, minutos }, textos, botaoAvancar } */
 export function criarVelocidade(config) {
@@ -41,6 +42,14 @@ export function criarVelocidade(config) {
             el('p', {}, preencher(textos.pergunta)),
             el('div', { class: 'entrega__acoes' }, entrada, el('span', { class: 'entrega__unidade' }, textos.unidade),
               botao(config.botaoAvancar, responder, 'grande')),
+            botaoDica(() => ({
+              titulo: textos.dicaPassos.titulo,
+              passos: passosCom(textos.dicaPassos.passos, {
+                km: rota.km, min: rota.minutos, fator: String(60 / rota.minutos).replace('.', ','),
+                // 30 min = 0,5 h; 20 min = 20/60 h (não vira decimal exato)
+                horas: Number.isInteger((rota.minutos / 60) * 100) ? String(rota.minutos / 60).replace('.', ',') : `${rota.minutos}/60`,
+              }),
+            })),
             feedback)));
       container.append(raiz);
       entrada.focus({ preventScroll: true });
@@ -57,7 +66,7 @@ export function criarVelocidade(config) {
       if (!r.ok) {
         erros += 1;
         feedback.replaceChildren(selo(false), el('span', {}, textos.erro),
-          erros >= 2 ? el('p', { class: 'entrega__dica' }, textos.dica) : null);
+          erros >= 2 ? el('p', { class: 'entrega__dica' }, textos.lembrete) : null);
         entrada.select();
         return false;
       }
