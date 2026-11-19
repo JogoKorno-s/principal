@@ -22,3 +22,6 @@ export function nivelAtual(estado) {
   }
   return dados.niveis.length;
 }
+
+/** Configuração do modo de testes (null quando desligado em data/niveis.json). */
+export function modoTeste() { return dados.modoTeste?.ativo ? dados.modoTeste : null; }

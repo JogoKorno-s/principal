@@ -5,6 +5,8 @@ import { GameState } from '../model/game-state.js';
 import { listaDeNiveis, statusDoNivel, nivelAtual } from '../model/niveis.js';
 import { el, botaoIcone, icones, avisar } from './componentes.js';
 import { ir } from '../controller/roteador.js';
+import { testesAtivos, abrirPainelTestes, jogarTeste } from './testes.js';
+import { botao } from './componentes.js';
 
 // Posição de cada marco no palco (zigue-zague da esquerda para a direita)
 const PONTOS = [[220, 560], [590, 360], [960, 580], [1330, 360], [1700, 560]];
@@ -52,6 +54,8 @@ export function abrirLinhaTempo() {
   });
 
   function clicar(n, status) {
+    // Modo de testes: qualquer nível abre do começo (para frente ou para trás)
+    if (testesAtivos() && n.tela) { fechar(); jogarTeste(n); return; }
     if (status === 'bloqueado') {
       info.textContent = `Nível ${n.nivel} bloqueado! Conclua o nível ${n.nivel - 1} para desbloquear.`;
     } else if (status === 'concluido') {
@@ -77,7 +81,8 @@ export function abrirLinhaTempo() {
     el('h2', { class: 'linha-tempo__titulo' }, 'Sua jornada no Korno\'s'),
     botaoIcone(icones.fechar, 'Fechar', () => fechar(), 'linha-tempo__fechar'),
     marcos,
-    info);
+    info,
+    testesAtivos() ? el('div', { class: 'linha-tempo__testes' }, botao('Modo de testes: escolher etapa', () => { fechar(); abrirPainelTestes(); }, 'pequeno claro')) : null);
 
   function fechar() {
     raiz.remove();

@@ -5,6 +5,7 @@ import { GameState } from '../model/game-state.js';
 import { el, botao, botaoIcone, icones, modal, criarVideo } from './componentes.js';
 import { ir } from '../controller/roteador.js';
 import { mostrarHUD } from './hud.js';
+import { testesAtivos, abrirPainelTestes } from './testes.js';
 
 export const menu = {
   montar(container) {
@@ -29,7 +30,8 @@ export const menu = {
       el('div', { class: 'menu__icones' },
         botaoIcone(icones.engrenagem, 'Configurações', abrirConfiguracoes),
         botaoIcone(icones.info, 'Informações', abrirInformacoes)),
-      el('nav', { class: 'menu__botoes', 'aria-label': 'Menu principal' }, jogar, reiniciar),
+      el('nav', { class: 'menu__botoes', 'aria-label': 'Menu principal' }, jogar, reiniciar,
+        testesAtivos() ? botao('Testes', abrirPainelTestes, 'grande secundario') : null),
     );
     video.play().catch(() => {});
     jogar.focus({ preventScroll: true });

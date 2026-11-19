@@ -32,6 +32,7 @@ const passou = (nome) => ORDEM.indexOf(etapa()) > ORDEM.indexOf(nome);
 const sobreposicao = () => document.getElementById('sobreposicao');
 
 export const dia2 = {
+  etapas: ORDEM,   // usado pelo painel de testes
   dados: null,
   cena: null,
 
