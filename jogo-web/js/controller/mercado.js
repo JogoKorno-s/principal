@@ -63,7 +63,7 @@ export async function definirPrecos(ids, textos) {
     atualCentavos: precos[p.id],
   }));
   if (!itens.length) return;
-  const r = await jogar(criarPrecificacao({ itens, ...(textos ?? textosPadrao.precos) }), sobreposicao());
+  const r = await jogar(criarPrecificacao({ itens, ...textosPadrao.precos, ...textos }), sobreposicao());
   GameState.definirPrecos(r.precos);
 }
 

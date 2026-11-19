@@ -110,7 +110,27 @@
         "R$ 15,00",
         "R$ 18,00"
       ],
-      "correta": 1
+      "correta": 1,
+      "dica": {
+        "titulo": "Como resolver",
+        "passos": [
+          {
+            "texto": "15% quer dizer 15 de cada 100. Um jeito fácil é quebrar em 10% + 5%."
+          },
+          {
+            "texto": "Para achar 10%, divida o valor por 10.",
+            "conta": "80,00 ÷ 10 = 8,00"
+          },
+          {
+            "texto": "5% é a metade de 10%.",
+            "conta": "8,00 ÷ 2 = 4,00"
+          },
+          {
+            "texto": "Some os dois pedaços para ter os 15%.",
+            "conta": "8,00 + 4,00 = ?"
+          }
+        ]
+      }
     },
     {
       "imagens": [
@@ -125,7 +145,24 @@
         "R$ 55,00",
         "R$ 65,00"
       ],
-      "correta": 1
+      "correta": 1,
+      "dica": {
+        "titulo": "Como resolver",
+        "passos": [
+          {
+            "texto": "Primeiro, descubra quanto é o aumento de 20%. Comece achando 10%: divida por 10.",
+            "conta": "45,00 ÷ 10 = 4,50"
+          },
+          {
+            "texto": "20% é o dobro de 10%.",
+            "conta": "4,50 × 2 = 9,00"
+          },
+          {
+            "texto": "O novo preço é o preço antigo mais o aumento.",
+            "conta": "45,00 + 9,00 = ?"
+          }
+        ]
+      }
     },
     {
       "imagens": [
@@ -139,7 +176,24 @@
         "72 unidades",
         "84 unidades"
       ],
-      "correta": 2
+      "correta": 2,
+      "dica": {
+        "titulo": "Como resolver",
+        "passos": [
+          {
+            "texto": "Cada caixa tem 12 unidades e são 6 caixas: é uma multiplicação.",
+            "conta": "6 × 12 = ?"
+          },
+          {
+            "texto": "Se ficar difícil, quebre o 12 em 10 + 2.",
+            "conta": "6 × 10 = 60   e   6 × 2 = 12"
+          },
+          {
+            "texto": "Agora some os dois resultados.",
+            "conta": "60 + 12 = ?"
+          }
+        ]
+      }
     }
   ],
   "compra": {

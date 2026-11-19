@@ -4,10 +4,11 @@
 //              Validação: Cola Refri e Guaraná Primavera não podem ficar lado a lado
 //   2ª parte — Entrada: quantas organizações são possíveis
 //              Validação: 6! − 2 × 5! = 720 − 240 = 480
-//   Resultado: selo ✓ ou "TENTE NOVAMENTE"; depois de 2 erros aparece uma dica.
+//   Resultado: selo ✓ ou "TENTE NOVAMENTE". O botão Dica explica o passo a passo de cada parte.
 
 import { el, botao, selo, pontoNoPalco } from '../view/componentes.js';
 import { esperar } from '../util/formato.js';
+import { botaoDica } from '../view/dica.js';
 
 const CENTROS = [265, 553, 833, 1113, 1392, 1679];   // centro de cada tapete da bancada (palco 1920)
 const BASE = 880;                                     // onde as garrafas apoiam
@@ -60,7 +61,9 @@ export function criarCombinatoria({ produtos, textos }) {
   function mostrarFase(enviar) {
     if (fase === 'organizar') {
       texto.textContent = textos.organizar;
-      acoes.replaceChildren(botao(textos.botaoOrganizar, () => enviar({ fase, ordem: ordem.map((p) => p.id) }), 'grande'));
+      acoes.replaceChildren(
+        botaoDica(textos.dicaOrganizar),
+        botao(textos.botaoOrganizar, () => enviar({ fase, ordem: ordem.map((p) => p.id) }), 'grande'));
     } else {
       texto.textContent = textos.pergunta;
       entrada = el('input', {
@@ -69,7 +72,7 @@ export function criarCombinatoria({ produtos, textos }) {
         onkeydown: (e) => { if (e.key === 'Enter') enviar({ fase, resposta: entrada.value }); },
         oninput: () => feedback.replaceChildren(),
       });
-      acoes.replaceChildren(entrada, botao('Enviar', () => enviar({ fase, resposta: entrada.value }), 'grande'));
+      acoes.replaceChildren(entrada, botao('Enviar', () => enviar({ fase, resposta: entrada.value }), 'grande'), botaoDica(textos.dicaContar));
       entrada.focus({ preventScroll: true });
     }
     desenharProdutos();
@@ -105,7 +108,7 @@ export function criarCombinatoria({ produtos, textos }) {
       if (r.vazio) { feedback.replaceChildren(r.mensagem); return false; }
       feedback.replaceChildren(selo(r.ok), ' ', r.mensagem);
       if (!r.ok) {
-        if (entrada.fase === 'contar' && ++erros >= 2) feedback.append(el('p', { class: 'combinatoria__dica' }, textos.dica));
+        if (++erros >= 2) feedback.append(el('p', { class: 'combinatoria__dica' }, textos.lembrete));
         return false;
       }
       if (entrada.fase === 'organizar') {

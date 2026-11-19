@@ -545,6 +545,29 @@
         "vazio": "Digite um preço.",
         "baixo": "Lucro menor que 25%.",
         "alto": "Caro demais! Os clientes não pagam mais que o dobro."
+      },
+      "dica": {
+        "titulo": "Como achar o preço com 25% de lucro",
+        "passos": [
+          {
+            "texto": "25% é o mesmo que um quarto (1/4). O preço de venda precisa ser o custo + um quarto do custo."
+          },
+          {
+            "texto": "Exemplo com {nome}: o custo é {custo}. Divida por 4 para achar um quarto.",
+            "conta": "{custo} ÷ 4 = {quarto}"
+          },
+          {
+            "texto": "Some esse quarto ao custo. Esse é o menor preço que você pode cobrar.",
+            "conta": "{custo} + {quarto} = {minimo}"
+          },
+          {
+            "texto": "Atalho: multiplicar o custo por 1,25 dá o mesmo resultado.",
+            "conta": "{custo} × 1,25 = {minimo}"
+          },
+          {
+            "texto": "Você pode cobrar mais, mas no máximo o dobro do custo ({maximo}). Faça a mesma conta para os outros produtos."
+          }
+        ]
       }
     },
     "selo": "PREÇO DE CUSTO"

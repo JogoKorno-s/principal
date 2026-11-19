@@ -6,9 +6,10 @@
 import { el, botao, selo } from '../view/componentes.js';
 import { reais, esperar } from '../util/formato.js';
 import { lerValor } from './caixa.js';
+import { botaoDica, passosCom } from '../view/dica.js';
 
 /** itens: [{ id, nome, imagem, custoCentavos, minimoCentavos, maximoCentavos, atualCentavos? }] */
-export function criarPrecificacao({ itens, titulo, instrucao, mensagens }) {
+export function criarPrecificacao({ itens, titulo, instrucao, mensagens, dica }) {
   let fundo, feedback;
   const entradas = new Map();
   const linhas = new Map();
@@ -43,7 +44,19 @@ export function criarPrecificacao({ itens, titulo, instrucao, mensagens }) {
         el('h2', { class: 'painel__titulo' }, titulo),
         el('p', { class: 'precos__instrucao' }, instrucao),
         tabela,
-        el('div', { class: 'precos__rodape' }, feedback, botao('Confirmar preços', confirmar, 'grande')));
+        el('div', { class: 'precos__rodape' }, feedback,
+          dica ? botaoDica(() => {
+            // Exemplo com o primeiro produto da lista
+            const p = itens[0];
+            return {
+              titulo: dica.titulo,
+              passos: passosCom(dica.passos, {
+                nome: p.nome, custo: reais(p.custoCentavos), quarto: reais(Math.round(p.custoCentavos / 4)),
+                minimo: reais(p.minimoCentavos), maximo: reais(p.maximoCentavos),
+              }),
+            };
+          }) : null,
+          botao('Confirmar preços', confirmar, 'grande')));
       fundo = el('div', { class: 'fundo-escuro' }, painel);
       container.append(fundo);
       entradas.values().next().value.focus({ preventScroll: true });
