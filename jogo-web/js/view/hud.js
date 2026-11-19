@@ -6,7 +6,7 @@ import { el, icones } from './componentes.js';
 import { reais, doisDigitos } from '../util/formato.js';
 import { abrirEstoque } from './estoque.js';
 import { abrirMercado } from '../controller/mercado.js';
-import { ir } from '../controller/roteador.js';
+import { abrirNavegacao } from '../controller/secoes.js';
 
 let raiz, dinheiro, dia, carrinho, alerta, oferta, estoqueBtn, botaoInicio;
 let aoClicarCarrinho = null;
@@ -48,16 +48,15 @@ export function criarHUD() {
 
   raiz.replaceChildren(estoqueBtn, carrinho, dinheiro, dia);
 
-  // Botão de voltar para o início (menu). O progresso já fica salvo.
+  // Casinha: abre o painel para ir à Tela inicial ou a outra seção do mercado
   botaoInicio = el('button', {
     type: 'button',
-    class: 'botao-icone botao-inicio',
-    'aria-label': 'Voltar para o início',
-    title: 'Voltar para o início',
+    class: 'casinha',
+    'aria-label': 'Navegar pelo mercado',
+    title: 'Navegar pelo mercado',
     hidden: true,
-    html: icones.casa,
-    onclick: () => ir('menu'),
-  });
+    onclick: () => abrirNavegacao(),
+  }, el('img', { src: 'assets/ui/casinha.webp', alt: '' }));
   raiz.after(botaoInicio);
   GameState.ouvir((estado, mudanca) => atualizar(estado, mudanca));
   atualizar(GameState.get());

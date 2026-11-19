@@ -489,7 +489,7 @@
 .modal:has(.estoque__tabela) { width: 1100px; }
 
 /* Notificações de reposição (topo esquerdo) */
-#notificacoes { position: absolute; top: 28px; left: 140px; z-index: 22; display: grid; gap: 14px; }
+#notificacoes { position: absolute; top: 150px; left: 32px; z-index: 22; display: grid; gap: 14px; }
 .notificacao {
   display: flex; align-items: center; gap: 18px; width: 520px; padding: 14px 54px 14px 18px;
   position: relative; background: var(--bege); border: var(--borda); border-radius: var(--raio);
@@ -500,8 +500,6 @@
 .notificacao__texto strong { font-family: var(--f-letreiro); font-weight: 650; font-size: 30px; color: var(--laranja); }
 .notificacao__fechar { position: absolute; top: 6px; right: 10px; border: 0; background: none; font-size: 40px; line-height: 1; cursor: pointer; color: var(--marrom); }
 
-/* Botão de voltar para o início (topo esquerdo) */
-.botao-inicio { position: absolute; top: 28px; left: 32px; z-index: 21; }
 
 /* Entre um cliente e outro */
 .entre-clientes {

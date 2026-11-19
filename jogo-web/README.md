@@ -23,6 +23,11 @@ Para recomeçar do zero: botão **Reiniciar** no menu.
 - **Dia 1**: limpeza com bolinhas numeradas (chão → caixa → prateleiras → teto), compra no Mercado Atacadista (5 arroz, 3 feijão, 4 açúcar; R$ 300,00 → R$ 220,02), prateleira com arrastar e soltar em vagas, falas de fim de dia e o card **NÍVEL 2 DESBLOQUEADO!**.
 - **HUD** com carrinho, dinheiro e dia. Clicar no dia abre a **linha do tempo** (dias 1, 2, 15, 45 e 90).
 - **Progresso salvo** no navegador (localStorage): fechou e abriu, continua da mesma etapa.
+- **Dia 2**: caixa com troco, desafios de porcentagem, mercado digital, preço de venda com 25% de lucro e clientes sorteados.
+- **Dia 15 (Nível 3)**: vídeos dos contratos, compra de bebidas, combinatória na bancada (480), seção de congelados (freezer, geladeira e açougue) e clientes que às vezes pedem o que acabou.
+- **Casinha** (canto inferior direito): leva para a Tela inicial, a Visão principal, as Prateleiras (4 vistas) e os Congelados. Seções de níveis futuros aparecem com cadeado.
+- **Expositores**: cada espaço guarda um produto, com limite de unidades (prateleira 4, freezer 5). Só dá para expor o que está no estoque.
+- **Computador do caixa** (olho): vendas do dia, custo e lucro.
 
 ## Organização (MVC · RNF16)
 
@@ -33,14 +38,18 @@ css/
   base.css            palco, fade, utilidades
   componentes.css     botões, balão de fala, HUD, painéis, avisos, selos, card de nível
   telas.css           estilos de cada tela
+  mercado.css         casinha, seções, expositores, combinatória, vendas
 data/                 textos e valores de cada tela, separados do código
-  niveis.json  abertura.json  fachada.json  dia1.json
+  niveis.json  abertura.json  fachada.json  dia1.json  dia2.json  dia3.json
+  produtos.json       catálogo: custo, atacadista, nível em que libera e onde fica exposto
+  mercado.json        seções da casinha, posição dos olhos e dos espaços de cada expositor
+  clientes.json       elenco de clientes, frases de pedido e de produto em falta
 js/
   main.js             ponto de partida
   model/              MODEL: GameState (dados), save (localStorage), regras dos níveis
   controller/         CONTROLLER: roteador de telas, diálogos, interface dos minigames, fluxo do Dia 1
   view/               VIEW: componentes, HUD, menu, abertura, fachada, cena do Dia 1, card, linha do tempo
-  minigames/          limpeza, atacadista, prateleira
+  minigames/          limpeza, atacadista, prateleira, caixa, múltipla escolha, precificação, combinatória
   util/formato.js     R$ em pt-BR (dinheiro sempre em centavos inteiros)
 assets/               artes convertidas do Godot (WebP, WebM e MP4)
 ferramentas/          script que converte as artes do Godot
@@ -59,7 +68,7 @@ Para criar um minigame novo (ex.: troco no caixa do Dia 2), copie um dos arquivo
 
 ## Artes
 
-Só entram como imagem os **cenários**, o **Luís**, os **produtos** e os **vídeos**. Botões, ícones, HUD e cards são feitos em código (nítidos em qualquer resolução). As imagens de botão com texto de `kornos/art/ui/` não são usadas.
+Só entram como imagem os **cenários**, os **personagens**, os **produtos**, a **casinha** e os **vídeos**. Botões, ícones, HUD e cards são feitos em código (nítidos em qualquer resolução). As imagens de botão com texto de `kornos/art/ui/` não são usadas.
 
 Para reconverter as artes depois de mudar algo em `kornos/` (precisa do ffmpeg; no Windows: `winget install Gyan.FFmpeg`), rode a partir da raiz do repositório:
 

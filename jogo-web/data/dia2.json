@@ -5,7 +5,6 @@
     "caixaNovo": "assets/cenarios/mercado-caixa-novo.webp",
     "abastecido": "assets/cenarios/mercado-dia2-abastecido.webp"
   },
-  "esperaClienteMs": 2500,
   "falas": {
     "empresario": [
       {
@@ -72,22 +71,6 @@
       }
     ]
   },
-  "caixa": {
-    "cenario": "assets/cenarios/caixa-eletronico.webp",
-    "ticket": "assets/ui/pedido.webp",
-    "leitor": {
-      "x": 1535,
-      "y": 775,
-      "largura": 345,
-      "altura": 140
-    },
-    "mensagens": {
-      "dica": "Arraste os produtos até o leitor de código de barras.",
-      "faltam": "Falta passar {n} produto(s) no leitor.",
-      "calcule": "Calcule o troco do cliente e clique em Enviar.",
-      "vazio": "Digite o valor do troco."
-    }
-  },
   "primeiroCliente": {
     "nome": "Cliente",
     "pasta": "senhor",
@@ -111,53 +94,6 @@
     "recebidoCentavos": 5000,
     "totalCentavos": 2350
   },
-  "clientes": [
-    {
-      "nome": "Cliente",
-      "pasta": "clientes",
-      "falas": [
-        {
-          "pose": "moca-cafe",
-          "texto": "Olá! Vou levar um leite, uma garrafa de óleo e um pacote de café, por favor. É só isso mesmo!",
-          "resposta": "Claro!"
-        }
-      ],
-      "produtos": [
-        "cafe",
-        "oleo",
-        "leite"
-      ]
-    },
-    {
-      "nome": "Cliente",
-      "pasta": "clientes",
-      "falas": [
-        {
-          "pose": "moca-cacheada",
-          "texto": "Vou levar um pacote de açúcar. Por hoje é só, obrigada!",
-          "resposta": "Claro!"
-        }
-      ],
-      "produtos": [
-        "acucar"
-      ]
-    },
-    {
-      "nome": "Cliente",
-      "pasta": "clientes",
-      "falas": [
-        {
-          "pose": "moca-arroz",
-          "texto": "Oii, vou levar um pacote de arroz e um de feijão, por favor. Obrigada!",
-          "resposta": "Claro!"
-        }
-      ],
-      "produtos": [
-        "arroz",
-        "feijao"
-      ]
-    }
-  ],
   "notificacao": [
     "COMPRE PÓ DE CAFÉ!"
   ],
@@ -240,17 +176,11 @@
     "proximoNivel": 3
   },
   "entreClientes": {
-    "verPrateleira": "Ver prateleira",
     "proximo": "Atender próximo cliente",
-    "dicaPrateleira": "Confira a prateleira. Você pode arrastar os produtos para organizar.",
-    "faltaEstoque": "Falta {nome} no estoque para o próximo cliente. Reponha no mercado digital (carrinho)."
+    "dica": "Entre um cliente e outro, passe o mouse nas prateleiras e no computador do caixa. A casinha leva para outras partes do mercado."
   },
-  "notasDinheiro": [
-    200,
-    500,
-    1000,
-    2000,
-    5000,
-    10000
-  ]
+  "clientesSorteados": {
+    "quantidade": 3,
+    "chanceFalta": 0
+  }
 }

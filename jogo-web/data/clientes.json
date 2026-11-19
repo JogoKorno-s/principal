@@ -1,0 +1,78 @@
+{
+  "nome": "Cliente",
+  "pasta": "personagens",
+  "elenco": [
+    "barista",
+    "entregador",
+    "estudante",
+    "estudante-2",
+    "famosa",
+    "fortona",
+    "garota",
+    "garoto",
+    "homemloiro",
+    "idosa",
+    "influencer",
+    "mari",
+    "mecanico",
+    "nutricionista",
+    "professora",
+    "rhayanne",
+    "sabrynan",
+    "sofian",
+    "vin"
+  ],
+  "itensPorPedido": {
+    "minimo": 1,
+    "maximo": 3
+  },
+  "pedido": [
+    "Oi! Vou levar {lista}, por favor.",
+    "Boa tarde! Hoje é só {lista}.",
+    "Olá! Você me passa {lista}?",
+    "Ô, passa aí {lista}, tô com um pouco de pressa!",
+    "Oii! Preciso de {lista} pra hoje.",
+    "Bom dia! Quero {lista}, por favor.",
+    "Tudo bem? Vim buscar {lista}."
+  ],
+  "respostas": {
+    "temos": "Claro!",
+    "falta": "Desculpe, não temos tudo"
+  },
+  "faltaParcial": [
+    "Ah, não tem {falta}? Que pena! Então vou levar só {lista}.",
+    "Poxa, acabou {falta}? Tudo bem, levo só {lista}."
+  ],
+  "faltaTotal": [
+    "Ah, não tem {falta}? Que pena! Volto outro dia, então.",
+    "Poxa, sem {falta}... Vou procurar em outro mercado."
+  ],
+  "erroTemTudo": "Confira o estoque (ícone da caixa): temos tudo o que o cliente pediu!",
+  "erroFalta": "Confira o estoque (ícone da caixa): falta um produto do pedido!",
+  "vendaPerdida": "Venda perdida: {nome} esgotado",
+  "esperaClienteMs": 2500,
+  "caixa": {
+    "cenario": "assets/cenarios/caixa-eletronico.webp",
+    "ticket": "assets/ui/pedido.webp",
+    "leitor": {
+      "x": 1535,
+      "y": 775,
+      "largura": 345,
+      "altura": 140
+    },
+    "mensagens": {
+      "dica": "Arraste os produtos até o leitor de código de barras.",
+      "faltam": "Falta passar {n} produto(s) no leitor.",
+      "calcule": "Calcule o troco do cliente e clique em Enviar.",
+      "vazio": "Digite o valor do troco."
+    }
+  },
+  "notasDinheiro": [
+    200,
+    500,
+    1000,
+    2000,
+    5000,
+    10000
+  ]
+}

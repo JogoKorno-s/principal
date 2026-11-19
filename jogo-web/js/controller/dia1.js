@@ -19,6 +19,7 @@ import { avisar, limparAvisos } from '../view/componentes.js';
 import { criarLimpeza } from '../minigames/limpeza.js';
 import { criarAtacadista } from '../minigames/atacadista.js';
 import { criarPrateleira } from '../minigames/prateleira.js';
+import { travarSecoes } from './secoes.js';
 
 const ORDEM = ['inicio', 'limpeza', 'posLimpeza', 'compra', 'fimDoDia', 'prateleira', 'concluido'];
 const etapa = () => GameState.get().dia1.etapa;
@@ -32,6 +33,7 @@ export const dia1 = {
     this.dados ??= await carregarJSON('data/dia1.json');
     this.cena = criarCenaDia1(container);
     await this.cena.trocarFundo(this.fundoDaEtapa());
+    travarSecoes();   // no Dia 1 só a Tela inicial fica liberada na casinha
     mostrarHUD(true);
   },
 

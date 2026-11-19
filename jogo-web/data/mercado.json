@@ -1,0 +1,320 @@
+{
+  "navegacao": {
+    "titulo": "Para onde você quer ir?",
+    "bloqueadoNivel": "Desbloqueia no Nível {n}",
+    "bloqueadoMissao": "Termine a missão atual",
+    "bloqueadoSemArte": "Você precisa desbloquear de nível",
+    "secoes": [
+      {
+        "id": "fachada",
+        "titulo": "Tela inicial",
+        "imagem": "assets/cenarios/fachada.webp",
+        "nivel": 1
+      },
+      {
+        "id": "principal",
+        "titulo": "Visão principal",
+        "imagem": "assets/cenarios/mercado-nivel3.webp",
+        "nivel": 1
+      },
+      {
+        "id": "prateleiras",
+        "titulo": "Prateleiras",
+        "imagem": "assets/cenarios/gondola.webp",
+        "nivel": 2
+      },
+      {
+        "id": "congelados",
+        "titulo": "Congelados",
+        "imagem": "assets/cenarios/secao-congelados.webp",
+        "nivel": 3
+      },
+      {
+        "id": "hortifruti",
+        "titulo": "Hortifruti",
+        "imagem": null,
+        "nivel": 4
+      }
+    ]
+  },
+  "principal": {
+    "hotspots": [
+      {
+        "alvo": "parede-esquerda",
+        "rotulo": "Ver a prateleira da parede esquerda",
+        "x": 40,
+        "y": 300,
+        "largura": 640,
+        "altura": 410
+      },
+      {
+        "alvo": "gondola-frente",
+        "rotulo": "Ver a gôndola do meio",
+        "x": 770,
+        "y": 410,
+        "largura": 395,
+        "altura": 495
+      },
+      {
+        "alvo": "parede-direita",
+        "rotulo": "Ver a prateleira da parede direita",
+        "x": 1490,
+        "y": 215,
+        "largura": 390,
+        "altura": 700
+      },
+      {
+        "alvo": "vendas",
+        "rotulo": "Ver as vendas de hoje",
+        "x": 150,
+        "y": 720,
+        "largura": 250,
+        "altura": 240
+      }
+    ]
+  },
+  "prateleiras": {
+    "dica": "Arraste os produtos da bandeja para a prateleira. Use − para devolver ao estoque.",
+    "vistas": [
+      "gondola-frente",
+      "gondola-verso",
+      "parede-esquerda",
+      "parede-direita"
+    ]
+  },
+  "congelados": {
+    "fundo": "assets/cenarios/secao-congelados.webp",
+    "hotspots": [
+      {
+        "alvo": "geladeira",
+        "rotulo": "Abrir a geladeira de congelados",
+        "x": 60,
+        "y": 260,
+        "largura": 740,
+        "altura": 430
+      },
+      {
+        "alvo": "freezer",
+        "rotulo": "Abrir o freezer",
+        "x": 0,
+        "y": 700,
+        "largura": 930,
+        "altura": 330
+      },
+      {
+        "alvo": "acougue",
+        "rotulo": "Abrir o açougue",
+        "x": 1215,
+        "y": 190,
+        "largura": 685,
+        "altura": 610
+      }
+    ]
+  },
+  "expositores": {
+    "gondola-frente": {
+      "titulo": "Gôndola · frente",
+      "fundo": "assets/cenarios/gondola.webp",
+      "local": "prateleira",
+      "capacidade": 4,
+      "colunas": [
+        320,
+        640,
+        960,
+        1280
+      ],
+      "largura": 320,
+      "linhas": [
+        [
+          115,
+          170
+        ],
+        [
+          360,
+          195
+        ],
+        [
+          630,
+          215
+        ]
+      ]
+    },
+    "gondola-verso": {
+      "titulo": "Gôndola · verso",
+      "fundo": "assets/cenarios/gondola.webp",
+      "local": "prateleira",
+      "capacidade": 4,
+      "colunas": [
+        320,
+        640,
+        960,
+        1280
+      ],
+      "largura": 320,
+      "linhas": [
+        [
+          115,
+          170
+        ],
+        [
+          360,
+          195
+        ],
+        [
+          630,
+          215
+        ]
+      ]
+    },
+    "parede-esquerda": {
+      "titulo": "Parede esquerda",
+      "fundo": "assets/cenarios/prateleira-parede.webp",
+      "local": "prateleira",
+      "capacidade": 4,
+      "colunas": [
+        95,
+        640,
+        1345
+      ],
+      "largura": 485,
+      "linhas": [
+        [
+          200,
+          115
+        ],
+        [
+          365,
+          125
+        ],
+        [
+          535,
+          120
+        ],
+        [
+          700,
+          115
+        ]
+      ]
+    },
+    "parede-direita": {
+      "titulo": "Parede direita",
+      "fundo": "assets/cenarios/prateleira-parede.webp",
+      "local": "prateleira",
+      "capacidade": 4,
+      "colunas": [
+        95,
+        640,
+        1345
+      ],
+      "largura": 485,
+      "linhas": [
+        [
+          200,
+          115
+        ],
+        [
+          365,
+          125
+        ],
+        [
+          535,
+          120
+        ],
+        [
+          700,
+          115
+        ]
+      ]
+    },
+    "freezer": {
+      "titulo": "Freezer",
+      "fundo": "assets/cenarios/freezer.webp",
+      "local": "freezer",
+      "capacidade": 5,
+      "colunas": [
+        150,
+        560,
+        970,
+        1380
+      ],
+      "largura": 400,
+      "linhas": [
+        [
+          140,
+          180
+        ],
+        [
+          325,
+          180
+        ],
+        [
+          510,
+          180
+        ]
+      ]
+    },
+    "geladeira": {
+      "titulo": "Geladeira de congelados",
+      "fundo": "assets/cenarios/geladeira.webp",
+      "local": "freezer",
+      "capacidade": 5,
+      "colunas": [
+        160,
+        712,
+        1265
+      ],
+      "largura": 495,
+      "linhas": [
+        [
+          305,
+          125
+        ],
+        [
+          447,
+          102
+        ],
+        [
+          567,
+          102
+        ],
+        [
+          685,
+          92
+        ]
+      ]
+    },
+    "acougue": {
+      "titulo": "Açougue",
+      "fundo": "assets/cenarios/acougue.webp",
+      "local": "acougue",
+      "capacidade": 5,
+      "colunas": [
+        350,
+        600,
+        850,
+        1100,
+        1350
+      ],
+      "largura": 250,
+      "linhas": [
+        [
+          585,
+          175
+        ]
+      ],
+      "sobrepor": 0.35
+    }
+  },
+  "expositor": {
+    "bandeja": "No estoque, fora da exposição",
+    "bandejaVazia": "Nada no estoque para colocar aqui. Compre no mercado digital (carrinho).",
+    "outroProduto": "Esse espaço já tem {nome}. Coloque em um espaço vazio.",
+    "cheio": "Cabem no máximo {n} unidades em cada espaço.",
+    "semEstoque": "Não tem mais {nome} no estoque."
+  },
+  "vendas": {
+    "titulo": "Vendas de hoje",
+    "vazio": "Nenhuma venda ainda hoje.",
+    "explicacao": "Lucro = valor vendido − custo dos produtos."
+  }
+}
