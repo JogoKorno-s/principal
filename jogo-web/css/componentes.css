@@ -362,6 +362,7 @@
 /* ---------- Modais do menu ---------- */
 .modal { width: 900px; }
 .modal__texto { font-size: 34px; line-height: 1.45; margin: 26px 0 0; text-align: center; }
+.modal__texto--credito { font-size: 26px; color: var(--marrom-claro); }
 .modal__acoes { display: flex; justify-content: center; gap: 30px; margin-top: 44px; }
 .campo { display: grid; gap: 12px; margin-top: 36px; font-size: 32px; font-weight: 700; }
 .campo select {

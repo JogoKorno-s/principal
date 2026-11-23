@@ -85,6 +85,7 @@ function abrirInformacoes() {
     conteudo: [
       el('p', { class: 'modal__texto' }, 'Jogo educativo de matemática ambientado num supermercado.'),
       el('p', { class: 'modal__texto' }, 'TCC do Grupo 07 · Desenvolvimento de Sistemas · IFSP câmpus São Paulo.'),
+      el('p', { class: 'modal__texto modal__texto--credito' }, 'Música: “boba date”, de stream cafe.'),
     ],
     acoes: [botao('Fechar', () => fechar(), 'secundario')],
   });
