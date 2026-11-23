@@ -123,7 +123,7 @@ export const dia2 = {
   async compra() {
     await falar(this.cena.camada, this.dados.falas.compraIntro);
     const { compra } = this.dados;
-    const regras = { estoqueMinimo: compra.estoqueMinimo, mensagemEstoque: compra.mensagemEstoque };
+    const regras = {}; // sem estoque mínimo: o jogador decide quanto repor
     // O jogador abre o mercado pelo carrinho, para aprender onde ele fica
     await new Promise((abrir) => mostrarCarrinho({ linhas: compra.aviso, aoClicar: () => { esconderCarrinho(); abrir(); } }));
     // Fechou o painel sem comprar: reabre pelo carrinho

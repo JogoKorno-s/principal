@@ -198,12 +198,10 @@
   ],
   "compra": {
     "titulo": "Mercado digital",
-    "instrucao": "Quantas unidades de cada produto você quer comprar? Cada produto precisa ficar com pelo menos 2 unidades no estoque.",
+    "instrucao": "Quantas unidades de cada produto você quer comprar? Você decide o quanto repor.",
     "quantidadeMinima": 0,
     "quantidadeMaxima": 10,
-    "estoqueMinimo": 2,
     "mensagemQuantidade": "Compre no máximo 10 unidades de cada produto.",
-    "mensagemEstoque": "Compre mais {nome}: ele precisa ficar com pelo menos 2 unidades no estoque.",
     "mensagemSaldo": "Dinheiro insuficiente para realizar a compra.",
     "mensagemSucesso": "Compra realizada!",
     "selo": "PREÇO DE CUSTO",

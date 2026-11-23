@@ -63,7 +63,9 @@ export async function definirPrecos(ids, textos) {
     atualCentavos: precos[p.id],
   }));
   if (!itens.length) return;
-  const r = await jogar(criarPrecificacao({ itens, ...textosPadrao.precos, ...textos }), sobreposicao());
+  // A primeira vez o jogador calcula na mão; depois, aparece o atalho "Preencher com 25% de lucro"
+  const preencherAutomatico = Object.keys(precos).length > 0;
+  const r = await jogar(criarPrecificacao({ itens, ...textosPadrao.precos, ...textos, preencherAutomatico }), sobreposicao());
   GameState.definirPrecos(r.precos);
 }
 

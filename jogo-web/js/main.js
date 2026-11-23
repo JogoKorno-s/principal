@@ -19,7 +19,7 @@ import { dia3 } from './controller/dia3.js';
 import { dia4 } from './controller/dia4.js';
 import { definirEntregas } from './controller/entregas.js';
 import { definirTelasDeTeste } from './view/testes.js';
-import { somDeClique } from './view/componentes.js';
+import { somDeClique, iniciarAudio } from './view/audio.js';
 import { iniciarCelular, tecladoAberto, ehToque } from './view/celular.js';
 
 // O palco tem 1920×1080 e é escalado para caber inteiro na janela.
@@ -38,6 +38,7 @@ window.addEventListener('resize', ajustarPalco);
 window.addEventListener('orientationchange', () => setTimeout(ajustarPalco, 250));
 ajustarPalco();
 iniciarCelular();
+iniciarAudio();
 
 // Som de clique em qualquer botão do jogo (botões desabilitados não disparam o clique).
 document.addEventListener('click', (evento) => {

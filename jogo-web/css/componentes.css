@@ -375,6 +375,25 @@
   font-weight: 600;
 }
 
+/* Chave liga/desliga (Configurações: música e sons) */
+.chave {
+  display: flex; align-items: center; gap: 24px; width: 100%; margin-top: 30px; padding: 18px 26px;
+  font: inherit; font-size: 32px; font-weight: 700; color: var(--marrom); text-align: left;
+  background: #fff; border: var(--borda); border-radius: 16px; cursor: pointer;
+}
+.chave__rotulo { flex: 1; }
+.chave__estado { width: 170px; font-size: 26px; font-weight: 600; color: var(--marrom-claro); text-align: right; }
+.chave__trilho {
+  position: relative; width: 104px; height: 56px; flex: none; border-radius: 999px;
+  background: var(--bege-quente); border: 4px solid var(--marrom); transition: background 180ms;
+}
+.chave__bolinha {
+  position: absolute; top: 4px; left: 4px; width: 40px; height: 40px; border-radius: 50%;
+  background: #fff; border: 3px solid var(--marrom); transition: transform 220ms var(--saida);
+}
+.chave[aria-checked="true"] .chave__trilho { background: var(--verde); }
+.chave[aria-checked="true"] .chave__bolinha { transform: translateX(48px); }
+
 /* ---------- Animações ---------- */
 @keyframes aparecer { from { opacity: 0; } }
 @keyframes entrar-baixo { from { opacity: 0; transform: translateY(40px); } }

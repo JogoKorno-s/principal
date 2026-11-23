@@ -522,3 +522,24 @@
 .atacadista__cadeado { width: 22px; height: 22px; display: inline-grid; }
 .atacadista__cadeado svg, .produto-card--bloqueado svg { width: 22px; height: 22px; vertical-align: -3px; }
 .produto-card--bloqueado { filter: grayscale(1); opacity: .6; }
+
+/* Atalho discreto do preço de venda (aparece da segunda vez em diante) */
+.botao-texto {
+  border: 0; padding: 6px 4px; background: none; cursor: pointer;
+  font: inherit; font-size: 24px; font-weight: 600; color: var(--marrom-claro);
+  text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px;
+}
+.botao-texto:hover, .botao-texto:focus-visible { color: var(--marrom); }
+.precos__automatico { display: block; margin: 14px 0 0 auto; }
+
+/* Notificações de estoque: somem sozinhas (barrinha mostra o tempo) */
+.notificacao { position: relative; overflow: hidden; animation: entrar-esquerda 300ms var(--saida) both; transition: opacity 250ms, transform 250ms; }
+.notificacao.saindo { opacity: 0; transform: translateX(-30px); }
+.notificacao__tempo {
+  position: absolute; left: 0; bottom: 0; height: 6px; width: 100%;
+  background: var(--laranja); opacity: .55; transform-origin: left;
+  animation: notificacao-tempo linear forwards;
+}
+.notificacao.pausada .notificacao__tempo { animation-play-state: paused; }
+@keyframes notificacao-tempo { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@keyframes entrar-esquerda { from { opacity: 0; transform: translateX(-30px); } }

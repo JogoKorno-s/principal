@@ -18,7 +18,8 @@ body {
 }
 
 #palco {
-  position: absolute;
+  /* fixed: o palco (1920 px, escalado) nunca alarga a página, nem girado no celular em pé */
+  position: fixed;
   left: 50%;
   top: 50%;
   width: 1920px;

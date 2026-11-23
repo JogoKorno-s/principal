@@ -5,6 +5,7 @@ import { GameState } from '../model/game-state.js';
 import { el, botao, botaoIcone, icones, modal, criarVideo } from './componentes.js';
 import { ir } from '../controller/roteador.js';
 import { mostrarHUD } from './hud.js';
+import { Preferencias } from '../model/preferencias.js';
 import { testesAtivos, abrirPainelTestes } from './testes.js';
 
 export const menu = {
@@ -52,10 +53,30 @@ function confirmarReinicio() {
 function abrirConfiguracoes() {
   const fechar = modal({
     titulo: 'Configurações',
-    conteudo: el('label', { class: 'campo' }, 'Idioma',
-      el('select', { name: 'idioma' }, el('option', { value: 'pt-BR', selected: true }, 'Português (PT-BR)'))),
+    conteudo: [
+      chave('musica', 'Música de fundo'),
+      chave('sons', 'Sons dos botões'),
+      el('label', { class: 'campo' }, 'Idioma',
+        el('select', { name: 'idioma' }, el('option', { value: 'pt-BR', selected: true }, 'Português (PT-BR)'))),
+    ],
     acoes: [botao('Pronto', () => fechar())],
   });
+}
+
+/** Chave liga/desliga de uma preferência (música ou sons). */
+function chave(id, rotulo) {
+  const ligado = () => Preferencias.get()[id];
+  const estado = el('span', { class: 'chave__estado' });
+  const botaoChave = el('button', {
+    type: 'button', class: 'chave', role: 'switch',
+    onclick: () => { Preferencias.definir(id, !ligado()); atualizar(); },
+  }, el('span', { class: 'chave__rotulo' }, rotulo), el('span', { class: 'chave__trilho', 'aria-hidden': 'true' }, el('span', { class: 'chave__bolinha' })), estado);
+  function atualizar() {
+    botaoChave.setAttribute('aria-checked', String(ligado()));
+    estado.textContent = ligado() ? 'Ligado' : 'Desligado';
+  }
+  atualizar();
+  return botaoChave;
 }
 
 function abrirInformacoes() {

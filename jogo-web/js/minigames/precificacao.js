@@ -9,7 +9,7 @@ import { lerValor } from './caixa.js';
 import { botaoDica, passosCom } from '../view/dica.js';
 
 /** itens: [{ id, nome, imagem, custoCentavos, minimoCentavos, maximoCentavos, atualCentavos? }] */
-export function criarPrecificacao({ itens, titulo, instrucao, mensagens, dica }) {
+export function criarPrecificacao({ itens, titulo, instrucao, mensagens, dica, preencherAutomatico = false }) {
   let fundo, feedback;
   const entradas = new Map();
   const linhas = new Map();
@@ -40,10 +40,23 @@ export function criarPrecificacao({ itens, titulo, instrucao, mensagens, dica })
         }));
 
       feedback = el('div', { class: 'precos__feedback', 'aria-live': 'assertive' });
+      // Da segunda vez em diante: atalho discreto que preenche custo + 25% (o jogador ainda pode editar)
+      const automatico = preencherAutomatico ? el('button', {
+        type: 'button', class: 'botao-texto precos__automatico',
+        onclick: () => {
+          for (const p of itens) {
+            const entrada = entradas.get(p.id);
+            entrada.value = reais(p.minimoCentavos);
+            linhas.get(p.id).classList.remove('certa', 'errada');
+            notas.get(p.id).textContent = '';
+          }
+        },
+      }, 'Preencher com 25% de lucro') : null;
       const painel = el('div', { class: 'painel precos', role: 'dialog', 'aria-label': titulo },
         el('h2', { class: 'painel__titulo' }, titulo),
         el('p', { class: 'precos__instrucao' }, instrucao),
         tabela,
+        automatico,
         el('div', { class: 'precos__rodape' }, feedback,
           dica ? botaoDica(() => {
             // Exemplo com o primeiro produto da lista

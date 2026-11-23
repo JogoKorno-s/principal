@@ -113,32 +113,8 @@ export function pontoNoPalco(evento) {
   return girado ? { x: 960 + dy, y: 540 - dx } : { x: 960 + dx, y: 540 + dy };
 }
 
-// ---------- Sons ----------
-// Por enquanto o jogo só tem sons curtos gerados pelo navegador (sem arquivos de áudio):
-// um clique nos botões e o bip do leitor de código de barras. Os vídeos ficam sem som.
-let contextoDeAudio = null;
-function tocarTom({ frequencia, duracao, volume, forma = 'sine' }) {
-  try {
-    contextoDeAudio ??= new (window.AudioContext || window.webkitAudioContext)();
-    if (contextoDeAudio.state === 'suspended') contextoDeAudio.resume();
-    const agora = contextoDeAudio.currentTime;
-    const osc = contextoDeAudio.createOscillator();
-    const ganho = contextoDeAudio.createGain();
-    osc.type = forma;
-    osc.frequency.value = frequencia;
-    ganho.gain.setValueAtTime(volume, agora);
-    ganho.gain.exponentialRampToValueAtTime(0.0001, agora + duracao); // some suave, sem estalo
-    osc.connect(ganho).connect(contextoDeAudio.destination);
-    osc.start(agora);
-    osc.stop(agora + duracao);
-  } catch { /* navegador sem áudio: segue sem som */ }
-}
-
-/** Bip curto do leitor de código de barras. */
-export function bip() { tocarTom({ frequencia: 1760, duracao: 0.12, volume: 0.06, forma: 'square' }); }
-
-/** "Tic" suave ao clicar em um botão. */
-export function somDeClique() { tocarTom({ frequencia: 880, duracao: 0.06, volume: 0.08 }); }
+// Sons (bip e clique) ficam em view/audio.js; reexportados aqui para quem já importava daqui.
+export { bip, somDeClique } from './audio.js';
 
 /** Espera uma imagem carregar (evita cenário piscando na troca de tela). */
 export function carregarImagem(src) {

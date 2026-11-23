@@ -1,0 +1,3 @@
+Coloque aqui a música de fundo do jogo com o nome: musica.mp3
+(de preferência curta, em loop, com no máximo uns 2 a 3 MB).
+Enquanto o arquivo não existir, o jogo funciona normalmente, só sem música.
