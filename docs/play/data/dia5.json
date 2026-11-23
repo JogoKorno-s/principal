@@ -1,0 +1,251 @@
+{
+  "nivel": 5,
+  "cenario": "assets/cenarios/mercado-nivel4.webp",
+  "cenarioComCamera": "assets/cenarios/mercado-nivel5.webp",
+  "dinheiroNoDia90Centavos": 168352,
+  "estoqueMinimo": 6,
+  "video": {
+    "base": "assets/videos/reportagem",
+    "legenda": "Notícias urgentes: aumento de assaltos preocupa moradores da região."
+  },
+  "letreiro": [
+    "45 dias depois...",
+    "DIA 90"
+  ],
+  "pularVideo": "Pular vídeo",
+  "falas": {
+    "seguranca": [
+      {
+        "pose": "explicando",
+        "texto": "Belo, como você viu na reportagem, o índice de roubos na região aumentou. Para proteger nosso supermercado, vamos instalar alguns equipamentos de segurança.",
+        "resposta": "Vamos lá!"
+      },
+      {
+        "pose": "pensando",
+        "texto": "Vamos instalar uma câmera no corredor de eletrônicos. Mas precisamos calcular o ângulo certo e a distância que ela consegue cobrir, para não deixar nenhum ponto cego."
+      }
+    ],
+    "cameraInstalada": [
+      {
+        "pose": "joinha",
+        "texto": "Boa! Câmera posicionada com sucesso! Agora o supermercado está mais seguro."
+      },
+      {
+        "pose": "explicando",
+        "texto": "Mas ainda temos trabalho pela frente: precisamos calcular o perímetro do estabelecimento para instalar a cerca de proteção. Vamos nessa!",
+        "resposta": "Vamos nessa!"
+      }
+    ],
+    "perimetroCerto": [
+      {
+        "pose": "joinha",
+        "texto": "Isso! 160 metros de cerca. Agora vamos comprar o arame farpado para cercar o prédio inteiro."
+      }
+    ],
+    "cercaInstalada": [
+      {
+        "pose": "joinha",
+        "texto": "Cerca instalada! Câmera no corredor e arame em volta do prédio: o Korno's está bem protegido."
+      }
+    ],
+    "quitanda": [
+      {
+        "pose": "oi",
+        "texto": "Temos uma novidade! Nossa nova seção da quitanda foi liberada."
+      },
+      {
+        "pose": "explicando",
+        "texto": "Agora vamos escolher os produtos! Selecione frutas, legumes e verduras para disponibilizar esses produtos aos nossos clientes!"
+      }
+    ],
+    "precosQuitanda": [
+      {
+        "pose": "explicando",
+        "texto": "Produtos fresquinhos no estoque! Agora defina o preço de venda deles."
+      }
+    ],
+    "irParaQuitanda": [
+      {
+        "pose": "explicando",
+        "texto": "Temos outra novidade! Uma nova seção acaba de ser desbloqueada: a quitanda do bairro! Para conhecer esse novo espaço, aperte no ícone da casinha e selecione a seção da quitanda. Vamos dar uma olhada!"
+      }
+    ],
+    "naQuitanda": [
+      {
+        "pose": "oi",
+        "texto": "Chegamos na quitanda! Aqui tem a banca de frutas, a estante do hortifruti e o caixote. Use as abas lá em cima para trocar de vista."
+      },
+      {
+        "pose": "explicando",
+        "texto": "Arraste os produtos da bandeja para os espaços. Coloque pelo menos 3 produtos diferentes para a quitanda abrir. O resto você organiza como quiser!"
+      }
+    ],
+    "abastecido": [
+      {
+        "pose": "joinha",
+        "texto": "Ficou lindo! A quitanda do Korno's está pronta. Vamos voltar para o caixa: os clientes já estão chegando."
+      }
+    ],
+    "expediente": [
+      {
+        "pose": "explicando",
+        "texto": "Lembre: o cronômetro do atendimento continua valendo, e os pedidos do Moto Entrega também chegam durante o dia. Agora os clientes também podem pedir frutas, legumes e verduras!"
+      }
+    ],
+    "fimDoDia": [
+      {
+        "pose": "joinha",
+        "texto": "Que jornada, Belo! Do mercado caindo aos pedaços até aqui: câmera, cerca, quitanda e clientes satisfeitos. O seu avô José ia ficar orgulhoso."
+      }
+    ]
+  },
+  "camera": {
+    "alturaM": 4,
+    "anguloGraus": 30,
+    "imagem": "assets/ui/camera-triangulo.webp",
+    "textos": {
+      "titulo": "Câmera de segurança",
+      "problema": "A câmera de segurança será instalada no alto da parede de um supermercado, a uma altura de {altura} metros em relação ao chão. Sabendo que a linha de visada inferior da lente forma um ângulo de {angulo}° com o chão, qual é o comprimento horizontal do corredor coberto pela câmera até o ponto em que o feixe atinge o chão?",
+      "dadosTitulo": "Dados",
+      "dados": [
+        [
+          "Altura da câmera (cateto oposto)",
+          "{altura} m"
+        ],
+        [
+          "Ângulo de inclinação",
+          "{angulo}°"
+        ],
+        [
+          "Comprimento do corredor (cateto adjacente)",
+          "?"
+        ]
+      ],
+      "instrucao": "Use a função tangente para calcular o comprimento do corredor que a câmera consegue filmar.",
+      "altImagem": "O corredor do mercado com um triângulo retângulo desenhado: a câmera no alto da parede, o cateto oposto de {altura} m na vertical, a hipotenusa até o chão e o cateto adjacente, marcado com interrogação, no chão. O ângulo de {angulo}° fica junto ao chão.",
+      "placeholder": "Digite sua resposta",
+      "unidade": "m",
+      "botaoAvancar": "Avançar",
+      "vazio": "Digite um número.",
+      "erro": "Ainda não. Confira a conta e tente de novo!",
+      "lembrete": "Travou? Clique em Dica para ver o passo a passo.",
+      "certo": "Isso! A câmera filma {x} m de corredor.",
+      "dicaPassos": {
+        "titulo": "Como usar a tangente",
+        "passos": [
+          {
+            "texto": "A tangente de um ângulo é o cateto oposto dividido pelo cateto adjacente.",
+            "conta": "tan({angulo}°) = {altura} ÷ x"
+          },
+          {
+            "texto": "Troque a tangente pelo valor dela (use a calculadora ou a tabela trigonométrica).",
+            "conta": "tan({angulo}°) ≈ {tan}"
+          },
+          {
+            "texto": "Para achar x, divida a altura pela tangente.",
+            "conta": "x = {altura} ÷ {tan} = ?"
+          },
+          {
+            "texto": "Responda com duas casas depois da vírgula, em metros."
+          }
+        ]
+      }
+    }
+  },
+  "perimetro": {
+    "classe": "desafio--mapa",
+    "imagens": [
+      "assets/ui/perimetro-mercado.webp"
+    ],
+    "altImagem": "Vista de cima do Korno's Supermercado com uma linha tracejada em volta do prédio: 50 m de frente e 30 m de lado.",
+    "texto": "Calcule o perímetro do supermercado para definir o tamanho da cerca de segurança que será instalada ao redor do prédio.",
+    "pergunta": "Quantos metros de cerca de segurança serão necessários para cercar todo o perímetro externo do supermercado?",
+    "alternativas": [
+      "80 metros",
+      "130 metros",
+      "160 metros",
+      "1.500 metros"
+    ],
+    "correta": 2,
+    "dica": {
+      "titulo": "Como calcular o perímetro",
+      "passos": [
+        {
+          "texto": "Perímetro é a soma de todos os lados. O prédio é um retângulo: tem 2 lados de 50 m e 2 lados de 30 m."
+        },
+        {
+          "texto": "Some a frente com o lado.",
+          "conta": "50 + 30 = 80"
+        },
+        {
+          "texto": "Isso é só meia volta. Para a volta inteira, multiplique por 2.",
+          "conta": "80 × 2 = ?"
+        }
+      ]
+    }
+  },
+  "botaoPerimetro": "Avançar",
+  "arame": {
+    "perimetroM": 160,
+    "roloM": 80,
+    "precoCentavos": 8990,
+    "imagem": "assets/ui/arame.webp",
+    "textos": {
+      "titulo": "Arame farpado",
+      "pergunta": "O perímetro total do supermercado é de {perimetro} metros. Cada rolo de arame farpado tem {rolo} metros. Quantos rolos você precisa comprar para cercar todo o prédio por completo?",
+      "altImagem": "Um rolo de arame farpado",
+      "preco": "Cada rolo: {preco}",
+      "total": "Total: {total}",
+      "botaoComprar": "Comprar",
+      "zero": "Escolha quantos rolos você vai comprar.",
+      "pouco": "Com {n} rolo(s) dá para cercar só {m} metros. Ainda faltam {falta} metros.",
+      "muito": "{n} rolos dão {m} metros: vai sobrar arame! Compre só o necessário.",
+      "saldo": "Dinheiro insuficiente para essa compra.",
+      "certo": "Isso! {certo} rolos de {rolo} m cercam os {perimetro} m do prédio.",
+      "dicaPassos": {
+        "titulo": "Como calcular os rolos",
+        "passos": [
+          {
+            "texto": "Cada rolo cobre {rolo} metros de cerca. Divida o perímetro pelo tamanho do rolo.",
+            "conta": "{perimetro} ÷ {rolo} = ?"
+          },
+          {
+            "texto": "Se a divisão não der um número inteiro, arredonde para cima: não dá para comprar meio rolo!"
+          }
+        ]
+      }
+    },
+    "sucesso": "Arame comprado! Cerca instalada."
+  },
+  "compraQuitanda": {
+    "aviso": [
+      "COMPRE OS LEGUMES",
+      "E VERDURAS"
+    ],
+    "aba": "hortifruti",
+    "instrucao": "Escolha as frutas, legumes e verduras que quiser para a quitanda."
+  },
+  "abastecerAviso": "COLOQUE 3 PRODUTOS NA QUITANDA!",
+  "clientesSorteados": {
+    "quantidade": 4,
+    "chanceFalta": 0.2
+  },
+  "entregasNoExpediente": 1,
+  "chegadaDePedidosSegundos": [
+    15,
+    30
+  ],
+  "entreClientes": {
+    "proximo": "Atender próximo cliente",
+    "dica": "Entre um cliente e outro, confira a quitanda, as prateleiras e o Moto Entrega.",
+    "faltamEntregas": "Ainda faltam entregas! Abra o Moto Entrega para encerrar o dia."
+  },
+  "card": {
+    "titulo": "Parabéns!",
+    "destaque": "90 dias de Korno's",
+    "subtitulo": "Você concluiu todos os níveis. O mercado continua aberto: jogue à vontade!",
+    "botaoContinuar": "Continuar jogando",
+    "botaoProgresso": "Ver progresso"
+  },
+  "minimoNaQuitanda": 3
+}

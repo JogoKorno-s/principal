@@ -1,0 +1,47 @@
+/* =========================================================
+   NÍVEL 5 (Dia 90 · Segurança): câmera (trigonometria),
+   perímetro (múltipla escolha com o mapa) e arame farpado.
+   ========================================================= */
+
+.trig, .arame {
+  position: absolute; left: 130px; top: 120px; width: 1660px; min-height: 820px;
+  padding: 60px 90px 50px; display: grid; align-content: start;
+}
+.trig__passo { display: grid; gap: 30px; align-content: start; }
+.trig__enunciado { margin: 0; font-size: 38px; line-height: 1.35; color: #1f140e; }
+
+.trig__dados { width: 1000px; justify-self: center; border-collapse: separate; border-spacing: 0; font-size: 34px;
+  border: 4px solid var(--marrom); border-radius: 20px; overflow: hidden; background: #fff; }
+.trig__dados caption { caption-side: top; text-align: left; padding: 0 0 12px 6px; font: 650 40px var(--f-letreiro); color: var(--marrom); }
+.trig__dados th, .trig__dados td { padding: 18px 28px; border-bottom: 3px solid var(--bege-quente); text-align: left; }
+.trig__dados tr:last-child th, .trig__dados tr:last-child td { border-bottom: 0; }
+.trig__dados th { font-weight: 600; color: var(--marrom); }
+.trig__dados td { font-weight: 800; color: var(--marrom); text-align: right; white-space: nowrap; }
+
+.trig__imagem { justify-self: center; width: 900px; height: auto; border: 6px solid #fff; border-radius: 24px; box-shadow: var(--sombra); }
+.trig__acoes { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.trig__acoes--fim { justify-content: flex-end; margin-top: 10px; }
+.trig__formula {
+  display: flex; align-items: center; gap: 14px; padding: 12px 30px; margin-right: auto;
+  font: 600 38px var(--f-texto); color: var(--marrom); background: var(--bege-quente); border-radius: 16px;
+}
+.trig__fracao { display: inline-grid; text-align: center; line-height: 1.1; }
+.trig__fracao span:first-child { border-bottom: 4px solid currentColor; padding: 0 8px; }
+.trig .entrega__entrada { width: 320px; }
+.trig .entrega__feedback, .arame .entrega__feedback { font-family: var(--f-texto); color: var(--marrom); }
+
+/* Perímetro: o mapa do mercado no lugar da imagem do produto */
+.desafio--mapa { grid-template-columns: 760px 1fr; }
+.desafio--mapa .desafio__imagens img { width: 740px; height: auto; border: 6px solid #fff; border-radius: 24px; box-shadow: var(--sombra); filter: none; }
+.desafio--mapa .desafio__texto { font-size: 36px; }
+
+/* Arame farpado */
+.arame__pergunta { text-align: center; max-width: 1300px; justify-self: center; }
+.arame__linha { display: flex; justify-content: center; align-items: center; gap: 70px; margin: 30px 0 10px; }
+.arame__imagem { width: 320px; height: 320px; object-fit: contain; filter: drop-shadow(0 16px 14px rgb(0 0 0 / .25)); }
+.arame__contador { gap: 30px; }
+.arame__contador .botao-icone { width: 110px; height: 110px; font-size: 64px; }
+.arame__qtd { min-width: 110px; text-align: center; font: 650 90px var(--f-letreiro); color: var(--marrom); }
+.arame__preco { margin: 20px 0 0; font-size: 30px; font-weight: 600; color: var(--marrom-claro); }
+.arame__total { margin: 6px 0 0; font: 650 44px var(--f-letreiro); color: var(--marrom); }
+.arame__feedback { margin-right: auto; max-width: 900px; }

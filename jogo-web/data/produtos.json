@@ -503,6 +503,236 @@
       "atacadista": "acougue",
       "nivel": 5,
       "local": "acougue"
+    },
+    {
+      "id": "abacaxi",
+      "nome": "Abacaxi",
+      "unidade": "unidade",
+      "custoCentavos": 650,
+      "imagem": "assets/produtos/abacaxi.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "banana",
+      "nome": "Banana",
+      "unidade": "cacho",
+      "custoCentavos": 590,
+      "imagem": "assets/produtos/banana.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "laranja",
+      "nome": "Laranja",
+      "unidade": "saco",
+      "custoCentavos": 990,
+      "imagem": "assets/produtos/laranja.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "tangerina",
+      "nome": "Tangerina",
+      "unidade": "bandeja",
+      "custoCentavos": 790,
+      "imagem": "assets/produtos/tangerina.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "limao",
+      "nome": "Limão",
+      "unidade": "kg",
+      "custoCentavos": 550,
+      "imagem": "assets/produtos/limao.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "maca-vermelha",
+      "nome": "Maçã vermelha",
+      "unidade": "saco",
+      "custoCentavos": 950,
+      "imagem": "assets/produtos/maca-vermelha.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "maca-verde",
+      "nome": "Maçã verde",
+      "unidade": "saco",
+      "custoCentavos": 1090,
+      "imagem": "assets/produtos/maca-verde.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "melancia",
+      "nome": "Melancia",
+      "unidade": "unidade",
+      "custoCentavos": 1890,
+      "imagem": "assets/produtos/melancia.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "abobrinha",
+      "nome": "Abobrinha",
+      "unidade": "pacote",
+      "custoCentavos": 590,
+      "imagem": "assets/produtos/abobrinha.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "batata",
+      "nome": "Batata",
+      "unidade": "saco",
+      "custoCentavos": 990,
+      "imagem": "assets/produtos/batata.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "cebola",
+      "nome": "Cebola",
+      "unidade": "saco",
+      "custoCentavos": 690,
+      "imagem": "assets/produtos/cebola.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "cebola-roxa",
+      "nome": "Cebola roxa",
+      "unidade": "kg",
+      "custoCentavos": 750,
+      "imagem": "assets/produtos/cebola-roxa.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "cenoura",
+      "nome": "Cenoura",
+      "unidade": "bandeja",
+      "custoCentavos": 490,
+      "imagem": "assets/produtos/cenoura.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "pepino",
+      "nome": "Pepino",
+      "unidade": "pacote",
+      "custoCentavos": 550,
+      "imagem": "assets/produtos/pepino.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "pimentao-amarelo",
+      "nome": "Pimentão amarelo",
+      "unidade": "unidade",
+      "custoCentavos": 390,
+      "imagem": "assets/produtos/pimentao-amarelo.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "pimentao-vermelho",
+      "nome": "Pimentão vermelho",
+      "unidade": "unidade",
+      "custoCentavos": 390,
+      "imagem": "assets/produtos/pimentao-vermelho.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "tomate",
+      "nome": "Tomate",
+      "unidade": "bandeja",
+      "custoCentavos": 690,
+      "imagem": "assets/produtos/tomate.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "alface",
+      "nome": "Alface",
+      "unidade": "bandeja",
+      "custoCentavos": 450,
+      "imagem": "assets/produtos/alface.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "couve",
+      "nome": "Couve",
+      "unidade": "bandeja",
+      "custoCentavos": 390,
+      "imagem": "assets/produtos/couve.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "espinafre-fresco",
+      "nome": "Espinafre",
+      "unidade": "bandeja",
+      "custoCentavos": 490,
+      "imagem": "assets/produtos/espinafre-fresco.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "hortela",
+      "nome": "Hortelã",
+      "unidade": "maço",
+      "custoCentavos": 290,
+      "imagem": "assets/produtos/hortela.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "rucula",
+      "nome": "Rúcula",
+      "unidade": "maço",
+      "custoCentavos": 350,
+      "imagem": "assets/produtos/rucula.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
+    },
+    {
+      "id": "repolho",
+      "nome": "Repolho",
+      "unidade": "unidade",
+      "custoCentavos": 590,
+      "imagem": "assets/produtos/repolho.webp",
+      "atacadista": "hortifruti",
+      "nivel": 5,
+      "local": "quitanda"
     }
   ],
   "precoMaximoPercentual": 100,
@@ -526,6 +756,11 @@
       "id": "acougue",
       "nome": "Açougue",
       "nivel": 3
+    },
+    {
+      "id": "hortifruti",
+      "nome": "Hortifruti",
+      "nivel": 5
     }
   ],
   "mercado": {

@@ -66,7 +66,7 @@ export function criarVelocidade(config) {
       if (!r.ok) {
         erros += 1;
         feedback.replaceChildren(selo(false), el('span', {}, textos.erro),
-          erros >= 2 ? el('p', { class: 'entrega__dica' }, textos.lembrete) : null);
+          ...(erros >= 2 ? [el('p', { class: 'entrega__dica' }, textos.lembrete)] : []));
         entrada.select();
         return false;
       }

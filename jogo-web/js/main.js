@@ -17,6 +17,7 @@ import { dia1 } from './controller/dia1.js';
 import { dia2 } from './controller/dia2.js';
 import { dia3 } from './controller/dia3.js';
 import { dia4 } from './controller/dia4.js';
+import { dia5 } from './controller/dia5.js';
 import { definirEntregas } from './controller/entregas.js';
 import { definirTelasDeTeste } from './view/testes.js';
 import { somDeClique, iniciarAudio } from './view/audio.js';
@@ -66,7 +67,8 @@ async function iniciar() {
   registrar('dia2', dia2);
   registrar('dia3', dia3);
   registrar('dia4', dia4);
-  definirTelasDeTeste({ dia1, dia2, dia3, dia4 });
+  registrar('dia5', dia5);
+  definirTelasDeTeste({ dia1, dia2, dia3, dia4, dia5 });
 
   await ir('menu');
 }

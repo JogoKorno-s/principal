@@ -57,6 +57,8 @@ export function jogarTeste(n, etapa) {
   const estoque = Object.fromEntries(liberados.map((p) => [p.id, cfg.estoquePorProduto]));
   const precos = Object.fromEntries(liberados.map((p) => [p.id, precoDeVenda(p.custoCentavos)]));
   const melhorias = n.nivel > 4 || (n.nivel === 4 && passou('comprarGeladeira')) ? { geladeiraBebidas: true } : {};
+  if (n.nivel === 5 && passou('camera')) melhorias.cameraSeguranca = true;
+  if (n.nivel === 5 && passou('arame')) melhorias.cercaArame = true;
 
   fecharSecao();
   travarSecoes();
@@ -64,7 +66,8 @@ export function jogarTeste(n, etapa) {
     nivel: n.nivel, dia: n.dia, tela: n.tela, etapa,
     dinheiroCentavos: cfg.dinheiroCentavos[n.nivel] ?? 30000,
     estoque, precos, melhorias,
-    expositores: n.nivel >= 3 ? abastecer(liberados) : {},
+    // A quitanda só vem abastecida depois da missão de abastecer (para dar para testar a missão)
+    expositores: n.nivel >= 3 ? abastecer(liberados, { quitanda: n.nivel === 5 && passou('abastecer') }) : {},
   });
   ir(n.tela);
 }
@@ -73,13 +76,15 @@ export function jogarTeste(n, etapa) {
  * Prateleiras, freezer e açougue com 2 unidades de cada produto (como se o Belo tivesse abastecido).
  * As bebidas ficam na gôndola (verso); a geladeira de bebidas começa vazia para a missão do Nível 4.
  */
-function abastecer(produtos) {
+function abastecer(produtos, { quitanda = false } = {}) {
   const destinos = [
     ['parede-direita', (p) => p.local === 'prateleira' && p.atacadista !== 'bebidas'],
     ['gondola-frente', (p) => p.local === 'prateleira' && p.atacadista !== 'bebidas'],
     ['gondola-verso', (p) => p.atacadista === 'bebidas'],
     ['freezer', (p) => p.local === 'freezer'],
     ['acougue', (p) => p.local === 'acougue'],
+    ['quitanda-banca', (p) => quitanda && p.local === 'quitanda'],
+    ['quitanda-estante', (p) => quitanda && p.local === 'quitanda'],
   ];
   const expositores = {};
   const colocados = new Set();

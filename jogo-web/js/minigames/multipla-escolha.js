@@ -7,7 +7,7 @@ import { botaoDica } from '../view/dica.js';
 
 const LETRAS = ['A', 'B', 'C', 'D'];
 
-/** desafio: { imagens: [], texto, pergunta, alternativas: [], correta (índice) }  botaoTexto: "Comprar" */
+/** desafio: { imagens: [], texto, pergunta, alternativas: [], correta (índice), classe?, altImagem? }  botaoTexto: "Comprar" */
 export function criarMultiplaEscolha(desafio, { botaoTexto = 'Comprar', mensagemEscolha = 'Escolha uma alternativa.' } = {}) {
   let fundo, feedback, escolhida = null;
   const opcoes = [];
@@ -29,8 +29,9 @@ export function criarMultiplaEscolha(desafio, { botaoTexto = 'Comprar', mensagem
       });
 
       feedback = el('div', { class: 'desafio__feedback', 'aria-live': 'assertive' });
-      const painel = el('div', { class: 'painel desafio', role: 'dialog', 'aria-label': 'Desafio' },
-        el('div', { class: 'desafio__imagens' }, desafio.imagens.map((src) => el('img', { src, alt: '' }))),
+      // desafio.classe: variação visual (ex.: "desafio--mapa" mostra um mapa grande no lugar do produto)
+      const painel = el('div', { class: `painel desafio ${desafio.classe ?? ''}`.trim(), role: 'dialog', 'aria-label': 'Desafio' },
+        el('div', { class: 'desafio__imagens' }, desafio.imagens.map((src) => el('img', { src, alt: desafio.altImagem ?? '' }))),
         el('div', { class: 'desafio__conteudo' },
           el('p', { class: 'desafio__texto' }, desafio.texto, ' ', el('strong', {}, desafio.pergunta)),
           lista),

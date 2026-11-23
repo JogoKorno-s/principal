@@ -125,7 +125,8 @@ async function passarNoCaixa(cena, ids, { total: totalFixo, recebido: recebidoFi
  * fim: Promise opcional que também encerra o momento livre (ex.: entregas feitas).
  */
 export function entreClientes(cena, textos, { mostrarDica = false, fim = null } = {}) {
-  liberarSecoes(['principal', 'prateleiras', 'congelados'], { alerta: 'principal' });
+  // A quitanda só abre a partir do Nível 5 (a casinha mostra o cadeado antes disso)
+  liberarSecoes(['principal', 'prateleiras', 'congelados', 'quitanda'], { alerta: 'principal' });
   const tirarOlhos = mostrarOlhosDaPrincipal(cena.camada);
   if (mostrarDica) avisar(textos.dica, '', 6000);
   return new Promise((seguir) => {

@@ -30,10 +30,10 @@
         "nivel": 3
       },
       {
-        "id": "hortifruti",
-        "titulo": "Hortifruti",
-        "imagem": null,
-        "nivel": 4
+        "id": "quitanda",
+        "titulo": "Quitanda",
+        "imagem": "assets/cenarios/quitanda-banca.webp",
+        "nivel": 5
       }
     ]
   },
@@ -389,6 +389,182 @@
           ]
         }
       ]
+    },
+    "quitanda-banca": {
+      "titulo": "Banca de frutas",
+      "fundo": "assets/cenarios/quitanda-banca.webp",
+      "local": "quitanda",
+      "capacidade": 4,
+      "grupos": [
+        {
+          "local": "quitanda",
+          "capacidade": 4,
+          "colunas": [
+            [
+              320,
+              280
+            ],
+            [
+              660,
+              290
+            ],
+            [
+              1000,
+              260
+            ],
+            [
+              1325,
+              265
+            ]
+          ],
+          "linhas": [
+            [
+              455,
+              160
+            ]
+          ]
+        },
+        {
+          "local": "quitanda",
+          "capacidade": 4,
+          "colunas": [
+            [
+              285,
+              290
+            ],
+            [
+              630,
+              320
+            ],
+            [
+              995,
+              295
+            ],
+            [
+              1345,
+              295
+            ]
+          ],
+          "linhas": [
+            [
+              635,
+              165
+            ]
+          ]
+        }
+      ]
+    },
+    "quitanda-estante": {
+      "titulo": "Estante do hortifruti",
+      "fundo": "assets/cenarios/quitanda-estante.webp",
+      "local": "quitanda",
+      "capacidade": 4,
+      "grupos": [
+        {
+          "local": "quitanda",
+          "capacidade": 4,
+          "colunas": [
+            [
+              410,
+              280
+            ],
+            [
+              700,
+              280
+            ],
+            [
+              990,
+              270
+            ]
+          ],
+          "linhas": [
+            [
+              345,
+              112
+            ],
+            [
+              495,
+              110
+            ],
+            [
+              650,
+              115
+            ]
+          ]
+        },
+        {
+          "local": "quitanda",
+          "capacidade": 3,
+          "colunas": [
+            [
+              1340,
+              205
+            ]
+          ],
+          "linhas": [
+            [
+              390,
+              85
+            ],
+            [
+              510,
+              100
+            ],
+            [
+              655,
+              100
+            ]
+          ]
+        }
+      ]
+    },
+    "quitanda-caixote": {
+      "titulo": "Caixote",
+      "fundo": "assets/cenarios/quitanda-caixote.webp",
+      "local": "quitanda",
+      "capacidade": 5,
+      "grupos": [
+        {
+          "local": "quitanda",
+          "capacidade": 5,
+          "colunas": [
+            [
+              230,
+              520
+            ]
+          ],
+          "linhas": [
+            [
+              300,
+              420
+            ]
+          ]
+        },
+        {
+          "local": "quitanda",
+          "capacidade": 4,
+          "colunas": [
+            [
+              830,
+              380
+            ],
+            [
+              1300,
+              390
+            ]
+          ],
+          "linhas": [
+            [
+              215,
+              190
+            ],
+            [
+              520,
+              225
+            ]
+          ]
+        }
+      ]
     }
   },
   "expositor": {
@@ -407,5 +583,13 @@
     "titulo": "Vendas de hoje",
     "vazio": "Nenhuma venda ainda hoje.",
     "explicacao": "Lucro = valor vendido − custo dos produtos."
+  },
+  "quitanda": {
+    "dica": "Arraste as frutas, legumes e verduras da bandeja para os espaços. Use − para devolver ao estoque.",
+    "vistas": [
+      "quitanda-banca",
+      "quitanda-estante",
+      "quitanda-caixote"
+    ]
   }
 }

@@ -14,6 +14,6 @@
     { "nivel": 2, "dia": 2,  "titulo": "Primeiros clientes",  "descricao": "Caixa, troco e porcentagem", "tela": "dia2" },
     { "nivel": 3, "dia": 15, "titulo": "Expansão",            "descricao": "Contrato e organização", "tela": "dia3" },
     { "nivel": 4, "dia": 45, "titulo": "Moto Entrega",        "descricao": "Pedidos online", "tela": "dia4" },
-    { "nivel": 5, "dia": 90, "titulo": "Segurança",           "descricao": "Câmeras e trigonometria", "tela": null }
+    { "nivel": 5, "dia": 90, "titulo": "Segurança",           "descricao": "Câmera, cerca e quitanda", "tela": "dia5" }
   ]
 }

@@ -22,6 +22,7 @@ function estadoInicial(saldoInicialCentavos = 30000) {
     dia2: { etapa: 'inicio' },
     dia3: { etapa: 'videos' },
     dia4: { etapa: 'video' },
+    dia5: { etapa: 'video' },
     melhorias: {},               // { geladeiraBebidas: true } — compras para o mercado
     atendimentos: [],            // notas (0 a 100) dos últimos clientes com cronômetro
   };
@@ -167,6 +168,11 @@ export const GameState = {
   atualizarDia4(dados) {
     estado.dia4 = { ...estado.dia4, ...dados };
     avisar('dia4');
+  },
+
+  atualizarDia5(dados) {
+    estado.dia5 = { ...estado.dia5, ...dados };
+    avisar('dia5');
   },
 
   /** Pula no tempo (Dia 45): o caixa passa a ter o que o mercado juntou nesse período. */
