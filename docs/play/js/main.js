@@ -19,6 +19,7 @@ import { dia3 } from './controller/dia3.js';
 import { dia4 } from './controller/dia4.js';
 import { definirEntregas } from './controller/entregas.js';
 import { definirTelasDeTeste } from './view/testes.js';
+import { somDeClique } from './view/componentes.js';
 
 // O palco tem 1920×1080 e é escalado para caber inteiro na janela (desktop).
 function ajustarPalco() {
@@ -27,6 +28,11 @@ function ajustarPalco() {
 }
 window.addEventListener('resize', ajustarPalco);
 ajustarPalco();
+
+// Som de clique em qualquer botão do jogo (botões desabilitados não disparam o clique).
+document.addEventListener('click', (evento) => {
+  if (evento.target.closest('button, [role="button"]')) somDeClique();
+}, true);
 
 async function iniciar() {
   const [niveis, catalogo, mercado, clientes, entregas] = await Promise.all(

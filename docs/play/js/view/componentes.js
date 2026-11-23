@@ -108,21 +108,32 @@ export function pontoNoPalco(evento) {
   return { x: (evento.clientX - r.left) / escala, y: (evento.clientY - r.top) / escala };
 }
 
-/** Bip curto do leitor de código de barras (Web Audio, sem arquivo de som). */
-export function bip() {
+// ---------- Sons ----------
+// Por enquanto o jogo só tem sons curtos gerados pelo navegador (sem arquivos de áudio):
+// um clique nos botões e o bip do leitor de código de barras. Os vídeos ficam sem som.
+let contextoDeAudio = null;
+function tocarTom({ frequencia, duracao, volume, forma = 'sine' }) {
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const volume = ctx.createGain();
-    osc.type = 'square';
-    osc.frequency.value = 1760;
-    volume.gain.value = 0.06;
-    osc.connect(volume).connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.12);
-    osc.onended = () => ctx.close();
+    contextoDeAudio ??= new (window.AudioContext || window.webkitAudioContext)();
+    if (contextoDeAudio.state === 'suspended') contextoDeAudio.resume();
+    const agora = contextoDeAudio.currentTime;
+    const osc = contextoDeAudio.createOscillator();
+    const ganho = contextoDeAudio.createGain();
+    osc.type = forma;
+    osc.frequency.value = frequencia;
+    ganho.gain.setValueAtTime(volume, agora);
+    ganho.gain.exponentialRampToValueAtTime(0.0001, agora + duracao); // some suave, sem estalo
+    osc.connect(ganho).connect(contextoDeAudio.destination);
+    osc.start(agora);
+    osc.stop(agora + duracao);
   } catch { /* navegador sem áudio: segue sem som */ }
 }
+
+/** Bip curto do leitor de código de barras. */
+export function bip() { tocarTom({ frequencia: 1760, duracao: 0.12, volume: 0.06, forma: 'square' }); }
+
+/** "Tic" suave ao clicar em um botão. */
+export function somDeClique() { tocarTom({ frequencia: 880, duracao: 0.06, volume: 0.08 }); }
 
 /** Espera uma imagem carregar (evita cenário piscando na troca de tela). */
 export function carregarImagem(src) {
@@ -133,12 +144,16 @@ export function carregarImagem(src) {
   return Promise.race([img.decode().catch(() => {}), limite]).then(() => img);
 }
 
+// Por enquanto todos os vídeos tocam sem som. Para voltar o som, troque para true.
+const SOM_NOS_VIDEOS = false;
+
 /** <video> com .webm e .mp4. base = caminho sem extensão */
 export function criarVideo(base, { mudo = false, repetir = true, classe = '' } = {}) {
   const video = el('video', { class: classe, playsinline: true, preload: 'auto' },
     el('source', { src: `${base}.webm`, type: 'video/webm' }),
     el('source', { src: `${base}.mp4`, type: 'video/mp4' }));
-  video.muted = mudo;
+  video.muted = mudo || !SOM_NOS_VIDEOS;
+  video.defaultMuted = video.muted;
   video.loop = repetir;
   video.autoplay = true;
   return video;
