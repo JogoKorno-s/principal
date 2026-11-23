@@ -1,5 +1,6 @@
 /* =========================================================
-   Página Jogar: embute a exportação web do Godot (play/index.html)
+   Página Jogar: embute o jogo (play/index.html, cópia de jogo-web).
+   No celular, em vez de embutir, oferece abrir o jogo em tela inteira.
    ========================================================= */
 (function () {
   "use strict";
@@ -9,7 +10,6 @@
   var carregando = document.getElementById("carregando");
   var botaoCheia = document.getElementById("tela-cheia");
   var aviso = document.getElementById("aviso-celular");
-  var tentar = document.getElementById("tentar-celular");
 
   var ehCelular = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 760;
 
@@ -37,8 +37,10 @@
     }
     if (ehCelular) {
       aviso.classList.add("visivel");
-      if (breve) breve.querySelector("h2").innerHTML = 'O jogo está pronto. <span class="tinta">Mas e o celular?</span>';
-      tentar.addEventListener("click", function () { aviso.classList.remove("visivel"); carregaJogo(); });
+      if (breve) breve.querySelector("h2").innerHTML = 'O jogo está pronto. <span class="tinta">Deite o celular e jogue.</span>';
+      var dicaCel = document.getElementById("dica-jogo");
+      if (dicaCel) dicaCel.innerHTML = '<a href="play/index.html">Abrir o jogo em tela inteira</a>';
+      botaoCheia.hidden = true;
     } else {
       carregaJogo();
     }

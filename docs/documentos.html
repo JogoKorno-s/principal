@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Documentos · Korno's</title>
-<meta name="description" content="TCC, slides, Game Design Document, arquitetura de cenas e repositórios do Korno's.">
+<meta name="description" content="TCC, slides, Game Design Document e repositórios do Korno's.">
 <meta name="theme-color" content="#5B1F00">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&family=Fredoka:wdth,wght@75..125,300..700&display=swap">
-<link rel="stylesheet" href="css/kornos.css?v=2026-11-23">
+<link rel="stylesheet" href="css/kornos.css?v=2026-11-24">
 </head>
 <body>
 <!-- Ícones do site (editar em img/icones.svg e copiar para cá) -->
@@ -34,6 +34,7 @@
   <symbol id="i-chip" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="16" height="16" rx="2.5"/><path d="M12 4v4M16 4v4M20 4v4M12 24v4M16 24v4M20 24v4M4 12h4M4 16h4M4 20h4M24 12h4M24 16h4M24 20h4"/><path d="m13 18 2-4 2 4 2-4"/></g></symbol>
   <symbol id="i-documento" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6Zm8 0v4h4M9 12h6M9 16h6" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-casa" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6.5 9.5V20h11V9.5M10 20v-5.5h4V20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-celular" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6.5" width="19" height="11" rx="2.2"/><path d="M18.5 10.5v3"/></g></symbol>
   <symbol id="i-seta-volta" viewBox="0 0 24 24"><path d="M20 12H5m6-6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -92,14 +93,6 @@
 
         <li><article class="nota-doc">
           <span class="carimbo carimbo--verde">disponível</span>
-          <span class="meta">PDF · arquitetura</span>
-          <h3>Arquitetura de cenas e fluxo do jogo</h3>
-          <p>As cenas do Godot, o que cada uma tem e como o jogador navega entre elas.</p>
-          <a class="botao" href="docs/arquitetura-de-cenas.pdf"><svg aria-hidden="true"><use href="#i-documento"/></svg>Abrir (PDF, 92 KB)</a>
-        </article></li>
-
-        <li><article class="nota-doc">
-          <span class="carimbo carimbo--verde">disponível</span>
           <span class="meta">PDF · 27 slides</span>
           <h3>Matemática Computacional · 3º bimestre</h3>
           <p>O roteiro por dia e os primeiros desafios: promoção, aumento de preço, regra de três, orçamento, combinatória, cinemática e trigonometria.</p>
@@ -108,11 +101,10 @@
 
         <li><article class="nota-doc">
           <span class="carimbo">código</span>
-          <span class="meta">GitHub · Godot 4</span>
+          <span class="meta">GitHub · HTML, CSS e JS</span>
           <h3>Repositório do jogo</h3>
-          <p>O projeto Godot com cenas, scripts e o roteiro em JSON.</p>
+          <p>O código do jogo (pasta <code>jogo-web</code>): telas, minigames e o roteiro em JSON.</p>
           <a class="botao" data-link="repositorioJogo" href="#">Abrir no GitHub <svg aria-hidden="true"><use href="#i-externo"/></svg></a>
-          <span class="preencher">[PREENCHER: link em js/config.js → repositorioJogo]</span>
         </article></li>
 
         <li><article class="nota-doc">
@@ -121,7 +113,6 @@
           <h3>Repositório deste site</h3>
           <p>HTML, CSS e JavaScript puros, sem build. O README explica como editar.</p>
           <a class="botao" data-link="repositorioSite" href="#">Abrir no GitHub <svg aria-hidden="true"><use href="#i-externo"/></svg></a>
-          <span class="preencher">[PREENCHER: link em js/config.js → repositorioSite]</span>
         </article></li>
       </ul>
     </div>
@@ -136,7 +127,7 @@
   <div class="largo">
     <div>
       <h2>Korno's</h2>
-      <p>Jogo educativo de matemática feito em Godot 4 como Trabalho de Conclusão de Curso do técnico em Desenvolvimento de Sistemas do Instituto Federal de São Paulo (IFSP), câmpus São Paulo.</p>
+      <p>Jogo educativo de matemática feito em HTML, CSS e JavaScript, que roda direto no navegador, como Trabalho de Conclusão de Curso do técnico em Desenvolvimento de Sistemas do Instituto Federal de São Paulo (IFSP), câmpus São Paulo.</p>
     </div>
     <div>
       <h2>Corredores</h2>
@@ -158,7 +149,7 @@
   </div>
   <p class="largo rodape__base">Korno's · Grupo 07 · IFSP · 2026 · Personagens e ilustrações do jogo. Nada aqui é uma loja de verdade — mas a matemática é.</p>
 </footer>
-<script src="js/config.js?v=2026-11-23"></script>
-<script src="js/site.js?v=2026-11-23"></script>
+<script src="js/config.js?v=2026-11-24"></script>
+<script src="js/site.js?v=2026-11-24"></script>
 </body>
 </html>

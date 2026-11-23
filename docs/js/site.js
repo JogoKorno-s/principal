@@ -62,18 +62,7 @@
     });
   }
 
-  /* ---------- Etiqueta "Baixar para Windows" e links do itch.io ---------- */
-  document.querySelectorAll("[data-download-windows]").forEach(function (el) {
-    var valor = el.querySelector(".tag-preco__valor");
-    if (cfg.downloadWindows) {
-      var a = document.createElement("a");
-      a.className = el.className; a.href = cfg.downloadWindows; a.innerHTML = el.innerHTML;
-      el.replaceWith(a);
-      var v = a.querySelector(".tag-preco__valor"); if (v) v.textContent = "GRÁTIS";
-    } else if (valor) {
-      valor.textContent = "EM BREVE";
-    }
-  });
+  /* ---------- Links que vêm do js/config.js ---------- */
   document.querySelectorAll("[data-link]").forEach(function (el) {
     var url = cfg[el.getAttribute("data-link")];
     if (url) { el.href = url; el.hidden = false; }

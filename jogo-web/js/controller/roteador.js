@@ -1,4 +1,4 @@
-// CONTROLLER: troca de telas com fade para o preto (como o SceneTransition do Godot).
+// CONTROLLER: troca de telas com fade para o preto.
 //
 // Cada tela é um objeto { montar(container, parametros), iniciar?(...), desmontar?() }.
 // montar() prepara a tela com o fundo preto (pode ser async para carregar imagens);

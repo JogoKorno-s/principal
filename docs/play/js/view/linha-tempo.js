@@ -1,6 +1,7 @@
 // VIEW: linha do tempo de progresso — dias 1, 2, 15, 45 e 90.
 // Estados: concluído, desbloqueado e bloqueado.
 
+import { textoParaToque } from './celular.js';
 import { GameState } from '../model/game-state.js';
 import { listaDeNiveis, statusDoNivel, nivelAtual } from '../model/niveis.js';
 import { el, botaoIcone, icones, avisar } from './componentes.js';
@@ -14,7 +15,7 @@ const ESTRADA = 'M -60 660 C 80 640, 140 590, 220 560 S 470 360, 590 360 S 840 5
 
 const TEXTO_ESTADO = {
   concluido: 'CONCLUÍDO',
-  desbloqueado: 'DESBLOQUEADO · clique para jogar',
+  desbloqueado: textoParaToque('DESBLOQUEADO · clique para jogar'),
   bloqueado: 'BLOQUEADO',
 };
 
@@ -31,7 +32,7 @@ export function abrirLinhaTempo() {
   if (aberta) return;
   const estado = GameState.get();
   const atual = nivelAtual(estado);
-  const info = el('div', { class: 'linha-tempo__info', role: 'status' }, 'Clique em um nível para ver os detalhes');
+  const info = el('div', { class: 'linha-tempo__info', role: 'status' }, textoParaToque('Clique em um nível para ver os detalhes'));
 
   const marcos = listaDeNiveis().map((n, i) => {
     const status = statusDoNivel(estado, n.nivel);

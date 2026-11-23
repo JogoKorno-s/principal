@@ -1,6 +1,6 @@
 # Site do Korno's
 
-Site oficial do **Korno's**, jogo educativo de matemática feito em Godot 4 pelo Grupo 07 do curso técnico em Desenvolvimento de Sistemas do IFSP.
+Site oficial do **Korno's**, jogo educativo de matemática feito em HTML, CSS e JavaScript pelo Grupo 07 do curso técnico em Desenvolvimento de Sistemas do IFSP.
 
 O site é **HTML, CSS e JavaScript puros**. Não tem framework, não tem `npm install` e não tem etapa de build: o que está nos arquivos é exatamente o que vai para o ar.
 
@@ -20,13 +20,13 @@ documentos.html     PDFs e repositórios
 404.html            Página de "corredor não encontrado"
 
 css/kornos.css      TODO o visual do site (cores e fontes no começo do arquivo)
-js/config.js        Links e chaves que vocês vão mudar (download, itch.io, repositórios)
+js/config.js        Links que vocês podem mudar (repositórios)
 js/site.js          Menu, placa ABERTO/FECHADO, cupom que imprime, comparador
 js/prateleira.js    A demo interativa da prateleira
 js/jogar.js         Carrega o jogo na página Jogar
 img/                Imagens em WebP + icones.svg + favicon.svg
 video/              Cenas animadas da abertura (.webm, .mp4 e capa .webp)
-play/               Aqui vai a exportação web do Godot
+play/               O jogo publicado (cópia da pasta jogo-web, sem a pasta ferramentas)
 docs/               PDFs e documentos
 ```
 
@@ -65,39 +65,19 @@ Todos os links do site são relativos, então ele funciona em qualquer endereço
 
 ---
 
-## Colocar o jogo no site (exportação web do Godot)
+## Atualizar o jogo publicado
 
-### 1. Exportar do Godot
+O jogo é desenvolvido na pasta `jogo-web/` (na raiz do repositório). O site mostra a cópia que está em `docs/play/`. Para publicar uma versão nova do jogo, no cmd, dentro da pasta do repositório e na branch `main`:
 
-1. No Godot: **Projeto → Exportar… → Adicionar… → Web**. Se pedir, baixe os *export templates*.
-2. Na predefinição Web, em **Variant**, **desligue "Thread Support"**.
-   > Isso é obrigatório. Com threads ligadas, o jogo precisa de cabeçalhos especiais (COOP/COEP) que o GitHub Pages **não envia**, e a tela fica preta. Sem threads, ele roda normalmente. (Precisa do Godot 4.3 ou mais novo.)
-3. Em **Export Path**, coloque `.../kornos-site/play/index.html`. **O nome tem que ser `index.html`.**
-4. Clique em **Exportar Projeto** (desmarque "Exportar com Debug").
+```bash
+robocopy jogo-web docs\play /MIR /XD ferramentas
+```
 
-A pasta `play/` vai ficar com `index.html`, `index.js`, `index.wasm`, `index.pck` e outros arquivos. Pode apagar o `LEIA-ME.txt`.
+Depois faça commit e push da pasta `docs/play`. A página **Jogar** carrega o jogo sozinha, e a placa da página inicial fica **ABERTO**.
 
-### 2. Publicar
-
-Faça commit e push da pasta `play/`. Pronto: o site percebe sozinho que `play/index.html` existe e:
-- a página **Jogar** troca o "Em breve" pelo jogo, com tela de carregamento e botão de tela cheia;
-- a placa da página inicial passa a virar de **FECHADO** para **ABERTO**.
-
-Se quiser forçar o modo "publicado" (por exemplo, para testar), mude `jogoWebPublicado: true` em `js/config.js`.
-
-> O arquivo `.wasm` costuma ter uns 35 a 40 MB. O GitHub aceita arquivos de até 100 MB, então não tem problema.
-
-### Plano B: itch.io
-
-Se o jogo não rodar no GitHub Pages:
-1. Crie uma página em <https://itch.io> → **Upload new project** → *Kind of project*: **HTML**.
-2. Compacte o **conteúdo** da pasta `play/` num `.zip` (o `index.html` precisa estar na raiz do zip) e envie.
-3. Marque **This file will be played in the browser** e, em *Embed options*, ligue **SharedArrayBuffer support** se tiverem exportado com threads.
-4. Cole o link em `js/config.js` → `itchio`. Um botão "Jogar no itch.io" aparece na página Jogar.
-
-### Versão para Windows
-
-Exporte a predefinição **Windows Desktop**, compacte o `.exe` (e o `.pck`, se existir) num `.zip` e publique em **Releases** do repositório do jogo ou no itch.io. Cole o link em `js/config.js` → `downloadWindows`. A etiqueta "Baixar para Windows" troca "EM BREVE" por "GRÁTIS" sozinha.
+- **Computador:** o jogo aparece embutido na página Jogar, com o botão **Tela cheia**.
+- **Celular:** a página Jogar mostra o botão **Abrir o jogo**, que abre o jogo na tela inteira. O jogo pede para deitar o celular.
+- O botão **Testes** do jogo só aparece no servidor local (`localhost`); no site publicado ele nunca aparece.
 
 ---
 

@@ -1,6 +1,8 @@
 // Formatação de valores. O dinheiro é guardado SEMPRE em centavos (número inteiro),
 // para que 300,00 − 79,98 dê exatamente 220,02, sem erro de arredondamento.
 
+import { textoParaToque } from '../view/celular.js';
+
 const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 
 /** 22002 -> "R$ 220,02" */
@@ -23,7 +25,8 @@ export function preencher(modelo, valores) {
 export async function carregarJSON(caminho) {
   const resposta = await fetch(caminho);
   if (!resposta.ok) throw new Error(`Não foi possível carregar ${caminho}`);
-  return resposta.json();
+  // No celular, os textos falam em "toque" em vez de "clique" (ver view/celular.js)
+  return JSON.parse(await resposta.text(), (_, valor) => textoParaToque(valor));
 }
 
 export const esperar = (ms) => new Promise((r) => setTimeout(r, ms));

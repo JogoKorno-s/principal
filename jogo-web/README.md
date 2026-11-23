@@ -1,6 +1,6 @@
 # Korno's · versão web
 
-Recriação do jogo em **HTML, CSS e JavaScript puros** (sem framework e sem build), como plano B da versão em Godot (`kornos/`). Só desktop por enquanto (1366×768 até 1920×1080).
+O jogo em **HTML, CSS e JavaScript puros** (sem framework e sem build). Roda no navegador do computador e do celular (com a tela deitada).
 
 ## Como rodar
 
@@ -27,7 +27,8 @@ Para recomeçar do zero: botão **Reiniciar** no menu.
 - **Dia 15 (Nível 3)**: vídeos dos contratos, compra de bebidas, combinatória na bancada (480), seção de congelados (freezer, geladeira e açougue) e clientes que às vezes pedem o que acabou.
 - **Dia 45 (Nível 4)**: vídeo do Belo e pulo para o Dia 45, Moto Entrega (pedidos que chegam durante o dia; o jogador anda pelas seções pegando os produtos na cestinha e responde a velocidade média), geladeira de bebidas (8 espaços, até 3 de cada), produtos novos (compra opcional), cronômetro de 40 s no caixa e índice de atendimento.
 - **Dicas**: cada desafio de matemática (troco, porcentagem, preço com 25% de lucro, combinatória e velocidade média) tem um botão **Dica** com o passo a passo usando os números do exercício.
-- **Modo de testes** (temporário): botão **Testes** no menu e na linha do tempo. Vai direto para qualquer nível e etapa, para frente ou para trás, com estoque, preços e dinheiro prontos. Desligue em `data/niveis.json` → `"modoTeste": { "ativo": false }` antes de liberar o jogo.
+- **Modo de testes**: botão **Testes** no menu e na linha do tempo. Vai direto para qualquer nível e etapa, com estoque, preços e dinheiro prontos. Só aparece no servidor local (`localhost`); no site publicado ele não existe.
+- **Celular e tablet**: com a tela em pé aparece "Gire o celular"; com a tela deitada o jogo ocupa a tela toda. Arrastar funciona com o dedo, os olhos das prateleiras ficam sempre visíveis, os textos dizem "toque" em vez de "clique" e há um botão **Tela cheia** (Android). No iPhone, "Compartilhar → Adicionar à Tela de Início" abre o jogo sem as barras do navegador.
 - **Casinha** (canto inferior direito): leva para a Tela inicial, a Visão principal, as Prateleiras (4 vistas) e os Congelados. Seções de níveis futuros aparecem com cadeado.
 - **Expositores**: cada espaço guarda um produto, com limite de unidades (prateleira 4, freezer 5). Só dá para expor o que está no estoque.
 - **Computador do caixa** (olho): vendas do dia, custo e lucro.
@@ -44,6 +45,7 @@ css/
   mercado.css         casinha, seções, expositores, combinatória, vendas
   entregas.css        Moto Entrega, cestinha, cronômetro do caixa, índice de atendimento, geladeira
   dicas.css           botão Dica, passo a passo e painel do modo de testes
+  celular.css         aviso para girar a tela, tela cheia e ajustes de toque
 data/                 textos e valores de cada tela, separados do código
   niveis.json  abertura.json  fachada.json  dia1.json  dia2.json  dia3.json  dia4.json  entregas.json
   produtos.json       catálogo: custo, atacadista, nível em que libera e onde fica exposto
@@ -56,8 +58,9 @@ js/
   view/               VIEW: componentes, HUD, menu, abertura, fachada, cena do Dia 1, card, linha do tempo
   minigames/          limpeza, atacadista, prateleira, caixa, múltipla escolha, precificação, combinatória
   util/formato.js     R$ em pt-BR (dinheiro sempre em centavos inteiros)
-assets/               artes convertidas do Godot (WebP, WebM e MP4)
-ferramentas/          script que converte as artes do Godot
+assets/               artes do jogo (WebP, WebM e MP4) e ícones do app
+manifest.webmanifest  permite instalar o jogo no celular (tela cheia, deitado)
+ferramentas/          script que converteu as artes originais (pasta kornos/art); não vai para o site
 ```
 
 ### Interface dos minigames (RNF07)
@@ -73,9 +76,9 @@ Para criar um minigame novo (ex.: troco no caixa do Dia 2), copie um dos arquivo
 
 ## Artes
 
-Só entram como imagem os **cenários**, os **personagens**, os **produtos**, a **casinha** e os **vídeos**. Botões, ícones, HUD e cards são feitos em código (nítidos em qualquer resolução). As imagens de botão com texto de `kornos/art/ui/` não são usadas.
+Só entram como imagem os **cenários**, os **personagens**, os **produtos**, a **casinha** e os **vídeos**. Botões, ícones, HUD e cards são feitos em código (nítidos em qualquer resolução).
 
-Para reconverter as artes depois de mudar algo em `kornos/` (precisa do ffmpeg; no Windows: `winget install Gyan.FFmpeg`), rode a partir da raiz do repositório:
+Para converter artes novas (precisa do ffmpeg; no Windows: `winget install Gyan.FFmpeg`), rode a partir da raiz do repositório:
 
 ```
 bash jogo-web/ferramentas/converter-assets.sh

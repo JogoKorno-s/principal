@@ -20,14 +20,18 @@ import { dia4 } from './controller/dia4.js';
 import { definirEntregas } from './controller/entregas.js';
 import { definirTelasDeTeste } from './view/testes.js';
 import { somDeClique } from './view/componentes.js';
+import { iniciarCelular, tecladoAberto } from './view/celular.js';
 
 // O palco tem 1920×1080 e é escalado para caber inteiro na janela (desktop).
 function ajustarPalco() {
+  if (tecladoAberto()) return; // no celular, o teclado diminui a janela: o palco fica como estava
   const escala = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
   document.documentElement.style.setProperty('--escala', escala);
 }
 window.addEventListener('resize', ajustarPalco);
+window.addEventListener('orientationchange', () => setTimeout(ajustarPalco, 250));
 ajustarPalco();
+iniciarCelular();
 
 // Som de clique em qualquer botão do jogo (botões desabilitados não disparam o clique).
 document.addEventListener('click', (evento) => {
