@@ -24,4 +24,4 @@ export function nivelAtual(estado) {
 }
 
 /** Configuração do modo de testes (null quando desligado em data/niveis.json). */
-export function modoTeste() { return dados.modoTeste?.ativo ? dados.modoTeste : null; }
+export function modoTeste() { return ['localhost','127.0.0.1','[::1]',''].includes(location.hostname) && dados.modoTeste?.ativo ? dados.modoTeste : null; }
