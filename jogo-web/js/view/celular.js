@@ -1,4 +1,5 @@
-// CELULAR E TABLET: aviso para deitar a tela e botão de tela cheia.
+// CELULAR E TABLET: textos com "toque", botão de tela cheia e teclado.
+// Com o celular em pé, o palco é desenhado girado (ver ajustarPalco em main.js e css/celular.css).
 // Só age em telas de toque; no computador não muda nada.
 
 export const ehToque = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
@@ -14,20 +15,11 @@ export function textoParaToque(texto) {
     .replace(/CLIQUE/g, 'TOQUE').replace(/Clique/g, 'Toque').replace(/clique/g, 'toque');
 }
 
-const iconeCelular = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.2"/><path d="M10.5 18.5h3"/></svg>';
 const iconeTelaCheia = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
 
 export function iniciarCelular() {
   if (!ehToque) return;
   document.documentElement.classList.add('toque');
-
-  // Aviso "gire o celular" (o CSS só mostra com a tela em pé)
-  const aviso = document.createElement('div');
-  aviso.className = 'gire';
-  aviso.innerHTML = `${iconeCelular}
-    <p class="gire__titulo">Gire o celular</p>
-    <p class="gire__texto">O Korno's é jogado com a tela deitada. Se a tela não girar, confira se a rotação automática está ligada.</p>`;
-  document.body.append(aviso);
 
   // Tela cheia (Android e tablets). No iPhone o Safari não permite: lá, "Adicionar à Tela de Início" abre o jogo sem barras.
   const raiz = document.documentElement;

@@ -20,12 +20,18 @@ import { dia4 } from './controller/dia4.js';
 import { definirEntregas } from './controller/entregas.js';
 import { definirTelasDeTeste } from './view/testes.js';
 import { somDeClique } from './view/componentes.js';
-import { iniciarCelular, tecladoAberto } from './view/celular.js';
+import { iniciarCelular, tecladoAberto, ehToque } from './view/celular.js';
 
-// O palco tem 1920×1080 e é escalado para caber inteiro na janela (desktop).
+// O palco tem 1920×1080 e é escalado para caber inteiro na janela.
+// Celular em pé: o palco é desenhado girado 90° (classe "girado"), então basta deitar o aparelho,
+// mesmo com a rotação automática desligada ou dentro do navegador do WhatsApp/Instagram.
 function ajustarPalco() {
   if (tecladoAberto()) return; // no celular, o teclado diminui a janela: o palco fica como estava
-  const escala = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+  const girado = ehToque && window.innerHeight > window.innerWidth;
+  document.documentElement.classList.toggle('girado', girado);
+  const largura = girado ? window.innerHeight : window.innerWidth;
+  const altura = girado ? window.innerWidth : window.innerHeight;
+  const escala = Math.min(largura / 1920, altura / 1080);
   document.documentElement.style.setProperty('--escala', escala);
 }
 window.addEventListener('resize', ajustarPalco);

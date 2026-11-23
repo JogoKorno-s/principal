@@ -76,7 +76,7 @@ robocopy jogo-web docs\play /MIR /XD ferramentas
 Depois faça commit e push da pasta `docs/play`. A página **Jogar** carrega o jogo sozinha, e a placa da página inicial fica **ABERTO**.
 
 - **Computador:** o jogo aparece embutido na página Jogar, com o botão **Tela cheia**.
-- **Celular:** a página Jogar mostra o botão **Abrir o jogo**, que abre o jogo na tela inteira. O jogo pede para deitar o celular.
+- **Celular:** a página Jogar mostra o botão **Abrir o jogo**, que abre o jogo na tela inteira. O jogo sempre aparece deitado: é só virar o aparelho (funciona até com a rotação automática desligada).
 - O botão **Testes** do jogo só aparece no servidor local (`localhost`); no site publicado ele nunca aparece.
 
 ---

@@ -21,24 +21,12 @@ html.toque, html.toque body {
   .botao:hover, .botao-icone:hover { transform: none; filter: none; }
 }
 
-/* ---------- Aviso para deitar o celular ---------- */
-.gire { display: none; }
-@media (hover: none) and (pointer: coarse) and (orientation: portrait) {
-  .gire {
-    position: fixed; inset: 0; z-index: 1000;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
-    padding: 32px; text-align: center;
-    background: #120700; color: var(--bege);
-  }
-  #palco, .botao-tela-cheia { display: none; }
-}
-.gire svg { width: 112px; height: 112px; color: var(--bege-quente); animation: girar-celular 2.4s var(--saida) infinite; }
-.gire__titulo { margin: 0; font-family: var(--f-letreiro); font-weight: 650; font-size: 34px; line-height: 1.1; }
-.gire__texto { margin: 0; max-width: min(26em, 100%); font-size: 17px; line-height: 1.5; color: var(--bege-quente); }
-@keyframes girar-celular {
-  0%, 25% { transform: rotate(0deg); }
-  55%, 100% { transform: rotate(-90deg); }
-}
+/* ---------- Celular em pé: o jogo é desenhado deitado ----------
+   (o main.js põe a classe "girado" e calcula a escala com largura e altura trocadas).
+   Funciona mesmo com a rotação automática desligada: é só deitar o aparelho. */
+html.girado #palco { transform: rotate(90deg) scale(var(--escala, .5)) translate(-50%, -50%); }
+/* o botão de tela cheia gira junto e fica no canto de baixo do jogo */
+html.girado .botao-tela-cheia { left: 56px; top: 10px; bottom: auto; transform: rotate(90deg); transform-origin: top left; }
 
 /* ---------- Botão de tela cheia (fica fora do palco, no canto) ---------- */
 .botao-tela-cheia {

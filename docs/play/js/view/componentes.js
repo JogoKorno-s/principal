@@ -101,11 +101,16 @@ export function modal({ titulo, conteudo = [], acoes = [], aoFechar }) {
   return fechar;
 }
 
-/** Converte a posição do mouse para coordenadas do palco (1920×1080). */
+/** Converte a posição do mouse ou do dedo para coordenadas do palco (1920×1080).
+ *  Funciona também com o palco girado 90° (celular em pé, classe "girado"). */
 export function pontoNoPalco(evento) {
   const r = document.getElementById('palco').getBoundingClientRect();
-  const escala = r.width / 1920;
-  return { x: (evento.clientX - r.left) / escala, y: (evento.clientY - r.top) / escala };
+  const girado = document.documentElement.classList.contains('girado');
+  const escala = (girado ? r.height : r.width) / 1920;
+  const dx = (evento.clientX - (r.left + r.width / 2)) / escala;
+  const dy = (evento.clientY - (r.top + r.height / 2)) / escala;
+  // girado 90° no sentido horário: o "para baixo" da tela é o "para a direita" do palco
+  return girado ? { x: 960 + dy, y: 540 - dx } : { x: 960 + dx, y: 540 + dy };
 }
 
 // ---------- Sons ----------
