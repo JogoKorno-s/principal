@@ -1,0 +1,35 @@
+/* =========================================================
+   KORNO'S · tokens visuais do jogo
+   Mesma paleta e fontes do site (docs/css/kornos.css).
+   Não acrescente cores novas: mude aqui e o jogo inteiro muda.
+   ========================================================= */
+
+:root {
+  /* Paleta oficial (GDD, seção 9.2) */
+  --bege: #F4EDE4;
+  --bege-quente: #E6D3B3;
+  --verde: #82B875;
+  --marrom: #5B1F00;
+  --marrom-claro: #8D4925;
+  --laranja: #D96300;   /* só em texto GRANDE */
+  --azul: #5C7A8D;
+
+  /* Derivadas (transparências da paleta) */
+  --escurecer: rgb(30 10 0 / .72);
+  --vermelho-erro: #B3261E; /* selo "TENTE NOVAMENTE" e bolinhas de limpeza (pedidos no roteiro) */
+  --amarelo: #F2C230;       /* Moto Entrega e bolinha de paciência pela metade (Nível 4) */
+  --amarelo-escuro: #B07A00;
+
+  /* Fontes */
+  --f-letreiro: "Fredoka", "Trebuchet MS", sans-serif;
+  --f-texto: "Recursive", system-ui, sans-serif;
+
+  /* Formas */
+  --borda: 4px solid var(--marrom);
+  --borda-grossa: 7px solid var(--marrom);
+  --raio: 18px;
+  --raio-grande: 28px;
+  --sombra: 0 14px 30px -14px rgb(91 31 0 / .55), 0 2px 4px rgb(91 31 0 / .18);
+  --saida: cubic-bezier(.16, 1, .3, 1);
+  --fade: 400ms;
+}

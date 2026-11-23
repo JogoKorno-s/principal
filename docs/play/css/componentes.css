@@ -1,0 +1,392 @@
+/* =========================================================
+   Componentes reutilizáveis: botões, balão de fala, HUD,
+   painéis, avisos, selos e cards.
+   Tudo em código (sem imagens com texto), nítido em qualquer resolução.
+   ========================================================= */
+
+/* ---------- Botões ---------- */
+.botao {
+  --cor: var(--verde);
+  --cor-texto: var(--marrom);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4em;
+  min-height: 84px;
+  padding: 0 1.3em;
+  border: var(--borda);
+  border-radius: var(--raio);
+  background: var(--cor);
+  color: var(--cor-texto);
+  font-family: var(--f-letreiro);
+  font-weight: 600;
+  font-size: 40px;
+  letter-spacing: .01em;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 0 var(--marrom), 0 18px 26px -12px rgb(0 0 0 / .5);
+  transform: translateY(0);
+  transition: transform 120ms var(--saida), box-shadow 120ms var(--saida), filter 120ms;
+}
+.botao:hover { filter: brightness(1.06); transform: translateY(-2px); box-shadow: 0 10px 0 var(--marrom), 0 22px 30px -12px rgb(0 0 0 / .5); }
+.botao:active { transform: translateY(6px); box-shadow: 0 2px 0 var(--marrom), 0 6px 10px -6px rgb(0 0 0 / .5); }
+.botao:disabled { filter: grayscale(.7) opacity(.6); cursor: not-allowed; transform: none; }
+
+.botao--secundario { --cor: var(--bege-quente); }
+.botao--claro { --cor: var(--bege); }
+.botao--pequeno { min-height: 62px; font-size: 30px; padding: 0 .9em; border-radius: 14px; box-shadow: 0 6px 0 var(--marrom); }
+.botao--pequeno:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--marrom); }
+.botao--grande { min-height: 108px; font-size: 54px; padding: 0 1.4em; }
+
+/* Botão redondo com ícone (engrenagem, info, fechar, + e −) */
+.botao-icone {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  padding: 0;
+  border: var(--borda);
+  border-radius: 50%;
+  background: var(--bege);
+  color: var(--marrom);
+  font-family: var(--f-letreiro);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 6px 0 var(--marrom);
+  transition: transform 120ms var(--saida), box-shadow 120ms var(--saida), background 120ms;
+}
+.botao-icone:hover { background: #fff8ee; transform: translateY(-2px); box-shadow: 0 8px 0 var(--marrom); }
+.botao-icone:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--marrom); }
+.botao-icone:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+.botao-icone svg { width: 52%; height: 52%; }
+.botao-icone--pequeno { width: 64px; height: 64px; font-size: 40px; }
+
+/* ---------- Balão de fala ---------- */
+.dialogo { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
+.dialogo > * { pointer-events: auto; }
+
+.dialogo__personagem {
+  position: absolute;
+  right: 40px;
+  bottom: 0;
+  height: 900px;
+  width: auto;
+  max-width: 700px;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 20px 30px rgb(0 0 0 / .35));
+  pointer-events: none;
+  animation: entrar-baixo 500ms var(--saida) both;
+}
+
+.balao {
+  position: absolute;
+  left: 60px;
+  bottom: 70px;
+  width: 1220px;
+  min-height: 250px;
+  padding: 56px 56px 34px;
+  background: var(--bege);
+  border: var(--borda-grossa);
+  border-radius: var(--raio-grande);
+  box-shadow: var(--sombra), 0 0 0 4px var(--bege-quente) inset;
+  animation: entrar-baixo 350ms var(--saida) both;
+}
+/* rabinho do balão apontando para o personagem */
+.balao::after {
+  content: "";
+  position: absolute;
+  right: -44px;
+  bottom: 70px;
+  width: 64px;
+  height: 52px;
+  background: var(--bege);
+  border: var(--borda-grossa);
+  border-left: 0;
+  border-bottom: 0;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  transform: skewY(18deg);
+}
+.balao--sem-rabo::after { display: none; }
+
+/* Cliente chegando: entra pela direita e só depois fala */
+.dialogo--chegada .dialogo__personagem { animation: chegar 1s var(--saida) both; }
+.dialogo--chegada .balao { animation-delay: 1s; }
+@keyframes chegar { from { opacity: 0; transform: translateX(420px); } }
+
+.balao__nome {
+  position: absolute;
+  top: -34px;
+  left: 44px;
+  padding: 6px 28px 8px;
+  background: var(--marrom);
+  color: var(--bege);
+  border-radius: 999px;
+  font-family: var(--f-letreiro);
+  font-weight: 600;
+  font-size: 38px;
+  line-height: 1.1;
+}
+
+.balao__texto {
+  margin: 0 0 22px;
+  font-size: 38px;
+  line-height: 1.38;
+  font-weight: 500;
+  color: var(--marrom);
+  text-wrap: pretty;
+}
+.balao__texto .falta { visibility: hidden; }
+
+.balao__acoes { display: flex; justify-content: flex-end; gap: 20px; }
+
+/* ---------- HUD (topo direito) ---------- */
+#hud {
+  top: 28px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+#hud[hidden] { display: none; }
+
+.hud__placa {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 84px;
+  padding: 0 28px;
+  background: var(--bege);
+  border: var(--borda);
+  border-radius: 999px;
+  box-shadow: 0 6px 0 var(--marrom);
+  font-family: var(--f-letreiro);
+  font-weight: 600;
+  font-size: 40px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.hud__rotulo {
+  font-family: var(--f-texto);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: .08em;
+  color: var(--marrom-claro);
+}
+.hud__dinheiro { min-width: 290px; justify-content: center; }
+.hud__dinheiro.mudou { animation: pulsar 600ms var(--saida); }
+
+.hud__carrinho { position: relative; }
+.hud__carrinho[hidden] { display: none; }
+.hud__alerta {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--laranja);
+  color: var(--bege);
+  border: 3px solid var(--marrom);
+  font-family: var(--f-letreiro);
+  font-size: 30px;
+  font-weight: 700;
+  animation: quicar 1.1s ease-in-out infinite;
+}
+.hud__alerta[hidden] { display: none; }
+
+/* Faixa de oferta presa ao carrinho */
+.oferta {
+  position: absolute;
+  top: 140px;
+  right: 32px;
+  z-index: 21;
+  width: 800px;
+  padding: 22px 30px 24px;
+  background: var(--bege);
+  border: var(--borda-grossa);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  text-align: center;
+  font-family: var(--f-letreiro);
+  font-weight: 650;
+  line-height: 1.15;
+  animation: entrar-cima 400ms var(--saida) both;
+}
+.oferta::before {
+  content: "";
+  position: absolute;
+  top: -27px;
+  right: 536px;
+  border: 20px solid transparent;
+  border-bottom-color: var(--marrom);
+  border-top: 0;
+}
+.oferta__linha1 { font-size: 34px; color: var(--laranja); }
+.oferta__linha2 { font-size: 40px; color: var(--marrom); }
+
+/* ---------- Painel (atacadista, modais) ---------- */
+.fundo-escuro {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--escurecer);
+  animation: aparecer 250ms ease-out both;
+}
+
+.painel {
+  position: relative;
+  padding: 50px 64px 56px;
+  background: var(--bege);
+  border: var(--borda-grossa);
+  border-radius: var(--raio-grande);
+  box-shadow: var(--sombra);
+  animation: crescer 400ms var(--saida) both;
+}
+.painel__titulo {
+  margin: 0 0 8px;
+  font-family: var(--f-letreiro);
+  font-weight: 650;
+  font-size: 64px;
+  line-height: 1;
+  text-align: center;
+}
+.painel__fechar { position: absolute; top: -30px; right: -30px; }
+
+/* ---------- Avisos (topo central) ---------- */
+.aviso {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  max-width: 1200px;
+  padding: 22px 40px;
+  transform: translateX(-50%);
+  background: var(--bege);
+  border: var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  font-size: 34px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.3;
+  animation: entrar-cima 300ms var(--saida) both;
+}
+.aviso--erro { background: var(--vermelho-erro); color: #fff; border-color: #5c0f0b; }
+.aviso--sucesso { background: var(--verde); }
+.aviso.saindo { animation: sair-cima 250ms ease-in both; }
+
+/* ---------- Selos de resposta ---------- */
+.selo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .3em;
+  padding: 10px 26px;
+  border: 4px solid currentColor;
+  border-radius: 14px;
+  font-family: var(--f-letreiro);
+  font-weight: 700;
+  font-size: 34px;
+  letter-spacing: .04em;
+  transform: rotate(-4deg);
+  animation: carimbar 350ms var(--saida) both;
+}
+.selo--erro { color: #fff; background: var(--vermelho-erro); border-color: #5c0f0b; }
+.selo--certo { color: var(--marrom); background: var(--verde); border-color: var(--marrom); }
+
+/* ---------- Card "NÍVEL X DESBLOQUEADO!" ---------- */
+.card-nivel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgb(18 7 0 / .82);
+  overflow: hidden;
+  animation: aparecer 400ms ease-out both;
+}
+.card-nivel__placa {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 26px;
+  padding: 70px 110px 80px;
+  background: var(--bege);
+  border: 9px solid var(--marrom);
+  border-radius: 40px;
+  box-shadow: 0 0 0 10px var(--bege-quente), 0 40px 80px -20px #000;
+  text-align: center;
+  animation: placa-entrar 700ms cubic-bezier(.34, 1.56, .64, 1) 250ms both;
+}
+.card-nivel__estrela { width: 130px; height: 130px; color: var(--laranja); }
+.card-nivel__titulo {
+  margin: 0;
+  font-family: var(--f-letreiro);
+  font-weight: 700;
+  font-size: 104px;
+  line-height: .95;
+  color: var(--marrom);
+  text-transform: uppercase;
+}
+.card-nivel__titulo span { display: block; color: var(--laranja); font-size: 1.12em; }
+.card-nivel__sub { margin: 0; font-size: 34px; font-weight: 600; color: var(--marrom-claro); }
+.card-nivel__acoes { display: flex; gap: 36px; margin-top: 24px; animation: aparecer 400ms ease-out 900ms both; }
+
+/* Notas de dinheiro voando (desenhadas em CSS) */
+.nota {
+  position: absolute;
+  z-index: 1;
+  top: -160px;
+  width: 190px;
+  height: 92px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 24px, rgb(91 31 0 / .25) 25px 27px, transparent 28px),
+    linear-gradient(135deg, #9fd08f, var(--verde) 55%, #6ea361);
+  border: 4px solid #3f6e35;
+  border-radius: 10px;
+  box-shadow: 0 10px 18px -8px rgb(0 0 0 / .6);
+  font-family: var(--f-letreiro);
+  font-weight: 700;
+  font-size: 34px;
+  color: #2d5626;
+  animation: nota-cair var(--dur, 4s) linear var(--atraso, 0s) infinite;
+}
+
+/* ---------- Modais do menu ---------- */
+.modal { width: 900px; }
+.modal__texto { font-size: 34px; line-height: 1.45; margin: 26px 0 0; text-align: center; }
+.modal__acoes { display: flex; justify-content: center; gap: 30px; margin-top: 44px; }
+.campo { display: grid; gap: 12px; margin-top: 36px; font-size: 32px; font-weight: 700; }
+.campo select {
+  height: 80px;
+  padding: 0 24px;
+  border: var(--borda);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--marrom);
+  font: inherit;
+  font-weight: 600;
+}
+
+/* ---------- Animações ---------- */
+@keyframes aparecer { from { opacity: 0; } }
+@keyframes entrar-baixo { from { opacity: 0; transform: translateY(40px); } }
+@keyframes entrar-cima { from { opacity: 0; transform: translate(var(--tx, 0), -30px); } }
+.aviso { --tx: -50%; }
+@keyframes sair-cima { to { opacity: 0; transform: translate(var(--tx, 0), -30px); } }
+@keyframes crescer { from { opacity: 0; transform: scale(.85); } }
+@keyframes placa-entrar { from { opacity: 0; transform: scale(.5) rotate(-6deg); } }
+@keyframes carimbar { from { opacity: 0; transform: scale(1.8) rotate(-4deg); } }
+@keyframes pulsar { 40% { transform: scale(1.12); background: var(--verde); } }
+@keyframes quicar { 50% { transform: translateY(-6px); } }
+@keyframes nota-cair {
+  0% { transform: translate(0, 0) rotate(var(--giro0, -20deg)); }
+  100% { transform: translate(var(--deriva, 80px), 1300px) rotate(var(--giro1, 260deg)); }
+}

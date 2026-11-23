@@ -1,0 +1,16 @@
+{
+  "velocidadeLetraMs": 25,
+  "cenas": [
+    { "imagem": "assets/cenarios/intro-cena1.webp", "texto": "Naquele dia, Belo acreditava ter encontrado o amor da sua vida." },
+    { "imagem": "assets/cenarios/intro-cena2.webp", "texto": "Com o nascimento de Enzo, sua família parecia completa." },
+    { "video": "assets/videos/intro-cena3", "texto": "Mas, em pouco tempo, uma traição destruiu tudo o que ele havia construído." },
+    { "video": "assets/videos/intro-cena4", "texto": "Anos de amor chegaram ao fim." },
+    { "video": "assets/videos/intro-cena5", "texto": "Grazi seguiu com sua nova paixão, ao mesmo tempo que Belo e seu filho precisavam lidar com as consequências daquela separação." },
+    { "video": "assets/videos/intro-cena6", "texto": "Enquanto Grazi aproveitava sua vida de luxo, Belo enfrentava as dificuldades de recomeçar do zero." },
+    { "video": "assets/videos/intro-cena7", "texto": "Quando acreditou que já havia perdido tudo, recebeu a notícia sobre a morte de seu avô José." },
+    { "imagem": "assets/cenarios/intro-cena8.webp", "texto": "Mas José havia deixado uma pequena luz em meio à escuridão para seu neto." },
+    { "video": "assets/videos/intro-cena9", "texto": "O antigo supermercado Korno's não era apenas uma herança, era sua única chance." },
+    { "video": "assets/videos/intro-cena10", "texto": "Sem dinheiro, sem experiência e sem garantias de sucesso, Belo decidiu lutar pelo futuro que restava para ele e seu filho." },
+    { "video": "assets/videos/intro-cena10", "texto": "O destino do Korno's agora está em suas mãos.", "final": true, "botao": "Iniciar jornada" }
+  ]
+}
