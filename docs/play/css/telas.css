@@ -543,3 +543,10 @@
 .notificacao.pausada .notificacao__tempo { animation-play-state: paused; }
 @keyframes notificacao-tempo { from { transform: scaleX(1); } to { transform: scaleX(0); } }
 @keyframes entrar-esquerda { from { opacity: 0; transform: translateX(-30px); } }
+
+/* "O dinheiro acabou" (acima de tudo, inclusive do HUD) */
+.falencia__fundo { position: absolute; inset: 0; z-index: 95; }
+.falencia { width: 1100px; text-align: center; }
+.falencia__titulo { color: var(--vermelho-erro); }
+.falencia__texto { margin: 22px 0 0; font-size: 32px; line-height: 1.4; }
+.falencia__saldo { margin: 26px 0 0; font: 650 48px var(--f-letreiro); color: var(--marrom); }

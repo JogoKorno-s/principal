@@ -121,13 +121,13 @@ export const dia5 = {
       ir('naQuitanda');
     }
     if (etapa() === 'naQuitanda') {
-      if (secaoAberta() !== 'quitanda') abrirQuitanda('quitanda-banca');
+      if (secaoAberta() !== 'quitanda') abrirQuitanda();
       await falar(camadaDaSecao(), falas.naQuitanda);
       ir('abastecer');
     }
     if (etapa() === 'abastecer') { await this.abastecer(); ir('abastecido'); }
     if (etapa() === 'abastecido') {
-      if (secaoAberta() !== 'quitanda') abrirQuitanda('quitanda-banca');
+      if (secaoAberta() !== 'quitanda') abrirQuitanda();
       await falar(camadaDaSecao(), falas.abastecido);
       await escurecer();
       fecharSecao();
@@ -182,7 +182,7 @@ export const dia5 = {
 
   // ----- Quitanda: pelo menos N produtos diferentes expostos (ou todos, se comprou menos que N) -----
   abastecer() {
-    if (secaoAberta() !== 'quitanda') abrirQuitanda('quitanda-banca');
+    if (secaoAberta() !== 'quitanda') abrirQuitanda();
     liberarSecoes(['quitanda'], { alerta: 'quitanda' });
     const daQuitanda = () => produtosDoNivel(this.dados.nivel)
       .filter((p) => p.local === 'quitanda' && (GameState.get().estoque[p.id] ?? 0) > 0);

@@ -1,5 +1,6 @@
 // CONTROLLER: falas com texto letra por letra e troca de pose do Luís.
 
+import { murmurar } from '../view/audio.js';
 import { el, botao } from '../view/componentes.js';
 
 /**
@@ -48,13 +49,14 @@ export function digitar(elemento, texto, velocidadeMs = 35) {
  * validar(indiceFala, indiceResposta): devolve false para não aceitar a resposta (ex.: "não temos" errado)
  * Resolve com o índice da resposta escolhida na última fala.
  */
-export function falar(container, falas, { nome = 'Luís', pasta = 'luis', velocidadeMs = 35, chegada = false, validar = null } = {}) {
+export function falar(container, falas, { nome = 'Luís', pasta = 'luis', velocidadeMs = 35, chegada = false, validar = null, voz = null } = {}) {
   const caminhoPose = (pose) => `assets/${pasta}/${pose}.webp`;
   for (const { pose } of falas) if (pose) new Image().src = caminhoPose(pose);
 
   return new Promise((resolver) => {
     let indice = 0;
     let escrita = null;
+    let pararVoz = null;
 
     const personagem = el('img', { class: 'dialogo__personagem', alt: '', src: chegada ? caminhoPose(falas[0].pose) : null });
     const texto = el('p', { class: 'balao__texto' });
@@ -80,6 +82,9 @@ export function falar(container, falas, { nome = 'Luís', pasta = 'luis', veloci
       const opcoes = fala.respostas ?? [fala.resposta ?? 'Continuar ›'];
       acoes.replaceChildren(...opcoes.map((t, i) => botao(t, () => avancar(i), 'pequeno')));
       escrita = digitar(texto, fala.texto, velocidadeMs);
+      // Clientes "falam" com um murmúrio curto (voz grave ou aguda)
+      pararVoz?.();
+      pararVoz = voz ? murmurar(voz, fala.texto) : null;
       acoes.firstChild.focus({ preventScroll: true });
     }
 
@@ -89,6 +94,7 @@ export function falar(container, falas, { nome = 'Luís', pasta = 'luis', veloci
       if (validar && validar(indice, resposta) === false) return;
       indice += 1;
       if (indice < falas.length) { mostrar(); return; }
+      pararVoz?.();
       camada.remove();
       resolver(resposta);
     }

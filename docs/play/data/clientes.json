@@ -110,5 +110,15 @@
       "noTempo": "Atendimento no tempo.",
       "atrasado": "O cliente esperou demais..."
     }
-  }
+  },
+  "vozGrave": [
+    "entregador",
+    "estudante-2",
+    "garoto",
+    "homemloiro",
+    "mecanico",
+    "medico",
+    "torcedor",
+    "universitario"
+  ]
 }

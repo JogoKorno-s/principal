@@ -51,6 +51,11 @@ export async function ir(nome, parametros = {}) {
 
   if (!FORA_DO_SAVE.has(nome)) GameState.irPara(nome);
   atual = tela;
+  // Começo de um dia (ou save antigo sem cópia deste dia): guarda a cópia para o "Recomeçar o dia"
+  if (tela.etapas) {
+    const e = GameState.get();
+    if (e[nome]?.etapa === tela.etapas[0] || e.inicioDoDia?.tela !== nome) GameState.guardarInicioDoDia(nome);
+  }
   await tela.montar(container(), parametros);
 
   await clarear();

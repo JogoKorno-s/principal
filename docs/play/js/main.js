@@ -17,6 +17,9 @@ import { dia1 } from './controller/dia1.js';
 import { dia2 } from './controller/dia2.js';
 import { dia3 } from './controller/dia3.js';
 import { dia4 } from './controller/dia4.js';
+import { mostrarFalencia } from './view/falencia.js';
+import { produtosDoNivel } from './model/produtos.js';
+import { nivelAtual } from './model/niveis.js';
 import { dia5 } from './controller/dia5.js';
 import { definirEntregas } from './controller/entregas.js';
 import { definirTelasDeTeste } from './view/testes.js';
@@ -69,6 +72,18 @@ async function iniciar() {
   registrar('dia4', dia4);
   registrar('dia5', dia5);
   definirTelasDeTeste({ dia1, dia2, dia3, dia4, dia5 });
+
+  // Sem dinheiro para comprar nem o produto mais barato e sem nada no estoque para vender: não tem como seguir
+  GameState.ouvir((estado) => {
+    if (!/^dia\d$/.test(estado.tela) || !estado.mercadoLiberado) return;
+    const liberados = produtosDoNivel(nivelAtual(estado));
+    if (!liberados.length) return;
+    const maisBarato = Math.min(...liberados.map((p) => p.custoCentavos));
+    const temEstoque = liberados.some((p) => (estado.estoque[p.id] ?? 0) > 0);
+    if (estado.dinheiroCentavos < maisBarato && !temEstoque) {
+      mostrarFalencia('O caixa ficou sem dinheiro e não sobrou nenhum produto no estoque para vender.');
+    }
+  });
 
   await ir('menu');
 }

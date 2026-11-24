@@ -45,6 +45,55 @@ export function bip() { tocarTom({ frequencia: 1760, duracao: 0.12, volume: 0.06
 /** "Tic" suave ao clicar em um botão. */
 export function somDeClique() { tocarTom({ frequencia: 880, duracao: 0.06, volume: 0.09 }); }
 
+// ---------- Murmúrio dos clientes ----------
+/**
+ * "Blá-blá-blá" curtinho quando um cliente fala: sílabas sintetizadas com a altura da voz
+ * (grave ou aguda), sem dizer palavras. Dura no máximo alguns segundos e para sozinho.
+ * Devolve uma função que para o murmúrio antes da hora.
+ */
+export function murmurar(voz = 'aguda', texto = '') {
+  if (!Preferencias.get().sons) return () => {};
+  let ctx;
+  try { ctx = obterContexto(); } catch { return () => {}; }
+  const base = voz === 'grave' ? 115 : 230;              // Hz: voz masculina × feminina
+  const duracao = Math.min(4.5, Math.max(1.5, texto.length * 0.045));
+  const saida = ctx.createGain();
+  saida.gain.value = 0.11;
+  saida.connect(ctx.destination);
+  const fontes = [];
+  const comecar = () => {
+    let t = ctx.currentTime + 0.05;
+    const fim = t + duracao;
+    while (t < fim) {
+      const silaba = 0.07 + Math.random() * 0.09;
+      const osc = ctx.createOscillator();
+      const filtro = ctx.createBiquadFilter();
+      const env = ctx.createGain();
+      osc.type = 'sawtooth';
+      const f0 = base * (0.85 + Math.random() * 0.35);
+      osc.frequency.setValueAtTime(f0, t);
+      osc.frequency.linearRampToValueAtTime(f0 * (0.9 + Math.random() * 0.2), t + silaba);
+      filtro.type = 'bandpass';
+      filtro.frequency.value = (voz === 'grave' ? 500 : 800) + Math.random() * 700;   // "vogal" diferente a cada sílaba
+      filtro.Q.value = 4;
+      env.gain.setValueAtTime(0.0001, t);
+      env.gain.exponentialRampToValueAtTime(1, t + 0.02);
+      env.gain.exponentialRampToValueAtTime(0.0001, t + silaba);
+      osc.connect(filtro).connect(env).connect(saida);
+      osc.start(t);
+      osc.stop(t + silaba + 0.02);
+      fontes.push(osc);
+      t += silaba + (Math.random() < 0.2 ? 0.18 : 0.03);   // às vezes uma pausa, como entre palavras
+    }
+  };
+  if (ctx.state === 'running') comecar(); else ctx.resume().then(comecar).catch(() => {});
+  return () => {
+    const agora = ctx.currentTime;
+    saida.gain.setTargetAtTime(0.0001, agora, 0.03);
+    fontes.forEach((o) => { try { o.stop(agora + 0.1); } catch { /* já parou */ } });
+  };
+}
+
 // ---------- Música de fundo ----------
 let musica = null;
 

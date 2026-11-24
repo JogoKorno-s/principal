@@ -2,6 +2,7 @@
 //   Entrada: quantidade de rolos (− e +) · Validação: cobre o perímetro sem sobrar um rolo inteiro?
 //   Resultado: ✓ (e a compra é descontada do caixa) ou "TENTE NOVAMENTE" com o motivo.
 
+import { mostrarFalencia } from '../view/falencia.js';
 import { el, botao, botaoIcone, selo } from '../view/componentes.js';
 import { reais, esperar } from '../util/formato.js';
 import { botaoDica, passosCom } from '../view/dica.js';
@@ -49,11 +50,13 @@ export function criarArame({ perimetroM, roloM, precoCentavos, imagem, textos, s
       if (n === 0) return { ok: false, mensagem: textos.zero };
       if (n * roloM < perimetroM) return { ok: false, mensagem: preencher(textos.pouco, { n, m: n * roloM, falta: perimetroM - n * roloM }) };
       if (n > certo) return { ok: false, mensagem: preencher(textos.muito, { n, m: n * roloM }) };
+      if (certo * precoCentavos > saldo()) return { ok: false, falencia: true };
       if (n * precoCentavos > saldo()) return { ok: false, mensagem: textos.saldo };
       return { ok: true, qtd: n, total: n * precoCentavos };
     },
 
     async resultado(r) {
+      if (r.falencia) { mostrarFalencia('Não sobrou dinheiro para comprar o arame da cerca.'); return false; }
       feedback.replaceChildren(selo(r.ok), el('span', {}, r.ok ? preencher(textos.certo) : r.mensagem));
       if (!r.ok) return false;
       await esperar(1800);

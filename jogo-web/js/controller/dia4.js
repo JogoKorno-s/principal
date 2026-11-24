@@ -185,7 +185,7 @@ export const dia4 = {
     area.classList.add('area-olho--missao');
     camada.append(area);
     document.getElementById('tela').append(aviso);
-    liberarSecoes(['principal', 'prateleiras'], { alerta: 'prateleiras' });
+    liberarSecoes(['principal'], { alerta: 'principal' });
 
     return new Promise((terminar) => {
       const conferir = async () => {

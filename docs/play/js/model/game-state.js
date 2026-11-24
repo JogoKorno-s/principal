@@ -218,6 +218,25 @@ export const GameState = {
     avisar('reiniciar');
   },
 
+  /**
+   * Guarda uma cópia do jogo no começo do dia (para "Recomeçar o dia" quando o dinheiro acaba).
+   * Fica dentro do próprio save, então vale mesmo se o jogador fechar o navegador.
+   */
+  guardarInicioDoDia(tela) {
+    const { inicioDoDia, ...resto } = estado;
+    estado.inicioDoDia = { tela, copia: JSON.parse(JSON.stringify(resto)) };
+    save.salvar(estado);
+  },
+
+  /** Volta para a cópia do começo do dia. Devolve a tela para abrir (ou null se não houver cópia). */
+  voltarAoInicioDoDia() {
+    const inicio = estado.inicioDoDia;
+    if (!inicio) return null;
+    estado = { ...JSON.parse(JSON.stringify(inicio.copia)), inicioDoDia: inicio };
+    avisar('reiniciar');
+    return inicio.tela;
+  },
+
   /** Entra num nível: atualiza o número do dia no HUD. */
   comecarNivel(n, dia) {
     if (estado.dia !== dia) estado.vendasHoje = {};   // dia novo, vendas zeradas

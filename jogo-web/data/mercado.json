@@ -18,12 +18,6 @@
         "nivel": 1
       },
       {
-        "id": "prateleiras",
-        "titulo": "Prateleiras",
-        "imagem": "assets/cenarios/gondola.webp",
-        "nivel": 2
-      },
-      {
         "id": "congelados",
         "titulo": "Congelados",
         "imagem": "assets/cenarios/secao-congelados.webp",
@@ -32,7 +26,7 @@
       {
         "id": "quitanda",
         "titulo": "Quitanda",
-        "imagem": "assets/cenarios/quitanda-banca.webp",
+        "imagem": "assets/cenarios/secao-quitanda.webp",
         "nivel": 5
       }
     ]
@@ -590,6 +584,33 @@
       "quitanda-banca",
       "quitanda-estante",
       "quitanda-caixote"
+    ],
+    "fundo": "assets/cenarios/secao-quitanda.webp",
+    "hotspots": [
+      {
+        "alvo": "quitanda-banca",
+        "rotulo": "Abrir a banca de frutas",
+        "x": 40,
+        "y": 400,
+        "largura": 820,
+        "altura": 360
+      },
+      {
+        "alvo": "quitanda-caixote",
+        "rotulo": "Abrir o caixote do meio",
+        "x": 570,
+        "y": 660,
+        "largura": 800,
+        "altura": 380
+      },
+      {
+        "alvo": "quitanda-estante",
+        "rotulo": "Abrir a estante do hortifruti",
+        "x": 1260,
+        "y": 370,
+        "largura": 640,
+        "altura": 450
+      }
     ]
   }
 }

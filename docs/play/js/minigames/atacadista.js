@@ -2,6 +2,7 @@
 // Entrada: quantidades escolhidas · Validação: de 1 a 4 de cada produto e saldo suficiente
 // Resultado: selo ✓ (fecha o painel) ou "TENTE NOVAMENTE" com a explicação.
 
+import { mostrarFalencia } from '../view/falencia.js';
 import { el, botao, botaoIcone, icones, selo } from '../view/componentes.js';
 import { reais, esperar } from '../util/formato.js';
 
@@ -116,13 +117,21 @@ export function criarAtacadista({ config, saldo }) {
       }
 
       const valor = config.produtos.reduce((s, p) => s + p.precoCentavos * entrada.quantidades[p.id], 0);
-      if (valor > saldo()) return { ok: false, mensagem: config.mensagemSaldo };
+      if (valor > saldo()) {
+        // Não dá nem para a compra mínima obrigatória: o jogador ficou sem saída
+        if (saldo() < compraMinima(config, liberados)) return { ok: false, falencia: true };
+        return { ok: false, mensagem: config.mensagemSaldo };
+      }
 
       return { ok: true, total: valor, itens: { ...entrada.quantidades }, mensagem: config.mensagemSucesso };
     },
 
     async resultado(r) {
       if (r.cancelado) return true;
+      if (r.falencia) {
+        mostrarFalencia('Não sobrou dinheiro nem para a compra mínima que o mercado precisa agora.');
+        return false;
+      }
       areaResultado.replaceChildren(selo(r.ok), r.mensagem);
       if (!r.ok) return false;
       await esperar(1100);
@@ -131,4 +140,19 @@ export function criarAtacadista({ config, saldo }) {
 
     desmontar() { fundo.remove(); },
   };
+}
+
+/** Menor valor que o jogador precisa gastar para cumprir as regras da compra (mínimos e missões). */
+function compraMinima(config, liberados) {
+  const min = config.quantidadeMinima ?? 0;
+  let total = liberados.reduce((s, p) => s + p.precoCentavos * min, 0);
+  for (const regra of config.exigir ?? []) {
+    const doGrupo = liberados.filter((p) => (regra.ids ? regra.ids.includes(p.id) : p.aba === regra.aba));
+    if (!doGrupo.length) continue;
+    total += regra.cada
+      ? doGrupo.reduce((s, p) => s + p.precoCentavos * Math.max(0, regra.minimo - (p.estoque ?? 0)), 0)
+      : Math.min(...doGrupo.map((p) => p.precoCentavos)) * regra.minimo;
+  }
+  if (!total && config.minimoTotal) total = Math.min(...liberados.map((p) => p.precoCentavos));
+  return total;
 }

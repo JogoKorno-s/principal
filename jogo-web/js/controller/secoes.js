@@ -1,6 +1,7 @@
 // CONTROLLER: seções do mercado e a casinha de navegação.
 //
-//   Casinha → painel com Tela inicial, Visão principal, Prateleiras, Congelados, Quitanda...
+//   Casinha → painel com Tela inicial, Visão principal, Congelados, Quitanda...
+//   (as prateleiras não são uma seção: abrem pelos olhos da visão principal)
 //   Cada seção tem um nível para ser liberada. Durante falas, vídeos e minigames as seções
 //   ficam travadas ("Termine a missão atual"); o controlador do dia libera nos momentos livres.
 //
@@ -69,9 +70,8 @@ export async function abrirNavegacao() {
 export function irParaSecao(id) {
   if (id === 'fachada') { fecharSecao(); ir('menu'); return; }
   if (id === 'principal') fecharSecao();
-  else if (id === 'prateleiras') abrirPrateleiras(dados.prateleiras.vistas[0]);
   else if (id === 'congelados') abrirCongelados();
-  else if (id === 'quitanda') abrirQuitanda(dados.quitanda.vistas[0]);
+  else if (id === 'quitanda') abrirQuitanda();
   esperas.get(id)?.();
   esperas.delete(id);
 }
@@ -127,18 +127,23 @@ export function abrirPrateleiras(vista) {
   mostrarExpositor(camada, vista, barra);
 }
 
-// ----- Quitanda (Nível 5): banca de frutas, estante do hortifruti e caixote -----
-export function abrirQuitanda(vista) {
+// ----- Quitanda (Nível 5): visão geral com banca de frutas, caixote e estante -----
+export function abrirQuitanda() {
   const camada = secaoAberta() === 'quitanda' ? aberta.camada : novaCamada('quitanda');
-  const abas = el('div', { class: 'secao__abas', role: 'tablist', 'aria-label': 'Quitanda' },
-    dados.quitanda.vistas.map((v) => el('button', {
-      type: 'button', role: 'tab', class: 'secao__aba', 'aria-selected': String(v === vista),
-      onclick: () => abrirQuitanda(v),
-    }, configDoExpositor(v).titulo)));
+  aberta.desmontar?.();
+  aberta.desmontar = null;
+  const q = dados.quitanda;
+  camada.replaceChildren(
+    el('img', { class: 'cenario', src: q.fundo, alt: 'Quitanda do Bairro e hortifruti' }),
+    ...q.hotspots.map((h) => areaComOlho(h, () => abrirDetalheQuitanda(h.alvo))),
+    el('div', { class: 'secao__barra' }, botao('‹ Visão principal', () => irParaSecao('principal'), 'pequeno claro')));
+}
+
+function abrirDetalheQuitanda(idExpositor) {
   const barra = el('div', { class: 'secao__barra' },
-    botao('‹ Visão principal', () => irParaSecao('principal'), 'pequeno claro'),
-    abas);
-  mostrarExpositor(camada, vista, barra);
+    botao('‹ Voltar para a quitanda', () => abrirQuitanda(), 'pequeno claro'),
+    el('span', { class: 'secao__titulo' }, configDoExpositor(idExpositor).titulo));
+  mostrarExpositor(aberta.camada, idExpositor, barra);
 }
 
 // ----- Congelados: visão da seção com freezer, geladeira e açougue -----

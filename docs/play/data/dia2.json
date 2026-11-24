@@ -12,6 +12,10 @@
         "texto": "Bom dia! Recentemente, minha empresa passou por uma reforma e trocamos todos os nossos equipamentos antigos. Como não vou mais utilizar essa máquina de caixa, pensei em fazer uma doação para vocês."
       },
       {
+        "pose": "explicando",
+        "texto": "E tem mais: durante o dia, entre um cliente e outro, você pode clicar no computador do caixa para ver quanto vendeu, quais produtos saíram e o seu lucro."
+      },
+      {
         "pose": "feliz",
         "texto": "Espero que ela ajude a modernizar o atendimento e facilite o trabalho no dia a dia. Boa sorte!",
         "resposta": "Irei fazer um bom proveito, volte sempre ao nosso mercado!"
@@ -92,7 +96,8 @@
       "arroz"
     ],
     "recebidoCentavos": 5000,
-    "totalCentavos": 2350
+    "totalCentavos": 2350,
+    "voz": "grave"
   },
   "notificacao": [
     "COMPRE PÓ DE CAFÉ!"

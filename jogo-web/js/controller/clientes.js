@@ -31,7 +31,7 @@ let vistosHoje = [];
 export async function atenderRoteiro(cena, cliente) {
   const t = textosClientes();
   await esperar(t.esperaClienteMs);
-  await falar(cena.camada, cliente.falas, { nome: cliente.nome, pasta: cliente.pasta, chegada: true });
+  await falar(cena.camada, cliente.falas, { nome: cliente.nome, pasta: cliente.pasta, chegada: true, voz: cliente.voz ?? 'aguda' });
   await passarNoCaixa(cena, cliente.produtos, { total: cliente.totalCentavos, recebido: cliente.recebidoCentavos });
 }
 
@@ -54,6 +54,7 @@ export async function atenderSorteado(cena, { chanceFalta = 0, cronometro = fals
   const temFalta = c.falta.length > 0;
   await falar(cena.camada, [{ pose: c.personagem, texto: c.texto, respostas: [t.respostas.temos, t.respostas.falta] }], {
     nome: t.nome, pasta: t.pasta, chegada: true,
+    voz: (t.vozGrave ?? []).includes(c.personagem) ? 'grave' : 'aguda',
     // O jogador precisa conferir o estoque: dizer "Claro!" só se tiver tudo
     validar: (_, resposta) => {
       if ((resposta === 1) === temFalta) return true;
